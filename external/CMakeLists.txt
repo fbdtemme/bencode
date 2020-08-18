@@ -50,4 +50,5 @@ else()
             GIT_TAG        master
     )
     FetchContent_MakeAvailable(Catch2)
+    set(CMAKE_MODULE_PATH "${Catch2_SOURCE_DIR}/contrib" ${CMAKE_MODULE_PATH})
 endif()
