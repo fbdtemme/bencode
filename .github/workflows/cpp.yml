@@ -13,8 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: install gcc10
+      run: sudo apt install gcc-10
     - name: configure
-      run: mkdir build && cd build && cmake -DCMAKE_BUILD_TESTING=ON ..
+      run: mkdir build && cd build && cmake -DCMAKE_CXX_COMPILER=g++10 -DBENCODE_BUILD_TEST=ON ..
     - name: build
       run: cmake --build build
     - name: test
