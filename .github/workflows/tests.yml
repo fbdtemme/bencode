@@ -24,7 +24,7 @@ jobs:
            cmake -DCMAKE_CXX_COMPILER=g++-10
                  -DBENCODE_BUILD_TESTS=ON
                  -DBENCODE_BUILD_DOCS=OFF
-                 -BENCODE_BUILD_BENCHMARKS=OFF..
+                 -BENCODE_BUILD_BENCHMARKS=OFF ..
     - name: build
       run: cmake --build build
     - name: test
