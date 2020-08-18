@@ -190,7 +190,7 @@ inline auto bdecode_string(It& begin, It end)
         if (std::next(it, size) > end) [[unlikely]] {
             return nonstd::make_unexpected(parser_errc::unexpected_eof);
         }
-        value.assign(it, size);
+        value = StringT(it, std::next(it, size));
         std::advance(it, size);
     }
     else {

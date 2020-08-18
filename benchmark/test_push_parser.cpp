@@ -2,7 +2,8 @@
 #include <catch2/catch.hpp>
 #include <chrono>
 
-#include "bencode/bencode.hpp"
+#include "bencode/bvalue.hpp"
+#include "bencode/bview.hpp"
 #include "bencode/detail/parser/common.hpp"
 //#include "bencode/detail/parser/simd_operations.hpp"
 //#include "bencode/detail/parser/simd/simd_parser.hpp"

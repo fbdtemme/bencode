@@ -68,11 +68,12 @@ template <typename Policy = default_bvalue_policy, rng::input_range Rng>
 /// \cond CONCEPTS
     requires std::convertible_to<rng::range_value_t<Rng>, char>
 /// \endcond
-inline basic_bvalue<Policy> decode_value(Rng&& range)
+inline basic_bvalue<Policy> decode_value(const Rng& range)
 {
     auto consumer = bencode::events::to_bvalue<Policy>{};
-    bencode::push_parser<rng::iterator_t<Rng>, rng::sentinel_t<Rng>> parser{};
-    if (!parser.parse(std::forward<Rng>(range), consumer))
+    bencode::push_parser<rng::iterator_t<const Rng&>,
+                         rng::sentinel_t<const Rng&>> parser{};
+    if (!parser.parse(range, consumer))
         throw parser.error();
     return consumer.value();
 }
