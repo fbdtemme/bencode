@@ -18,7 +18,7 @@ jobs:
       - name: install dependancies
         run: sudo apt install doxygen &&
              sudo apt install python3-sphinx &&
-             sudo apt install breathe-doc
+             sudo apt install python3-breathe
       - name: configure
         run: mkdir build && cd build &&
           cmake -DCMAKE_CXX_COMPILER=g++-10
