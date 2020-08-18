@@ -18,7 +18,7 @@ jobs:
     - name: install dependencies
       run: sudo apt install libfmt-dev &&
            sudo apt install libmsgsl-dev &&
-           sudo apt install catch &&
+           sudo apt install catch
     - name: configure
       run: mkdir build && cd build &&
            cmake -DCMAKE_CXX_COMPILER=g++-10
