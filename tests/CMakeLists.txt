@@ -29,7 +29,7 @@ target_sources(bencode-tests
 )
 
 #include_directories("../include/")
-include(../external/CMakeLists.txt)
+#include(../external/CMakeLists.txt)
 target_link_libraries(bencode-tests
         Catch2::Catch2
         bencode
