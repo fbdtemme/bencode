@@ -69,6 +69,38 @@ if (BENCODE_BUILD_BENCHMARKS)
 endif()
 
 
+if (NOT fmt_FOUND)
+    message(STATUS "Adding fmt to install set")
+    install(TARGETS fmt
+            EXPORT bencode-targets
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+endif()
+
+if (NOT expected-lite_FOUND)
+    message(STATUS "Adding expected-lite to install set")
+    install(TARGETS expected-lite
+            EXPORT bencode-targets
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+endif()
+
+if (NOT Microsoft.GSL_FOUND)
+    message(STATUS "Adding Microsoft.GSL to install set")
+    install(TARGETS GSL
+            EXPORT bencode-targets
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+endif()
+
+
+
 # install targets to an export set
 install(TARGETS bencode
         EXPORT bencode-targets
@@ -76,6 +108,8 @@ install(TARGETS bencode
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+
 
 # Install the export set
 install(EXPORT bencode-targets
