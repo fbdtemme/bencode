@@ -1,4 +1,5 @@
 # bencode
+![build](https://github.com/fbdtemme/bencode/workflows/build/badge.svg?branch=master)
 
 A C++20 bencode serialization/deserialization library.
 

@@ -17,7 +17,10 @@ jobs:
       run: sudo apt install g++-10
     - name: configure
       run: mkdir build && cd build &&
-           cmake -DCMAKE_CXX_COMPILER=g++-10
+           cmake -DCMAKE_BUILD_TYPE=Debug
+                 -DCMAKE_CXX_COMPILER=g++-10
+                 -DCMAKE_CXX_FLAGS=--coverage
+                 -DCMAKE_C_FLAGS=--coverage
                  -DBENCODE_BUILD_TESTS=ON
                  -DBENCODE_BUILD_DOCS=OFF
                  -DBENCODE_BUILD_BENCHMARKS=OFF ..
@@ -25,3 +28,16 @@ jobs:
       run: cmake --build build
     - name: test
       run: cd build && ctest
+    - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          files: ./coverage1.xml,./coverage2.xml
+          directory: ./coverage/reports/
+          flags: unittests
+          env_vars: OS
+          name: codecov-umbrella
+          fail_ci_if_error: true
+          path_to_write_report: ./coverage/codecov_report.gz
+
