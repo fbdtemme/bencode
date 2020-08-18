@@ -34,7 +34,7 @@ include(external/CMakeLists.txt)
 cmake_dependent_option(BENCODE_BUILD_TESTS    "Build tests override."
                        ON  "BUILD_TESTING;BENCODE_STANDALONE" OFF)
 cmake_dependent_option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"
-                       ON  "BENCODE_STANDALONE"      ON)
+                       ON  "BENCODE_STANDALONE"      OFF)
 cmake_dependent_option(BENCODE_BUILD_DOCS       "Build documentation"
                         ON  "BENCODE_STANDALONE"  OFF)
 
