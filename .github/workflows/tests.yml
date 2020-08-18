@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: install gcc10
+    - name: install g++10
       run: sudo apt install g++-10
     - name: configure
       run: mkdir build && cd build &&

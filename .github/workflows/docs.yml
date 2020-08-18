@@ -1,0 +1,34 @@
+name: Build and deploy documentation
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: install g++10
+        run: sudo apt install g++-10
+      - name: install dependancies
+        run: sudo apt install doxygen &&
+             sudo apt install python3-sphinx &&
+             sudo apt install breathe-doc
+      - name: configure
+        run: mkdir build && cd build &&
+          cmake -DCMAKE_CXX_COMPILER=g++-10
+          -DBENCODE_BUILD_TESTS=OFF
+          -DBENCODE_BUILD_DOCS=ON
+          -DBENCODE_BUILD_BENCHMARKS=OFF ..
+      - name: build
+        run: cmake --build build
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages  # default: gh-pages
+          publish_dir: build/docs/sphinx
