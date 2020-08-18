@@ -40,5 +40,5 @@ make install
 ``` 
 ## Documentation
 
-Documentation is hosted on github pages.
+[Documentation](https://fbdtemme.github.io/bencode/) is hosted on github pages 
 
