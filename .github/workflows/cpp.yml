@@ -16,7 +16,9 @@ jobs:
     - name: install gcc10
       run: sudo apt install g++-10
     - name: install documentation dependancies
-      run: sudo apt install doxygen && sudo apt install sphinx && sudo apt install breathe-doc
+      run: sudo apt install doxygen &&
+           sudo apt install python3-sphinx &&
+           sudo apt install breathe-doc
     - name: configure
       run: mkdir build && cd build &&
            cmake -DCMAKE_CXX_COMPILER=g++-10 -DBENCODE_BUILD_TEST=ON ..
