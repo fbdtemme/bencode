@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Encoding and decoding &mdash; Bencode 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Bencode 0.1.0 documentation" href="../index.html"/>
+        <link rel="next" title="Customization points" href="customization_points.html"/>
+        <link rel="prev" title="Events system" href="events.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Bencode
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/bencode_format.html">Bencode format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/integration.html">Integration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Usage</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events system</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Encoding and decoding</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#decoding">Decoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#encoding">Encoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#encoding-ostream">Encoding ostream</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="customization_points.html">Customization points</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/bvalue.html">Value interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/encoding_and_decoding.html">Encoding and decoding</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../other/license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other/references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Bencode</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Encoding and decoding</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/encoding_decoding.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="encoding-and-decoding">
+<h1>Encoding and decoding<a class="headerlink" href="#encoding-and-decoding" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="decoding">
+<h2>Decoding<a class="headerlink" href="#decoding" title="Permalink to this headline">¶</a></h2>
+<p>Decoding bencoded data can be done with <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv2N7bencode12decode_valueERNSt7istreamE" title="bencode::decode_value"><code class="xref cpp cpp-func docutils literal"><span class="pre">decode_value()</span></code></a> and <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv2N7bencode11decode_viewENSt11string_viewE" title="bencode::decode_view"><code class="xref cpp cpp-func docutils literal"><span class="pre">decode_view()</span></code></a>.
+<code class="xref cpp cpp-func docutils literal"><span class="pre">decode()</span></code> will return a <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> instance and <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv2N7bencode11decode_viewENSt11string_viewE" title="bencode::decode_view"><code class="xref cpp cpp-func docutils literal"><span class="pre">decode_view()</span></code></a>
+will return a descriptor table from which a <a class="reference internal" href="../reference/bview.html#_CPPv2N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal"><span class="pre">bview</span></code></a> to the root element can be obtained.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">data</span> <span class="o">=</span> <span class="s">&quot;d3:cow3:moo4:spam4:eggse&quot;</span><span class="p">;</span>
+
+<span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">decoded</span><span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">decode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+
+<span class="c1">// pass custom policy template argument for the bvalue</span>
+<span class="n">bc</span><span class="o">::</span><span class="n">basic_bvalue</span><span class="o">&lt;</span><span class="n">MyPolicy</span><span class="o">&gt;</span> <span class="n">decoded2</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">decode</span><span class="o">&lt;</span><span class="n">MyPolicy</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+
+<span class="n">bc</span><span class="o">::</span><span class="n">descriptor_table</span> <span class="n">desc_table</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">decode_view</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="n">bc</span><span class="o">::</span><span class="n">bview</span> <span class="n">root_view</span> <span class="o">=</span> <span class="n">desc_table</span><span class="p">.</span><span class="n">get_root</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="encoding">
+<h2>Encoding<a class="headerlink" href="#encoding" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// encode a bvalue</span>
+<span class="k">auto</span> <span class="n">bv</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span><span class="p">(</span><span class="n">bc</span><span class="o">::</span><span class="n">type</span><span class="o">::</span><span class="n">dict</span><span class="p">,</span> <span class="p">{{</span><span class="s">&quot;cow&quot;</span><span class="p">,</span> <span class="s">&quot;moo&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s">&quot;spam&quot;</span><span class="p">,</span> <span class="s">&quot;eggs&quot;</span><span class="p">}});</span>
+<span class="k">auto</span> <span class="n">bv_enc</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">encode</span><span class="p">(</span><span class="n">bv</span><span class="p">);</span>
+
+<span class="c1">// true</span>
+<span class="p">(</span><span class="n">bv_enc</span> <span class="o">==</span> <span class="s">&quot;d3:cow3:moo4:spam4:eggse&quot;</span><span class="p">)</span>
+
+<span class="c1">// encode an event_producer</span>
+<span class="k">auto</span> <span class="n">s</span> <span class="o">=</span> <span class="n">bencode</span><span class="o">::</span><span class="n">encode</span><span class="p">(</span><span class="s">&quot;string&quot;</span><span class="p">);</span>
+
+<span class="c1">// true</span>
+<span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s">&quot;6:string&quot;</span><span class="p">);</span>
+
+<span class="c1">// encode to a std::stringstream</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">ss</span> <span class="p">{}</span>
+<span class="n">bc</span><span class="o">::</span><span class="n">encode_to</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+
+<span class="k">auto</span> <span class="n">stream_str</span> <span class="o">=</span> <span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">()</span>
+<span class="c1">// true</span>
+<span class="p">(</span><span class="n">stream_str</span> <span class="o">==</span> <span class="s">&quot;i20e&quot;</span><span class="p">)</span>
+
+<span class="c1">// encode to an output_iterator</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">out</span> <span class="p">{}</span>
+<span class="n">out</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+
+<span class="n">bencode</span><span class="o">::</span><span class="n">encode_to</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+
+<span class="c1">// true</span>
+<span class="p">(</span><span class="n">out</span> <span class="o">==</span> <span class="s">&quot;i20e&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="encoding-ostream">
+<h2>Encoding ostream<a class="headerlink" href="#encoding-ostream" title="Permalink to this headline">¶</a></h2>
+<p>Encoding <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> instances or object satisfying <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_producer</span></code>
+can be encoded with <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv2N7bencode6encodeERK1T" title="bencode::encode"><code class="xref cpp cpp-func docutils literal"><span class="pre">encode()</span></code></a> which will return a <code class="xref cpp cpp-class docutils literal"><span class="pre">std::string</span></code>
+or <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv2N7bencode9encode_toERNSt7ostreamERK1T" title="bencode::encode_to"><code class="xref cpp cpp-func docutils literal"><span class="pre">encode_to()</span></code></a> which accept a cpp:class:<cite>std::ostream</cite>
+or <code class="xref cpp cpp-concept docutils literal"><span class="pre">output_iterator</span></code> as its first argument.</p>
+<p><code class="xref cpp cpp-func docutils literal"><span class="pre">decode()</span></code> will return a <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> instance and <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv2N7bencode11decode_viewENSt11string_viewE" title="bencode::decode_view"><code class="xref cpp cpp-func docutils literal"><span class="pre">decode_view()</span></code></a>
+will return a descriptor table from which a <a class="reference internal" href="../reference/bview.html#_CPPv2N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal"><span class="pre">bview</span></code></a> to the root element can be obtained.</p>
+<p><code class="xref cpp cpp-class docutils literal"><span class="pre">encoding_ostream</span></code> provides an output stream that serializes objects to bencode
+and writes the encoded form to the outputstream.</p>
+<p>This allow to create complex bencoded objects without the need to create an intermediary <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code>.
+Bencode container types can be created with the use of the following tags:</p>
+<ul class="simple">
+<li>begin_list</li>
+<li>end_list</li>
+<li>begin_dict</li>
+<li>end_dict</li>
+</ul>
+<p>Example:</p>
+<p>Any object that satisfies the <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_producer</span></code> concept can be serialized using encoding_ostream.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="customization_points.html" class="btn btn-neutral float-right" title="Customization points" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="events.html" class="btn btn-neutral" title="Events system" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright .
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

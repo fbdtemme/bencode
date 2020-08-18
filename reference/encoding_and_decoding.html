@@ -1,0 +1,524 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Encoding and decoding &mdash; Bencode 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Bencode 0.1.0 documentation" href="../index.html"/>
+        <link rel="next" title="License" href="../other/license.html"/>
+        <link rel="prev" title="View interface" href="bview.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Bencode
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/bencode_format.html">Bencode format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/integration.html">Integration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usage/value.html">Value interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/view.html">View interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/events.html">Events system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/encoding_decoding.html">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/customization_points.html">Customization points</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="bvalue.html">Value interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bview.html">View interface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Encoding and decoding</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../other/license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other/references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Bencode</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Encoding and decoding</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/encoding_and_decoding.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="encoding-and-decoding">
+<h1>Encoding and decoding<a class="headerlink" href="#encoding-and-decoding" title="Permalink to this headline">¶</a></h1>
+<dl class="type">
+<dt id="_CPPv27bencode">
+<span id="bencode"></span><span class="target" id="namespacebencode"></span><em class="property">namespace </em><code class="descname">bencode</code><a class="headerlink" href="#_CPPv27bencode" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;event_producer <em>T</em>&gt;</dt>
+<dt id="_CPPv2N7bencode6encodeERK1T">
+<span id="bencode::encode__TCR"></span><span class="target" id="encode_8hpp_1a189fd72ea5dfc8d917c8795e41056600"></span>auto <code class="descname">encode</code><span class="sig-paren">(</span><em class="property">const</em> T &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode6encodeERK1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Write bencoded representation of value to a string. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>a string with the bencoded representation of value. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">value</span></code>: the value to encode </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;event_producer <em>T</em>&gt;</dt>
+<dt id="_CPPv2N7bencode9encode_toERNSt7ostreamERK1T">
+<span id="bencode::encode_to__osR.TCR"></span><span class="target" id="encode_8hpp_1a78136b6a0dc9b1ef3ad49f583d20a913"></span>void <code class="descname">encode_to</code><span class="sig-paren">(</span>std::ostream &amp;<em>os</em>, <em class="property">const</em> T &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode9encode_toERNSt7ostreamERK1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes the bencoded representation of value to os. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">os</span></code>: an output stream to write to </li>
+<li><code class="docutils literal"><span class="pre">value</span></code>: the value to encode </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;std::output_iterator&lt; char &gt; <em>OutputIt</em>, event_producer <em>T</em>&gt;</dt>
+<dt id="_CPPv2N7bencode9encode_toE8OutputItRK1T">
+<span id="bencode::encode_to__OutputIt.TCR"></span><span class="target" id="encode_8hpp_1ad92862690800aacd41470af357ae6614"></span>void <code class="descname">encode_to</code><span class="sig-paren">(</span>OutputIt <em>it</em>, <em class="property">const</em> T &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode9encode_toE8OutputItRK1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes the bencoded representation of value to it. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">it</span></code>: output iterator to write to </li>
+<li><code class="docutils literal"><span class="pre">value</span></code>: the value to encode </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv27bencode">
+<span class="target" id="namespacebencode"></span><em class="property">namespace </em><code class="descname">bencode</code><a class="headerlink" href="#_CPPv27bencode" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;<em class="property">typename</em> Policy = default_bvalue_policy&gt;</dt>
+<dt id="_CPPv2N7bencode12decode_valueERNSt7istreamE">
+<span id="bencode::decode_value__isR"></span><span class="target" id="decode__value_8hpp_1adeb61b17f48183d86e4458495be941ea"></span><a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; <code class="descname">decode_value</code><span class="sig-paren">(</span>std::istream &amp;<em>is</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12decode_valueERNSt7istreamE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads bencoded data from the input stream and decodes it to a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a>. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>the decoded data as a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> instantiation. </dd>
+<dt><strong>Template Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">Policy</span></code>: the policy template argument for <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a>, defaults to default_bvalue_policy. </li>
+</ul>
+</dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">is</span></code>: the input stream to read from </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">parse_error</span></code>: when the bencoded data is malformed. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;<em class="property">typename</em> Policy = default_bvalue_policy&gt;</dt>
+<dt id="_CPPv2N7bencode12decode_valueENSt11string_viewE">
+<span id="bencode::decode_value__std::string_view"></span><span class="target" id="decode__value_8hpp_1a0224bfece8db969ab7313194c558ab27"></span><a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; <code class="descname">decode_value</code><span class="sig-paren">(</span>std::string_view <em>sv</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12decode_valueENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads bencoded data from a std::string_view and decodes it to a it to a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a>. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>the decoded data as a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> instantiation. </dd>
+<dt><strong>Template Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">Policy</span></code>: the policy template argument for <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a>, defaults to default_bvalue_policy. </li>
+</ul>
+</dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">is</span></code>: the input stream to read from </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">parse_error</span></code>: when the bencoded data is malformed. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;<em class="property">typename</em> Policy = default_bvalue_policy, rng::input_range <em>Rng</em>&gt;</dt>
+<dt id="_CPPv2N7bencode12decode_valueERK3Rng">
+<span id="bencode::decode_value__RngCR"></span><span class="target" id="decode__value_8hpp_1a7ffa2b821c9031acce118809e60c1c54"></span><a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; <code class="descname">decode_value</code><span class="sig-paren">(</span><em class="property">const</em> Rng &amp;<em>range</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12decode_valueERK3Rng" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads bencoded data from a range and decodes it to a it <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a>. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>the decoded data as a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> instantiation. </dd>
+<dt><strong>Template Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">Policy</span></code>: the policy template argument for <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a>, defaults to default_bvalue_policy. </li>
+</ul>
+</dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">is</span></code>: the input range to read from </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">parse_error</span></code>: when the bencoded data is malformed. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;<em class="property">typename</em> Policy = default_bvalue_policy, std::input_iterator <em>InputIterator</em>&gt;</dt>
+<dt id="_CPPv2N7bencode12decode_valueE13InputIterator13InputIterator">
+<span id="bencode::decode_value__InputIterator.InputIterator"></span><span class="target" id="decode__value_8hpp_1a5931ebf4386fc7fe1286d4077be95ee2"></span><a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; <code class="descname">decode_value</code><span class="sig-paren">(</span>InputIterator <em>first</em>, InputIterator <em>last</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12decode_valueE13InputIterator13InputIterator" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads bencoded data from a pair of iterators to a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a>. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>the decoded data as a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> instantiation. </dd>
+<dt><strong>Template Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">Policy</span></code>: the policy template argument for <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a>, defaults to default_bvalue_policy. </li>
+</ul>
+</dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">first</span></code>: an iterator pointing to the start of the bencoded data </li>
+<li><code class="docutils literal"><span class="pre">last</span></code>: an iterator pointing one past the end of the bencoded data </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">parse_error</span></code>: when the bencoded data is malformed. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;<em class="property">typename</em> Policy&gt;</dt>
+<dt id="_CPPv2N7bencodersERNSt7istreamER12basic_bvalueI6PolicyE">
+<span id="bencode::rshift-operator__isR.basic_bvalue:Policy:R"></span><span class="target" id="decode__value_8hpp_1a6d9f0c55cd130583ffd025f62183caa5"></span>std::istream &amp;<code class="descname">operator&gt;&gt;</code><span class="sig-paren">(</span>std::istream &amp;<em>is</em>, <a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencodersERNSt7istreamER12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> from an input stream. </p>
+</dd></dl>
+
+</div>
+<dl class="type">
+<dt id="_CPPv2N7bencode8literalsE">
+<span id="bencode::literals"></span><span class="target" id="namespacebencode_1_1literals"></span><em class="property">namespace </em><code class="descname">literals</code><a class="headerlink" href="#_CPPv2N7bencode8literalsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv2N7bencode8literalsli7_bvalueEPKc">
+<span class="target" id="decode__value_8hpp_1a858053fe687574bdf415373b89251b24"></span><a class="reference internal" href="bvalue.html#_CPPv27bencode" title="bencode">bencode</a>::bvalue <code class="descname">operator&quot;&quot;_bvalue</code><span class="sig-paren">(</span><em class="property">const</em> char *<em>str</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode8literalsli7_bvalueEPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a bvalue from a bencoded string. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="type">
+<dt>
+<span class="target" id="namespacebencode"></span><em class="property">namespace </em><code class="descname">bencode</code><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv2N7bencode11decode_viewENSt11string_viewE">
+<span id="bencode::decode_view__std::string_view"></span><span class="target" id="decode__view_8hpp_1ab873dff197756761fe51c95345ada71b"></span>descriptor_table <code class="descname">decode_view</code><span class="sig-paren">(</span>std::string_view <em>view</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode11decode_viewENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads bencoded data from a std::string_view and decodes it to a it to a descriptor_table. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>the decoded data as a descriptor table. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">view</span></code>: the bencoded data </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">parse_error</span></code>: when the bencoded data is malformed. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;rng::contiguous_range <em>Rng</em>&gt;</dt>
+<dt id="_CPPv2N7bencode11decode_viewERR3Rng">
+<span id="bencode::decode_view__RngRR"></span><span class="target" id="decode__view_8hpp_1a32b9d0d4a9d2c2a082dabde01fc29efd"></span>descriptor_table <code class="descname">decode_view</code><span class="sig-paren">(</span>Rng &amp;&amp;<em>range</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode11decode_viewERR3Rng" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads bencoded data from a contiguous range and decodes it to a it to a descriptor_table. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>the decoded data as a descriptor_table. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">range</span></code>: the range of bencoded data </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">parse_error</span></code>: when the bencoded data is malformed. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;std::input_iterator <em>InputIterator</em>&gt;</dt>
+<dt id="_CPPv2N7bencode11decode_viewE13InputIterator13InputIterator">
+<span id="bencode::decode_view__InputIterator.InputIterator"></span><span class="target" id="decode__view_8hpp_1a66f2f9de1395af620d1e016964dffdaa"></span>descriptor_table <code class="descname">decode_view</code><span class="sig-paren">(</span>InputIterator <em>first</em>, InputIterator <em>last</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode11decode_viewE13InputIterator13InputIterator" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads bencoded data from a pair of iterators and decodes it to a descriptor_table. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>the decoded data as a descriptor table. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">first</span><span class="pre">last</span></code>: the range of characters to decode </li>
+</ul>
+</dd>
+<dt><strong>Exceptions</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">parse_error</span></code>: when the bencoded data is malformed. </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../other/license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bview.html" class="btn btn-neutral" title="View interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright .
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
