@@ -1,0 +1,218 @@
+.. cpp:namespace:: bencode
+
+.. _customization-points:
+
+Customization points
+====================
+
+There are various customization points to integrate user-defined types in this library.
+
+Serialization traits
+--------------------
+
+The first step to integrating a custom type is by providing which bencode data type it encodes
+to by specializing :cpp:class:`template <typename T> serialization_traits` for your type.
+
+Serialization traits has a single member of :cpp:enum:`bencode_type` that defines
+what bencode data type this type serializes to.
+
+
+To make specialization of :cpp:class:`serialization_traits` easy a few helpers are provided.
+
+Helper classes:
+    * :cpp:class:`template \<typename T> serializes_to_integer`
+    * :cpp:class:`template \<typename T> serializes_to_runtime_type`
+    * :cpp:class:`template \<typename T> serializes_to_integer`
+    * :cpp:class:`template \<typename T> serializes_to_string`
+    * :cpp:class:`template \<typename T> serializes_to_list`
+    * :cpp:class:`template \<typename T> serializes_to_dict`
+
+Helper macros:
+    * :c:macro:`BENCODE_SERIALIZES_TO_RUNTIME_TYPE`
+    * :c:macro:`BENCODE_SERIALIZES_TO_INTEGER`
+    * :c:macro:`BENCODE_SERIALIZES_TO_STRING`
+    * :c:macro:`BENCODE_SERIALIZES_TO_LIST`
+    * :c:macro:`BENCODE_SERIALIZES_TO_DICT`
+
+When the user-defined type can be converted to different bencode data types depending on the value
+:cpp:class:`serializes_to_runtime_type` or :c:macro:`BENCODE_SERIALIZES_TO_RUNTIME_TYPE` should be used.
+
+Example:
+
+.. code-block:: cpp
+
+    struct rgb_color
+    {
+        std::uint8_t r, g, g;
+    };
+
+    // Specialization with a macro.
+    namespace bencode {
+    BENCODE_SERIALIZES_TO_LIST(rgb_color)
+    }
+
+    // Equivalent specialization without macro use.
+    namespace bencode {
+    template <> struct serialization_traits<rgb_color> : serializes_to_list {};
+    }
+
+
+
+After specializatin :cpp:class:`serialization_traits` the user-defined type satisfies
+the :cpp:concept:`serializable` concept.
+
+
+Event producer
+--------------
+
+The second specialization point that a user-defined type should provide is
+the :cpp:func:`bencode_connect` specialization point.
+
+.. code-block:: cpp
+
+    template <event_consumer EC>
+    constexpr void bencode_connect(
+            customization_point_type<rgb_color>, EC& consumer, const rgb_color& value)
+    {
+        consumer.begin_list();
+        consumer.integer(value.r);
+        consumer.list_item();
+        consumer.integer(value.g);
+        consumer.list_item();
+        consumer.integer(value.b);
+        consumer.list_item();
+        consumer.end_list()
+    }
+
+After overrinding this function the type satisfies the :cpp:concept:`event_producer` concept.
+Note that bencode_connect should not be overloaded inside the bencode namespace.
+The customization point uses ADL lookup to find the right overload.
+
+After satisfying :cpp:concept:`serializable` and cpp:concept:`event_producer` the user defined type.
+Can be serialized trough the :cpp:class:`encoding_ostream` and assigned to :cpp:class:`bvalue`.
+
+Assignment to bvalue
+--------------------
+
+Types that satisfy :cpp:concept:`event_producer` have a default implementation
+that allowes the type to be assigned to :cpp:class:`bvalue` but is not always the most efficient.
+The default can be overriden by overriding :cpp:func:`bencode_assign_to_bvalue`
+
+.. code-block:: cpp
+
+    template <typename Policy>
+    constexpr auto bencode_assign_to_bvalue(
+            customization_point_type<rgb_color>, basic_bvalue<Policy>& bv, const rgb_color& value)
+    {
+        auto& l = bv.emplace_list();
+        l.push_back(value.r);
+        l.push_back(value.g);
+        l.push_back(value.b);
+    }
+
+Direct comparison to bvalue
+---------------------------
+
+The content of a bvalue can be compared with that of a custom type without
+creating a temporary :cpp:class:`bvalue` object.
+This is done be overriding :cpp:func:`bencode_compare_equality_with_bvalue`
+
+.. code-block:: cpp
+
+    template <typename Policy>
+    bencode_compare_equality_with_bvalue(
+            customization_for<rgb_color>, basic_bvalue<Policy>& bv, const rgb_color& value)
+    {
+        if (!is_list(bv)) return false;
+        if (bv.size() != 3) return false;
+        return (bv[0] == value.r) && (bv[1] == value.g) && (b[2] == value.b);
+    }
+
+For types that can be ordered :cpp:func:`bencode_compare_three_way_with_bvalue` can be overridden.
+
+.. code-block:: cpp
+
+    template <typename Policy>
+    std::partial_ordering bencode_compare_three_way_with_bvalue(
+            customization_for<rgb_color>, basic_bvalue<Policy>& bv, const rgb_color& value)
+    {
+        if (!is_list(bv))  return std::partial_ordering::unordered;
+        if (bv.size() < 3) return std::partial_ordering::greater;
+        if (bv.size() > 3) return std::partial_ordering::less;
+
+        auto first_ordering = (bv[0] <=> value.r);
+        if (first_ordering == std::partial_ordering::equivalent) {
+            auto second_ordering = (bv[1] <=> value.g);
+            if (second_ordering == std::partial_ordering::equivalent) {
+                return b[2] <=> value.b;
+            } else {
+                return second_ordering;
+            }
+        }
+        return first_ordering
+    }
+
+Conversion from bvalue to custom type
+-------------------------------------
+
+You can retrieve your custom type directly from a :cpp:clas::`bvalue`
+by implementing the :cpp:func:`bencode_convert_from_bvalue` customization point.
+This will allow the use of :cpp:func:`get_as<T>` with your type.
+Errors are reported with :cpp:class:`nonstd::expected<T, conversion_ercc>`.
+
+.. code-block:: cpp
+
+    template <typename Policy>
+    nonstd::expected<rgb_color, conversion_errc>
+    bencode_convert_from_bvalue(customization_for<rgb_color>, const basic_bvalue<Policy>& bv)
+    {
+        if (!is_list(bv))
+            return nonstd::make_unexpected(conversion_errc::not_list_type);
+
+        const auto& l = get_list(bv)
+
+        if (l.size() != 3)
+            return nonstd::make_unexpected(conversion_errc::size_mismatch);
+
+        return rgb_color {.r = l[0], .g = l[1], .b = l[2]};
+    }
+
+.. _customization-compare-to-bview:
+
+Direct comparison to bview
+--------------------------
+
+Analogue with comparison with :cpp:class:`bvalue` there are two comparison customization points
+for :cpp:class:`bview`:
+
+* :cpp:func:`bencode_compare_equality_with_bview`
+* :cpp:func:`bencode_compare_three_way_with_bview`
+
+The implementation for our example user-defined class is exactly the same as for
+the implementation for :cpp:class:`bvalue`, except the function signature.
+
+.. code-block::
+
+    constexpr bool bencode_compare_equality_with_bview(
+        customization_point_type<rgb_color>, const bview& bv, rgb_color value);
+
+    constexpr bool bencode_compare_three_way_with_bview(
+        customization_point_type<rgb_color>, const bview& bv, rgb_color value);
+
+
+.. _customization-convert-from-bview:
+
+Conversion from bview to custom type
+-------------------------------------
+
+Analogue with conversion from :cpp:class:`bvalue` there is a conversion from :cpp:class:`bview`
+by implementing the :cpp:func:`bencode_convert_from_bview` customization point.
+
+The implementation for our example user-defined class is exactly the same as for
+the implementation for :cpp:class:`bvalue`, except the function signature.
+
+.. code-block:: cpp
+
+    nonstd::expected<rgb_color, conversion_errc>
+    bencode_convert_from_bview(customization_for<rgb_color>, const bview& bv);
+

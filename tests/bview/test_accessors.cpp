@@ -1,0 +1,360 @@
+//
+// Created by fbdtemme on 24/09/2019.
+//
+#include <catch2/catch.hpp>
+
+#include "bencode/bview.hpp"
+#include "bencode/traits/all.hpp"
+#include "bencode/detail/parser/descriptor_parser.hpp"
+
+#include <type_traits>
+#include <string>
+#include <string_view>
+
+using namespace std::string_literals;
+namespace bc = bencode;
+
+constexpr std::string_view data_integer = "i63e";
+constexpr std::string_view data_string  = "4:spam";
+constexpr std::string_view data_list    = "li2ei3ee";
+constexpr std::string_view data_dict    = "d4:spami1ee";
+
+constexpr std::array descriptors_integer = {
+        bc::descriptor(bc::descriptor_type::integer, 0, 63L),
+        bc::descriptor(bc::descriptor_type::stop, 4),
+};
+
+constexpr std::array descriptors_string  = {
+        bc::descriptor(bc::descriptor_type::string, 0, 2U, 4U),
+        bc::descriptor(bc::descriptor_type::stop, 6),
+};
+
+constexpr std::array descriptors_list = {
+        bc::descriptor(bc::descriptor_type::list, 0, 3, 2),
+        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::list_value, 1, 2),
+        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::list_value, 4, 3),
+        bc::descriptor(bc::descriptor_type::list | bc::descriptor_type::end, 7, 3, 2),
+        bc::descriptor(bc::descriptor_type::stop, 8),
+};
+
+constexpr std::array descriptors_dict = {
+        bc::descriptor(bc::descriptor_type::dict, 0, 3, 1),
+        bc::descriptor(bc::descriptor_type::string  | bc::descriptor_type::dict_key, 1, 2, 4),
+        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::dict_value, 7, 1),
+        bc::descriptor(bc::descriptor_type::dict | bc::descriptor_type::end, 10, 3, 1),
+        bc::descriptor(bc::descriptor_type::stop, 11),
+};
+
+constexpr auto i_view_const = bc::bview(begin(descriptors_integer), data_integer.data());
+constexpr auto s_view_const  = bc::bview(begin(descriptors_string), data_string.data());
+constexpr auto l_view_const = bc::bview(begin(descriptors_list), data_list.data());
+constexpr auto d_view_const = bc::bview(begin(descriptors_dict), data_dict.data());
+
+static auto i_view = bc::bview(begin(descriptors_integer), data_integer.data());
+static auto s_view  = bc::bview(begin(descriptors_string), data_string.data());
+static auto l_view = bc::bview(begin(descriptors_list), data_list.data());
+static auto d_view = bc::bview(begin(descriptors_dict), data_dict.data());
+
+
+
+//constexpr auto example = (
+//        "d"
+//            "3:one"
+//                "i1e"
+//            "5:three"
+//                "l"
+//                    "d"
+//                        "3:bar" "i0e" "3:foo" "i0e"
+//                    "e"
+//                "e"
+//            "3:two"
+//                "l"
+//                    "i3e" "3:foo" "i4e"
+//                "e"
+//            "e"sv
+//);
+
+
+//auto get_descriptors() -> std::vector<bencode::descriptor>
+//{
+//    auto p = bencode::descriptor_parser();
+//    auto r = p.parse(example);
+//    if (!r)
+//        throw r.error();
+//    return r->descriptors();
+//}
+
+//const std::vector<bc::descriptor> tokens = get_descriptors();
+//const auto bv = bc::bview(tokens.data(), example.data());
+
+
+TEST_CASE("test get(bview)", "[bview][accessors]") {
+    SECTION("const reference - access by enum/tag ") {
+        const auto& i_ptr = get<bc::btype::integer>(i_view_const);
+        const auto& s_ptr = get<bc::btype::string>(s_view_const);
+        const auto& l_ptr = get<bc::btype::list>(l_view_const);
+        const auto& m_ptr = get<bc::btype::dict>(d_view_const);
+        SUCCEED();
+    }
+
+    SECTION("const reference - access by type ") {
+        const auto& i_ptr = get<bc::integer_bview>(i_view_const);
+        const auto& s_ptr = get<bc::string_bview>(s_view_const);
+        const auto& l_ptr = get<bc::list_bview>(l_view_const);
+        const auto& m_ptr = get<bc::dict_bview>(d_view_const);
+        SUCCEED();
+    }
+
+    SECTION("reference - access by enum/tag ") {
+        auto& i_ptr = get<bc::btype::integer>(i_view);
+        auto& s_ptr = get<bc::btype::string>(s_view);
+        auto& l_ptr = get<bc::btype::list>(l_view);
+        auto& m_ptr = get<bc::btype::dict>(d_view);
+        SUCCEED();
+    }
+
+    SECTION("reference - access by type ") {
+        auto& i_ptr = get<bc::integer_bview>(i_view);
+        auto& s_ptr = get<bc::string_bview>(s_view);
+        auto& l_ptr = get<bc::list_bview>(l_view);
+        auto& m_ptr = get<bc::dict_bview>(d_view);
+        SUCCEED();
+    }
+
+    SECTION("throws when accessing with wrong type") {
+        CHECK_THROWS_AS(get<bc::btype::list>(d_view_const), bc::bad_bview_access);
+        CHECK_THROWS_AS(get<bc::btype::list>(d_view), bc::bad_bview_access);
+        CHECK_THROWS_AS(get<bc::list_bview>(d_view_const), bc::bad_bview_access);
+        CHECK_THROWS_AS(get<bc::list_bview>(d_view), bc::bad_bview_access);
+    }
+}
+
+
+TEST_CASE("test get_if(descriptor)", "[bview][accessors]") {
+    SECTION("const pointer - access by enum/tag ") {
+        const auto* i_ptr = get_if<bc::btype::integer>(&i_view_const);
+        const auto* s_ptr = get_if<bc::btype::string>(&s_view_const);
+        const auto* l_ptr = get_if<bc::btype::list>(&l_view_const);
+        const auto* m_ptr = get_if<bc::btype::dict>(&d_view_const);
+
+        CHECK(i_ptr);
+        CHECK(s_ptr);
+        CHECK(l_ptr);
+        CHECK(m_ptr);
+    }
+
+    SECTION("const pointer - access by type ") {
+        const auto* i_ptr = get_if<bc::integer_bview>(&i_view_const);
+        const auto* s_ptr = get_if<bc::string_bview>(&s_view_const);
+        const auto* l_ptr = get_if<bc::list_bview>(&l_view_const);
+        const auto* m_ptr = get_if<bc::dict_bview>(&d_view_const);
+
+        CHECK(i_ptr);
+        CHECK(s_ptr);
+        CHECK(l_ptr);
+        CHECK(m_ptr);
+    }
+
+    SECTION("pointer - access by enum/tag ") {
+        auto* i_ptr = get_if<bc::btype::integer>(&i_view);
+        auto* s_ptr = get_if<bc::btype::string>(&s_view);
+        auto* l_ptr = get_if<bc::btype::list>(&l_view);
+        auto* m_ptr = get_if<bc::btype::dict>(&d_view);
+
+        CHECK(i_ptr);
+        CHECK(s_ptr);
+        CHECK(l_ptr);
+        CHECK(m_ptr);
+    }
+
+    SECTION("pointer - access by type ") {
+        auto* i_ptr = get_if<bc::integer_bview>(&i_view);
+        auto* s_ptr = get_if<bc::string_bview>(&s_view);
+        auto* l_ptr = get_if<bc::list_bview>(&l_view);
+        auto* m_ptr = get_if<bc::dict_bview>(&d_view);
+
+        CHECK(i_ptr);
+        CHECK(s_ptr);
+        CHECK(l_ptr);
+        CHECK(m_ptr);
+    }
+
+    SECTION ("return nullptr when accessing with wrong type") {
+        CHECK_FALSE(get_if<bc::btype::list>(&d_view_const));
+        CHECK_FALSE(get_if<bc::btype::list>(&d_view));
+        CHECK_FALSE(get_if<bc::list_bview>(&d_view_const));
+        CHECK_FALSE(get_if<bc::list_bview>(&d_view));
+    }
+}
+
+
+TEST_CASE("get_integer/get_if_integer", "[accessors]")
+{
+    SECTION("const reference") {
+        const auto& i = get_integer(i_view_const);
+        CHECK(i == 63);
+    }
+    SECTION("reference") {
+        const auto& i = get_integer(i_view);
+        CHECK(i == 63);
+    }
+    SECTION("const pointer") {
+        const auto* i = get_if_integer(&i_view_const);
+        CHECK(*i == 63);
+    }
+
+    SECTION("pointer") {
+        auto* i = get_if_integer(&i_view);
+        CHECK(*i == 63);
+    }
+
+    SECTION ("throws when accessing with wrong type") {
+        REQUIRE_THROWS_AS(get_integer(s_view_const), bc::bad_bview_access);
+        REQUIRE_THROWS_AS(get_integer(s_view), bc::bad_bview_access);
+    }
+}
+
+TEST_CASE("get_string/get_if_string", "[accessors]")
+{
+    auto control = "spam";
+    SECTION("const reference") {
+        const auto& s = get_string(s_view_const);
+        CHECK(s == control);
+    }
+    SECTION("reference") {
+        auto& s = get_string(s_view);
+        CHECK(s == control);
+    }
+    SECTION("const pointer") {
+        const auto* s = get_if_string(&s_view_const);
+        CHECK(*s == control);
+    }
+    SECTION("pointer") {
+        auto* s = get_if_string(&s_view);
+        CHECK(*s == control);
+    }
+
+    SECTION ("throws when accessing with wrong type") {
+        REQUIRE_THROWS_AS(get_string(d_view_const), bc::bad_bview_access);
+        REQUIRE_THROWS_AS(get_string(d_view), bc::bad_bview_access);
+    }
+}
+
+TEST_CASE("get_list/get_if_list", "[accessors]")
+{
+    auto control = std::vector {2, 3};
+
+    SECTION("const reference") {
+        const auto& v = get_list(l_view_const);
+        CHECK(v == control);
+    }
+    SECTION("reference") {
+        auto& l = get_list(l_view);
+        CHECK(l == control);
+    }
+    SECTION("const pointer") {
+        const auto* l = get_if_list(&l_view_const);
+        CHECK(*l == control);
+    }
+    SECTION("pointer") {
+        auto* l = get_if_list(&l_view);
+        CHECK(*l == control);
+    }
+
+    SECTION ("throws when accessing with wrong type") {
+        REQUIRE_THROWS_AS(get_list(i_view_const), bc::bad_bview_access);
+        REQUIRE_THROWS_AS(get_list(i_view), bc::bad_bview_access);
+    }
+}
+
+
+TEST_CASE("get_dict/get_if_dict", "[accessors]")
+{
+    auto control = std::map<std::string, std::int64_t>{{"spam", 1}};
+
+    SECTION("const reference") {
+        const auto& i = get_dict(d_view_const);
+        CHECK(i == control);
+    }
+    SECTION("reference") {
+        auto& i = get_dict(d_view);
+        CHECK(i == control);
+    }
+
+    SECTION("const pointer") {
+        const auto* i = get_if_dict(&d_view_const);
+        CHECK(*i == control);
+    }
+
+    SECTION("pointer") {
+        auto* i = get_if_dict(&d_view);
+        CHECK(*i == control);
+    }
+
+    SECTION ("throws when accessing with wrong type") {
+        REQUIRE_THROWS_AS(get_dict(i_view_const), bc::bad_bview_access);
+        REQUIRE_THROWS_AS(get_dict(i_view), bc::bad_bview_access);
+    }
+}
+
+TEST_CASE("test current alternative check functions", "[accessors]")
+{
+     bc::bview uninit{};
+
+     SECTION("holds_alternative") {
+         SECTION("enum/tag based") {
+            CHECK(holds_alternative<bc::btype::uninitialized>(uninit));
+            CHECK(holds_alternative<bc::btype::integer>(i_view_const));
+            CHECK(holds_alternative<bc::btype::string>(s_view_const));
+            CHECK(holds_alternative<bc::btype::list>(l_view_const));
+            CHECK(holds_alternative<bc::btype::dict>(d_view_const));
+
+            CHECK_FALSE(holds_alternative<bc::btype::list>(s_view_const));
+        }
+
+        SECTION("type based") {
+            CHECK(holds_alternative<bc::integer_bview>(i_view_const));
+            CHECK(holds_alternative<bc::string_bview>(s_view_const));
+            CHECK(holds_alternative<bc::list_bview>(l_view_const));
+            CHECK(holds_alternative<bc::dict_bview>(d_view_const));
+            CHECK_FALSE(holds_alternative<bc::dict_bview>(s_view_const));
+        }
+     }
+
+    SECTION("is_uninitialised") {
+        auto b = is_uninitialized(uninit);
+        CHECK(b);
+        CHECK_FALSE(is_integer(uninit));
+        CHECK_FALSE(is_string(uninit));
+        CHECK_FALSE(is_list(uninit));
+        CHECK_FALSE(is_dict(uninit));
+    }
+    SECTION("is_integer") {
+        auto b = is_integer(i_view_const);
+        CHECK(b);
+        CHECK_FALSE(is_string(i_view_const));
+        CHECK_FALSE(is_list(i_view_const));
+        CHECK_FALSE(is_dict(i_view_const));
+    }
+    SECTION("is_string") {
+        auto b = is_string(s_view_const);
+        CHECK(b);
+        CHECK_FALSE(is_integer(s_view_const));
+        CHECK_FALSE(is_list(s_view_const));
+        CHECK_FALSE(is_dict(s_view_const));
+    }
+    SECTION("is_list") {
+        auto b = is_list(l_view_const);
+        CHECK(b);
+        CHECK_FALSE(is_integer(l_view_const));
+        CHECK_FALSE(is_string(l_view_const));
+        CHECK_FALSE(is_dict(l_view_const));
+    }
+    SECTION("is_dict") {
+        auto b = is_dict(d_view_const);
+        CHECK(b);
+        CHECK_FALSE(is_integer(d_view_const));
+        CHECK_FALSE(is_string(d_view_const));
+        CHECK_FALSE(is_list(d_view_const));
+    }
+}
