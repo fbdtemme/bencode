@@ -31,7 +31,7 @@ class push_parser
 public:
     using options = parser_options;
 
-    explicit push_parser(push_parser::options options = {})
+    explicit push_parser(const push_parser::options& options = {})
             : options_(options)
     {}
 
@@ -311,7 +311,7 @@ private:
     std::stack<state> stack_{};
     std::optional<parse_error> error_;
     std::uint32_t value_count_ = 0;
-    const options options_;
+    const options& options_;
 };
 
 // CTAD hints

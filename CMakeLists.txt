@@ -38,8 +38,7 @@ cmake_dependent_option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"
 cmake_dependent_option(BENCODE_BUILD_DOCS       "Build documentation"
                         ON  "BENCODE_STANDALONE"  OFF)
 
-option(BENCODE_LINK_FMT       "Link with the shared fmt library" ON)
-option(BENCODE_TESTS_COVERAGE "Build tests with coverage enabled" ON)
+option(BENCODE_ENABLE_COVERAGE "Build with coverage enabled" ON)
 
 # Concepts compile flags
 
@@ -50,6 +49,7 @@ target_link_libraries(bencode
         nonstd::expected-lite)
 
 add_library(bencode::bencode ALIAS bencode)
+
 
 if (BENCODE_BUILD_TESTS)
     enable_testing()

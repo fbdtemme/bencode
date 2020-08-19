@@ -60,7 +60,7 @@ class descriptor_parser
     using sentinel_t = Sentinel;
 
 public:
-    explicit descriptor_parser(parser_options options = {})
+    explicit descriptor_parser(const parser_options& options = {})
             : options_(options)
             , descriptors_()
     {}
@@ -395,7 +395,7 @@ private:
     std::vector<descriptor> descriptors_;
     std::stack<stack_frame> stack_{};
     std::optional<parse_error> error_;
-    const options options_;
+    const options& options_;
 };
 
 }

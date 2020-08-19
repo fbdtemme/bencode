@@ -35,11 +35,11 @@ target_link_libraries(bencode-tests
         bencode
 )
 
-if (BENCODE_BUILD_TESTS_COVERAGE)
-    set(CMAKE_CXX_FLAGS "--coverage")
-    message("Building with coverage flags enabled")
+if ((CMAKE_BUILD_TYPE MATCHES "Debug*") AND BENCODE_ENABLE_COVERAGE)
+    message(STATUS "Building with coverage enabled")
+    set(CMAKE_CXX_FLAGS --coverage)
+    set(CMAKE_C_FLAGS --coverage)
 endif()
-
 
 target_compile_options(bencode-tests PRIVATE -fconcepts-diagnostics-depth=4)
 

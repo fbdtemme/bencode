@@ -71,7 +71,7 @@ constexpr auto parse_integer(It& begin, It end) noexcept
             return nonstd::make_unexpected(parser_errc::integer_overflow);
         }
         ++it;
-        ++digits;
+        // ++digits;
     }
 
     if (leading_zero && value != 0) [[unlikely]] {

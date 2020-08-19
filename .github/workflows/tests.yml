@@ -18,9 +18,8 @@ jobs:
     - name: configure
       run: mkdir build && cd build &&
            cmake -DCMAKE_CXX_COMPILER=g++-10
-                 -DCMAKE_CXX_FLAGS=--coverage
-                 -DCMAKE_C_FLAGS=--coverage
                  -DBENCODE_BUILD_TESTS=ON
+                 -DBENCODE_ENABLE_COVERAGE=ON
                  -DBENCODE_BUILD_DOCS=OFF
                  -DBENCODE_BUILD_BENCHMARKS=OFF ..
     - name: build
@@ -31,6 +30,5 @@ jobs:
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        env_vars: OS
         name: codecov-umbrella
         fail_ci_if_error: false

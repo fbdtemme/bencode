@@ -72,20 +72,17 @@ template<typename T>
 consteval bool convertible_from_bview_to_tuple_elements_helper()
 {
     using IS = std::make_index_sequence<std::tuple_size_v<T>>;
-    auto r = std::apply(
+    return std::apply(
             []<std::size_t... Is2>(auto&& ... v) constexpr {
                 return (retrievable_from_bview<std::tuple_element_t<Is2, T> > && ...);
             },
             std::forward_as_tuple(IS{})
     );
-
-    if constexpr (r) { return true; }
-    static_assert(detail::always_false_v<T>, "No conversion defined for all elements.");
 }
 
 template<typename T>
-concept convertible_from_bview_to_tuple_elements =requires(T& t) {
-    convertible_from_bview_to_tuple_elements_helper<T>();
+concept convertible_from_bview_to_tuple_elements = requires() {
+    (convertible_from_bview_to_tuple_elements_helper<T>() == true);
 };
 
 }
