@@ -18,6 +18,7 @@ jobs:
     - name: configure
       run: mkdir build && cd build &&
            cmake -DCMAKE_CXX_COMPILER=g++-10
+                 -DCMAKE_BUILD_TYPE=Debug
                  -DBENCODE_BUILD_TESTS=ON
                  -DBENCODE_ENABLE_COVERAGE=ON
                  -DBENCODE_BUILD_DOCS=OFF
