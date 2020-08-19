@@ -1710,8 +1710,8 @@ requires(T x, const <a class="reference internal" href="#classbencode_1_1bview">
 
 <dl class="member">
 <dt>
-<span class="target" id="bview_2concepts_8hpp_1a0482cb40975a7a1c61149ddb057b277c"></span><code class="descname">concept bencode::detail::convertible_from_bview_to_tuple_elements</code> =requires(T&amp; t) {
-    convertible_from_bview_to_tuple_elements_helper&lt;T&gt;();
+<span class="target" id="bview_2concepts_8hpp_1a0482cb40975a7a1c61149ddb057b277c"></span><code class="descname">concept bencode::detail::convertible_from_bview_to_tuple_elements</code> = requires() {
+    (convertible_from_bview_to_tuple_elements_helper&lt;T&gt;() == true);
 }</dt>
 <dd></dd></dl>
 
