@@ -1,5 +1,7 @@
 # bencode
+
 ![build](https://github.com/fbdtemme/bencode/workflows/build/badge.svg?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5cc3eec94d8a486dab62afeab5130def)](https://app.codacy.com/manual/floriandetemmerman/bencode?utm_source=github.com&utm_medium=referral&utm_content=fbdtemme/bencode&utm_campaign=Badge_Grade_Dashboard)
 
 A C++20 bencode serialization/deserialization library.
 
@@ -39,6 +41,5 @@ make
 make install
 ``` 
 ## Documentation
-
 [Documentation](https://fbdtemme.github.io/bencode/) is hosted on github pages 
 
