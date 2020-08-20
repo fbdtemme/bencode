@@ -101,7 +101,7 @@ es << bc::begin_dict
    << "foo" << 1
    << "bar" << 2
    << "baz" << std::vector{1, 2, 3}
-   << end_dict 
+   << end_dict;
 
 // prints "d3:bari2e3:bazli1ei2ei3ee3:fooi1ee";
 ```
