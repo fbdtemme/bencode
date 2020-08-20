@@ -6,7 +6,6 @@
 
 #include <nonstd/expected.hpp>
 
-#include "bencode/bencode_fwd.hpp"
 #include "bencode/detail/utils.hpp"
 
 

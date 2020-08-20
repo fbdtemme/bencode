@@ -37,25 +37,14 @@ public:
 
     descriptor_table& operator=(descriptor_table&&) = default;
 
-    /// Set the buffer containing bencoded data.
-    void set_buffer(const char* buffer) noexcept
-    {
-        buffer_ = buffer;
-    }
-
-    void set_descriptors(std::vector<descriptor>&& descriptors) noexcept
-    {
-        descriptors_ = std::move(descriptors);
-    }
-
-    /// @returns A bview instance for to the data described by the descriptor at pos.
+    /// Returns a bview instance for to the data described by the descriptor at pos.
     bview get_root(std::size_t pos = 0) noexcept
     {
         Expects(pos<descriptors_.size());
         return bview(descriptors_.data()+pos, buffer_+pos);
     }
 
-    /// @returns A reference to a std::vector storing the descriptors.
+    /// Returns a reference to a std::vector storing the descriptors.
     std::vector<descriptor>& descriptors() noexcept
     {
         return descriptors_;

@@ -30,11 +30,11 @@ target_include_directories(bencode INTERFACE
 include(external/CMakeLists.txt)
 
 
-
 cmake_dependent_option(BENCODE_BUILD_TESTS    "Build tests override."
                        ON  "BUILD_TESTING;BENCODE_STANDALONE" OFF)
 cmake_dependent_option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"
                        ON  "BENCODE_STANDALONE"      OFF)
+
 cmake_dependent_option(BENCODE_BUILD_DOCS       "Build documentation"
                         ON  "BENCODE_STANDALONE"  OFF)
 
@@ -58,16 +58,15 @@ if (BENCODE_BUILD_TESTS)
 endif()
 
 
-if (BENCODE_BUILD_DOCS)
-    message(STATUS "Building docs enabled")
-    add_subdirectory(docs)
-endif()
-
 if (BENCODE_BUILD_BENCHMARKS)
     message(STATUS "Building benchmark enabled")
     add_subdirectory(benchmark)
 endif()
 
+if (BENCODE_BUILD_DOCS)
+    message(STATUS "Building docs enabled")
+    add_subdirectory(docs)
+endif()
 
 if (NOT fmt_FOUND)
     message(STATUS "Adding fmt to install set")

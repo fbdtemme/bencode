@@ -2,7 +2,6 @@
 
 #include <string>
 
-#include "bencode/bencode_fwd.hpp"
 #include "bencode/detail/events/consumers.hpp"
 #include "bencode/detail/events/events.hpp"
 #include "bencode/detail/events/consumer/encode_to.hpp"

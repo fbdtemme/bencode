@@ -1,5 +1,4 @@
 #pragma once
-#include <bencode/bencode_fwd.hpp>
 #include <bencode/detail/concepts.hpp>
 
 #include <concepts>

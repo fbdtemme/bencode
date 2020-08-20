@@ -4,7 +4,6 @@
 
 #include <catch2/catch.hpp>
 
-#include <bencode/bencode_fwd.hpp>
 #include <bencode/detail/events/consumer/encode_to.hpp>
 
 

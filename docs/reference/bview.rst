@@ -1,23 +1,49 @@
 View interface
 ==============
 
+bview
+-----
+
 .. doxygenclass:: bencode::bview
    :members:
+
+integer_bview
+-------------
 
 .. doxygenclass:: bencode::integer_bview
    :members:
 
+string_bview
+------------
+
 .. doxygenclass:: bencode::string_bview
    :members:
+
+list_bview
+----------
 
 .. doxygenclass:: bencode::list_bview
    :members:
 
+dict_bview
+----------
+
 .. doxygenclass:: bencode::dict_bview
    :members:
 
+accessors
+---------
+
 .. doxygenfile:: detail/bview/accessors.hpp
+
+concepts
+--------
 
 .. doxygenfile:: detail/bview/concepts.hpp
 
-.. doxygenfile:: detail/bview/exceptions.hpp
+exceptions
+----------
+
+.. doxygenfile:: detail/bview/bad_bview_access.hpp
+
+.. doxygenfile:: detail/conversion_error.hpp

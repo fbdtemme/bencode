@@ -6,8 +6,8 @@ Value interface
 Introduction
 ------------
 
-The :cpp:class:`bvalue` is class that implements a bencoded value.
-It is a sum-type implemented with a :cpp:class:`std::variant` that stores the
+:cpp:class:`bvalue` is class that represents a bencoded value.
+It is a sum-type implemented with a :cpp:class:`std::variant` to stores the
 different bencode data types.
 
 :cpp:class:`bvalue` is an instantiation of the class template
@@ -36,7 +36,7 @@ The bvalue class can be used to create, and manipulate bencode values.
 Construction
 ------------
 
-:code:`bvalue` provides similiar contructors and assignment operators as :code:`std::variant`.
+:cpp:class:`bvalue` provides similar constructors and assignment operators as :code:`std::variant`.
 
 Construct an empty bvalue.
 
@@ -44,7 +44,8 @@ Construct an empty bvalue.
 
     auto b = bc::bvalue {};
 
-Arguments matching on of the storage types used will be forwarded to the constructor of the underlying type.
+Arguments matching one of the storage types will be forwarded to the constructor of the
+underlying type.
 
 .. code-block:: cpp
 
@@ -54,11 +55,16 @@ Arguments matching on of the storage types used will be forwarded to the constru
     // Copy initialize a bvalue holding a string.
     bc::bvalue b3 = "string";
 
+The type can be passed explicitly using a type tag.
+This is necessary to distinguish between initializer-lists for string, list and dict bencode types.
+
+.. code-block:: cpp
+
     // construct a vector of 5 times 1
-    bc::bvalue b4(bc::btype::list, 5, 1);
+    bc::bvalue b4(bc::btype::list, {5, 1});
 
 
-Converting constructors allow any type that has the required customization point implemented
+Converting constructors allow any type that has the required customization points implemented
 to be passed to the bvalue constructor.
 
 .. code-block:: cpp

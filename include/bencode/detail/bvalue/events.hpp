@@ -5,7 +5,6 @@
 #include <string_view>
 #include <optional>
 
-#include <bencode/bencode_fwd.hpp>
 #include <bencode/detail/bvalue/basic_bvalue.hpp>
 #include <bencode/detail/events/concepts.hpp>
 

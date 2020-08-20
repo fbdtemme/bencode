@@ -85,17 +85,21 @@ the :cpp:func:`bencode_connect` specialization point.
     }
 
 After overrinding this function the type satisfies the :cpp:concept:`event_producer` concept.
-Note that bencode_connect should not be overloaded inside the bencode namespace.
-The customization point uses ADL lookup to find the right overload.
 
 After satisfying :cpp:concept:`serializable` and cpp:concept:`event_producer` the user defined type.
 Can be serialized trough the :cpp:class:`encoding_ostream` and assigned to :cpp:class:`bvalue`.
+
+.. important::
+
+    All customization points prefixed with :code:`bencode_` must be defined in the
+    namespace of the type for which you want to enable a library feature.
+    These functions use ADL to identify the correct overload.
 
 Assignment to bvalue
 --------------------
 
 Types that satisfy :cpp:concept:`event_producer` have a default implementation
-that allowes the type to be assigned to :cpp:class:`bvalue` but is not always the most efficient.
+that allows the type to be assigned to :cpp:class:`bvalue` but is not always the most efficient.
 The default can be overriden by overriding :cpp:func:`bencode_assign_to_bvalue`
 
 .. code-block:: cpp
