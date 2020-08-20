@@ -60,6 +60,9 @@
           
 
           
+            
+            <img src="../_static/bencode.svg" class="logo" />
+          
           </a>
 
           
@@ -93,8 +96,13 @@
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#design-goals">Design goals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#compiler-support">Compiler support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="bencode_format.html">Bencode format</a></li>
@@ -105,14 +113,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/events.html">Events system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/customization_points.html">Customization points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/descriptor.html">Descriptor</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/encoding_and_decoding.html">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -183,28 +194,44 @@
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">This library targets the C++20 standard. Compiler support is limited to GCC 10 for now.</p>
+<div class="section" id="design-goals">
+<h2>Design goals<a class="headerlink" href="#design-goals" title="Permalink to this headline">¶</a></h2>
+<p>There are multiple bencode projects available online,
+but many are quite limited in scope or have lacking documentation.
+The goal of this library is to provide first class support for bencode and to provide all
+features expected of a modern serialization/deserialization library.</p>
 </div>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Convenient owning representation of bencoded data with <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code>.</li>
-<li>Fast, memory efficient, read-only, non-owning representation of bencoded data <a class="reference internal" href="../reference/bview.html#_CPPv2N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal"><span class="pre">bview</span></code></a>.</li>
-<li>Build-in interoperability with most STL containers.</li>
-<li>Support for user-defined types.</li>
-<li>Parse directly to custom types by implementing the <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_consumer</span></code> interface.</li>
+<li>Convenient owning representation of bencoded data with <cite>bvalue</cite>.</li>
+<li>Fast and memory efficient read-only, non-owning representation into stable buffers
+of bencoded data with <cite>bview</cite>.</li>
+<li>Build-in serialization/deserializaton for most standard containers.</li>
+<li>Support for serializing/deserializing to/from user-defined types.</li>
+<li>Parse directly to custom types by satisfying the <cite>EventConsumer</cite> concept.</li>
+<li>Throwing and non throwing variants of common functions.</li>
 </ul>
 </div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="compiler-support">
+<h3>Compiler support<a class="headerlink" href="#compiler-support" title="Permalink to this headline">¶</a></h3>
+<p>This library requires C++20.
+Compiler support is limited to GCC10 for the moment.</p>
+</div>
 <div class="section" id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
+<p>This library depends on following external projects.</p>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/fmtlib/fmt">fmt</a></li>
 <li><a class="reference external" href="https://github.com/microsoft/GSL">Microsoft GSL</a></li>
 <li><a class="reference external" href="https://github.com/martinmoene/expected-lite">expected-lite</a></li>
-<li><a class="reference external" href="https://github.com/catchorg/Catch2">Catch2</a> when building tests.</li>
+<li><a class="reference external" href="https://github.com/catchorg/Catch2">Catch2</a>, when building tests.</li>
 </ul>
+<p>All dependencies are fetched from github using cmake during configuration if
+no local installation is found.</p>
+</div>
 </div>
 </div>
 

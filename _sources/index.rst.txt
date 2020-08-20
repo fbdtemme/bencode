@@ -5,7 +5,7 @@ bencode
 
 A C++20 bencode serialisation/deserialization library.
 
-.. note:: The documentation is under construction.
+.. note:: This documentation site is under construction.
 
 Content
 -------
@@ -22,12 +22,12 @@ Content
     :maxdepth: 2
     :caption: Usage
 
-    usage/bencode_format
     usage/value
     usage/view
     usage/events
     usage/encoding_decoding
     usage/customization_points
+    usage/descriptor
 
 .. toctree::
     :maxdepth: 2
@@ -36,6 +36,7 @@ Content
     reference/bvalue
     reference/bview
     reference/encoding_and_decoding
+    reference/descriptor_and_descriptor_table
 
 .. toctree::
     :maxdepth: 1
@@ -43,6 +44,5 @@ Content
 
     other/license
     other/references
-    genindex
 
 

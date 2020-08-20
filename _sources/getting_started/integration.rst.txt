@@ -17,7 +17,7 @@ The library can be located with find_package() and use the namespaced imported t
     ...
     add_library(foo ...)
     ...
-    target_link_libraries(foo PRIVATE bencode::bencode)
+    target_link_libraries(foo INTERFACE bencode::bencode)
 
 Embedded
 ++++++++
@@ -34,7 +34,7 @@ The source tree can be included in your project and included with :code:`add_sub
     ...
     add_library(foo ...)
     ...
-    target_link_libraries(foo PRIVATE bencode::bencode)
+    target_link_libraries(foo INTERFACE bencode::bencode)
 
 Embedded (FetchContent)
 +++++++++++++++++++++++
@@ -50,4 +50,4 @@ Embedded (FetchContent)
 
     FetchContent_MakeAvailable(bencode)
 
-    target_link_libraries(foo PRIVATE bencode::bencode)
+    target_link_libraries(foo INTERFACE bencode::bencode)

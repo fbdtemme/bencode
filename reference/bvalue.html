@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Bencode 0.1.0 documentation" href="../index.html"/>
         <link rel="next" title="View interface" href="bview.html"/>
-        <link rel="prev" title="Customization points" href="../usage/customization_points.html"/> 
+        <link rel="prev" title="Descriptor" href="../usage/descriptor.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -59,6 +59,9 @@
             <a href="../index.html" class="icon icon-home"> Bencode
           
 
+          
+            
+            <img src="../_static/bencode.svg" class="logo" />
           
           </a>
 
@@ -101,14 +104,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/events.html">Events system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/customization_points.html">Customization points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/descriptor.html">Descriptor</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_and_decoding.html">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="descriptor_and_descriptor_table.html">Descriptors</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -366,8 +372,8 @@
 
 <dl class="function">
 <dt id="_CPPv2N7bencode12basic_bvalue2atENSt6size_tE">
-<span id="bencode::basic_bvalue::at__std::s"></span><span class="target" id="classbencode_1_1basic__bvalue_1a50689d140b5c26e657bb9b478fa82225"></span>reference <code class="descname">at</code><span class="sig-paren">(</span>std::size_t <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12basic_bvalue2atENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a reference to the element at specified location pos, with bounds checking. If pos is not within the range of the container, an exception of type std::out_of_range is thrown. If the current active alternative is not a list, and exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. <dl class="docutils">
+<span id="bencode::basic_bvalue::at__std::s"></span><span class="target" id="classbencode_1_1basic__bvalue_1a50689d140b5c26e657bb9b478fa82225"></span>reference <code class="descname">at</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::size_t <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12basic_bvalue2atENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a reference to the element at specified location pos, with bounds checking. If pos is not within the range of the container, an exception of type std::out_of_range is thrown. If the current active alternative is not a list, and exception of type bencode::bad_bvalue_access is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the requested element. </dd>
 <dt><strong>Parameters</strong></dt>
@@ -378,7 +384,7 @@
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
 <li><code class="docutils literal"><span class="pre">std::out_of_range</span></code>: if !(pos &lt; size()) </li>
-<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bencode::bad_bvalue_access</span></span></a></code>: if the current active alternative is not list. </li>
+<li><code class="docutils literal"><span class="pre">bencode::bad_bvalue_access</span></code>: if the current active alternative is not list. </li>
 </ul>
 </dd>
 </dl>
@@ -387,8 +393,8 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode12basic_bvalue2atENSt6size_tE">
-<span id="bencode::basic_bvalue::at__std::sC"></span><span class="target" id="classbencode_1_1basic__bvalue_1addab59a3979eda006069dfee2f7b787f"></span>const_reference <code class="descname">at</code><span class="sig-paren">(</span>std::size_t <em>pos</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12basic_bvalue2atENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a reference to the element at specified location pos, with bounds checking. If pos is not within the range of the container, an exception of type std::out_of_range is thrown. If the current active alternative is not a list, and exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. <dl class="docutils">
+<span id="bencode::basic_bvalue::at__std::sC"></span><span class="target" id="classbencode_1_1basic__bvalue_1addab59a3979eda006069dfee2f7b787f"></span>const_reference <code class="descname">at</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::size_t <em>pos</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12basic_bvalue2atENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a reference to the element at specified location pos, with bounds checking. If pos is not within the range of the container, an exception of type std::out_of_range is thrown. If the current active alternative is not a list, and exception of type bencode::bad_bvalue_access is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the requested element. </dd>
 <dt><strong>Parameters</strong></dt>
@@ -399,7 +405,7 @@
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
 <li><code class="docutils literal"><span class="pre">std::out_of_range</span></code>: if !(pos &lt; size()) </li>
-<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bencode::bad_bvalue_access</span></span></a></code>: if the current active alternative is not list. </li>
+<li><code class="docutils literal"><span class="pre">bencode::bad_bvalue_access</span></code>: if the current active alternative is not list. </li>
 </ul>
 </dd>
 </dl>
@@ -409,7 +415,7 @@
 <dl class="function">
 <dt id="_CPPv2N7bencode12basic_bvalue2atERK11string_type">
 <span id="bencode::basic_bvalue::at__string_typeCR"></span><span class="target" id="classbencode_1_1basic__bvalue_1afed179efeb150f040820e841284b519f"></span>reference <code class="descname">at</code><span class="sig-paren">(</span><em class="property">const</em> string_type &amp;<em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12basic_bvalue2atERK11string_type" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a reference to the mapped bvalue of the element with key equivalent to key. If the current active alternative is not a dict, and exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. If no such element exists, an exception of type std::out_of_range is thrown. <dl class="docutils">
+<dd><p>Returns a reference to the mapped bvalue of the element with key equivalent to key. If the current active alternative is not a dict, and exception of type bencode::bad_bvalue_access is thrown. If no such element exists, an exception of type std::out_of_range is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the mapped bvalue of the requested element </dd>
 <dt><strong>Parameters</strong></dt>
@@ -420,7 +426,7 @@
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
 <li><code class="docutils literal"><span class="pre">std::out_of_range</span></code>: if the container does not have an element with the specified key, </li>
-<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bencode::bad_bvalue_access</span></span></a></code>: if the current active alternative is not dict. </li>
+<li><code class="docutils literal"><span class="pre">bencode::bad_bvalue_access</span></code>: if the current active alternative is not dict. </li>
 </ul>
 </dd>
 </dl>
@@ -430,7 +436,7 @@
 <dl class="function">
 <dt id="_CPPv2NK7bencode12basic_bvalue2atERK11string_type">
 <span id="bencode::basic_bvalue::at__string_typeCRC"></span><span class="target" id="classbencode_1_1basic__bvalue_1afed505162ec8d9c7735e9b0da2700aac"></span>const_reference <code class="descname">at</code><span class="sig-paren">(</span><em class="property">const</em> string_type &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12basic_bvalue2atERK11string_type" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a reference to the mapped bvalue of the element with key equivalent to key. If the current active alternative is not a dict, and exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. If no such element exists, an exception of type std::out_of_range is thrown. <dl class="docutils">
+<dd><p>Returns a reference to the mapped bvalue of the element with key equivalent to key. If the current active alternative is not a dict, and exception of type bencode::bad_bvalue_access is thrown. If no such element exists, an exception of type std::out_of_range is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the mapped bvalue of the requested element </dd>
 <dt><strong>Parameters</strong></dt>
@@ -441,7 +447,7 @@
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
 <li><code class="docutils literal"><span class="pre">std::out_of_range</span></code>: if the container does not have an element with the specified key, </li>
-<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bencode::bad_bvalue_access</span></span></a></code>: if the current active alternative is not dict. </li>
+<li><code class="docutils literal"><span class="pre">bencode::bad_bvalue_access</span></code>: if the current active alternative is not dict. </li>
 </ul>
 </dd>
 </dl>
@@ -450,8 +456,8 @@
 
 <dl class="function">
 <dt id="_CPPv2N7bencode12basic_bvalueixENSt6size_tE">
-<span id="bencode::basic_bvalue::subscript-operator__std::s"></span><span class="target" id="classbencode_1_1basic__bvalue_1a4db0b144f827edf24315b03151340aa3"></span>reference <code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12basic_bvalueixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a reference to the element at specified location pos. No bounds checking is performed. If the active alternative is not a list an exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. <dl class="docutils">
+<span id="bencode::basic_bvalue::subscript-operator__std::s"></span><span class="target" id="classbencode_1_1basic__bvalue_1a4db0b144f827edf24315b03151340aa3"></span>reference <code class="descname">operator[]</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::size_t <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12basic_bvalueixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a reference to the element at specified location pos. No bounds checking is performed. If the active alternative is not a list an exception of type bencode::bad_bvalue_access is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the requested element </dd>
 <dt><strong>Parameters</strong></dt>
@@ -465,8 +471,8 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode12basic_bvalueixENSt6size_tE">
-<span id="bencode::basic_bvalue::subscript-operator__std::sC"></span><span class="target" id="classbencode_1_1basic__bvalue_1a00520d23a21009adfa08539e7862d493"></span>const_reference <code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em>pos</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12basic_bvalueixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a reference to the element at specified location pos. No bounds checking is performed. If the active alternative is not a list an exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. <dl class="docutils">
+<span id="bencode::basic_bvalue::subscript-operator__std::sC"></span><span class="target" id="classbencode_1_1basic__bvalue_1a00520d23a21009adfa08539e7862d493"></span>const_reference <code class="descname">operator[]</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::size_t <em>pos</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12basic_bvalueixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a reference to the element at specified location pos. No bounds checking is performed. If the active alternative is not a list an exception of type bencode::bad_bvalue_access is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the requested element </dd>
 <dt><strong>Parameters</strong></dt>
@@ -481,7 +487,7 @@
 <dl class="function">
 <dt id="_CPPv2N7bencode12basic_bvalueixERK11string_type">
 <span id="bencode::basic_bvalue::subscript-operator__string_typeCR"></span><span class="target" id="classbencode_1_1basic__bvalue_1a43504d20f74f00c8c1a1478ff9c7847b"></span>reference <code class="descname">operator[]</code><span class="sig-paren">(</span><em class="property">const</em> string_type &amp;<em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12basic_bvalueixERK11string_type" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a reference to the bvalue that is mapped to a key equivalent to key, performing an insertion if such key does not already exist. If the bvalue is unintialized an empty dict will be created in place. If the active alternative is not a dict an exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. <dl class="docutils">
+<dd><p>Returns a reference to the bvalue that is mapped to a key equivalent to key, performing an insertion if such key does not already exist. If the bvalue is unintialized an empty dict will be created in place. If the active alternative is not a dict an exception of type bencode::bad_bvalue_access is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the mapped bvalue of the new element if no element with key key existed. Otherwise a reference to the mapped bvalue of the existing element whose key is equivalent to key. </dd>
 <dt><strong>Parameters</strong></dt>
@@ -496,7 +502,7 @@
 <dl class="function">
 <dt id="_CPPv2N7bencode12basic_bvalueixERR11string_type">
 <span id="bencode::basic_bvalue::subscript-operator__string_typeRR"></span><span class="target" id="classbencode_1_1basic__bvalue_1af8b2f279b9ce32a2870bc9e9f265c56f"></span>reference <code class="descname">operator[]</code><span class="sig-paren">(</span>string_type &amp;&amp;<em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12basic_bvalueixERR11string_type" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a reference to the bvalue that is mapped to a key equivalent to key, performing an insertion if such key does not already exist. If the bvalue is unintialized an empty dict will be created in place. If the active alternative is not a dict an exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. <dl class="docutils">
+<dd><p>Returns a reference to the bvalue that is mapped to a key equivalent to key, performing an insertion if such key does not already exist. If the bvalue is unintialized an empty dict will be created in place. If the active alternative is not a dict an exception of type bencode::bad_bvalue_access is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the mapped bvalue of the new element if no element with key key existed. Otherwise a reference to the mapped bvalue of the existing element whose key is equivalent to key. </dd>
 <dt><strong>Parameters</strong></dt>
@@ -516,7 +522,7 @@
 <dd>reference to the first element </dd>
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
-<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bad_bvalue_access</span></span></a></code>: when current active alternative is not a list. </li>
+<li><code class="docutils literal"><span class="pre">bad_bvalue_access</span></code>: when current active alternative is not a list. </li>
 </ul>
 </dd>
 </dl>
@@ -531,7 +537,7 @@
 <dd>reference to the first element </dd>
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
-<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bad_bvalue_access</span></span></a></code>: when current active alternative is not a list. </li>
+<li><code class="docutils literal"><span class="pre">bad_bvalue_access</span></code>: when current active alternative is not a list. </li>
 </ul>
 </dd>
 </dl>
@@ -546,7 +552,7 @@
 <dd>reference to the last element </dd>
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
-<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bad_bvalue_access</span></span></a></code>: when current active alternative is not a list. </li>
+<li><code class="docutils literal"><span class="pre">bad_bvalue_access</span></code>: when current active alternative is not a list. </li>
 </ul>
 </dd>
 </dl>
@@ -561,7 +567,7 @@
 <dd>reference to the last element </dd>
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
-<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bad_bvalue_access</span></span></a></code>: when current active alternative is not a list. </li>
+<li><code class="docutils literal"><span class="pre">bad_bvalue_access</span></code>: when current active alternative is not a list. </li>
 </ul>
 </dd>
 </dl>
@@ -571,7 +577,7 @@
 <dl class="function">
 <dt id="_CPPv2N7bencode12basic_bvalue9push_backERK15list_value_type">
 <span id="bencode::basic_bvalue::push_back__list_value_typeCR"></span><span class="target" id="classbencode_1_1basic__bvalue_1a360e9d45043305f7514ddc1879a72568"></span>void <code class="descname">push_back</code><span class="sig-paren">(</span><em class="property">const</em> list_value_type &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12basic_bvalue9push_backERK15list_value_type" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Appends the given element bvalue to the end of a list. If the active alternative is uninintialized, first constructs an empty list in place. If the active alternative is not a list, an exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. The arguments args… are forwarded to the constructor of the list type. <dl class="docutils">
+<dd><p>Appends the given element bvalue to the end of a list. If the active alternative is uninintialized, first constructs an empty list in place. If the active alternative is not a list, an exception of type bencode::bad_bvalue_access is thrown. The arguments args… are forwarded to the constructor of the list type. <dl class="docutils">
 <dt><strong>Parameters</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
 <li><code class="docutils literal"><span class="pre">value</span></code>: the bvalue of the element to append </li>
@@ -584,7 +590,7 @@
 <dl class="function">
 <dt id="_CPPv2N7bencode12basic_bvalue9push_backERR15list_value_type">
 <span id="bencode::basic_bvalue::push_back__list_value_typeRR"></span><span class="target" id="classbencode_1_1basic__bvalue_1ad65fa3f8746ff66bff2cc25798d8393c"></span>void <code class="descname">push_back</code><span class="sig-paren">(</span>list_value_type &amp;&amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12basic_bvalue9push_backERR15list_value_type" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Appends the given element bvalue to the end of a list. If the active alternative is uninintialized, first constructs an empty list in place. If the active alternative is not a list, an exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. The arguments args… are forwarded to the constructor of the list type. <dl class="docutils">
+<dd><p>Appends the given element bvalue to the end of a list. If the active alternative is uninintialized, first constructs an empty list in place. If the active alternative is not a list, an exception of type bencode::bad_bvalue_access is thrown. The arguments args… are forwarded to the constructor of the list type. <dl class="docutils">
 <dt><strong>Parameters</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
 <li><code class="docutils literal"><span class="pre">value</span></code>: the bvalue of the element to append </li>
@@ -597,7 +603,7 @@
 <dl class="function">
 <dt id="_CPPv2NK7bencode12basic_bvalue8containsERK13dict_key_type">
 <span id="bencode::basic_bvalue::contains__dict_key_typeCRC"></span><span class="target" id="classbencode_1_1basic__bvalue_1a5a4fd4fb0e15b736622a1b078249dde0"></span>bool <code class="descname">contains</code><span class="sig-paren">(</span><em class="property">const</em> dict_key_type &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12basic_bvalue8containsERK13dict_key_type" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Checks if there is an element with key equivalent to key in the container. If the active alternative is not a dict, an exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bad_bvalue_access</span></a> is thrown. <dl class="docutils">
+<dd><p>Checks if there is an element with key equivalent to key in the container. If the active alternative is not a dict, an exception of type bad_bvalue_access is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>true if there is such an element, otherwise false. </dd>
 <dt><strong>Parameters</strong></dt>
@@ -614,7 +620,7 @@
 <em class="property">template </em>&lt;<em class="property">typename</em> K&gt;</dt>
 <dt id="_CPPv2NK7bencode12basic_bvalue8containsERK1K">
 <span id="bencode::basic_bvalue::contains__KCRC"></span><span class="target" id="classbencode_1_1basic__bvalue_1a9da23a1a9eeee047d5a759849ca29dad"></span>bool <code class="descname">contains</code><span class="sig-paren">(</span><em class="property">const</em> K &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12basic_bvalue8containsERK1K" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Checks if there is an element that compares equivalent to key in the container. If the active alternative is not a dict, an exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bad_bvalue_access</span></a> is thrown. This overload only participates in overload resolution if the map_type key_compare function supports transparent comparison. <dl class="docutils">
+<dd><p>Checks if there is an element that compares equivalent to key in the container. If the active alternative is not a dict, an exception of type bad_bvalue_access is thrown. This overload only participates in overload resolution if the map_type key_compare function supports transparent comparison. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>true if there is such an element, otherwise false. </dd>
 <dt><strong>Parameters</strong></dt>
@@ -718,8 +724,8 @@
 <em class="property">template </em>&lt;enum bencode_type <em>E</em>, basic_bvalue_instantiation <em>BV</em>&gt;</dt>
 <dt>
 <span class="target" id="bvalue_2accessors_8hpp_1a94b835f81ccef54cb4bc79f805520fd0"></span><code class="descname">decltype(auto) constexpr bencode::get(BV &amp;&amp; v)</code></dt>
-<dd><p>Enum based bvalue accessor. If v holds an alternative of type category E, returns a reference to the storage type used for the for type category E. Otherwise, throws <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bad_bvalue_access</span></a>. 
-Type based bvalue accessor. If v holds a alternative of type T, returns a reference to the value stored in the <a class="reference internal" href="#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> instance. Otherwise, throws <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bad_bvalue_access</span></a>. <dl class="docutils">
+<dd><p>Enum based bvalue accessor. If v holds an alternative of type category E, returns a reference to the storage type used for the for type category E. Otherwise, throws bad_bvalue_access. 
+Type based bvalue accessor. If v holds a alternative of type T, returns a reference to the value stored in the <a class="reference internal" href="#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> instance. Otherwise, throws bad_bvalue_access. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>a reference to the value stored in the <a class="reference internal" href="#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> instance. </dd>
 <dt><strong>Parameters</strong></dt>
@@ -729,7 +735,7 @@ Type based bvalue accessor. If v holds a alternative of type T, returns a refere
 </dd>
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
-<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bad_bvalue_access</span></span></a></code>: when current active alternative is not of category E.</li>
+<li><code class="docutils literal"><span class="pre">bad_bvalue_access</span></code>: when current active alternative is not of category E.</li>
 </ul>
 </dd>
 <dt><strong>Parameters</strong></dt>
@@ -739,7 +745,7 @@ Type based bvalue accessor. If v holds a alternative of type T, returns a refere
 </dd>
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
-<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bad_bvalue_access</span></span></a></code>: when the current active alternative type is not of type T. </li>
+<li><code class="docutils literal"><span class="pre">bad_bvalue_access</span></code>: when the current active alternative type is not of type T. </li>
 </ul>
 </dd>
 </dl>
@@ -816,7 +822,7 @@ Type based bvalue accessor. If v holds a alternative of type T, returns a refere
 <dd>the converted value </dd>
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
-<li><code class="docutils literal"><span class="pre">conversion_error</span></code>: when the value could not be converted to the requested type. </li>
+<li><code class="docutils literal"><a class="reference internal" href="bview.html#classbencode_1_1conversion__error"><span class="std std-ref"><span class="pre">conversion_error</span></span></a></code>: when the value could not be converted to the requested type. </li>
 </ul>
 </dd>
 </dl>
@@ -1052,7 +1058,7 @@ Type based bvalue accessor. If v holds a alternative of type T, returns a refere
 <p class="breathe-sectiondef-title rubric">Public Types</p>
 <dl class="type">
 <dt id="_CPPv2IEN7bencode18bvalue_alternativeI1E1TE4typeE">
-template&lt;&gt;<br /><span class="target" id="structbencode_1_1bvalue__alternative_1abf8178fba9c229a4e086e98dc690d506"></span><em class="property">using </em><code class="descname">type</code> = std::variant_alternative_t&lt;static_cast&lt;std::underlying_type_t&lt;bencode_type&gt; &gt;(E), <em class="property">typename</em> T::storage_type&gt;<a class="headerlink" href="#_CPPv2IEN7bencode18bvalue_alternativeI1E1TE4typeE" title="Permalink to this definition">¶</a><br /></dt>
+template&lt;&gt;<br /><span class="target" id="structbencode_1_1bvalue__alternative_1abf8178fba9c229a4e086e98dc690d506"></span><em class="property">using </em><code class="descname">type</code> = <a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::variant_alternative_t&lt;static_cast&lt;std::underlying_type_t&lt;bencode_type&gt; &gt;(E), <em class="property">typename</em> T::storage_type&gt;<a class="headerlink" href="#_CPPv2IEN7bencode18bvalue_alternativeI1E1TE4typeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -1067,7 +1073,7 @@ template&lt;&gt;<br /><em class="property">struct </em><code class="descname">bv
 <p class="breathe-sectiondef-title rubric">Public Types</p>
 <dl class="type">
 <dt id="_CPPv2IEN7bencode18bvalue_alternativeI1EK1TE4typeE">
-template&lt;&gt;<br /><span class="target" id="structbencode_1_1bvalue__alternative_3_01E_00_01const_01T_01_4_1a82e381a4f99a2425caa5a5e882a29c4a"></span><em class="property">using </em><code class="descname">type</code> = std::add_const_t&lt;<em class="property">typename</em> bvalue_alternative&lt;E, T&gt;::type&gt;<a class="headerlink" href="#_CPPv2IEN7bencode18bvalue_alternativeI1EK1TE4typeE" title="Permalink to this definition">¶</a><br /></dt>
+template&lt;&gt;<br /><span class="target" id="structbencode_1_1bvalue__alternative_3_01E_00_01const_01T_01_4_1a82e381a4f99a2425caa5a5e882a29c4a"></span><em class="property">using </em><code class="descname">type</code> = <a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::add_const_t&lt;<em class="property">typename</em> bvalue_alternative&lt;E, T&gt;::type&gt;<a class="headerlink" href="#_CPPv2IEN7bencode18bvalue_alternativeI1EK1TE4typeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -1082,7 +1088,7 @@ template&lt;&gt;<br /><em class="property">struct </em><code class="descname">bv
 <p class="breathe-sectiondef-title rubric">Public Types</p>
 <dl class="type">
 <dt id="_CPPv2IEN7bencode18bvalue_alternativeI1EVK1TE4typeE">
-template&lt;&gt;<br /><span class="target" id="structbencode_1_1bvalue__alternative_3_01E_00_01const_01volatile_01T_01_4_1ace8f79aaedd9eaefb3a9892d80355ad1"></span><em class="property">using </em><code class="descname">type</code> = std::add_cv_t&lt;<em class="property">typename</em> bvalue_alternative&lt;E, T&gt;::type&gt;<a class="headerlink" href="#_CPPv2IEN7bencode18bvalue_alternativeI1EVK1TE4typeE" title="Permalink to this definition">¶</a><br /></dt>
+template&lt;&gt;<br /><span class="target" id="structbencode_1_1bvalue__alternative_3_01E_00_01const_01volatile_01T_01_4_1ace8f79aaedd9eaefb3a9892d80355ad1"></span><em class="property">using </em><code class="descname">type</code> = <a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::add_cv_t&lt;<em class="property">typename</em> bvalue_alternative&lt;E, T&gt;::type&gt;<a class="headerlink" href="#_CPPv2IEN7bencode18bvalue_alternativeI1EVK1TE4typeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -1097,7 +1103,7 @@ template&lt;&gt;<br /><em class="property">struct </em><code class="descname">bv
 <p class="breathe-sectiondef-title rubric">Public Types</p>
 <dl class="type">
 <dt id="_CPPv2IEN7bencode18bvalue_alternativeI1EV1TE4typeE">
-template&lt;&gt;<br /><span class="target" id="structbencode_1_1bvalue__alternative_3_01E_00_01volatile_01T_01_4_1aadeca0cff067d34987501e4d03e0197e"></span><em class="property">using </em><code class="descname">type</code> = std::add_volatile_t&lt;<em class="property">typename</em> bvalue_alternative&lt;E, T&gt;::type&gt;<a class="headerlink" href="#_CPPv2IEN7bencode18bvalue_alternativeI1EV1TE4typeE" title="Permalink to this definition">¶</a><br /></dt>
+template&lt;&gt;<br /><span class="target" id="structbencode_1_1bvalue__alternative_3_01E_00_01volatile_01T_01_4_1aadeca0cff067d34987501e4d03e0197e"></span><em class="property">using </em><code class="descname">type</code> = <a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::add_volatile_t&lt;<em class="property">typename</em> bvalue_alternative&lt;E, T&gt;::type&gt;<a class="headerlink" href="#_CPPv2IEN7bencode18bvalue_alternativeI1EV1TE4typeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -1205,7 +1211,7 @@ template&lt;&gt;<br /><span class="target" id="structbencode_1_1bvalue__alternat
 <dt>
 <em class="property">template </em>&lt;<em class="property">typename</em> T, basic_bvalue_instantiation <em>U</em>&gt;</dt>
 <dt id="_CPPv2N7bencode6detail22convert_from_bvalue_toERR1U">
-<span id="bencode::detail::convert_from_bvalue_to__URRCE"></span><span class="target" id="bvalue_2concepts_8hpp_1ae5dbe60423a2ad50607424693d1a4703"></span><em class="property">constexpr</em> nonstd::expected&lt;T, conversion_errc&gt; <code class="descname">convert_from_bvalue_to</code><span class="sig-paren">(</span>U &amp;&amp;<em>bvalue</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode6detail22convert_from_bvalue_toERR1U" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::detail::convert_from_bvalue_to__URRCE"></span><span class="target" id="bvalue_2concepts_8hpp_1ae5dbe60423a2ad50607424693d1a4703"></span><em class="property">constexpr</em> nonstd::expected&lt;T, <a class="reference internal" href="bview.html#_CPPv2N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a>&gt; <code class="descname">convert_from_bvalue_to</code><span class="sig-paren">(</span>U &amp;&amp;<em>bvalue</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode6detail22convert_from_bvalue_toERR1U" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -1286,18 +1292,10 @@ requires (T t) {
 
 </dd></dl>
 
-<dl class="type">
-<dt>
-<span class="target" id="namespacebencode"></span><em class="property">namespace </em><code class="descname">bencode</code><br /></dt>
-<dd><dl class="class">
-<dt id="_CPPv2N7bencode17bad_bvalue_accessE">
-<span id="bencode::bad_bvalue_access"></span><span class="target" id="classbencode_1_1bad__bvalue__access"></span><em class="property">class </em><code class="descname">bad_bvalue_access</code><a class="headerlink" href="#_CPPv2N7bencode17bad_bvalue_accessE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><em>#include &lt;exceptions.hpp&gt;</em><p>Exception thrown when accessing a <a class="reference internal" href="#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> as a type that does not match the currently active alternative. </p>
-<p>Inherits from bencode::bad_access</p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">doxygenfile: Cannot find file “detail/bvalue/exceptions.hpp </p>
+</div>
 </div>
 
 
@@ -1313,7 +1311,7 @@ requires (T t) {
         <a href="bview.html" class="btn btn-neutral float-right" title="View interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../usage/customization_points.html" class="btn btn-neutral" title="Customization points" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../usage/descriptor.html" class="btn btn-neutral" title="Descriptor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

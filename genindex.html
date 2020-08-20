@@ -59,6 +59,9 @@
           
 
           
+            
+            <img src="_static/bencode.svg" class="logo" />
+          
           </a>
 
           
@@ -100,14 +103,17 @@
 <li class="toctree-l1"><a class="reference internal" href="usage/value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/events.html">Events system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/customization_points.html">Customization points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/descriptor.html">Descriptor</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="reference/bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/encoding_and_decoding.html">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -179,14 +185,13 @@
 
 <div class="genindex-jumpbox">
  <a href="#B"><strong>B</strong></a>
+ | <a href="#S"><strong>S</strong></a>
  
 </div>
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/bvalue.html#_CPPv27bencode">bencode (C++ type)</a>, <a href="reference/bvalue.html#_CPPv27bencode">[1]</a>, <a href="reference/bvalue.html#_CPPv27bencode">[2]</a>, <a href="reference/bview.html#_CPPv27bencode">[3]</a>, <a href="reference/bview.html#_CPPv27bencode">[4]</a>, <a href="reference/bview.html#_CPPv27bencode">[5]</a>, <a href="reference/encoding_and_decoding.html#_CPPv27bencode">[6]</a>, <a href="reference/encoding_and_decoding.html#_CPPv27bencode">[7]</a>, <a href="reference/encoding_and_decoding.html#_CPPv27bencode">[8]</a>
-</li>
-      <li><a href="reference/bvalue.html#_CPPv2N7bencode17bad_bvalue_accessE">bencode::bad_bvalue_access (C++ class)</a>
+      <li><a href="reference/bvalue.html#_CPPv27bencode">bencode (C++ type)</a>, <a href="reference/bvalue.html#_CPPv27bencode">[1]</a>, <a href="reference/bview.html#_CPPv27bencode">[2]</a>, <a href="reference/bview.html#_CPPv27bencode">[3]</a>, <a href="reference/bview.html#_CPPv27bencode">[4]</a>, <a href="reference/bview.html#_CPPv27bencode">[5]</a>, <a href="reference/encoding_and_decoding.html#_CPPv27bencode">[6]</a>, <a href="reference/encoding_and_decoding.html#_CPPv27bencode">[7]</a>, <a href="reference/encoding_and_decoding.html#_CPPv27bencode">[8]</a>
 </li>
       <li><a href="reference/bview.html#_CPPv2N7bencode16bad_bview_accessE">bencode::bad_bview_access (C++ class)</a>
 </li>
@@ -258,9 +263,81 @@
 </li>
       <li><a href="reference/bview.html#_CPPv2IEN7bencode17bview_alternativeI1EE4typeE">bencode::bview_alternative&lt;E&gt;::type (C++ type)</a>
 </li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode18construction_errorE">bencode::construction_error (C++ enumerator)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode19conversion_categoryE">bencode::conversion_category (C++ class)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2NK7bencode19conversion_category7messageEi">bencode::conversion_category::message (C++ function)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2NK7bencode19conversion_category4nameEv">bencode::conversion_category::name (C++ function)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode15conversion_errcE">bencode::conversion_errc (C++ type)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode16conversion_errorE">bencode::conversion_error (C++ class)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode16conversion_error16conversion_errorERK15conversion_errc">bencode::conversion_error::conversion_error (C++ function)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2NK7bencode16conversion_error4errcEv">bencode::conversion_error::errc (C++ function)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode16conversion_error5errc_E">bencode::conversion_error::errc_ (C++ member)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2NK7bencode16conversion_error4whatEv">bencode::conversion_error::what (C++ function)</a>
+</li>
       <li><a href="reference/encoding_and_decoding.html#_CPPv2N7bencode12decode_valueE13InputIterator13InputIterator">bencode::decode_value (C++ function)</a>, <a href="reference/encoding_and_decoding.html#_CPPv2N7bencode12decode_valueENSt11string_viewE">[1]</a>, <a href="reference/encoding_and_decoding.html#_CPPv2N7bencode12decode_valueERK3Rng">[2]</a>, <a href="reference/encoding_and_decoding.html#_CPPv2N7bencode12decode_valueERNSt7istreamE">[3]</a>
 </li>
       <li><a href="reference/encoding_and_decoding.html#_CPPv2N7bencode11decode_viewE13InputIterator13InputIterator">bencode::decode_view (C++ function)</a>, <a href="reference/encoding_and_decoding.html#_CPPv2N7bencode11decode_viewENSt11string_viewE">[1]</a>, <a href="reference/encoding_and_decoding.html#_CPPv2N7bencode11decode_viewERR3Rng">[2]</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode10descriptorE">bencode::descriptor (C++ class)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor7is_dictEv">bencode::descriptor::is_dict (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor13is_dict_beginEv">bencode::descriptor::is_dict_begin (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor11is_dict_endEv">bencode::descriptor::is_dict_end (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor11is_dict_keyEv">bencode::descriptor::is_dict_key (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor13is_dict_valueEv">bencode::descriptor::is_dict_value (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor10is_integerEv">bencode::descriptor::is_integer (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor7is_listEv">bencode::descriptor::is_list (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor13is_list_beginEv">bencode::descriptor::is_list_begin (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor11is_list_endEv">bencode::descriptor::is_list_end (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor13is_list_valueEv">bencode::descriptor::is_list_value (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor9is_stringEv">bencode::descriptor::is_string (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor6offsetEv">bencode::descriptor::offset (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptoreqERK10descriptor">bencode::descriptor::operator== (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor8positionEv">bencode::descriptor::position (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode10descriptor10set_offsetENSt8uint32_tE">bencode::descriptor::set_offset (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode10descriptor8set_sizeENSt8uint32_tE">bencode::descriptor::set_size (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode10descriptor13set_stop_flagEb">bencode::descriptor::set_stop_flag (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode10descriptor9set_valueENSt7int64_tE">bencode::descriptor::set_value (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor4sizeEv">bencode::descriptor::size (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor4typeEv">bencode::descriptor::type (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode10descriptor5valueEv">bencode::descriptor::value (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode16descriptor_tableE">bencode::descriptor_table (C++ class)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode16descriptor_table11descriptorsEv">bencode::descriptor_table::descriptors (C++ function)</a>, <a href="reference/descriptor_and_descriptor_table.html#_CPPv2NK7bencode16descriptor_table11descriptorsEv">[1]</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode16descriptor_table8get_rootENSt6size_tE">bencode::descriptor_table::get_root (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode15descriptor_typeE">bencode::descriptor_type (C++ type)</a>
 </li>
       <li><a href="reference/bvalue.html#_CPPv2N7bencode6detailE">bencode::detail (C++ type)</a>, <a href="reference/bvalue.html#_CPPv2N7bencode6detailE">[1]</a>, <a href="reference/bview.html#_CPPv2N7bencode6detailE">[2]</a>, <a href="reference/bview.html#_CPPv2N7bencode6detailE">[3]</a>
 </li>
@@ -271,6 +348,8 @@
       <li><a href="reference/bview.html#_CPPv2N7bencode6detail21convert_from_bview_toERK5bview">bencode::detail::convert_from_bview_to (C++ function)</a>, <a href="reference/bview.html#_CPPv2N7bencode6detail21convert_from_bview_toERK5bview">[1]</a>
 </li>
       <li><a href="reference/bvalue.html#_CPPv2N7bencode6detail11get_storageEP12basic_bvalueI6PolicyE">bencode::detail::get_storage (C++ function)</a>, <a href="reference/bvalue.html#_CPPv2N7bencode6detail11get_storageEPK12basic_bvalueI6PolicyE">[1]</a>, <a href="reference/bvalue.html#_CPPv2N7bencode6detail11get_storageER12basic_bvalueI6PolicyE">[2]</a>, <a href="reference/bvalue.html#_CPPv2N7bencode6detail11get_storageERK12basic_bvalueI6PolicyE">[3]</a>, <a href="reference/bview.html#_CPPv2N7bencode6detail11get_storageERK5bview">[4]</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode4dictE">bencode::dict (C++ enumerator)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv2N7bencode10dict_bviewE">bencode::dict_bview (C++ class)</a>
 </li>
@@ -306,6 +385,8 @@
 </li>
       <li><a href="reference/bview.html#_CPPv2N7bencode10dict_bviewaSERK10dict_bview">bencode::dict_bview::operator= (C++ function)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/bview.html#_CPPv2NK7bencode10dict_bvieweqERK10dict_bview">bencode::dict_bview::operator== (C++ function)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv2NK7bencode10dict_bview6rbeginEv">bencode::dict_bview::rbegin (C++ function)</a>
@@ -316,14 +397,20 @@
 </li>
       <li><a href="reference/bview.html#_CPPv2NK7bencode10dict_bview11upper_boundENSt11string_viewE">bencode::dict_bview::upper_bound (C++ function)</a>
 </li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode8dict_keyE">bencode::dict_key (C++ enumerator)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode35dict_mapped_type_construction_errorE">bencode::dict_mapped_type_construction_error (C++ enumerator)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode10dict_valueE">bencode::dict_value (C++ enumerator)</a>
+</li>
       <li><a href="reference/encoding_and_decoding.html#_CPPv2N7bencode6encodeERK1T">bencode::encode (C++ function)</a>
 </li>
       <li><a href="reference/encoding_and_decoding.html#_CPPv2N7bencode9encode_toE8OutputItRK1T">bencode::encode_to (C++ function)</a>, <a href="reference/encoding_and_decoding.html#_CPPv2N7bencode9encode_toERNSt7ostreamERK1T">[1]</a>
 </li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode3endE">bencode::end (C++ enumerator)</a>
+</li>
       <li><a href="reference/bview.html#_CPPv2N7bencode3getER5bview">bencode::get (C++ function)</a>, <a href="reference/bview.html#_CPPv2N7bencode3getER5bview">[1]</a>, <a href="reference/bview.html#_CPPv2N7bencode3getERK5bview">[2]</a>, <a href="reference/bview.html#_CPPv2N7bencode3getERK5bview">[3]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/bvalue.html#_CPPv2N7bencode6get_asERR2BV">bencode::get_as (C++ function)</a>, <a href="reference/bview.html#_CPPv2N7bencode6get_asERK5bview">[1]</a>
 </li>
       <li><a href="reference/bvalue.html#_CPPv2N7bencode8get_dictER12basic_bvalueI6PolicyE">bencode::get_dict (C++ function)</a>, <a href="reference/bvalue.html#_CPPv2N7bencode8get_dictERK12basic_bvalueI6PolicyE">[1]</a>, <a href="reference/bvalue.html#_CPPv2N7bencode8get_dictERR12basic_bvalueI6PolicyE">[2]</a>, <a href="reference/bview.html#_CPPv2N7bencode8get_dictER5bview">[3]</a>, <a href="reference/bview.html#_CPPv2N7bencode8get_dictERK5bview">[4]</a>
@@ -346,6 +433,8 @@
 </li>
       <li><a href="reference/bvalue.html#_CPPv2N7bencode17holds_alternativeERK12basic_bvalueI6PolicyE">bencode::holds_alternative (C++ function)</a>, <a href="reference/bview.html#_CPPv2N7bencode17holds_alternativeERK5bview">[1]</a>
 </li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode7integerE">bencode::integer (C++ enumerator)</a>
+</li>
       <li><a href="reference/bview.html#_CPPv2N7bencode13integer_bviewE">bencode::integer_bview (C++ class)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv2N7bencode13integer_bview13integer_bviewERK13integer_bview">bencode::integer_bview::integer_bview (C++ function)</a>
@@ -367,6 +456,8 @@
       <li><a href="reference/bvalue.html#_CPPv2N7bencode9is_stringERK12basic_bvalueI6PolicyE">bencode::is_string (C++ function)</a>, <a href="reference/bview.html#_CPPv2N7bencode9is_stringERK5bview">[1]</a>
 </li>
       <li><a href="reference/bvalue.html#_CPPv2N7bencode16is_uninitializedERK12basic_bvalueI6PolicyE">bencode::is_uninitialized (C++ function)</a>, <a href="reference/bview.html#_CPPv2N7bencode16is_uninitializedERK5bview">[1]</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode4listE">bencode::list (C++ enumerator)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv2N7bencode10list_bviewE">bencode::list_bview (C++ class)</a>
 </li>
@@ -406,11 +497,33 @@
 </li>
       <li><a href="reference/bview.html#_CPPv2NK7bencode10list_bview4sizeEv">bencode::list_bview::size (C++ function)</a>
 </li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode10list_valueE">bencode::list_value (C++ enumerator)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode34list_value_type_construction_errorE">bencode::list_value_type_construction_error (C++ enumerator)</a>
+</li>
       <li><a href="reference/encoding_and_decoding.html#_CPPv2N7bencode8literalsE">bencode::literals (C++ type)</a>
 </li>
       <li><a href="reference/encoding_and_decoding.html#_CPPv2N7bencode8literalsli7_bvalueEPKc">bencode::literals::operator&#34;&#34;_bvalue (C++ function)</a>
 </li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode15make_error_codeE15conversion_errc">bencode::make_error_code (C++ function)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode4noneE">bencode::none (C++ enumerator)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode13not_dict_typeE">bencode::not_dict_type (C++ enumerator)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode16not_integer_typeE">bencode::not_integer_type (C++ enumerator)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode13not_list_typeE">bencode::not_list_type (C++ enumerator)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode15not_string_typeE">bencode::not_string_type (C++ enumerator)</a>
+</li>
       <li><a href="reference/encoding_and_decoding.html#_CPPv2N7bencodersERNSt7istreamER12basic_bvalueI6PolicyE">bencode::operator&gt;&gt; (C++ function)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode13size_mismatchE">bencode::size_mismatch (C++ enumerator)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode4stopE">bencode::stop (C++ enumerator)</a>
+</li>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv2N7bencode6stringE">bencode::string (C++ enumerator)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv2N7bencode12string_bviewE">bencode::string_bview (C++ class)</a>
 </li>
@@ -462,7 +575,23 @@
 </li>
       <li><a href="reference/bview.html#_CPPv2NK7bencode12string_bview6substrE9size_type9size_type">bencode::string_bview::substr (C++ function)</a>
 </li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode9to_stringERK15conversion_errc">bencode::to_string (C++ function)</a>
+</li>
       <li><a href="reference/bvalue.html#_CPPv2N7bencode10try_get_asERR2BV">bencode::try_get_as (C++ function)</a>, <a href="reference/bview.html#_CPPv2N7bencode10try_get_asERK5bview">[1]</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv2N7bencode20undefined_conversionE">bencode::undefined_conversion (C++ enumerator)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/bview.html#_CPPv2St">std (C++ type)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/bview.html#_CPPv2IENSt18is_error_code_enumIN7bencode15conversion_errcEEE">std::is_error_code_enum&lt;bencode::conversion_errc&gt; (C++ class)</a>, <a href="reference/bview.html#_CPPv2IENSt18is_error_code_enumIN7bencode15conversion_errcEEE">[1]</a>
 </li>
   </ul></td>
 </tr></table>

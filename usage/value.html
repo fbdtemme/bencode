@@ -60,6 +60,9 @@
           
 
           
+            
+            <img src="../_static/bencode.svg" class="logo" />
+          
           </a>
 
           
@@ -109,14 +112,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="customization_points.html">Customization points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/encoding_and_decoding.html">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -189,8 +195,8 @@
 <h1>Value interface<a class="headerlink" href="#value-interface" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> is class that implements a bencoded value.
-It is a sum-type implemented with a <code class="xref cpp cpp-class docutils literal"><span class="pre">std::variant</span></code> that stores the
+<p><code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> is class that represents a bencoded value.
+It is a sum-type implemented with a <code class="xref cpp cpp-class docutils literal"><span class="pre">std::variant</span></code> to stores the
 different bencode data types.</p>
 <p><code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> is an instantiation of the class template
 <code class="xref cpp cpp-class docutils literal"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">basic_bvalue</span></code> and the exact types used to store
@@ -225,23 +231,27 @@ the different bencode data types can be customized through the Policy template a
 </div>
 <div class="section" id="construction">
 <h2>Construction<a class="headerlink" href="#construction" title="Permalink to this headline">¶</a></h2>
-<p><code class="code docutils literal"><span class="pre">bvalue</span></code> provides similiar contructors and assignment operators as <code class="code docutils literal"><span class="pre">std::variant</span></code>.</p>
+<p><code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> provides similar constructors and assignment operators as <code class="code docutils literal"><span class="pre">std::variant</span></code>.</p>
 <p>Construct an empty bvalue.</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="p">{};</span>
 </pre></div>
 </div>
-<p>Arguments matching on of the storage types used will be forwarded to the constructor of the underlying type.</p>
+<p>Arguments matching one of the storage types will be forwarded to the constructor of the
+underlying type.</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// Copy initialize an integer</span>
 <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">bi</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 
 <span class="c1">// Copy initialize a bvalue holding a string.</span>
 <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b3</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
-
-<span class="c1">// construct a vector of 5 times 1</span>
-<span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b4</span><span class="p">(</span><span class="n">bc</span><span class="o">::</span><span class="n">btype</span><span class="o">::</span><span class="n">list</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Converting constructors allow any type that has the required customization point implemented
+<p>The type can be passed explicitly using a type tag.
+This is necessary to distinguish between initializer-lists for string, list and dict bencode types.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// construct a vector of 5 times 1</span>
+<span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b4</span><span class="p">(</span><span class="n">bc</span><span class="o">::</span><span class="n">btype</span><span class="o">::</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>Converting constructors allow any type that has the required customization points implemented
 to be passed to the bvalue constructor.</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;bencode/traits/list.hpp&gt;</span><span class="cp"></span>
 

@@ -60,6 +60,9 @@
           
 
           
+            
+            <img src="../_static/bencode.svg" class="logo" />
+          
           </a>
 
           
@@ -105,14 +108,17 @@
 <li class="toctree-l2"><a class="reference internal" href="#event-producers">Event producers</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="customization_points.html">Customization points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/encoding_and_decoding.html">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -217,6 +223,12 @@ Following bencode data structure (formatted as JSON) would generate these calls.
 class satisfying the <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_consumer</span></code> concept through the
 <code class="xref cpp cpp-func docutils literal"><span class="pre">connect()</span></code> method.</p>
 </div>
+</div>
+<div class="section" id="connecting-consumer-and-producers">
+<h1>Connecting consumer and producers<a class="headerlink" href="#connecting-consumer-and-producers" title="Permalink to this headline">¶</a></h1>
+<p><code class="xref cpp cpp-concept docutils literal"><span class="pre">event_producers</span></code> are connected to <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_consumers</span></code>
+with the connect function.</p>
+<p><code class="xref cpp cpp-func docutils literal"><span class="pre">template</span> <span class="pre">&lt;event_consumer</span> <span class="pre">EC,</span> <span class="pre">event_producer</span> <span class="pre">U&gt;</span> <span class="pre">constexpr</span> <span class="pre">void</span> <span class="pre">connect(EC&amp;</span> <span class="pre">consumer,</span> <span class="pre">U&amp;&amp;</span> <span class="pre">producer)()</span></code></p>
 </div>
 
 

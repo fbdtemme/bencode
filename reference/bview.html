@@ -60,6 +60,9 @@
           
 
           
+            
+            <img src="../_static/bencode.svg" class="logo" />
+          
           </a>
 
           
@@ -101,14 +104,27 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/events.html">Events system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/customization_points.html">Customization points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/descriptor.html">Descriptor</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="bvalue.html">Value interface</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">View interface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">View interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bview">bview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integer-bview">integer_bview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#string-bview">string_bview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#list-bview">list_bview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dict-bview">dict_bview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessors">accessors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#concepts">concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exceptions">exceptions</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_and_decoding.html">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="descriptor_and_descriptor_table.html">Descriptors</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -179,6 +195,8 @@
             
   <div class="section" id="view-interface">
 <h1>View interface<a class="headerlink" href="#view-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="bview">
+<h2>bview<a class="headerlink" href="#bview" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="_CPPv2N7bencode5bviewE">
 <span id="bencode::bview"></span><span class="target" id="classbencode_1_1bview"></span><em class="property">class </em><code class="descclassname">bencode::</code><code class="descname">bview</code><a class="headerlink" href="#_CPPv2N7bencode5bviewE" title="Permalink to this definition">¶</a><br /></dt>
@@ -195,7 +213,7 @@
 
 <dl class="function">
 <dt id="_CPPv2N7bencode5bview5bviewEPK10descriptorPKc">
-<span id="bencode::bview::bview__descriptorCP.cCPCE"></span><span class="target" id="classbencode_1_1bview_1ad34c3d3e1ef82f406779a340c0058fab"></span><em class="property">constexpr</em> <code class="descname">bview</code><span class="sig-paren">(</span><em class="property">const</em> descriptor *<em>data</em>, <em class="property">const</em> char *<em>buffer</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode5bview5bviewEPK10descriptorPKc" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::bview::bview__descriptorCP.cCPCE"></span><span class="target" id="classbencode_1_1bview_1ad34c3d3e1ef82f406779a340c0058fab"></span><em class="property">constexpr</em> <code class="descname">bview</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv2N7bencode10descriptorE" title="bencode::descriptor">descriptor</a> *<em>data</em>, <em class="property">const</em> char *<em>buffer</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode5bview5bviewEPK10descriptorPKc" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs a bview from a descriptor and a character buffer. Behavior is undefined when data or buffer is nullptr </p>
 </dd></dl>
 
@@ -223,7 +241,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode5bview13bencoded_viewEv">
-<span id="bencode::bview::bencoded_viewCCE"></span><span class="target" id="classbencode_1_1bview_1a84b8aa9aa9773c50bc43cfff00ed2ed9"></span><em class="property">constexpr</em> std::string_view <code class="descname">bencoded_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode5bview13bencoded_viewEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::bview::bencoded_viewCCE"></span><span class="target" id="classbencode_1_1bview_1a84b8aa9aa9773c50bc43cfff00ed2ed9"></span><em class="property">constexpr</em> <a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <code class="descname">bencoded_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode5bview13bencoded_viewEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Return the bencoded representation of the bvalue. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Bencoded representation of the described value. </dd>
@@ -268,6 +286,9 @@
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="integer-bview">
+<h2>integer_bview<a class="headerlink" href="#integer-bview" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="_CPPv2N7bencode13integer_bviewE">
 <span id="bencode::integer_bview"></span><span class="target" id="classbencode_1_1integer__bview"></span><em class="property">class </em><code class="descclassname">bencode::</code><code class="descname">integer_bview</code><a class="headerlink" href="#_CPPv2N7bencode13integer_bviewE" title="Permalink to this definition">¶</a><br /></dt>
@@ -336,6 +357,9 @@
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="string-bview">
+<h2>string_bview<a class="headerlink" href="#string-bview" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="_CPPv2N7bencode12string_bviewE">
 <span id="bencode::string_bview"></span><span class="target" id="classbencode_1_1string__bview"></span><em class="property">class </em><code class="descclassname">bencode::</code><code class="descname">string_bview</code><a class="headerlink" href="#_CPPv2N7bencode12string_bviewE" title="Permalink to this definition">¶</a><br /></dt>
@@ -357,7 +381,7 @@
 
 <dl class="function">
 <dt id="_CPPv2N7bencode12string_bview12string_bviewEPK10descriptorPKc">
-<span id="bencode::string_bview::string_bview__descriptorCP.cCPCE"></span><span class="target" id="classbencode_1_1string__bview_1a00ff18e8ec96501f3c0cd8f326ee2d5b"></span><em class="property">constexpr</em> <code class="descname">string_bview</code><span class="sig-paren">(</span><em class="property">const</em> descriptor *<em>data</em>, <em class="property">const</em> char *<em>buffer</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12string_bview12string_bviewEPK10descriptorPKc" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::string_bview::string_bview__descriptorCP.cCPCE"></span><span class="target" id="classbencode_1_1string__bview_1a00ff18e8ec96501f3c0cd8f326ee2d5b"></span><em class="property">constexpr</em> <code class="descname">string_bview</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv2N7bencode10descriptorE" title="bencode::descriptor">descriptor</a> *<em>data</em>, <em class="property">const</em> char *<em>buffer</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12string_bview12string_bviewEPK10descriptorPKc" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs a <a class="reference internal" href="#classbencode_1_1string__bview"><span class="std std-ref">string_bview</span></a> from a descriptor and a character buffer. Behavior is undefined when the descriptor type is not a string. </p>
 </dd></dl>
 
@@ -546,7 +570,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode12string_bview6substrE9size_type9size_type">
-<span id="bencode::string_bview::substr__size_type.size_typeCCE"></span><span class="target" id="classbencode_1_1string__bview_1a3a540b988bc4245e0b4387f9e412d648"></span><em class="property">constexpr</em> std::string_view <code class="descname">substr</code><span class="sig-paren">(</span>size_type <em>pos</em> = 0, size_type <em>count</em> = npos<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12string_bview6substrE9size_type9size_type" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::string_bview::substr__size_type.size_typeCCE"></span><span class="target" id="classbencode_1_1string__bview_1a3a540b988bc4245e0b4387f9e412d648"></span><em class="property">constexpr</em> <a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <code class="descname">substr</code><span class="sig-paren">(</span>size_type <em>pos</em> = 0, size_type <em>count</em> = npos<span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12string_bview6substrE9size_type9size_type" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns a std::string_View of the substring [pos, pos + rcount), where rcount is the smaller of count and <a class="reference internal" href="#classbencode_1_1string__bview_1a8eba3131628b690948f7a2bc8f63bf60"><span class="std std-ref">size()</span></a> - pos. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>View of the substring [pos, pos + rcount). </dd>
@@ -567,7 +591,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode12string_bview11starts_withENSt11string_viewE">
-<span id="bencode::string_bview::starts_with__std::string_viewCCE"></span><span class="target" id="classbencode_1_1string__bview_1a072c2fc66547b882b89bd0a0a90f14c8"></span><em class="property">constexpr</em> bool <code class="descname">starts_with</code><span class="sig-paren">(</span>std::string_view <em>sv</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12string_bview11starts_withENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::string_bview::starts_with__std::string_viewCCE"></span><span class="target" id="classbencode_1_1string__bview_1a072c2fc66547b882b89bd0a0a90f14c8"></span><em class="property">constexpr</em> bool <code class="descname">starts_with</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <em>sv</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12string_bview11starts_withENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Checks if the string view begins with the given prefix. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>true if the string view begins with the provided prefix, false otherwise. </dd>
@@ -612,7 +636,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode12string_bview9ends_withENSt11string_viewE">
-<span id="bencode::string_bview::ends_with__std::string_viewCCE"></span><span class="target" id="classbencode_1_1string__bview_1aa97252acaa4cc2f08ca578a449a829d8"></span><em class="property">constexpr</em> bool <code class="descname">ends_with</code><span class="sig-paren">(</span>std::string_view <em>sv</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12string_bview9ends_withENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::string_bview::ends_with__std::string_viewCCE"></span><span class="target" id="classbencode_1_1string__bview_1aa97252acaa4cc2f08ca578a449a829d8"></span><em class="property">constexpr</em> bool <code class="descname">ends_with</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <em>sv</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12string_bview9ends_withENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Checks if the string view ends with the given prefix. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>true if the string view ends with the provided prefix, false otherwise. </dd>
@@ -689,7 +713,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode12string_bvieweqENSt11string_viewE">
-<span id="bencode::string_bview::eq-operator__std::string_viewCCE"></span><span class="target" id="classbencode_1_1string__bview_1a3c6abe11533a3d786402d6e6befe566b"></span><em class="property">constexpr</em> bool <code class="descname">operator==</code><span class="sig-paren">(</span>std::string_view <em>rhs</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12string_bvieweqENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::string_bview::eq-operator__std::string_viewCCE"></span><span class="target" id="classbencode_1_1string__bview_1a3c6abe11533a3d786402d6e6befe566b"></span><em class="property">constexpr</em> bool <code class="descname">operator==</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <em>rhs</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode12string_bvieweqENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Compare equality with a std::string_view. <dl class="docutils">
 <dt><strong>Note</strong></dt>
 <dd>this overload is used to compare with std::string and c-strings as well. </dd>
@@ -720,6 +744,9 @@
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="list-bview">
+<h2>list_bview<a class="headerlink" href="#list-bview" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="_CPPv2N7bencode10list_bviewE">
 <span id="bencode::list_bview"></span><span class="target" id="classbencode_1_1list__bview"></span><em class="property">class </em><code class="descclassname">bencode::</code><code class="descname">list_bview</code><a class="headerlink" href="#_CPPv2N7bencode10list_bviewE" title="Permalink to this definition">¶</a><br /></dt>
@@ -741,7 +768,7 @@
 
 <dl class="function">
 <dt id="_CPPv2N7bencode10list_bview10list_bviewEPK10descriptorPKc">
-<span id="bencode::list_bview::list_bview__descriptorCP.cCPCE"></span><span class="target" id="classbencode_1_1list__bview_1a140bdd6fae4efe47e37f82a4bf203990"></span><em class="property">constexpr</em> <code class="descname">list_bview</code><span class="sig-paren">(</span><em class="property">const</em> descriptor *<em>data</em>, <em class="property">const</em> char *<em>buffer</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode10list_bview10list_bviewEPK10descriptorPKc" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::list_bview::list_bview__descriptorCP.cCPCE"></span><span class="target" id="classbencode_1_1list__bview_1a140bdd6fae4efe47e37f82a4bf203990"></span><em class="property">constexpr</em> <code class="descname">list_bview</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv2N7bencode10descriptorE" title="bencode::descriptor">descriptor</a> *<em>data</em>, <em class="property">const</em> char *<em>buffer</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode10list_bview10list_bviewEPK10descriptorPKc" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs a <a class="reference internal" href="#classbencode_1_1list__bview"><span class="std std-ref">list_bview</span></a> from a descriptor and a character buffer. Behavior is undefined when the descriptor type is not a list. </p>
 </dd></dl>
 
@@ -869,7 +896,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10list_bviewixENSt6size_tE">
-<span id="bencode::list_bview::subscript-operator__std::sCCE"></span><span class="target" id="classbencode_1_1list__bview_1a53c3c992680de50318213b474eff5bbc"></span><em class="property">constexpr</em> value_type <code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em>pos</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10list_bviewixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::list_bview::subscript-operator__std::sCCE"></span><span class="target" id="classbencode_1_1list__bview_1a53c3c992680de50318213b474eff5bbc"></span><em class="property">constexpr</em> value_type <code class="descname">operator[]</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::size_t <em>pos</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10list_bviewixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns a reference to the element at specified location pos. No bounds checking is performed. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the requested element.  linear in size of the container </dd>
@@ -884,7 +911,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10list_bview2atENSt6size_tE">
-<span id="bencode::list_bview::at__std::sCCE"></span><span class="target" id="classbencode_1_1list__bview_1a4f5836d91923b57088d845c8b5990e32"></span><em class="property">constexpr</em> value_type <code class="descname">at</code><span class="sig-paren">(</span>std::size_t <em>pos</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10list_bview2atENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::list_bview::at__std::sCCE"></span><span class="target" id="classbencode_1_1list__bview_1a4f5836d91923b57088d845c8b5990e32"></span><em class="property">constexpr</em> value_type <code class="descname">at</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::size_t <em>pos</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10list_bview2atENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns a reference to the element at specified location pos. With bounds checking. If pos is not within the range of the container, an exception of type std::out_of_range is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the requested element.  linear in size of the container </dd>
@@ -942,6 +969,9 @@
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="dict-bview">
+<h2>dict_bview<a class="headerlink" href="#dict-bview" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="_CPPv2N7bencode10dict_bviewE">
 <span id="bencode::dict_bview"></span><span class="target" id="classbencode_1_1dict__bview"></span><em class="property">class </em><code class="descclassname">bencode::</code><code class="descname">dict_bview</code><a class="headerlink" href="#_CPPv2N7bencode10dict_bviewE" title="Permalink to this definition">¶</a><br /></dt>
@@ -973,7 +1003,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10dict_bview2atENSt11string_viewE">
-<span id="bencode::dict_bview::at__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a150c20e8eee4b5c45c3afeca0868e350"></span><em class="property">constexpr</em> auto <code class="descname">at</code><span class="sig-paren">(</span>std::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview2atENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::dict_bview::at__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a150c20e8eee4b5c45c3afeca0868e350"></span><em class="property">constexpr</em> auto <code class="descname">at</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview2atENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns a reference to the mapped value of the element with key equivalent to key. If no such element exists, an exception of type std::out_of_range is thrown. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Reference to the mapped value of the requested element. </dd>
@@ -1062,7 +1092,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10dict_bview4sizeEv">
-<span id="bencode::dict_bview::sizeCCE"></span><span class="target" id="classbencode_1_1dict__bview_1afa5176b49a6fec22f34c7ca22862f762"></span><em class="property">constexpr</em> std::size_t <code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::dict_bview::sizeCCE"></span><span class="target" id="classbencode_1_1dict__bview_1afa5176b49a6fec22f34c7ca22862f762"></span><em class="property">constexpr</em> <a class="reference internal" href="#_CPPv2St" title="std">std</a>::size_t <code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns the number of elements in the container, i.e. std::distance(<a class="reference internal" href="#classbencode_1_1dict__bview_1a8022a34776f1616edd7b633e1510d3c9"><span class="std std-ref">begin()</span></a>, <a class="reference internal" href="#classbencode_1_1dict__bview_1a3aaf902bfc5a2d7e9e1590dba550402c"><span class="std std-ref">end()</span></a>). <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>The number of elements in the container. </dd>
@@ -1072,7 +1102,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10dict_bview8max_sizeEv">
-<span id="bencode::dict_bview::max_sizeCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a88b6fdddb42f7ff01cafc230f4e00ace"></span><em class="property">constexpr</em> std::size_t <code class="descname">max_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview8max_sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::dict_bview::max_sizeCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a88b6fdddb42f7ff01cafc230f4e00ace"></span><em class="property">constexpr</em> <a class="reference internal" href="#_CPPv2St" title="std">std</a>::size_t <code class="descname">max_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview8max_sizeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns the maximum number of elements the container is able to hold. i.e. std::distance(<a class="reference internal" href="#classbencode_1_1dict__bview_1a8022a34776f1616edd7b633e1510d3c9"><span class="std std-ref">begin()</span></a>, <a class="reference internal" href="#classbencode_1_1dict__bview_1a3aaf902bfc5a2d7e9e1590dba550402c"><span class="std std-ref">end()</span></a>) for the largest container. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Maximum number of elements. </dd>
@@ -1082,7 +1112,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10dict_bview5countENSt11string_viewE">
-<span id="bencode::dict_bview::count__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1ab3af84aa781178f5422d807d2ec11c35"></span><em class="property">constexpr</em> size_type <code class="descname">count</code><span class="sig-paren">(</span>std::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview5countENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::dict_bview::count__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1ab3af84aa781178f5422d807d2ec11c35"></span><em class="property">constexpr</em> size_type <code class="descname">count</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview5countENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns the number of elements with key that compares equivalent to the specified argument, which is either 1 or 0 since this container does not allow duplicates. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Number of elements with key that compares equivalent to key or x, which is either 1 or 0.  linear in the size of the container. </dd>
@@ -1097,7 +1127,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10dict_bview4findENSt11string_viewE">
-<span id="bencode::dict_bview::find__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a2db4270480dfbd9a83b27d84829d1b62"></span><em class="property">constexpr</em> const_iterator <code class="descname">find</code><span class="sig-paren">(</span>std::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview4findENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::dict_bview::find__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a2db4270480dfbd9a83b27d84829d1b62"></span><em class="property">constexpr</em> const_iterator <code class="descname">find</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview4findENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Finds an element with key equivalent to key. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Iterator to an element with key equivalent to key. If no such element is found, past-the-end (see <a class="reference internal" href="#classbencode_1_1dict__bview_1a3aaf902bfc5a2d7e9e1590dba550402c"><span class="std std-ref">end()</span></a>) iterator is returned.  linear in the size of the container. </dd>
@@ -1112,7 +1142,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10dict_bview8containsENSt11string_viewE">
-<span id="bencode::dict_bview::contains__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a49475c850bc8a8fb3ee932bc0443ee83"></span><em class="property">constexpr</em> bool <code class="descname">contains</code><span class="sig-paren">(</span>std::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview8containsENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::dict_bview::contains__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a49475c850bc8a8fb3ee932bc0443ee83"></span><em class="property">constexpr</em> bool <code class="descname">contains</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview8containsENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Checks if there is an element with key equivalent to key in the container. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>true if there is such an element, otherwise false.  Linear in the size of the container. </dd>
@@ -1127,7 +1157,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10dict_bview11equal_rangeENSt11string_viewE">
-<span id="bencode::dict_bview::equal_range__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a94ed1c39b3ccadad866193452f7083bc"></span><em class="property">constexpr</em> std::pair&lt;const_iterator, const_iterator&gt; <code class="descname">equal_range</code><span class="sig-paren">(</span>std::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview11equal_rangeENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::dict_bview::equal_range__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a94ed1c39b3ccadad866193452f7083bc"></span><em class="property">constexpr</em> <a class="reference internal" href="#_CPPv2St" title="std">std</a>::pair&lt;const_iterator, const_iterator&gt; <code class="descname">equal_range</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview11equal_rangeENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns a range containing all elements with the given key in the container. The range is defined by two iterators, one pointing to the first element that is not less than key and another pointing to the first element greater than key. Alternatively, the first iterator may be obtained with <a class="reference internal" href="#classbencode_1_1dict__bview_1a303adae39ce644b67b69700fb80015aa"><span class="std std-ref">lower_bound()</span></a>, and the second with <a class="reference internal" href="#classbencode_1_1dict__bview_1a1b22139320efb98a1a3ccae80ef19b57"><span class="std std-ref">upper_bound()</span></a>. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>std::pair containing a pair of iterators defining the wanted range the first pointing to the first element that is not less than key and the second pointing to the first element greater than key. If there are no elements not less than key, past-the-end (</dd>
@@ -1144,7 +1174,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10dict_bview11lower_boundENSt11string_viewE">
-<span id="bencode::dict_bview::lower_bound__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a303adae39ce644b67b69700fb80015aa"></span><em class="property">constexpr</em> const_iterator <code class="descname">lower_bound</code><span class="sig-paren">(</span>std::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview11lower_boundENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::dict_bview::lower_bound__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a303adae39ce644b67b69700fb80015aa"></span><em class="property">constexpr</em> const_iterator <code class="descname">lower_bound</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview11lower_boundENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns an iterator pointing to the first element that is not less than (i.e. greater or equal to) key. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Iterator pointing to the first element that is not less than key. If no such element is found, a past-the-end iterator (</dd>
@@ -1161,7 +1191,7 @@
 
 <dl class="function">
 <dt id="_CPPv2NK7bencode10dict_bview11upper_boundENSt11string_viewE">
-<span id="bencode::dict_bview::upper_bound__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a1b22139320efb98a1a3ccae80ef19b57"></span><em class="property">constexpr</em> const_iterator <code class="descname">upper_bound</code><span class="sig-paren">(</span>std::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview11upper_boundENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::dict_bview::upper_bound__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a1b22139320efb98a1a3ccae80ef19b57"></span><em class="property">constexpr</em> const_iterator <code class="descname">upper_bound</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10dict_bview11upper_boundENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns an iterator pointing to the first element that is greater than key. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>Iterator pointing to the first element that is greater than key. If no such element is found, past-the-end (</dd>
@@ -1205,6 +1235,9 @@
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="accessors">
+<h2>accessors<a class="headerlink" href="#accessors" title="Permalink to this headline">¶</a></h2>
 <p>Provide accessors for bview, integer_bview, string_bview, list_bview and dict_bview types. </p>
 <dl class="type">
 <dt id="_CPPv27bencode">
@@ -1545,8 +1578,8 @@ Check if the bview describes a bencode data type of type T <dl class="docutils">
 <dt>
 <em class="property">template </em>&lt;retrievable_from_bview <em>T</em>&gt;</dt>
 <dt id="_CPPv2N7bencode10try_get_asERK5bview">
-<span id="bencode::try_get_as__bviewCRCE"></span><span class="target" id="bview_2accessors_8hpp_1a953c9bee6f75e9d416b28c0cc1d20169"></span><em class="property">constexpr</em> nonstd::expected&lt;T, conversion_errc&gt; <code class="descname">try_get_as</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N7bencode5bviewE" title="bencode::bview">bview</a> &amp;<em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode10try_get_asERK5bview" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Throwing converting bview accessor. If serialization_traits&lt;T&gt;::type == <a class="reference internal" href="#classbencode_1_1bview_1aaef80ee2799491c59a97239d026eb8e0"><span class="std std-ref">bview.type()</span></a>, converts bvalue to T. If the active alternative type could not be converted returns conversion_error. <dl class="docutils">
+<span id="bencode::try_get_as__bviewCRCE"></span><span class="target" id="bview_2accessors_8hpp_1a953c9bee6f75e9d416b28c0cc1d20169"></span><em class="property">constexpr</em> nonstd::expected&lt;T, <a class="reference internal" href="#_CPPv2N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a>&gt; <code class="descname">try_get_as</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N7bencode5bviewE" title="bencode::bview">bview</a> &amp;<em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode10try_get_asERK5bview" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Throwing converting bview accessor. If serialization_traits&lt;T&gt;::type == <a class="reference internal" href="#classbencode_1_1bview_1aaef80ee2799491c59a97239d026eb8e0"><span class="std std-ref">bview.type()</span></a>, converts bvalue to T. If the active alternative type could not be converted returns <a class="reference internal" href="#classbencode_1_1conversion__error"><span class="std std-ref">conversion_error</span></a>. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>an expected instance with the returned value or an error code. </dd>
 <dt><strong>Template Parameters</strong></dt>
@@ -1573,7 +1606,7 @@ Check if the bview describes a bencode data type of type T <dl class="docutils">
 <dd>the converted value </dd>
 <dt><strong>Exceptions</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
-<li><code class="docutils literal"><span class="pre">conversion_error</span></code>: when the value could not be converted to the requested type. </li>
+<li><code class="docutils literal"><a class="reference internal" href="#classbencode_1_1conversion__error"><span class="std std-ref"><span class="pre">conversion_error</span></span></a></code>: when the value could not be converted to the requested type. </li>
 </ul>
 </dd>
 </dl>
@@ -1600,7 +1633,7 @@ Check if the bview describes a bencode data type of type T <dl class="docutils">
 <p class="breathe-sectiondef-title rubric">Public Types</p>
 <dl class="type">
 <dt id="_CPPv2IEN7bencode17bview_alternativeI1EE4typeE">
-template&lt;&gt;<br /><span class="target" id="structbencode_1_1bview__alternative_1a6221c85a83f7660acc09529ad212385a"></span><em class="property">using </em><code class="descname">type</code> = std::tuple_element_t&lt;static_cast&lt;std::size_t&gt;(E)-1, <a class="reference internal" href="#_CPPv2IEN7bencode17bview_alternativeI1EE19alterative_typelistE" title="bencode::bview_alternative&lt;E&gt;::alterative_typelist">alterative_typelist</a>&gt;<a class="headerlink" href="#_CPPv2IEN7bencode17bview_alternativeI1EE4typeE" title="Permalink to this definition">¶</a><br /></dt>
+template&lt;&gt;<br /><span class="target" id="structbencode_1_1bview__alternative_1a6221c85a83f7660acc09529ad212385a"></span><em class="property">using </em><code class="descname">type</code> = <a class="reference internal" href="#_CPPv2St" title="std">std</a>::tuple_element_t&lt;static_cast&lt;std::size_t&gt;(E)-1, <a class="reference internal" href="#_CPPv2IEN7bencode17bview_alternativeI1EE19alterative_typelistE" title="bencode::bview_alternative&lt;E&gt;::alterative_typelist">alterative_typelist</a>&gt;<a class="headerlink" href="#_CPPv2IEN7bencode17bview_alternativeI1EE4typeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -1608,7 +1641,7 @@ template&lt;&gt;<br /><span class="target" id="structbencode_1_1bview__alternati
 <p class="breathe-sectiondef-title rubric">Private Types</p>
 <dl class="type">
 <dt id="_CPPv2IEN7bencode17bview_alternativeI1EE19alterative_typelistE">
-template&lt;&gt;<br /><span class="target" id="structbencode_1_1bview__alternative_1a733af23ba34854c424502e94f343424a"></span><em class="property">using </em><code class="descname">alterative_typelist</code> = std::tuple&lt;<a class="reference internal" href="#_CPPv2N7bencode13integer_bviewE" title="bencode::integer_bview">integer_bview</a>, <a class="reference internal" href="#_CPPv2N7bencode12string_bviewE" title="bencode::string_bview">string_bview</a>, <a class="reference internal" href="#_CPPv2N7bencode10list_bviewE" title="bencode::list_bview">list_bview</a>, <a class="reference internal" href="#_CPPv2N7bencode10dict_bviewE" title="bencode::dict_bview">dict_bview</a>&gt;<a class="headerlink" href="#_CPPv2IEN7bencode17bview_alternativeI1EE19alterative_typelistE" title="Permalink to this definition">¶</a><br /></dt>
+template&lt;&gt;<br /><span class="target" id="structbencode_1_1bview__alternative_1a733af23ba34854c424502e94f343424a"></span><em class="property">using </em><code class="descname">alterative_typelist</code> = <a class="reference internal" href="#_CPPv2St" title="std">std</a>::tuple&lt;<a class="reference internal" href="#_CPPv2N7bencode13integer_bviewE" title="bencode::integer_bview">integer_bview</a>, <a class="reference internal" href="#_CPPv2N7bencode12string_bviewE" title="bencode::string_bview">string_bview</a>, <a class="reference internal" href="#_CPPv2N7bencode10list_bviewE" title="bencode::list_bview">list_bview</a>, <a class="reference internal" href="#_CPPv2N7bencode10dict_bviewE" title="bencode::dict_bview">dict_bview</a>&gt;<a class="headerlink" href="#_CPPv2IEN7bencode17bview_alternativeI1EE19alterative_typelistE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -1621,14 +1654,14 @@ template&lt;&gt;<br /><span class="target" id="structbencode_1_1bview__alternati
 <p class="breathe-sectiondef-title rubric">Functions</p>
 <dl class="function">
 <dt id="_CPPv2N7bencode6detail11get_storageERK5bview">
-<span id="bencode::detail::get_storage__bviewCRCE"></span><span class="target" id="bview_2accessors_8hpp_1aa071de80fbec5b23148fd3b04c1c25c3"></span><em class="property">constexpr</em> <em class="property">const</em> descriptor *<code class="descname">get_storage</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N7bencode5bviewE" title="bencode::bview">bview</a> &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode6detail11get_storageERK5bview" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::detail::get_storage__bviewCRCE"></span><span class="target" id="bview_2accessors_8hpp_1aa071de80fbec5b23148fd3b04c1c25c3"></span><em class="property">constexpr</em> <em class="property">const</em> <a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv2N7bencode10descriptorE" title="bencode::descriptor">descriptor</a> *<code class="descname">get_storage</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N7bencode5bviewE" title="bencode::bview">bview</a> &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode6detail11get_storageERK5bview" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt>
 <em class="property">template </em>&lt;<em class="property">typename</em> T&gt;</dt>
 <dt id="_CPPv2N7bencode6detail21convert_from_bview_toERK5bview">
-<span id="bencode::detail::convert_from_bview_to__bviewCRCE"></span><span class="target" id="bview_2accessors_8hpp_1a8a26b3207937cad097ae621448bae28a"></span><em class="property">constexpr</em> nonstd::expected&lt;T, conversion_errc&gt; <code class="descname">convert_from_bview_to</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N7bencode5bviewE" title="bencode::bview">bview</a> &amp;<em>desc</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode6detail21convert_from_bview_toERK5bview" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::detail::convert_from_bview_to__bviewCRCE"></span><span class="target" id="bview_2accessors_8hpp_1a8d613d1832a0ff06e699009d30fa1103"></span><em class="property">constexpr</em> nonstd::expected&lt;T, <a class="reference internal" href="#_CPPv2N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a>&gt; <code class="descname">convert_from_bview_to</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N7bencode5bviewE" title="bencode::bview">bview</a> &amp;<em>desc</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode6detail21convert_from_bview_toERK5bview" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -1636,6 +1669,9 @@ template&lt;&gt;<br /><span class="target" id="structbencode_1_1bview__alternati
 
 </dd></dl>
 
+</div>
+<div class="section" id="concepts">
+<h2>concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
 <dl class="type">
 <dt id="_CPPv27bencode">
 <span class="target" id="namespacebencode"></span><em class="property">namespace </em><code class="descname">bencode</code><a class="headerlink" href="#_CPPv27bencode" title="Permalink to this definition">¶</a><br /></dt>
@@ -1720,18 +1756,178 @@ requires(T x, const <a class="reference internal" href="#classbencode_1_1bview">
 
 </dd></dl>
 
+</div>
+<div class="section" id="exceptions">
+<h2>exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
 <dl class="type">
 <dt>
 <span class="target" id="namespacebencode"></span><em class="property">namespace </em><code class="descname">bencode</code><br /></dt>
 <dd><dl class="class">
 <dt id="_CPPv2N7bencode16bad_bview_accessE">
 <span id="bencode::bad_bview_access"></span><span class="target" id="classbencode_1_1bad__bview__access"></span><em class="property">class </em><code class="descname">bad_bview_access</code><a class="headerlink" href="#_CPPv2N7bencode16bad_bview_accessE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><em>#include &lt;exceptions.hpp&gt;</em><p>Exception thrown when trying to access a bview with a type that does not match the currently active alternative. </p>
+<dd><em>#include &lt;bad_bview_access.hpp&gt;</em><p>Exception thrown when trying to access a bview with a type that does not match the currently active alternative. </p>
 <p>Inherits from bencode::bad_access</p>
 </dd></dl>
 
 </dd></dl>
 
+<dl class="class">
+<dt>
+<span class="target" id="structstd_1_1is__error__code__enum_3_01bencode_1_1conversion__errc_01_4"></span><em class="property">template </em>&lt;&gt;</dt>
+<dt id="_CPPv2IENSt18is_error_code_enumIN7bencode15conversion_errcEEE">
+template&lt;&gt;<br /><em class="property">struct </em><code class="descname">is_error_code_enum</code>&lt;<a class="reference internal" href="bvalue.html#_CPPv27bencode" title="bencode">bencode</a>::<a class="reference internal" href="#_CPPv2N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a>&gt;<a class="headerlink" href="#_CPPv2IENSt18is_error_code_enumIN7bencode15conversion_errcEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Inherits from true_type</p>
+</dd></dl>
+
+<dl class="type">
+<dt>
+<span class="target" id="namespacebencode"></span><em class="property">namespace </em><code class="descname">bencode</code><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Enums</p>
+<dl class="type">
+<dt id="_CPPv2N7bencode15conversion_errcE">
+<span id="bencode::conversion_errc"></span><span class="target" id="conversion__error_8hpp_1aeafa051e9d4b31310a7dd0f7a40f2175"></span><em class="property">enum </em><code class="descname">conversion_errc</code><a class="headerlink" href="#_CPPv2N7bencode15conversion_errcE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Error code enumeration for type conversion errors. </p>
+<p><em>Values:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv2N7bencode16not_integer_typeE">
+<span class="target" id="dummy_1aeafa051e9d4b31310a7dd0f7a40f2175a9cafa9023a02ad4f3275426be5f8e4bd"></span><code class="descname">not_integer_type</code><a class="headerlink" href="#_CPPv2N7bencode16not_integer_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The active alternative is not an integral type. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv2N7bencode15not_string_typeE">
+<span class="target" id="dummy_1aeafa051e9d4b31310a7dd0f7a40f2175a728cafcaaad53ab5211067255d97df64"></span><code class="descname">not_string_type</code><a class="headerlink" href="#_CPPv2N7bencode15not_string_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The active alternative is not a string type. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv2N7bencode13not_list_typeE">
+<span class="target" id="dummy_1aeafa051e9d4b31310a7dd0f7a40f2175a8ae918faf030263bbd80f141008426e2"></span><code class="descname">not_list_type</code><a class="headerlink" href="#_CPPv2N7bencode13not_list_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The active alternative is not a list type. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv2N7bencode13not_dict_typeE">
+<span class="target" id="dummy_1aeafa051e9d4b31310a7dd0f7a40f2175afa833c9c8c6e93d4078a1d5413b7afa9"></span><code class="descname">not_dict_type</code><a class="headerlink" href="#_CPPv2N7bencode13not_dict_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The active alternative is not a dict type. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv2N7bencode13size_mismatchE">
+<span class="target" id="dummy_1aeafa051e9d4b31310a7dd0f7a40f2175acef46291812d5d03fc131ff8db60e5c3"></span><code class="descname">size_mismatch</code><a class="headerlink" href="#_CPPv2N7bencode13size_mismatchE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Conversion to a fixed size type and the size of the active alternative does not match. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv2N7bencode18construction_errorE">
+<span class="target" id="dummy_1aeafa051e9d4b31310a7dd0f7a40f2175a827cb65e72519dde31b2ae9dfa0b9929"></span><code class="descname">construction_error</code><a class="headerlink" href="#_CPPv2N7bencode18construction_errorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Unspecified exception was thrown during construction of the requested type. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv2N7bencode35dict_mapped_type_construction_errorE">
+<span class="target" id="dummy_1aeafa051e9d4b31310a7dd0f7a40f2175a5c3588fff37f81b6144ed2a5934442dd"></span><code class="descname">dict_mapped_type_construction_error</code><a class="headerlink" href="#_CPPv2N7bencode35dict_mapped_type_construction_errorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The mapped type of a dict cannot be converted to the requested type. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv2N7bencode34list_value_type_construction_errorE">
+<span class="target" id="dummy_1aeafa051e9d4b31310a7dd0f7a40f2175a2968c91391ded713370dbf7905f5f945"></span><code class="descname">list_value_type_construction_error</code><a class="headerlink" href="#_CPPv2N7bencode34list_value_type_construction_errorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The bvalue type of a list cannot be converted to the requested type. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv2N7bencode20undefined_conversionE">
+<span class="target" id="dummy_1aeafa051e9d4b31310a7dd0f7a40f2175a056a1cbccbe3f40da13656e63fc591f9"></span><code class="descname">undefined_conversion</code><a class="headerlink" href="#_CPPv2N7bencode20undefined_conversionE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The conversion to the given type is not defined. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv2N7bencode9to_stringERK15conversion_errc">
+<span id="bencode::to_string__conversion_errcCRCE"></span><span class="target" id="conversion__error_8hpp_1a3887492936aef18cafb9e21c90adf979"></span><em class="property">constexpr</em> <a class="reference internal" href="#_CPPv2St" title="std">std</a>::string_view <code class="descname">to_string</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a> &amp;<em>ec</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode9to_stringERK15conversion_errc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a description of the <code class="docutils literal"><span class="pre">ec</span></code> bvalue. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N7bencode15make_error_codeE15conversion_errc">
+<span id="bencode::make_error_code__conversion_errc"></span><span class="target" id="conversion__error_8hpp_1a60a11c11cfe8f9b15b54f3118daa2f0e"></span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::error_code <code class="descname">make_error_code</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a> <em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode15make_error_codeE15conversion_errc" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="class">
+<dt id="_CPPv2N7bencode19conversion_categoryE">
+<span id="bencode::conversion_category"></span><span class="target" id="structbencode_1_1conversion__category"></span><em class="property">struct </em><code class="descname">conversion_category</code><a class="headerlink" href="#_CPPv2N7bencode19conversion_categoryE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Inherits from error_category</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2NK7bencode19conversion_category4nameEv">
+<span id="bencode::conversion_category::nameC"></span><span class="target" id="structbencode_1_1conversion__category_1a9df9de62f7a954ae7515bdd6bbb76119"></span><em class="property">const</em> char *<code class="descname">name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode19conversion_category4nameEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2NK7bencode19conversion_category7messageEi">
+<span id="bencode::conversion_category::message__iC"></span><span class="target" id="structbencode_1_1conversion__category_1aec65f3f752a059001ba7302d57daf201"></span><a class="reference internal" href="#_CPPv2St" title="std">std</a>::string <code class="descname">message</code><span class="sig-paren">(</span>int <em>ev</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode19conversion_category7messageEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv2N7bencode16conversion_errorE">
+<span id="bencode::conversion_error"></span><span class="target" id="classbencode_1_1conversion__error"></span><em class="property">class </em><code class="descname">conversion_error</code><a class="headerlink" href="#_CPPv2N7bencode16conversion_errorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em>#include &lt;conversion_error.hpp&gt;</em><p>Error thrown when trying to convert a bvalue or bview to a type that does not match the type of the current alternative. </p>
+<p>Inherits from exception</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N7bencode16conversion_error16conversion_errorERK15conversion_errc">
+<span id="bencode::conversion_error::conversion_error__conversion_errcCR"></span><span class="target" id="classbencode_1_1conversion__error_1abbdfeaff35e7285018c0c203a23c91be"></span><code class="descname">conversion_error</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a> &amp;<em>ec</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode16conversion_error16conversion_errorERK15conversion_errc" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2NK7bencode16conversion_error4whatEv">
+<span id="bencode::conversion_error::whatC"></span><span class="target" id="classbencode_1_1conversion__error_1a26d9cb50fc30d690b687270d0bb4c52b"></span><em class="property">const</em> char *<code class="descname">what</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode16conversion_error4whatEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2NK7bencode16conversion_error4errcEv">
+<span id="bencode::conversion_error::errcC"></span><span class="target" id="classbencode_1_1conversion__error_1a3b204fc132744cc3324f0ee0cd67ebe4"></span><a class="reference internal" href="#_CPPv2N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a> <code class="descname">errc</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode16conversion_error4errcEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="member">
+<dt id="_CPPv2N7bencode16conversion_error5errc_E">
+<span id="bencode::conversion_error::errc___conversion_errc"></span><span class="target" id="classbencode_1_1conversion__error_1a2e28c38caa07dcb6ca0f08b406818813"></span><a class="reference internal" href="#_CPPv2N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a> <code class="descname">errc_</code><a class="headerlink" href="#_CPPv2N7bencode16conversion_error5errc_E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv2St">
+<span id="std"></span><span class="target" id="namespacestd"></span><em class="property">namespace </em><code class="descname">std</code><a class="headerlink" href="#_CPPv2St" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="class">
+<dt>
+<span class="target" id="structstd_1_1is__error__code__enum_3_01bencode_1_1conversion__errc_01_4"></span><em class="property">template </em>&lt;&gt;</dt>
+<dt>
+template&lt;&gt;<br /><em class="property">struct </em><code class="descname">is_error_code_enum</code>&lt;<a class="reference internal" href="bvalue.html#_CPPv27bencode" title="bencode">bencode</a>::<a class="reference internal" href="#_CPPv2N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a>&gt;<br /></dt>
+<dd><p>Inherits from true_type</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 
 

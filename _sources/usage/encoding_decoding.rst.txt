@@ -61,8 +61,8 @@ Encoding
     (out == "i20e")
 
 
-Encoding ostream
-----------------
+Encoder
+-------
 
 Encoding :cpp:class:`bvalue` instances or object satisfying :cpp:concept:`event_producer`
 can be encoded with :cpp:func:`encode` which will return a :cpp:class:`std::string`
@@ -73,11 +73,12 @@ or :cpp:concept:`output_iterator` as its first argument.
 will return a descriptor table from which a :cpp:class:`bview` to the root element can be obtained.
 
 
-:cpp:class:`encoding_ostream` provides an output stream that serializes objects to bencode
-and writes the encoded form to the outputstream.
+:cpp:class:`encoder` provides an output stream interface that serializes objects to bencode
+and writes the encoded form to the wrapped storage which can be passed as an
+:cpp:concept:`OutputIterator` or as a :cpp:class:`std::ostream`.
 
-This allow to create complex bencoded objects without the need to create an intermediary :cpp:class:`bvalue`.
-Bencode container types can be created with the use of the following tags:
+This allows to create complex bencoded objects without the need to create an intermediary
+:cpp:class:`bvalue`. Bencode container types can be created with the use of the following tags:
 
 * begin_list
 * end_list
@@ -89,7 +90,7 @@ Example:
 .. code-block::
 
     std::ostringstream os {};
-    auto eos = bencode::encoding_ostream(os);
+    auto eos = bencode::encoder(os);
 
     eos << bencode::begin_dict
         << "key1" << 1

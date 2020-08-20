@@ -36,7 +36,7 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Bencode 0.1.0 documentation" href="../index.html"/>
-        <link rel="next" title="License" href="../other/license.html"/>
+        <link rel="next" title="Descriptors" href="descriptor_and_descriptor_table.html"/>
         <link rel="prev" title="View interface" href="bview.html"/> 
 
   
@@ -59,6 +59,9 @@
             <a href="../index.html" class="icon icon-home"> Bencode
           
 
+          
+            
+            <img src="../_static/bencode.svg" class="logo" />
           
           </a>
 
@@ -101,14 +104,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/events.html">Events system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/customization_points.html">Customization points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/descriptor.html">Descriptor</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bview.html">View interface</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="descriptor_and_descriptor_table.html">Descriptors</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -205,7 +211,7 @@
 <dt>
 <em class="property">template </em>&lt;event_producer <em>T</em>&gt;</dt>
 <dt id="_CPPv2N7bencode9encode_toERNSt7ostreamERK1T">
-<span id="bencode::encode_to__osR.TCR"></span><span class="target" id="encode_8hpp_1a78136b6a0dc9b1ef3ad49f583d20a913"></span>void <code class="descname">encode_to</code><span class="sig-paren">(</span>std::ostream &amp;<em>os</em>, <em class="property">const</em> T &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode9encode_toERNSt7ostreamERK1T" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::encode_to__osR.TCR"></span><span class="target" id="encode_8hpp_1a78136b6a0dc9b1ef3ad49f583d20a913"></span>void <code class="descname">encode_to</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::ostream &amp;<em>os</em>, <em class="property">const</em> T &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode9encode_toERNSt7ostreamERK1T" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Writes the bencoded representation of value to os. <dl class="docutils">
 <dt><strong>Parameters</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
@@ -245,7 +251,7 @@
 <dt>
 <em class="property">template </em>&lt;<em class="property">typename</em> Policy = default_bvalue_policy&gt;</dt>
 <dt id="_CPPv2N7bencode12decode_valueERNSt7istreamE">
-<span id="bencode::decode_value__isR"></span><span class="target" id="decode__value_8hpp_1adeb61b17f48183d86e4458495be941ea"></span><a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; <code class="descname">decode_value</code><span class="sig-paren">(</span>std::istream &amp;<em>is</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12decode_valueERNSt7istreamE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::decode_value__isR"></span><span class="target" id="decode__value_8hpp_1adeb61b17f48183d86e4458495be941ea"></span><a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; <code class="descname">decode_value</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::istream &amp;<em>is</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12decode_valueERNSt7istreamE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Reads bencoded data from the input stream and decodes it to a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a>. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>the decoded data as a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> instantiation. </dd>
@@ -272,7 +278,7 @@
 <dt>
 <em class="property">template </em>&lt;<em class="property">typename</em> Policy = default_bvalue_policy&gt;</dt>
 <dt id="_CPPv2N7bencode12decode_valueENSt11string_viewE">
-<span id="bencode::decode_value__std::string_view"></span><span class="target" id="decode__value_8hpp_1a0224bfece8db969ab7313194c558ab27"></span><a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; <code class="descname">decode_value</code><span class="sig-paren">(</span>std::string_view <em>sv</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12decode_valueENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::decode_value__std::string_view"></span><span class="target" id="decode__value_8hpp_1a0224bfece8db969ab7313194c558ab27"></span><a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; <code class="descname">decode_value</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::string_view <em>sv</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode12decode_valueENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Reads bencoded data from a std::string_view and decodes it to a it to a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a>. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>the decoded data as a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> instantiation. </dd>
@@ -354,7 +360,7 @@
 <dt>
 <em class="property">template </em>&lt;<em class="property">typename</em> Policy&gt;</dt>
 <dt id="_CPPv2N7bencodersERNSt7istreamER12basic_bvalueI6PolicyE">
-<span id="bencode::rshift-operator__isR.basic_bvalue:Policy:R"></span><span class="target" id="decode__value_8hpp_1a6d9f0c55cd130583ffd025f62183caa5"></span>std::istream &amp;<code class="descname">operator&gt;&gt;</code><span class="sig-paren">(</span>std::istream &amp;<em>is</em>, <a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencodersERNSt7istreamER12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="bencode::rshift-operator__isR.basic_bvalue:Policy:R"></span><span class="target" id="decode__value_8hpp_1a6d9f0c55cd130583ffd025f62183caa5"></span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::istream &amp;<code class="descname">operator&gt;&gt;</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::istream &amp;<em>is</em>, <a class="reference internal" href="bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;Policy&gt; &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencodersERNSt7istreamER12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Read a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> from an input stream. </p>
 </dd></dl>
 
@@ -382,8 +388,8 @@
 <p class="breathe-sectiondef-title rubric">Functions</p>
 <dl class="function">
 <dt id="_CPPv2N7bencode11decode_viewENSt11string_viewE">
-<span id="bencode::decode_view__std::string_view"></span><span class="target" id="decode__view_8hpp_1ab873dff197756761fe51c95345ada71b"></span>descriptor_table <code class="descname">decode_view</code><span class="sig-paren">(</span>std::string_view <em>view</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode11decode_viewENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Reads bencoded data from a std::string_view and decodes it to a it to a descriptor_table. <dl class="docutils">
+<span id="bencode::decode_view__std::string_view"></span><span class="target" id="decode__view_8hpp_1ab873dff197756761fe51c95345ada71b"></span><a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv2N7bencode16descriptor_tableE" title="bencode::descriptor_table">descriptor_table</a> <code class="descname">decode_view</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::string_view <em>view</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode11decode_viewENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads bencoded data from a std::string_view and decodes it to a it to a <a class="reference internal" href="descriptor_and_descriptor_table.html#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a>. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>the decoded data as a descriptor table. </dd>
 <dt><strong>Parameters</strong></dt>
@@ -404,10 +410,10 @@
 <dt>
 <em class="property">template </em>&lt;rng::contiguous_range <em>Rng</em>&gt;</dt>
 <dt id="_CPPv2N7bencode11decode_viewERR3Rng">
-<span id="bencode::decode_view__RngRR"></span><span class="target" id="decode__view_8hpp_1a32b9d0d4a9d2c2a082dabde01fc29efd"></span>descriptor_table <code class="descname">decode_view</code><span class="sig-paren">(</span>Rng &amp;&amp;<em>range</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode11decode_viewERR3Rng" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Reads bencoded data from a contiguous range and decodes it to a it to a descriptor_table. <dl class="docutils">
+<span id="bencode::decode_view__RngRR"></span><span class="target" id="decode__view_8hpp_1a32b9d0d4a9d2c2a082dabde01fc29efd"></span><a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv2N7bencode16descriptor_tableE" title="bencode::descriptor_table">descriptor_table</a> <code class="descname">decode_view</code><span class="sig-paren">(</span>Rng &amp;&amp;<em>range</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode11decode_viewERR3Rng" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads bencoded data from a contiguous range and decodes it to a it to a <a class="reference internal" href="descriptor_and_descriptor_table.html#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a>. <dl class="docutils">
 <dt><strong>Return</strong></dt>
-<dd>the decoded data as a descriptor_table. </dd>
+<dd>the decoded data as a <a class="reference internal" href="descriptor_and_descriptor_table.html#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a>. </dd>
 <dt><strong>Parameters</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
 <li><code class="docutils literal"><span class="pre">range</span></code>: the range of bencoded data </li>
@@ -426,8 +432,8 @@
 <dt>
 <em class="property">template </em>&lt;std::input_iterator <em>InputIterator</em>&gt;</dt>
 <dt id="_CPPv2N7bencode11decode_viewE13InputIterator13InputIterator">
-<span id="bencode::decode_view__InputIterator.InputIterator"></span><span class="target" id="decode__view_8hpp_1a66f2f9de1395af620d1e016964dffdaa"></span>descriptor_table <code class="descname">decode_view</code><span class="sig-paren">(</span>InputIterator <em>first</em>, InputIterator <em>last</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode11decode_viewE13InputIterator13InputIterator" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Reads bencoded data from a pair of iterators and decodes it to a descriptor_table. <dl class="docutils">
+<span id="bencode::decode_view__InputIterator.InputIterator"></span><span class="target" id="decode__view_8hpp_1a66f2f9de1395af620d1e016964dffdaa"></span><a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv2N7bencode16descriptor_tableE" title="bencode::descriptor_table">descriptor_table</a> <code class="descname">decode_view</code><span class="sig-paren">(</span>InputIterator <em>first</em>, InputIterator <em>last</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode11decode_viewE13InputIterator13InputIterator" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reads bencoded data from a pair of iterators and decodes it to a <a class="reference internal" href="descriptor_and_descriptor_table.html#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a>. <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>the decoded data as a descriptor table. </dd>
 <dt><strong>Parameters</strong></dt>
@@ -459,7 +465,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../other/license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="descriptor_and_descriptor_table.html" class="btn btn-neutral float-right" title="Descriptors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="bview.html" class="btn btn-neutral" title="View interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

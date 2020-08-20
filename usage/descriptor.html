@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Descriptor table &mdash; Bencode 0.1.0 documentation</title>
+  <title>Descriptor &mdash; Bencode 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,9 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Bencode 0.1.0 documentation" href="../index.html"/> 
+    <link rel="top" title="Bencode 0.1.0 documentation" href="../index.html"/>
+        <link rel="next" title="Value interface" href="../reference/bvalue.html"/>
+        <link rel="prev" title="Customization points" href="customization_points.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -57,6 +59,9 @@
             <a href="../index.html" class="icon icon-home"> Bencode
           
 
+          
+            
+            <img src="../_static/bencode.svg" class="logo" />
           
           </a>
 
@@ -95,18 +100,24 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/integration.html">Integration</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Usage</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="customization_points.html">Customization points</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Descriptor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#details">Details</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/encoding_and_decoding.html">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -156,7 +167,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Descriptor table</li>
+      <li>Descriptor</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -175,17 +186,86 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="descriptor-table">
-<h1>Descriptor table<a class="headerlink" href="#descriptor-table" title="Permalink to this headline">¶</a></h1>
-<p>A descriptor_table holds a contiguous sequence of descriptors and a pointer to a bencoded string.</p>
-<div class="section" id="descriptor">
-<h2>Descriptor<a class="headerlink" href="#descriptor" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="descriptor">
+<h1>Descriptor<a class="headerlink" href="#descriptor" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="xref cpp cpp-class docutils literal"><span class="pre">descriptor</span></code> describes the type and content of the bencoded token the
+<code class="xref cpp cpp-class docutils literal"><span class="pre">bview</span></code> points to and where the data can be found in the bencoded buffer.
+This information allows <code class="xref cpp cpp-class docutils literal"><span class="pre">bview</span></code> to navigate through the bencoded buffer and
+provide access to the values.</p>
+<p>A <code class="xref cpp cpp-class docutils literal"><span class="pre">descriptor_table</span></code> holds a contiguous sequence of descriptors and a pointer to a bencoded string.
+it is the result of parsing data with <code class="xref cpp cpp-class docutils literal"><span class="pre">descriptor_parser</span></code>.</p>
+<div class="section" id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
 <p>A descriptor is a 16 byte structure that describes the structural elements of a bencoded value.
-Each bencoded value has at least one <code class="xref cpp cpp-class docutils literal"><span class="pre">descriptor</span></code>.
-A descriptor stores the type of the bencode data type in a <code class="xref cpp cpp-enum docutils literal"><span class="pre">descriptor_type</span></code>
-value.
-It also stores the position in the bencoded string the described structural element starts.</p>
-<p>Dictionary</p>
+Integers and string have one <code class="xref cpp cpp-class docutils literal"><span class="pre">descriptor</span></code>.
+Lists and dicts have one <code class="xref cpp cpp-class docutils literal"><span class="pre">descriptor</span></code> at the start and one <code class="xref cpp cpp-class docutils literal"><span class="pre">descriptor</span></code>
+descriptor at the end of the datastructure.</p>
+<p>A <code class="xref cpp cpp-class docutils literal"><span class="pre">descriptor</span></code> stores the type of the bencode data type and the position relative to the start of the buffer in a <code class="xref cpp cpp-enum docutils literal"><span class="pre">descriptor_type</span></code>
+value. The data stored depends on the type of the bencode value:</p>
+<div class="line-block">
+<div class="line"><code class="code docutils literal"><span class="pre">type</span></code>: the bencode data type</div>
+<div class="line"><code class="code docutils literal"><span class="pre">position</span></code>: the position in the bencoded data buffer relative to the start.</div>
+</div>
+<ul>
+<li><dl class="first docutils">
+<dt><strong>integer</strong>:</dt>
+<dd><div class="first last line-block">
+<div class="line"><code class="code docutils literal"><span class="pre">value</span></code>: the integer value.</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>string</strong>:</dt>
+<dd><div class="first last line-block">
+<div class="line"><code class="code docutils literal"><span class="pre">offset</span></code>: the position in the string where the actual string data starts.</div>
+<div class="line"><code class="code docutils literal"><span class="pre">size</span></code>: the size of the string data.</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>list</strong>:</dt>
+<dd><div class="first last line-block">
+<div class="line"><code class="code docutils literal"><span class="pre">offset</span></code>: the number of descriptors until the list end descriptor.</div>
+<div class="line"><code class="code docutils literal"><span class="pre">size</span></code>: the size of the list</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>dict</strong>:</dt>
+<dd><div class="first last line-block">
+<div class="line"><code class="code docutils literal"><span class="pre">offset</span></code>: the number of descriptors until the dict end descriptor.</div>
+<div class="line"><code class="code docutils literal"><span class="pre">size</span></code>: the size of the dict</div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Following examples shows how descriptors describe the bencoded data:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>bencoded data:
+
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+| | | | | | | | | |  |  |  |  |  |  |  |
+l i e 1 l 3 : f o o  3  :  b  a  r  e  e
+
+json formatted : [ 1, [&quot;foo&quot;, &quot;bar&quot;] ]
+
++-----+--------------------------------------------------------------------+
+| idx |  descriptor                                                        |
++-----+--------------------------------------------------------------------+
+| 0   |   (type: list,                 position: 0,  offset: 3, size: 2)   |
+| 1   |   (type: integer | list_value  position: 1,  value:1           )   |
+| 2   |   (type: list    | list_value  position: 4,  offset: 3, size: 2)   |
+| 3   |   (type: string  | list_value  position: 5,  offset: 2, size: 3)   |
+| 4   |   (type: string  | list_value  position: 10, offset: 2, size: 3)   |
+| 5   |   (type: list    | end         position: 15, offset: 3, size: 2)   |
+| 6   |   (type: list    | end         position: 16, offset: 6, size: 2)   |
+| 7   |   (type: stop,                 position: 17, offset: 0, size: 0)   |
++-----+--------------------------------------------------------------------+
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -196,6 +276,15 @@ It also stores the position in the bencoded string the described structural elem
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../reference/bvalue.html" class="btn btn-neutral float-right" title="Value interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="customization_points.html" class="btn btn-neutral" title="Customization points" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -60,6 +60,9 @@
           
 
           
+            
+            <img src="../_static/bencode.svg" class="logo" />
+          
           </a>
 
           
@@ -101,19 +104,22 @@
 <li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Encoding and decoding</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#decoding">Decoding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#encoding">Encoding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#encoding-ostream">Encoding ostream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#encoder">Encoder</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="customization_points.html">Customization points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/encoding_and_decoding.html">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -236,18 +242,19 @@ will return a descriptor table from which a <a class="reference internal" href="
 </pre></div>
 </div>
 </div>
-<div class="section" id="encoding-ostream">
-<h2>Encoding ostream<a class="headerlink" href="#encoding-ostream" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="encoder">
+<h2>Encoder<a class="headerlink" href="#encoder" title="Permalink to this headline">¶</a></h2>
 <p>Encoding <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> instances or object satisfying <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_producer</span></code>
 can be encoded with <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv2N7bencode6encodeERK1T" title="bencode::encode"><code class="xref cpp cpp-func docutils literal"><span class="pre">encode()</span></code></a> which will return a <code class="xref cpp cpp-class docutils literal"><span class="pre">std::string</span></code>
 or <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv2N7bencode9encode_toERNSt7ostreamERK1T" title="bencode::encode_to"><code class="xref cpp cpp-func docutils literal"><span class="pre">encode_to()</span></code></a> which accept a cpp:class:<cite>std::ostream</cite>
 or <code class="xref cpp cpp-concept docutils literal"><span class="pre">output_iterator</span></code> as its first argument.</p>
 <p><code class="xref cpp cpp-func docutils literal"><span class="pre">decode()</span></code> will return a <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> instance and <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv2N7bencode11decode_viewENSt11string_viewE" title="bencode::decode_view"><code class="xref cpp cpp-func docutils literal"><span class="pre">decode_view()</span></code></a>
 will return a descriptor table from which a <a class="reference internal" href="../reference/bview.html#_CPPv2N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal"><span class="pre">bview</span></code></a> to the root element can be obtained.</p>
-<p><code class="xref cpp cpp-class docutils literal"><span class="pre">encoding_ostream</span></code> provides an output stream that serializes objects to bencode
-and writes the encoded form to the outputstream.</p>
-<p>This allow to create complex bencoded objects without the need to create an intermediary <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code>.
-Bencode container types can be created with the use of the following tags:</p>
+<p><code class="xref cpp cpp-class docutils literal"><span class="pre">encoder</span></code> provides an output stream interface that serializes objects to bencode
+and writes the encoded form to the wrapped storage which can be passed as an
+<code class="xref cpp cpp-concept docutils literal"><span class="pre">OutputIterator</span></code> or as a <code class="xref cpp cpp-class docutils literal"><span class="pre">std::ostream</span></code>.</p>
+<p>This allows to create complex bencoded objects without the need to create an intermediary
+<code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code>. Bencode container types can be created with the use of the following tags:</p>
 <ul class="simple">
 <li>begin_list</li>
 <li>end_list</li>

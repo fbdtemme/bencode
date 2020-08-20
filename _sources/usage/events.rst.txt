@@ -75,3 +75,12 @@ Event producers
 The :cpp:concept:`event_producer` concept is defined as any object that can generate calls to a
 class satisfying the :cpp:concept:`event_consumer` concept through the
 :cpp:func:`connect` method.
+
+
+Connecting consumer and producers
+=================================
+
+:cpp:concept:`event_producers` are connected to :cpp:concept:`event_consumers`
+with the connect function.
+
+:cpp:func:`template \<event_consumer EC, event_producer U> constexpr void connect(EC& consumer, U&& producer)`

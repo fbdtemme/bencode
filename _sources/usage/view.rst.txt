@@ -28,6 +28,10 @@ for the corresponding bencode data type.
 :cpp:class:`bc::string_bview`
 keys and :cpp:class:`bc::bview` values.
 
+Performance
+-----------
+
+:cpp:class:`bview` is about 5 times faster then `bvalue` in read-only scenarios.
 
 Construction
 -------------
@@ -82,7 +86,7 @@ convert a bview to a bview subclass that does not match the bencode data type.
 * :cpp:func:`const list_bview& get_list(const bview&)`
 * :cpp:func:`const dict_bview& get_dict(const bview&)`
 * :cpp:func:`template \<enum bencode_type E> const bview_alternative_t<E>& get(const bview&)`
-* :cpp:expr:`template \<bview_alternative_type T> const T& get(const bview&)`
+* :cpp:code:`template \<bview_alternative_type T> const T& get(const bview&)`
 
 Non throwing accessor function will return a :cpp:class:`nullptr` when trying to convert
 a bview to a bview subclass that does not match the bencode data type.
@@ -92,7 +96,7 @@ a bview to a bview subclass that does not match the bencode data type.
 * :cpp:func:`bool get_if_list(const bview*)`
 * :cpp:func:`bool get_if_dict(const bview*)`
 * :cpp:func:`template \<enum bencode_type E> const bview_alternative_t<E>* get_if(const bview*)`
-* :cpp:expr:`template \<bview_alternative_type T> const T* get_if(const bview&)`
+* :cpp:code:`template \<bview_alternative_type T> const T* get_if(const bview&)`
 
 
 .. code-block:: cpp

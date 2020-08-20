@@ -36,7 +36,7 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Bencode 0.1.0 documentation" href="../index.html"/>
-        <link rel="next" title="Value interface" href="../reference/bvalue.html"/>
+        <link rel="next" title="Descriptor" href="descriptor.html"/>
         <link rel="prev" title="Encoding and decoding" href="encoding_decoding.html"/> 
 
   
@@ -59,6 +59,9 @@
             <a href="../index.html" class="icon icon-home"> Bencode
           
 
+          
+            
+            <img src="../_static/bencode.svg" class="logo" />
           
           </a>
 
@@ -101,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Customization points</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#serialization-traits">Serialization traits</a></li>
@@ -112,12 +116,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#conversion-from-bview-to-custom-type">Conversion from bview to custom type</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/encoding_and_decoding.html">Encoding and decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -258,16 +264,20 @@ the <code class="xref cpp cpp-func docutils literal"><span class="pre">bencode_c
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>After overrinding this function the type satisfies the <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_producer</span></code> concept.
-Note that bencode_connect should not be overloaded inside the bencode namespace.
-The customization point uses ADL lookup to find the right overload.</p>
+<p>After overrinding this function the type satisfies the <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_producer</span></code> concept.</p>
 <p>After satisfying <code class="xref cpp cpp-concept docutils literal"><span class="pre">serializable</span></code> and cpp:concept:<cite>event_producer</cite> the user defined type.
 Can be serialized trough the <code class="xref cpp cpp-class docutils literal"><span class="pre">encoding_ostream</span></code> and assigned to <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code>.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">All customization points prefixed with <code class="code docutils literal"><span class="pre">bencode_</span></code> must be defined in the
+namespace of the type for which you want to enable a library feature.
+These functions use ADL to identify the correct overload.</p>
+</div>
 </div>
 <div class="section" id="assignment-to-bvalue">
 <h2>Assignment to bvalue<a class="headerlink" href="#assignment-to-bvalue" title="Permalink to this headline">¶</a></h2>
 <p>Types that satisfy <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_producer</span></code> have a default implementation
-that allowes the type to be assigned to <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> but is not always the most efficient.
+that allows the type to be assigned to <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> but is not always the most efficient.
 The default can be overriden by overriding <code class="xref cpp cpp-func docutils literal"><span class="pre">bencode_assign_to_bvalue()</span></code></p>
 <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Policy</span><span class="o">&gt;</span>
 <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">bencode_assign_to_bvalue</span><span class="p">(</span>
@@ -376,7 +386,7 @@ the implementation for <code class="xref cpp cpp-class docutils literal"><span c
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../reference/bvalue.html" class="btn btn-neutral float-right" title="Value interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="descriptor.html" class="btn btn-neutral float-right" title="Descriptor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="encoding_decoding.html" class="btn btn-neutral" title="Encoding and decoding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
