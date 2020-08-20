@@ -8,4 +8,4 @@ Value interface
 
 .. doxygenfile:: detail/bvalue/concepts.hpp
 
-.. doxygenfile:: detail/bvalue/exceptions.hpp
+.. doxygenfile:: detail/bvalue/bad_bvalue_access.hpp
