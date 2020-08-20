@@ -8,7 +8,7 @@
 
 #include <bencode/detail/utils.hpp>
 #include <bencode/detail/concepts.hpp>
-#include <bencode/detail/conversion_error.hpp>
+#include <bencode/detail/encoding_error.hpp>
 #include <bencode/detail/events/consumer/encode_to.hpp>
 #include <bencode/detail/events/events.hpp>
 #include "encoding_error.hpp"

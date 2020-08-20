@@ -121,7 +121,7 @@ constexpr void connect_events_default_list_impl(customization_point_type<T>,
 
 template<typename T, typename U, event_consumer EC>
 requires rng::input_range<T> &&
-         event_producer<rng::range_reference_t<T>> &&
+         event_producer<rng::range_value_t<T>> &&
          (!std::same_as<rng::range_value_t<T>, T>)     //  prevent infinite recursion !
 constexpr void connect_events_default_list_impl(customization_point_type<T>,
         EC& consumer,

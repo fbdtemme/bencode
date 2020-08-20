@@ -1,7 +1,4 @@
-//
-// Created by fbdtemme on 8/19/20.
-//
-
+#pragma once
 #include <stdexcept>
 #include <system_error>
 

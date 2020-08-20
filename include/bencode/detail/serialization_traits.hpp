@@ -1,4 +1,5 @@
 #pragma once
+
 #include <bencode/detail/bencode_type.hpp>
 
 namespace bencode {
