@@ -3,11 +3,6 @@
 #include <compare>
 #include <gsl/gsl_assert>
 
-//#include "bencode/detail/bview/bview.hpp"
-//#include "bencode/detail/bview/integer_bview.hpp"
-//#include "bencode/detail/bview/string_bview.hpp"
-//#include "bencode/detail/bview/list_bview.hpp"
-//#include "bencode/detail/bview/dict_bview.hpp"
 
 #include "bencode/detail/concepts.hpp"
 #include "bencode/detail/bview/concepts.hpp"

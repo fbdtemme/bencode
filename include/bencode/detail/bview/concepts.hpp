@@ -4,7 +4,7 @@
 #include <concepts>
 #include <nonstd/expected.hpp>
 
-#include "bencode/detail/exceptions.hpp"
+#include "bencode/detail/conversion_error.hpp"
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/utils.hpp"
 

@@ -20,7 +20,7 @@ inline descriptor_table decode_view(std::string_view view)
 {
     bencode::descriptor_parser parser{};
     auto r = parser.parse(view);
-    if (!r) { throw r.error(); }
+    if (!r) { throw parser.error(); }
     return std::move(*r);
 }
 

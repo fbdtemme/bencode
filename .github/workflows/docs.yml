@@ -17,7 +17,7 @@ jobs:
         run: sudo apt install g++-10
       - name: install dependencies
         run: sudo apt install doxygen &&
-             sudo apt install python3-sphinx &&
+             pip3 install -U sphinx &&
              sudo apt install python3-breathe &&
              sudo apt install python3-sphinx-rtd-theme
       - name: configure

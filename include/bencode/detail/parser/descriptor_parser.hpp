@@ -13,8 +13,7 @@
 #include "bencode/detail/utils.hpp"
 
 #include "bencode/detail/parser/common.hpp"
-#include "bencode/detail/parser/base_parser.hpp"
-#include "bencode/detail/parser/error.hpp"
+#include "bencode/detail/parser/parsing_error.hpp"
 
 #include "bencode/detail/descriptor.hpp"
 #include "bencode/detail/descriptor_table.hpp"
@@ -65,35 +64,39 @@ public:
             , descriptors_()
     {}
 
+    std::optional<descriptor_table> parse(std::string_view s) noexcept
+    { return parse<std::string_view>(s); }
+
     template <typename R>
     requires rng::contiguous_range<R> && rng::sized_range<R> &&
              std::convertible_to<rng::range_value_t<R>, char>
-    auto parse(const R& range) -> nonstd::expected<descriptor_table, parse_error>
+    std::optional<descriptor_table> parse(const R& range) noexcept
     {
         begin_ = rng::data(range);
         it_ = rng::data(range);
         end_ = std::next(rng::data(range), rng::size(range));
         descriptors_.clear();
-        if (!stack_.empty()) {
-            stack_ = {};
-        }
         error_ = std::nullopt;
 
         auto success = parse_loop();
 
         if (!success) {
             Expects(error_);
-            return nonstd::make_unexpected(*error_);
+            return std::nullopt;
         }
         return descriptor_table(std::move(descriptors_), rng::data(range));
     }
 
-    std::optional<parse_error> error() {
-        return error_;
+    bool has_error() noexcept
+    { return error_.has_value(); }
+
+    parsing_error error() {
+        Expects(error_.has_value());
+        return *error_;
     }
 
 private:
-    auto parse_loop() noexcept -> bool
+    bool parse_loop() noexcept
     {
         // aliases for brevity
         // TODO [c++20] : change to using enum
@@ -105,7 +108,7 @@ private:
 
             // verify bvalue limits
             if (descriptors_.size() > options_.value_limit) [[unlikely]] {
-                set_error(parser_errc::value_limit_exceeded);
+                set_error(parsing_errc::value_limit_exceeded);
                 return false;
             }
 
@@ -127,13 +130,13 @@ private:
                         continue;
                     }
                     else [[unlikely]] {
-                        set_error(parser_errc::expected_dict_key_or_end);
+                        set_error(parsing_errc::expected_dict_key_or_end, btype::dict);
                         continue;
                     }
                 }
                 case state::expect_dict_value: {
                     if (c == symbol::end) [[unlikely]] {
-                        set_error(parser_errc::expected_dict_value);
+                        set_error(parsing_errc::expected_dict_value, btype::dict);
                         continue;
                     }
                     handle_value<dict_t>();
@@ -150,7 +153,7 @@ private:
                     }
                 }
                 default:
-                    set_error(parser_errc::internal_error);
+                    set_error(parsing_errc::internal_error);
                     BENCODE_UNREACHABLE;
                 }
             }
@@ -171,7 +174,7 @@ private:
         return true;
     }
 
-    inline auto handle_integer(descriptor_type modifier) noexcept -> bool
+    inline bool handle_integer(descriptor_type modifier) noexcept
     {
         Expects(*it_ == symbol::begin_integer);
 
@@ -181,14 +184,14 @@ private:
         auto result = detail::bdecode_integer(it_, end_);
 
         if (!result) [[unlikely]] {
-            set_error(result.error());
+            set_error(result.error(), btype::integer);
             return false;
         }
         t.set_value(*result);
         return true;
     }
 
-    inline auto handle_string(descriptor_type modifier) noexcept -> bool
+    inline bool handle_string(descriptor_type modifier) noexcept
     {
         Expects(*it_ == symbol::digit);
 
@@ -198,7 +201,7 @@ private:
         auto result = detail::bdecode_string_token(it_, end_);
 
         if (!result) [[unlikely]] {
-            set_error(result.error());
+            set_error(result.error(), btype::string);
             return false;
         }
         auto& t = descriptors_.emplace_back(type, position);
@@ -208,10 +211,9 @@ private:
     }
 
     template <state ParserState>
-    inline auto handle_value() noexcept -> bool
+    inline bool handle_value() noexcept
     {
         Expects(ParserState != state::expect_dict_key);
-        Expects(*it_ == symbol::value);
 
         constexpr auto type_modifier = detail::descriptor_type_modifier(ParserState);
 
@@ -243,13 +245,20 @@ private:
             if (c == symbol::digit) [[likely]] {
                 return dispatch(handle_string(type_modifier));
             }
-            set_error(parser_errc::expected_value);
+            if constexpr (ParserState == state::expect_list_value) {
+                set_error(parsing_errc::expected_value, btype::list);
+            }
+            else if constexpr (ParserState == state::expect_dict_value) {
+                set_error(parsing_errc::expected_value, btype::dict);
+            } else {
+                set_error(parsing_errc::expected_value);
+            }
             return false;
         }
         }
     }
 
-    inline auto handle_list_begin(descriptor_type modifier) noexcept -> bool
+    inline bool handle_list_begin(descriptor_type modifier) noexcept
     {
         Expects(*it_ == symbol::begin_list);
 
@@ -257,7 +266,7 @@ private:
         const auto position = current_position();
 
         if (stack_.size() == options_.recursion_limit) {
-            set_error(parser_errc::recursion_depth_exceeded);
+            set_error(parsing_errc::recursion_depth_exceeded);
             return false;
         }
 
@@ -272,7 +281,7 @@ private:
         return true;
     }
 
-    inline auto handle_dict_begin(descriptor_type modifier) -> bool
+    inline auto handle_dict_begin(descriptor_type modifier)
     {
         Expects(*it_ == symbol::begin_dict);
 
@@ -280,7 +289,7 @@ private:
         const auto position = current_position();
 
         if (stack_.size() == options_.recursion_limit) {
-            set_error(parser_errc::recursion_depth_exceeded);
+            set_error(parsing_errc::recursion_depth_exceeded);
             return false;
         }
 
@@ -295,7 +304,7 @@ private:
         return true;
     }
 
-    inline auto handle_list_end() -> bool
+    inline bool handle_list_end()
     {
         Expects(*it_ == symbol::end);
         Expects(stack_.top().state == state::expect_list_value);
@@ -319,7 +328,7 @@ private:
         return true;
     }
 
-    inline auto handle_dict_end() noexcept -> bool
+    inline bool handle_dict_end() noexcept
     {
         Expects(*it_ == symbol::end);
         Expects(stack_.top().state == state::expect_dict_key);
@@ -342,7 +351,7 @@ private:
         return true;
     }
 
-    inline auto handle_dict_key() noexcept -> bool
+    inline bool handle_dict_key() noexcept
     {
         Expects(stack_.top().state == state::expect_dict_key);
         Expects(*it_ == symbol::digit);
@@ -354,7 +363,7 @@ private:
         auto result = detail::bdecode_string_token(it_, end_);
 
         if (!result) [[unlikely]] {
-            set_error(result.error());
+            set_error(result.error(), btype::string);
             return false;
         }
 
@@ -366,7 +375,7 @@ private:
         return true;
     }
 
-    inline auto handle_nested_structures() noexcept -> std::optional<state>
+    inline std::optional<state> handle_nested_structures() noexcept
     {
         if (stack_.empty()) return std::nullopt;
 
@@ -377,16 +386,18 @@ private:
         switch (state) {
         case state::expect_dict_value:  state = state::expect_dict_key;   break;
         case state::expect_dict_key  :  state = state::expect_dict_value; break;
+        default: break;
         }
         return old_state;
     }
 
-    inline auto current_position() noexcept -> std::size_t
+    inline std::size_t current_position() noexcept
     { return (it_ - begin_); }
 
-    inline void set_error(parser_errc ec) noexcept
+    inline void set_error(parsing_errc ec,
+                          std::optional<bencode_type> context = std::nullopt) noexcept
     {
-        error_.emplace(ec, current_position());
+        error_.emplace(ec, current_position(), context);
     }
 
     iterator_t begin_;
@@ -394,8 +405,8 @@ private:
     sentinel_t end_;
     std::vector<descriptor> descriptors_;
     std::stack<stack_frame> stack_{};
-    std::optional<parse_error> error_;
-    const options& options_;
+    std::optional<parsing_error> error_;
+    options options_;
 };
 
 }

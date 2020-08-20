@@ -7,38 +7,10 @@
 #include <string>
 #include <string_view>
 
+#include "data.hpp"
+
 using namespace std::string_literals;
 namespace bc = bencode;
-
-constexpr std::string_view data_dict           = "d4:spami1ee";
-constexpr std::string_view data_nested_dict    = "d4:spami1e3:barli1ei2eee";
-
-constexpr std::array descriptors_dict = {
-        bc::descriptor(bc::descriptor_type::dict, 0, 3, 1),
-        bc::descriptor(bc::descriptor_type::string  | bc::descriptor_type::dict_key, 1, 2, 4),
-        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::dict_value, 7, 1),
-        bc::descriptor(bc::descriptor_type::dict | bc::descriptor_type::end, 10, 3, 1),
-        bc::descriptor(bc::descriptor_type::stop, 11),
-};
-
-constexpr std::array descriptors_nested_dict = {
-        bc::descriptor(bc::descriptor_type::dict, 0, 8, 2),
-        bc::descriptor(bc::descriptor_type::string  | bc::descriptor_type::dict_key, 1, 2, 4),
-        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::dict_value, 7, 1),
-        bc::descriptor(bc::descriptor_type::string  | bc::descriptor_type::dict_key, 10, 2, 3),
-        bc::descriptor(bc::descriptor_type::list    | bc::descriptor_type::dict_value, 15, 3, 2),
-        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::list_value, 16, 1),
-        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::list_value, 19, 2),
-        bc::descriptor(bc::descriptor_type::list    | bc::descriptor_type::end, 22, 3, 2),
-        bc::descriptor(bc::descriptor_type::dict | bc::descriptor_type::end, 23, 8, 2),
-        bc::descriptor(bc::descriptor_type::stop, 24),
-};
-
-constexpr auto d_view_const = bc::bview(begin(descriptors_dict), data_dict.data());
-static auto d_view = bc::bview(begin(descriptors_dict), data_dict.data());
-
-constexpr auto d_view_nested_const = bc::bview(begin(descriptors_nested_dict), data_nested_dict.data());
-static auto d_view_nested = bc::bview(begin(descriptors_nested_dict), data_nested_dict.data());
 
 
 TEST_CASE("test dict_bview") {

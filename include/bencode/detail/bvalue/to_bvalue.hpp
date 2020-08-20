@@ -88,7 +88,7 @@ public:
         return std::move(value_);
     }
 
-    void error(bencode::parse_error& e)
+    void error(bencode::parsing_error& e)
     {
         throw e;
     }

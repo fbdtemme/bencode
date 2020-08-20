@@ -10,13 +10,10 @@
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 
-#include <bencode/bencode_fwd.hpp>
-
-
 #include <bencode/detail/concepts.hpp>
 
 #include <bencode/detail/utils.hpp>
-#include <bencode/detail/exceptions.hpp>
+#include <bencode/detail/conversion_error.hpp>
 
 #include "bencode/detail/bencode_type.hpp"
 #include "bencode/detail/bvalue/bvalue_policy.hpp"

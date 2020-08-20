@@ -13,7 +13,7 @@
 namespace bencode {
 
 /// Error code enumeration for parsing errors.
-enum class parser_errc {
+enum class parsing_errc {
 //    no_error = 0,
     expected_colon = 1,
     expected_digit,
@@ -36,81 +36,83 @@ enum class parser_errc {
 /// Converts ec to a string.
 /// @param ec an error code
 /// @returns String representation of an error code.
-constexpr std::string_view to_string(parser_errc ec) {
+constexpr std::string_view to_string(parsing_errc ec) {
     switch (ec) {
-    case parser_errc::expected_colon:
+    case parsing_errc::expected_colon:
         return "expected string length separator ':'";
-    case parser_errc::expected_digit:
+    case parsing_errc::expected_digit:
         return "expected digit";
-    case parser_errc::expected_dict_key_or_end:
+    case parsing_errc::expected_dict_key_or_end:
         return "expected a dict key or end token";
-    case parser_errc::expected_end:
+    case parsing_errc::expected_end:
         return "expected end token";
-    case parser_errc::expected_value:
+    case parsing_errc::expected_value:
         return "expected begin of a bvalue ('i', 'l', 'd', or a digit)";
-    case parser_errc::expected_dict_value:
+    case parsing_errc::expected_dict_value:
         return "missing bvalue for key in dict";
-    case parser_errc::unexpected_end:
+    case parsing_errc::unexpected_end:
         return "mismatched end token";
-    case parser_errc::unexpected_eof:
+    case parsing_errc::unexpected_eof:
         return "unexpected end of input";
-    case parser_errc::integer_overflow:
+    case parsing_errc::integer_overflow:
         return "integer overflow";
-    case parser_errc::leading_zero:
+    case parsing_errc::leading_zero:
         return "leading zero(s) is forbidden";
-    case parser_errc::negative_zero:
+    case parsing_errc::negative_zero:
         return "negative zero is forbidden";
-    case parser_errc::recursion_depth_exceeded:
+    case parsing_errc::recursion_depth_exceeded:
         return "nested list/dict depth exceeded";
-    case parser_errc::value_limit_exceeded:
+    case parsing_errc::value_limit_exceeded:
         return "bvalue limit exceeded";
-    case parser_errc::negative_string_length:
+    case parsing_errc::negative_string_length:
         return "invalid string length";
-    case parser_errc::internal_error:
+    case parsing_errc::internal_error:
         return "internal error";
     default:
         return "(unrecognised error)";
     };
 }
 
-struct parser_category : std::error_category
+struct parsing_category : std::error_category
 {
-    const char* name() const noexcept override {
-        return "parser error";
+    const char* name() const noexcept override
+    {
+        return "parsing error";
     }
 
     std::string message(int ev) const override
     {
-        return std::string(to_string(static_cast<bencode::parser_errc>(ev)));
+        return std::string(to_string(static_cast<bencode::parsing_errc>(ev)));
     }
 };
 
 
-inline std::error_code make_error_code(parser_errc e)
+inline std::error_code make_error_code(parsing_errc e)
 {
-    return {static_cast<int>(e), bencode::parser_category()};
+    return {static_cast<int>(e), bencode::parsing_category()};
 }
 
 } // namespace bencode
 
 namespace std {
-template <> struct is_error_code_enum<bencode::parser_errc> : std::true_type{};
+template <> struct is_error_code_enum<bencode::parsing_errc> : std::true_type{};
 }
 
 namespace bencode {
 
 
 /// Exception class for parser errors.
-class parse_error : public std::runtime_error {
+class parsing_error : public std::runtime_error {
 public:
-     parse_error(parser_errc ec, std::size_t pos, std::optional<bencode_type> context = std::nullopt)
+     parsing_error(parsing_errc ec, std::size_t pos, std::optional<bencode_type> context = std::nullopt)
             : std::runtime_error(make_what_msg(ec, pos, context))
             , position_(pos)
             , context_(context)
+            , errc_(ec)
     {}
 
-    parse_error(const parse_error&) noexcept = default;
-    parse_error& operator=(const parse_error&) noexcept = default;
+    parsing_error(const parsing_error&) noexcept = default;
+    parsing_error& operator=(const parsing_error&) noexcept = default;
 
     /// The byte index of the last valid character in the input file.
     ///
@@ -122,14 +124,18 @@ public:
     /// Retu
     std::optional<bencode_type> context() const { return context_; }
 
+    parsing_errc errc() const noexcept
+    { return errc_; }
+
 private:
-    parse_error(const char* what, std::size_t position, std::optional<bencode_type> context)
+    parsing_error(const char* what, parsing_errc ec, std::size_t position, std::optional<bencode_type> context)
             : std::runtime_error(what)
             , position_(position)
             , context_(context)
+            , errc_(ec)
     { };
 
-    static std::string make_what_msg(parser_errc ec, std::size_t pos, std::optional<bencode_type> context)
+    static std::string make_what_msg(parsing_errc ec, std::size_t pos, std::optional<bencode_type> context)
     {
         using namespace std::string_literals;
         std::string what = fmt::format("parse error: {}", position_string(pos));
@@ -149,6 +155,7 @@ private:
 private:
     std::size_t position_;
     std::optional<bencode_type> context_;
+    parsing_errc errc_;
 };
 
 

@@ -6,7 +6,7 @@
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/concepts.hpp"
-#include "bencode/detail/exceptions.hpp"
+#include "bencode/detail/conversion_error.hpp"
 
 #include "bencode/detail/bvalue/concepts.hpp"
 #include "bencode/detail/bvalue/bvalue_policy.hpp"
@@ -137,7 +137,7 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_default_list_
                            std::inserter(value, rng::begin(value)), func);
         }
     } catch (const conversion_error& e) {
-        return nonstd::make_unexpected(e.error_code());
+        return nonstd::make_unexpected(e.errc());
     } catch (...) {
         return nonstd::make_unexpected(conversion_errc::construction_error);
     }
@@ -289,7 +289,7 @@ convert_from_bvalue_to(U&& bvalue) noexcept
     }
     else {
         static_assert(detail::always_false<T>::value,
-                      "no serializer for T found, check includes!");
+                "no serializer for T found, check if the correct trait class is included!");
     }
     return nonstd::make_unexpected(conversion_errc::undefined_conversion);
 }

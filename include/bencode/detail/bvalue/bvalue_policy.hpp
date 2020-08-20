@@ -7,9 +7,12 @@
 #include <map>
 #include <concepts>
 
-#include <bencode/bencode_fwd.hpp>
+
 
 namespace bencode {
+
+// forward decl
+template <typename Policy> class basic_bvalue;
 
 /// Policy class defining the behavior of the basic_bvalue container and default serialisation traits_old.
 template<
@@ -42,14 +45,11 @@ struct bvalue_policy
     {
         using uninitialized_type = std::monostate;
         using integer_type       = IntegralType;                // bencoded integer
-        using string_view_type   = StringViewType;              // non-owning bencoded string
-        using string_type        = StringType;                  // owning bencoded string
+        using string_type        = StringType;                  // bencoded string
         using list_type          = ListType<BV>;                // bencoded list
         using dict_type          = DictType<string_type, BV>;   // bencoded dict
 
         static_assert(std::integral<integer_type>,  "invalid integer_type");
-        static_assert(std::convertible_to<string_type, string_view_type>,
-                "string_type must be implicitly convertible to string_view_type");
     };
 
     /// Enable overflow safe narrowing conversion to unsigned integers.

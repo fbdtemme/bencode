@@ -1,37 +1,18 @@
-#include "bencode/bencode_fwd.hpp"
-#include <bencode/bencode.hpp>
-#include "bencode/detail/events/consumers.hpp"
-#include "bencode/detail/parser/descriptor_parser.hpp"
+#include <bencode/bview.hpp>
 #include <catch2/catch.hpp>
 
 #include <iostream>
 #include <fstream>
 #include <string_view>
 #include <sstream>
-#include "../../include/bencode/detail/parser/descriptor_parser.hpp"
+
+#include "data.hpp"
 
 using namespace std::string_view_literals;
 using namespace bencode;
 
-constexpr auto example = (
-        "d"
-        "3:one"
-        "i1e"
-        "5:three"
-        "l"
-        "d"
-        "3:bar" "i0e" "3:foo" "i0e"
-        "e"
-        "e"
-        "3:two"
-        "l"
-        "i3e" "3:foo" "i4e"
-        "e"
-        "e"sv
-);
 
-
-TEST_CASE("index parser")
+TEST_CASE("test descriptor parser", "[parser]")
 {
     using namespace bencode;
 
@@ -78,14 +59,69 @@ TEST_CASE("index parser")
 }
 
 
-TEST_CASE("descriptor parser - COVID-19", "[descriptor_parser]")
+TEST_CASE("descriptor parser", "[descriptor_parser]")
 {
-    std::ifstream ifs(RESOURCES_DIR"/COVID-19-image-dataset-collection.torrent");
-    std::string torrent(
-            std::istreambuf_iterator<char>{ifs},
-            std::istreambuf_iterator<char>{});
-
     auto parser = bencode::descriptor_parser();
-    auto r = parser.parse(torrent);
+
+    SECTION("valid torrents") {
+        auto resource = GENERATE_COPY(values({
+                RESOURCES_DIR"/COVID-19-image-dataset-collection.torrent",
+                RESOURCES_DIR"/Fedora-Workstation-Live-x86_64-30",
+                RESOURCES_DIR"/NASA-Viking-Merged-Color-Mosaic",
+        }));
+
+        std::ifstream ifs(resource);
+        std::string torrent(
+                std::istreambuf_iterator<char>{ifs},
+                std::istreambuf_iterator<char>{});
+
+        auto r = parser.parse(torrent);
+        CHECK(r);
+    }
+
+    SECTION("invalid dict value") {
+        auto r = parser.parse(expected_dict_value);
+        CHECK_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::expected_dict_value);
+    }
+    SECTION("invalid dict value") {
+        auto r = parser.parse(expected_dict_key_or_end);
+        CHECK_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::expected_dict_key_or_end);
+    }
+    SECTION("invalid dict value") {
+        auto r = parser.parse(expected_value);
+        CHECK_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::expected_value);
+    }
+
+    SECTION("error - recursion limit") {
+        auto r = parser.parse(recursion_limit);
+        CHECK_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::recursion_depth_exceeded);
+    }
+
+    SECTION("error - value limit") {
+        auto parser2 = bencode::descriptor_parser({.value_limit=10});
+        auto r = parser2.parse(sintel_torrent);
+        REQUIRE_FALSE(r);
+        CHECK(parser2.error().errc() == parsing_errc::value_limit_exceeded);
+    }
+}
+
+TEST_CASE("descriptor parser - example, sintel")
+{
+    const auto [data, expected] = GENERATE_COPY(table<std::string_view, std::string_view>({
+            {example,        example_json_result},
+            {sintel_torrent, sintel_json_result}
+    }));
+
+    std::string out {};
+    auto parser = descriptor_parser();
+    auto r = parser.parse(data);
     CHECK(r);
+    auto desc = r->get_root();
+    auto consumer = bencode::events::format_json_to(std::back_inserter(out));
+    bencode::connect(consumer, desc);
+    CHECK(out == expected);
 }

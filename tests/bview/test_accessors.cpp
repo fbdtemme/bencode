@@ -11,49 +11,8 @@
 #include <string>
 #include <string_view>
 
-using namespace std::string_literals;
-namespace bc = bencode;
+#include "data.hpp"
 
-constexpr std::string_view data_integer = "i63e";
-constexpr std::string_view data_string  = "4:spam";
-constexpr std::string_view data_list    = "li2ei3ee";
-constexpr std::string_view data_dict    = "d4:spami1ee";
-
-constexpr std::array descriptors_integer = {
-        bc::descriptor(bc::descriptor_type::integer, 0, 63L),
-        bc::descriptor(bc::descriptor_type::stop, 4),
-};
-
-constexpr std::array descriptors_string  = {
-        bc::descriptor(bc::descriptor_type::string, 0, 2U, 4U),
-        bc::descriptor(bc::descriptor_type::stop, 6),
-};
-
-constexpr std::array descriptors_list = {
-        bc::descriptor(bc::descriptor_type::list, 0, 3, 2),
-        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::list_value, 1, 2),
-        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::list_value, 4, 3),
-        bc::descriptor(bc::descriptor_type::list | bc::descriptor_type::end, 7, 3, 2),
-        bc::descriptor(bc::descriptor_type::stop, 8),
-};
-
-constexpr std::array descriptors_dict = {
-        bc::descriptor(bc::descriptor_type::dict, 0, 3, 1),
-        bc::descriptor(bc::descriptor_type::string  | bc::descriptor_type::dict_key, 1, 2, 4),
-        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::dict_value, 7, 1),
-        bc::descriptor(bc::descriptor_type::dict | bc::descriptor_type::end, 10, 3, 1),
-        bc::descriptor(bc::descriptor_type::stop, 11),
-};
-
-constexpr auto i_view_const = bc::bview(begin(descriptors_integer), data_integer.data());
-constexpr auto s_view_const  = bc::bview(begin(descriptors_string), data_string.data());
-constexpr auto l_view_const = bc::bview(begin(descriptors_list), data_list.data());
-constexpr auto d_view_const = bc::bview(begin(descriptors_dict), data_dict.data());
-
-static auto i_view = bc::bview(begin(descriptors_integer), data_integer.data());
-static auto s_view  = bc::bview(begin(descriptors_string), data_string.data());
-static auto l_view = bc::bview(begin(descriptors_list), data_list.data());
-static auto d_view = bc::bview(begin(descriptors_dict), data_dict.data());
 
 
 

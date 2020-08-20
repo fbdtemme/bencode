@@ -1,6 +1,6 @@
 #pragma once
 
-#include "bencode/detail/exceptions.hpp"
+#include "bencode/detail/bad_access.hpp"
 
 namespace bencode {
 

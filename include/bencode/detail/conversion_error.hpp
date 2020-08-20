@@ -32,7 +32,7 @@ enum class conversion_errc : std::uint8_t
 };
 
 /// Returns a description of the `ec` bvalue.
-constexpr std::string_view to_string_view(const conversion_errc& ec)
+constexpr std::string_view to_string(const conversion_errc& ec)
 {
     switch (ec) {
     case conversion_errc::not_integer_type:
@@ -57,27 +57,50 @@ constexpr std::string_view to_string_view(const conversion_errc& ec)
 }
 
 
+struct conversion_category : std::error_category
+{
+    const char* name() const noexcept override
+    {
+        return "conversion error";
+    }
+
+    std::string message(int ev) const override
+    {
+        return std::string(to_string(static_cast<bencode::conversion_errc>(ev)));
+    }
+};
+
+inline std::error_code make_error_code(conversion_errc e)
+{
+    return {static_cast<int>(e), bencode::conversion_category()};
+}
+
+} // namespace bencode
+
+namespace std {
+template <> struct is_error_code_enum<bencode::conversion_errc> : std::true_type{};
+}
+
+namespace bencode {
+
 /// Error thrown when trying to convert a bvalue or bview to a type that does
 /// not match the type of the current alternative.
-class conversion_error : public std::runtime_error
+class conversion_error : public std::exception
 {
 public:
-    using std::runtime_error::runtime_error;
-
     explicit conversion_error(const conversion_errc& ec)
-        : runtime_error(std::string(to_string_view(ec)))
-        , errc_(ec) {};
+        : errc_(ec)
+    {};
 
-    conversion_errc error_code() const noexcept { return errc_; }
+    const char * what() const noexcept override
+    { return to_string(errc_).data(); }
 
+    conversion_errc errc() const noexcept
+    { return errc_; }
+
+private:
     conversion_errc errc_;
 };
 
-/// Base class for bad_bvalue_access and bad_bview_access exceptions.
-class bad_access : public std::runtime_error
-{
-public:
-    using std::runtime_error::runtime_error;
-};
 
 } // namespace bencode

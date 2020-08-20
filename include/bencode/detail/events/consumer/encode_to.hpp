@@ -9,12 +9,11 @@
 #include <concepts>
 
 #include "bencode/detail/itoa.hpp"
-#include "bencode/bencode_fwd.hpp"
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/bencode_type.hpp"
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/events/concepts.hpp"
-#include "bencode/detail/parser/error.hpp"
+#include "bencode/detail/parser/parsing_error.hpp"
 
 namespace bencode::events {
 

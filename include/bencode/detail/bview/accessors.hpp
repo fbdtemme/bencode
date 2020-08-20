@@ -4,13 +4,12 @@
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 
-#include "bencode/bencode_fwd.hpp"
 #include "bencode/detail/bencode_type.hpp"
-#include "bencode/detail/exceptions.hpp"
+#include "bencode/detail/conversion_error.hpp"
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/utils.hpp"
 
-#include "bencode/detail/bview/exceptions.hpp"
+#include "bencode/detail/bview/bad_bview_access.hpp"
 #include "bencode/detail/bview/concepts.hpp"
 #include "bencode/detail/bview/bview.hpp"
 

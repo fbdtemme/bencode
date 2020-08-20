@@ -5,6 +5,7 @@
 #include <iosfwd>
 #include <string_view>
 #include <compare>
+#include <array>
 #include <gsl/gsl_assert>
 
 

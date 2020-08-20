@@ -11,7 +11,7 @@
 #include <bit>
 
 #include <nonstd/expected.hpp>
-#include "bencode/detail/parser/error.hpp"
+#include "bencode/detail/parser/parsing_error.hpp"
 
 #ifdef NDEBUG
 #define BENCODE_UNREACHABLE std::is_constant_evaluated() ? __builtin_unreachable() : std::abort();

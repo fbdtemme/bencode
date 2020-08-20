@@ -11,6 +11,7 @@ extensions = [
 ]
 master_doc = "index"
 html_theme = "sphinx_rtd_theme"
+html_logo  = "@CMAKE_CURRENT_SOURCE_DIR@/images/bencode.svg"
 
 project = "@PROJECT_NAME@"
 author =  "@PROJECT_AUTHOR@"

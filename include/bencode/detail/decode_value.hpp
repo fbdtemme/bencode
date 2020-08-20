@@ -4,8 +4,6 @@
 #include <gsl/gsl>
 #include <ranges>
 
-#include "bencode/bencode_fwd.hpp"
-
 #include <bencode/detail/parser/push_parser.hpp>
 #include <bencode/detail/bvalue/to_bvalue.hpp>
 #include <bencode/detail/events/consumer/encode_to.hpp>
@@ -30,12 +28,9 @@ inline basic_bvalue<Policy> decode_value(std::istream& is)
     auto consumer = bencode::events::to_bvalue<Policy>{};
     push_parser<std::istreambuf_iterator<char>> parser {};
 
-    bool success = parser.parse(
-            rng::subrange(
-                    std::istreambuf_iterator<char>{is},
-                    std::istreambuf_iterator<char>{}),
-            consumer);
-
+    auto range = rng::subrange(std::istreambuf_iterator<char>{is},
+                               std::istreambuf_iterator<char>{});
+    bool success = parser.parse(consumer, range);
     if (!success) {
         throw parser.error();
     }
@@ -53,7 +48,7 @@ inline basic_bvalue<Policy> decode_value(std::string_view sv)
 {
     auto consumer = bencode::events::to_bvalue<Policy>{};
     bencode::push_parser parser{};
-    if (!parser.parse(sv, consumer))
+    if (!parser.parse(consumer, sv))
         throw parser.error();
     return consumer.value();
 }

@@ -12,10 +12,9 @@
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/bencode_type.hpp"
 #include "bencode/detail/parser/common.hpp"
-#include "bencode/detail/parser/base_parser.hpp"
 
 
-#include "error.hpp"
+#include "parsing_error.hpp"
 
 namespace bencode {
 
@@ -35,19 +34,40 @@ public:
             : options_(options)
     {}
 
+    /// Parse the input range and pass generated events to the event consumer.
+    /// @returns true if successful, false if an error occured.
     template <typename R, event_consumer EC>
         requires std::convertible_to<rng::range_value_t<R>, char>
-    bool parse(const R& range, EC& consumer) noexcept
+    bool parse(EC& consumer, const R& range) noexcept
     {
         begin_ = rng::begin(range);
         it_ = rng::begin(range);
         end_ = rng::end(range);
-
-        if (!stack_.empty()) {
-            stack_ = {};
-        }
         error_ = std::nullopt;
 
+        auto result = parse_loop(consumer);
+        return result;
+    }
+
+    /// Parse a string_view and pass generated events to the event consumer.
+    /// @returns true if successful, false if an error occured.
+    template <event_consumer EC>
+    bool parse(EC& consumer, std::string_view s) noexcept
+    { return parse<std::string_view>(consumer, s); }
+
+    bool has_error() noexcept
+    { return error_.has_value(); }
+
+    parsing_error error() noexcept
+    {
+        Expects(error_.has_value());
+        return *error_;
+    }
+
+private:
+    template <event_consumer EC>
+    bool parse_loop(EC& consumer)
+    {
         // aliases for brevity
         constexpr auto list_t = state::expect_list_value;
         constexpr auto dict_t = state::expect_dict_value;
@@ -59,7 +79,7 @@ public:
 
             // verify bvalue limits
             if (value_count_ > options_.value_limit) [[unlikely]] {
-                set_error(parser_errc::value_limit_exceeded);
+                set_error(parsing_errc::value_limit_exceeded);
                 return false;
             }
 
@@ -82,14 +102,14 @@ public:
                         continue;
                     }
                     else [[unlikely]] {
-                        set_error(parser_errc::expected_dict_key_or_end);
+                        set_error(parsing_errc::expected_dict_key_or_end, btype::dict);
                         continue;
                     }
                 }
                 case state::expect_dict_value:
                 {
                     if (c == symbol::end) [[unlikely]] {
-                        set_error(parser_errc::expected_dict_value);
+                        set_error(parsing_errc::expected_dict_value, btype::dict);
                         continue;
                     }
                     handle_value<dict_t>(consumer);
@@ -108,7 +128,7 @@ public:
                 }
                 default:
                     // this should not happen
-                    set_error(parser_errc::internal_error);
+                    set_error(parsing_errc::internal_error);
                 }
             }
             // No current parsing context.
@@ -129,16 +149,6 @@ public:
         }
     }
 
-    auto has_error() noexcept -> bool
-    { return error_.has_value(); }
-
-    auto error() noexcept -> parse_error
-    {
-        Expects(error_.has_value());
-        return *error_;
-    }
-
-private:
     template <bencode::event_consumer Consumer>
     bool handle_integer(Consumer& consumer)
     {
@@ -147,11 +157,12 @@ private:
         auto value = detail::bdecode_integer<std::int64_t>(it_, end_);
 
         if (!value) [[unlikely]] {
-            set_error(value.error());
+            set_error(value.error(), btype::integer);
             return false;
         }
 
         consumer.integer(*value);
+        ++value_count_;
         return true;
     }
 
@@ -162,11 +173,11 @@ private:
 
         auto value = detail::bdecode_string(it_, end_);
         if (!value) [[unlikely]] {
-            set_error(value.error());
+            set_error(value.error(), btype::string);
             return false;
         }
         consumer.string(*value);
-
+        ++value_count_;
         return true;
     }
 
@@ -204,7 +215,14 @@ private:
             if (c == symbol::digit) [[likely]] {
                 return dispatch(handle_string(consumer));
             }
-            set_error(parser_errc::expected_value);
+            if constexpr (ParserState == state::expect_list_value) {
+                set_error(parsing_errc::expected_value, btype::list);
+            }
+            else if constexpr (ParserState == state::expect_dict_value) {
+                set_error(parsing_errc::expected_value, btype::dict);
+            } else {
+                set_error(parsing_errc::expected_value);
+            }
             return false;
         }
         }
@@ -216,12 +234,13 @@ private:
         Expects(*it_ == symbol::begin_list);
 
         if (stack_.size() == options_.recursion_limit) {
-            set_error(parser_errc::recursion_depth_exceeded);
+            set_error(parsing_errc::recursion_depth_exceeded);
             return false;
         }
         ++it_;
         stack_.push(state::expect_list_value);
         consumer.begin_list();
+        ++value_count_;
         return true;
     }
 
@@ -231,12 +250,13 @@ private:
         Expects(*it_ == symbol::begin_dict);
 
         if (stack_.size() == options_.recursion_limit) {
-            set_error(parser_errc::recursion_depth_exceeded);
+            set_error(parsing_errc::recursion_depth_exceeded);
             return false;
         }
         ++it_;
         stack_.push(state::expect_dict_key);
         consumer.begin_dict();
+        ++value_count_;
         return true;
     }
 
@@ -276,7 +296,7 @@ private:
         auto value = detail::bdecode_string<std::string>(it_, end_);
 
         if (!value) [[unlikely]] {
-            set_error(value.error());
+            set_error(value.error(), btype::string);
             return false;
         }
         stack_.top() = state::expect_dict_value;
@@ -300,8 +320,11 @@ private:
         }
     }
 
-    inline void set_error(parser_errc ec) {
-        error_.emplace(ec, std::distance(begin_, it_));
+    inline void set_error(parsing_errc ec,
+                          std::optional<bencode_type> context = std::nullopt) noexcept
+    {
+        auto pos = std::distance(begin_, it_);
+        error_.emplace(ec, pos, context);
     }
 
 private:
@@ -309,9 +332,9 @@ private:
     iterator_t it_;
     sentinel_t end_;
     std::stack<state> stack_{};
-    std::optional<parse_error> error_;
+    std::optional<parsing_error> error_;
     std::uint32_t value_count_ = 0;
-    const options& options_;
+    options options_;
 };
 
 // CTAD hints

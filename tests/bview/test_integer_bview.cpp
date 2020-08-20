@@ -5,20 +5,11 @@
 #include <catch2/catch.hpp>
 #include <bencode/bview.hpp>
 #include <string_view>
-
+#include "data.hpp"
 
 using namespace std::string_literals;
 
 namespace bc = bencode;
-
-constexpr std::string_view data_integer = "i63e";
-
-constexpr std::array descriptors_integer = {
-        bc::descriptor(bc::descriptor_type::integer, 0, 63L),
-        bc::descriptor(bc::descriptor_type::stop, 4),
-};
-static auto i_view = bc::bview(descriptors_integer.data(), data_integer.data());
-
 
 
 TEST_CASE("test integer_bview") {

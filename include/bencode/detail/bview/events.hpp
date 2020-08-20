@@ -7,9 +7,12 @@
 
 #include "bview.hpp"
 #include "integer_bview.hpp"
+#include "string_bview.hpp"
+#include "list_bview.hpp"
+#include "dict_bview.hpp"
+
 #include "bencode/detail/concepts.hpp"
 #include "bencode/detail/utils.hpp"
-#include "bencode/detail/events/events.hpp"
 #include "bencode/detail/bencode_type.hpp"
 
 
@@ -40,39 +43,40 @@ constexpr void connect_events_default_string_impl(
 template <event_consumer EC>
 constexpr void connect_events_default_list_impl(
         customization_point_type<list_bview>,
-        EC consumer,
+        EC& consumer,
         const list_bview& desc,
         detail::priority_tag<0>)
 {
     consumer.begin_list(rng::size(desc));
     for (const auto& e : desc) {
         connect(consumer, e);
-        consumer.element();
+        consumer.list_item();
     }
     consumer.end_list(rng::size(desc));
 }
 
 template <event_consumer EC>
 constexpr void connect_events_default_dict_impl(
-        customization_point_type<dict_bview>, EC consumer,
+        customization_point_type<dict_bview>,
+        EC& consumer,
         const dict_bview& desc,
         detail::priority_tag<0>)
 {
         consumer.begin_dict(rng::size(desc));
         for (auto it = rng::begin(desc); it != rng::end(desc); ++it) {
             consumer.string(it.key());
-            consumer.key();
+            consumer.dict_key();
             connect(consumer, it.value());
-            consumer.member();
+            consumer.dict_value();
         }
         consumer.end_dict(rng::size(desc));
 }
 
 
-template <event_consumer EC, typename U>
+template <event_consumer EC>
 constexpr void connect_events_default_runtime_impl(
         customization_point_type<bview>,
-        EC consumer,
+        EC& consumer,
         const bview& bref,
         detail::priority_tag<1>)
 {

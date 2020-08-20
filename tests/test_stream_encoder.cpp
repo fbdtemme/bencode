@@ -5,7 +5,9 @@
 #include <catch2/catch.hpp>
 
 #include <bencode/traits/all.hpp>
-#include <bencode/detail/encoding_ostream.hpp>
+#include <bencode/detail/encoder.hpp>
+
+namespace bc = bencode;
 
 
 TEST_CASE("test stream encoder")
@@ -14,7 +16,7 @@ TEST_CASE("test stream encoder")
     using namespace std::string_literals;
 
     std::ostringstream os {};
-    auto emitter = bencode::encoding_ostream(os);
+    auto emitter = bc::encoder(os);
 
     SECTION("integral") {
         emitter << true
@@ -40,28 +42,55 @@ TEST_CASE("test stream encoder")
     }
 
     SECTION("list") {
-        emitter << bencode::begin_list
+        emitter << bc::begin_list
                 << "string literal"
                 << 1
                 << "string"s
                 << "string_view"sv
-                << bencode::end_list;
+                << bc::end_list;
         CHECK(os.str() == "l14:string literali1e6:string11:string_viewe");
     }
 
     SECTION("dict") {
-        emitter << bencode::begin_dict
+        emitter << bc::begin_dict
                 << "key1"sv << 1
                 << "key2"sv << "two"
                 << "key3"sv
-                    << bencode::begin_list
+                    << bc::begin_list
                     << 1 << 2 << 3
-                    << bencode::end_list
-                << bencode::end_dict;
+                    << bc::end_list
+                << bc::end_dict;
         std::cout << os.str() << std::endl;
 
         CHECK(os.str() == "d4:key1i1e4:key23:two4:key3li1ei2ei3eee");
     }
 
-    std::cout << os.str() << std::endl;
+    SECTION("error - invalid dict key - integer") {
+        emitter << bc::begin_dict;
+        CHECK_THROWS_AS(emitter << 1, bc::encoding_error);
+    }
+    SECTION("error - invalid dict key - list") {
+        emitter << bc::begin_dict;
+        CHECK_THROWS_AS(emitter << bc::begin_list, bc::encoding_error);
+        CHECK_THROWS_AS(emitter << bc::end_list, bc::encoding_error);
+    }
+    SECTION("error - invalid dict key - dict") {
+        emitter << bc::begin_dict;
+        CHECK_THROWS_AS(emitter << bc::begin_dict, bc::encoding_error);
+    }
+
+    SECTION("error - invalid dict end") {
+        emitter << bc::begin_dict;
+        emitter << "key1";
+        emitter << bc::begin_list;
+        emitter << 1;
+        CHECK_THROWS_AS(emitter << bc::end_dict, bc::encoding_error);
+    }
+
+    SECTION("error - invalid list end") {
+        emitter << bc::begin_list;
+        emitter << bc::begin_dict << "key1";
+
+        CHECK_THROWS_AS(emitter << bc::end_list, bc::encoding_error);
+    }
 }

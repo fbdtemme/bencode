@@ -113,8 +113,15 @@ TEST_CASE("conversion from string (bvalue)", "[bvalue][conversion][accessors]")
 
     SECTION("fs::path") {
         using T = std::filesystem::path;
-        auto v_string = get_as<T>(t_string);
-        CHECK(v_string.string() == t_string);
+
+        SECTION("success") {
+            auto v_string = get_as<T>(t_string);
+            CHECK(v_string.string()==t_string);
+        }
+        SECTION("error - not string type") {
+            bvalue b = 4;
+            CHECK_THROWS_WITH(get_as<T>(b), Catch::Contains("string"));
+        }
     }
 
     SECTION("std::vector<std::byte>") {

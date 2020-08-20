@@ -12,8 +12,7 @@
 #include "bencode/detail/utils.hpp"
 
 #include "bencode/detail/parser/common.hpp"
-#include "bencode/detail/parser/base_parser.hpp"
-#include "bencode/detail/parser/error.hpp"
+#include "bencode/detail/parser/parsing_error.hpp"
 #include "bencode/detail/bitmask_operators.hpp"
 
 namespace bencode {
@@ -27,21 +26,20 @@ namespace bencode {
 enum class descriptor_type : std::uint8_t
 {
     // core types
-    integer = 0x01,     //< descriptor hold integer data
-    string = 0x02,      //< descriptor hold string data
-    list = 0x04,        //< descriptor hold list data
-    dict = 0x08,        //< descriptor hold dict data
+    integer = 0x01,     ///< descriptor holds integer data
+    string = 0x02,      ///< descriptor holds string data
+    list = 0x04,        ///< descriptor holds list data
+    dict = 0x08,        ///< descriptor holds dict data
     // modifiers
-    none = 0x00,         //< object has no modifiers
-    list_value = 0x10,   //< object is a list item
-    dict_key = 0x20,     //< string is a dictionary key
-    dict_value = 0x40,   //< object is a dictionary bvalue
-    end = 0x80,          //< end token for a list or dict
-    stop = 0xF0          //< flag for very last token of buffer
+    none = 0x00,         ///< object has no modifiers
+    list_value = 0x10,   ///< value is a list item
+    dict_key = 0x20,     ///< value is a dict key
+    dict_value = 0x40,   ///< value is a dict value
+    end = 0x80,          ///< list or dict descriptor is end descriptor
+    stop = 0xF0          ///< placholder type for the end of a sequence of descriptors
 };
 
-/// Class describing the bvalue and metadata contained in bencoded tokens.
-//
+/// class describing the value and metadata contained in bencoded tokens.
 struct descriptor
 {
 private:
@@ -96,6 +94,8 @@ public:
         }
     }
 
+
+    /// Return the type of the bencode data.
     [[nodiscard]]
     constexpr auto type() const noexcept -> bencode_type
     {
@@ -105,104 +105,123 @@ public:
         if (is_dict())    return bencode_type::dict;
         BENCODE_UNREACHABLE;
     }
-    /// Returns true if the descriptor describes a bencoded integer, false otherwise.
+
+    /// Returns true if the descriptor describes an integer, false otherwise.
     constexpr bool is_integer() const noexcept
     { return (type_ & descriptor_type::integer) == descriptor_type::integer; }
 
-    /// Returns true if the descriptor describes a bencoded string, false otherwise.
+    /// Returns true if the descriptor describes a string, false otherwise.
     constexpr bool is_string() const noexcept
     { return (type_ & descriptor_type::string) == descriptor_type::string; }
 
-    /// Returns true if the descriptor describes a bencoded list start token.
+    /// Returns true if the descriptor describes a list start token.
     constexpr bool is_list_begin() const noexcept
     {
         constexpr auto mask = (descriptor_type::list | descriptor_type::end);
         return (type_ & mask) == descriptor_type::list;
     }
 
-    /// Returns true if the descriptor describes the last element of a bencoded list,
-    /// false otherwise.
+    /// Returns true if the descriptor describes a list end token, false otherwise.
     constexpr bool is_list_end() const noexcept
     {
         constexpr auto mask = (descriptor_type::list | descriptor_type::end);
         return (type_ & mask) == mask;
     }
 
+    /// Returns true if the descriptor describes a dict start token, false otherwise.
     constexpr bool is_dict_begin() const noexcept
     {
         constexpr auto mask = (descriptor_type::dict | descriptor_type::end);
         return (type_ & mask) == descriptor_type::dict;
     }
 
+    /// Returns true if the descriptor describes a dict end token, false otherwise.
     constexpr bool is_dict_end() const noexcept
     {
         constexpr auto mask = (descriptor_type::dict | descriptor_type::end);
         return (type_ & mask) == mask;
     }
 
+    /// Returns true if the descriptor describes a list start or end token, false otherwise.
     constexpr bool is_list() const noexcept
     { return (type_ & descriptor_type::list) == descriptor_type::list; }
 
+    /// Returns true if the descriptor describes a dict start or end token, false otherwise.
     constexpr bool is_dict() const noexcept
     { return (type_ & descriptor_type::dict) == descriptor_type::dict; }
 
+    /// Returns true if the descriptor describes a value of a list, false otherwise.
     constexpr bool is_list_value() const noexcept
-    {
-        return (type_ & descriptor_type::list_value) == descriptor_type::list_value;
-    }
+    { return (type_ & descriptor_type::list_value) == descriptor_type::list_value; }
 
+    /// Returns true if the descriptor describes a dict key, false otherwise.
     constexpr bool is_dict_key() const noexcept
     { return (type_ & descriptor_type::dict_key) == descriptor_type::dict_key; }
 
+    /// Returns true if the descriptor describes a dict value, false otherwise.
     constexpr bool is_dict_value() const noexcept
     { return (type_ & descriptor_type::dict_value) == descriptor_type::dict_value; }
 
+    /// Returns the position in the bencoded buffer of the start of the token.
     constexpr auto position() const noexcept -> std::uint32_t
     { return position_; }
 
+    /// Returns the value of an integer token,
+    /// Behavior is undefined if the data type is not an integer.
     constexpr auto value() const noexcept -> std::int64_t
     {
         Expects(is_integer());
         return data_.integer.value;
     }
 
+    /// Sets the value of an integer token,
+    /// Behavior is undefined if the data type is not an integer.
     constexpr void set_value(std::int64_t v) noexcept
     {
         Expects(is_integer());
         data_.integer.value = v;
     };
 
-    // size of a string / list or map
+
+    /// Returns the size of a string, list or dict data type.
+    /// Behavior is undefined if the data type is an integer.
     constexpr auto size() const noexcept -> std::uint32_t
     {
         Expects(is_string() || is_list_begin() || is_dict_begin());
         return data_.structured.size;
     }
 
+    /// Sets the size of a string, list or dict data type.
+    /// Behavior is undefined if the data type is an integer.
     constexpr void set_size(std::uint32_t v) noexcept
     {
         Expects(is_string() || is_list() || is_dict());
         data_.structured.size = v;
     }
 
-    /// offset to matching begin/end token for list/dict, counted from the first value
-    /// token of the list/dict
-    /// offset to start of actual string bvalue for strings
+    /// Returns the offset to matching begin/end token for list/dict,
+    /// or the offset to the string data for strings.
+    /// Behavior is undefined if the data type is an integer.
     constexpr auto offset() const noexcept -> std::uint32_t
     {
         Expects(is_string() || is_list() || is_dict());
         return data_.structured.offset;
     }
 
+    /// Sets the offset to matching begin/end token for list/dict,
+    /// or the offset to the string data for strings.
+    /// Behavior is undefined if the data type is an integer.
     constexpr void set_offset(std::uint32_t v) noexcept
     {
         Expects(is_string() || is_list() || is_dict());
         data_.structured.offset = v;
     }
 
+    /// Set this descriptors to be a placholder to denote the last descriptor
     constexpr void set_stop_flag(bool flag = true) noexcept
     { type_ |= descriptor_type::stop; }
 
+    /// Compare equality
     constexpr bool operator==(const descriptor& that) const noexcept
     {
         if (type_ != that.type_) return false;

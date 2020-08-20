@@ -5,19 +5,10 @@
 #include <type_traits>
 #include <string>
 #include <string_view>
+#include "data.hpp"
 
 using namespace std::string_literals;
 namespace bc = bencode;
-
-constexpr std::string_view data_string  = "4:spam";
-
-constexpr std::array descriptors_string  = {
-        bc::descriptor(bc::descriptor_type::string, 0, 2U, 4U),
-        bc::descriptor(bc::descriptor_type::stop, 6),
-};
-
-constexpr auto s_view_const = bc::bview(begin(descriptors_string), data_string.data());
-static auto s_view = bc::bview(begin(descriptors_string), data_string.data());
 
 
 TEST_CASE("test string_bview") {

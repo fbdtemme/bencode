@@ -15,6 +15,7 @@ It support 4 basic data types:
 The main advantages of bencode are its simplicity and that is unaffected by endianness,
 which is important for cross-platform applications.
 Another advantage is that their exists a bijection between values and their encoded form.
+As a consequence values can be compared in encoded form.
 
 Encoding
 --------

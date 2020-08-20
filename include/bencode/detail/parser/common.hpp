@@ -9,15 +9,33 @@
 #include <bencode/detail/concepts.hpp>
 #include <bencode/detail/symbol.hpp>
 #include <bencode/detail/utils.hpp>
-#include "error.hpp"
-
+#include "parsing_error.hpp"
 
 /// @file Shared code between parsers.
+
+namespace bencode {
+
+/// Pass safety options to a parser.
+struct parser_options
+{
+    /// Maximum number of nested bencode objects.
+    std::uint32_t recursion_limit = 1024;
+    /// Maximum number of values to parse.
+    std::uint32_t value_limit = 8192;
+};
+}
 
 namespace bencode::detail {
 
 namespace rng = std::ranges;
 
+/// Enum type of the current parse context in nested objects for list and dicts.
+enum class parser_state : char {
+    expect_value,
+    expect_list_value,
+    expect_dict_key,
+    expect_dict_value
+};
 
 /// Parse an integer from a string.
 ///
@@ -31,8 +49,8 @@ namespace rng = std::ranges;
 /// @returns `expected` bvalue with the decoded integer or an error code
 template <typename IntT, typename It>
     requires std::integral<IntT> && std::input_iterator<It>
-constexpr auto parse_integer(It& begin, It end) noexcept
-        -> nonstd::expected<IntT, parser_errc>
+constexpr nonstd::expected<IntT, parsing_errc>
+parse_integer(It& begin, It end) noexcept
 {
     constexpr auto max_digits = std::numeric_limits<IntT>::digits10;
     bool negative = false;
@@ -48,7 +66,7 @@ constexpr auto parse_integer(It& begin, It end) noexcept
     }
     // "" or "-" or "-{non digit}"
     if (it == end || !std::isdigit(*it)) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::expected_digit);
+        return nonstd::make_unexpected(parsing_errc::expected_digit);
     }
 
     // do not advance here since we must read the zero again
@@ -65,26 +83,22 @@ constexpr auto parse_integer(It& begin, It end) noexcept
     {
         bool overflow =
                 __builtin_mul_overflow(value, 10, &value) |
-                __builtin_add_overflow(value, *it-'0', &value);
+                __builtin_add_overflow(value, *it++-'0', &value);
 
         if (overflow) [[unlikely]] {
-            return nonstd::make_unexpected(parser_errc::integer_overflow);
+            return nonstd::make_unexpected(parsing_errc::integer_overflow);
         }
-        ++it;
-        // ++digits;
     }
 
     if (leading_zero && value != 0) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::leading_zero);
+        return nonstd::make_unexpected(parsing_errc::leading_zero);
     }
 
     if constexpr (std::is_signed_v<IntT>) {
         if (negative && value == 0) [[unlikely]] {
-            return nonstd::make_unexpected(parser_errc::negative_zero);
+            return nonstd::make_unexpected(parsing_errc::negative_zero);
         }
-        if (negative) {
-            value = -value;
-        }
+        if (negative) { value = -value; }
     }
     begin = it;
     return value;
@@ -93,8 +107,8 @@ constexpr auto parse_integer(It& begin, It end) noexcept
 /// @copydoc bencode::detail::parse_integer
 template <typename IntT, typename It>
     requires std::integral<IntT> && std::input_iterator<It>
-constexpr auto parse_integer(It&& begin, It end) noexcept
-        -> nonstd::expected<IntT, parser_errc>
+constexpr nonstd::expected<IntT, parsing_errc>
+parse_integer(It&& begin, It end) noexcept
 {
     auto b = begin;
     return parse_integer<IntT>(b, end);
@@ -112,16 +126,16 @@ constexpr auto parse_integer(It&& begin, It end) noexcept
 ///         first non decoded character in the input sequence.
 ///         When the optional is empty a parsing error occurred.
 template<std::integral IntT = std::int64_t, std::input_iterator It>
-constexpr auto bdecode_integer(It& begin, It end) noexcept
-        -> nonstd::expected<IntT, parser_errc>
+constexpr nonstd::expected<IntT, parsing_errc>
+bdecode_integer(It& begin, It end) noexcept
 {
     auto it = begin;
 
     if (it == end) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::unexpected_eof);
+        return nonstd::make_unexpected(parsing_errc::unexpected_eof);
     }
     if (*it != 'i') [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::expected_integer_start_token);
+        return nonstd::make_unexpected(parsing_errc::expected_integer_start_token);
     }
     // skip 'i'
     ++it;
@@ -135,7 +149,7 @@ constexpr auto bdecode_integer(It& begin, It end) noexcept
 
     // verify the integer is correctly terminated with the "e"
     if (it == end || *it != symbol::end) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::expected_end);
+        return nonstd::make_unexpected(parsing_errc::expected_end);
     }
 
     ++it;
@@ -147,8 +161,8 @@ constexpr auto bdecode_integer(It& begin, It end) noexcept
 template <typename IntT = std::int64_t, typename It>
     requires std::integral<IntT> && std::input_iterator<It> &&
             (std::is_rvalue_reference_v<It> || std::is_pointer_v<It>)
-constexpr auto bdecode_integer(It&& begin, It end) noexcept
-        -> nonstd::expected<IntT, parser_errc>
+constexpr nonstd::expected<IntT, parsing_errc>
+bdecode_integer(It&& begin, It end) noexcept
 {
     auto b = begin;
     return bdecode_integer<IntT>(b, end);
@@ -157,16 +171,16 @@ constexpr auto bdecode_integer(It&& begin, It end) noexcept
 
 template<typename StringT = std::string, typename It>
     requires std::input_iterator<It>
-inline auto bdecode_string(It& begin, It end)
-        -> nonstd::expected<StringT, parser_errc>
+inline nonstd::expected<StringT, parsing_errc>
+bdecode_string(It& begin, It end)
 {
     auto it = begin;
 
     if (it == end) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::unexpected_eof);
+        return nonstd::make_unexpected(parsing_errc::unexpected_eof);
     }
-    if (!std::isdigit(*it)) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::expected_digit);
+    if (*it == '-') [[unlikely]] {
+        return nonstd::make_unexpected(parsing_errc::negative_string_length);
     }
 
     const auto size_or_err = parse_integer<std::size_t>(it, end);
@@ -176,7 +190,7 @@ inline auto bdecode_string(It& begin, It end)
     const auto size = size_or_err.value();
 
     if (it == end || *it != symbol::colon) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::expected_colon);
+        return nonstd::make_unexpected(parsing_errc::expected_colon);
     }
     ++it;
 
@@ -188,7 +202,7 @@ inline auto bdecode_string(It& begin, It end)
     }
     if constexpr (std::contiguous_iterator<It>) {
         if (std::next(it, size) > end) [[unlikely]] {
-            return nonstd::make_unexpected(parser_errc::unexpected_eof);
+            return nonstd::make_unexpected(parsing_errc::unexpected_eof);
         }
         value = StringT(it, std::next(it, size));
         std::advance(it, size);
@@ -196,7 +210,7 @@ inline auto bdecode_string(It& begin, It end)
     else {
         for (size_t idx = 0; idx < size; ++it, ++idx) {
             if (it == end) [[unlikely]] {
-                return nonstd::make_unexpected(parser_errc::unexpected_eof);
+                return nonstd::make_unexpected(parsing_errc::unexpected_eof);
             }
             value.push_back(*it);
         }
@@ -210,56 +224,11 @@ inline auto bdecode_string(It& begin, It end)
 template<typename StringT = std::string, typename It>
     requires std::input_iterator<It> &&
             (std::is_rvalue_reference_v<It> || std::is_pointer_v<It>)
-    constexpr auto bdecode_string(It&& begin, It end) noexcept
-    -> nonstd::expected<StringT, parser_errc>
+constexpr nonstd::expected<StringT, parsing_errc>
+bdecode_string(It&& begin, It end) noexcept
 {
     auto b = begin;
     return bdecode_string<StringT>(b, end);
-}
-
-
-template <typename StringViewT = std::string_view, typename It>
-    requires std::contiguous_iterator<It>
-constexpr auto bdecode_string_view(It& begin, It end) noexcept
-        -> nonstd::expected<StringViewT, parser_errc>
-{
-    auto it = begin;
-    if (it == end) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::unexpected_eof);
-    }
-    if (!std::isdigit(*it)) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::expected_digit);
-    }
-
-    const auto size_or_err = parse_integer<std::size_t>(it, end);
-    if (!size_or_err) [[unlikely]] {
-        return nonstd::make_unexpected(size_or_err.error());
-    }
-    const auto size = *size_or_err;
-
-    if (it == end || *it != symbol::colon) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::expected_colon);
-    }
-    ++it;
-
-    auto string_start = it;
-
-    if (std::next(it, size) > end) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::unexpected_eof);
-    }
-    std::advance(it, size);
-    begin = it;
-    return StringViewT(string_start, size);
-}
-
-template <typename StringViewT = std::string_view, typename It>
-    requires std::contiguous_iterator<It> &&
-            (std::is_rvalue_reference_v<It> || std::is_pointer_v<It>)
-constexpr auto bdecode_string_view(It&& begin, It end) noexcept
-        -> nonstd::expected<StringViewT, parser_errc>
-{
-    auto b = begin;
-    return bdecode_string_view<StringViewT>(b, end);
 }
 
 struct bdecode_string_token_result
@@ -271,16 +240,16 @@ struct bdecode_string_token_result
 
 template <typename It>
     requires std::contiguous_iterator<It>
-constexpr auto bdecode_string_token(It& begin , It end) noexcept
-        -> nonstd::expected<bdecode_string_token_result, parser_errc>
+constexpr nonstd::expected<bdecode_string_token_result, parsing_errc>
+bdecode_string_token(It& begin , It end) noexcept
 {
     auto it = begin;
 
     if (it == end) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::unexpected_eof);
+        return nonstd::make_unexpected(parsing_errc::unexpected_eof);
     }
-    if (!std::isdigit(*it)) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::expected_digit);
+    if (*it == '-') [[unlikely]] {
+        return nonstd::make_unexpected(parsing_errc::negative_string_length);
     }
 
     const auto init_pos = static_cast<std::uint32_t>(std::distance(begin, it));
@@ -292,7 +261,7 @@ constexpr auto bdecode_string_token(It& begin , It end) noexcept
     const auto size = *result;
 
     if (it == end || *it != symbol::colon) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::expected_colon);
+        return nonstd::make_unexpected(parsing_errc::expected_colon);
     }
     ++it;
 
@@ -301,7 +270,7 @@ constexpr auto bdecode_string_token(It& begin , It end) noexcept
     const auto prefix_length = static_cast<std::uint32_t>(std::distance(begin, it));
 
     if (std::next(it, size) > end) [[unlikely]] {
-        return nonstd::make_unexpected(parser_errc::unexpected_eof);
+        return nonstd::make_unexpected(parsing_errc::unexpected_eof);
     }
     std::advance(it, size);
     begin = it;
@@ -312,8 +281,8 @@ constexpr auto bdecode_string_token(It& begin , It end) noexcept
 template <typename StringViewT = std::string_view, typename It>
     requires std::contiguous_iterator<It> &&
             (std::is_rvalue_reference_v<It> || std::is_pointer_v<It>)
-constexpr auto bdecode_string_token(It&& begin, It end) noexcept
-    -> nonstd::expected<bdecode_string_token_result, parser_errc>
+constexpr nonstd::expected<bdecode_string_token_result, parsing_errc>
+bdecode_string_token(It&& begin, It end) noexcept
 {
     auto b = begin;
     return bdecode_string_token(b, end);

@@ -6,10 +6,9 @@
 #include <sstream>
 #include <ranges>
 
-#include <bencode/bencode_fwd.hpp>
 #include <bencode/detail/bencode_type.hpp>
 #include <bencode/detail/utils.hpp>
-#include <bencode/detail/parser/error.hpp>
+#include <bencode/detail/parser/parsing_error.hpp>
 
 namespace bencode::events {
 
@@ -96,7 +95,7 @@ public:
         first_ = false;
     }
 
-    static void error(bencode::parse_error e) {
+    static void error(bencode::parsing_error e) {
         throw e;
     }
 

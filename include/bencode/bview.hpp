@@ -10,7 +10,7 @@
 #include "bencode/detail/bview/accessors.hpp"
 #include "bencode/detail/bview/conversion.hpp"
 #include "bencode/detail/bview/comparison.hpp"
-#include "bencode/detail/bview/events.hpp"
 #include "bencode/detail/bview/to_bvalue.hpp"
+#include "bencode/detail/bview/events.hpp"
 #include "bencode/detail/decode_view.hpp"
 #include "bencode/detail/events/events.hpp"

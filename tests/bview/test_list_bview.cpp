@@ -7,37 +7,11 @@
 #include <string>
 #include <string_view>
 
+#include "data.hpp"
+
 using namespace std::string_literals;
 namespace bc = bencode;
 
-constexpr std::string_view data_list    = "li1ei2ee";
-constexpr std::string_view data_nested_list    = "lie1l3:foo3:baree";
-
-constexpr std::array descriptors_list = {
-        bc::descriptor(bc::descriptor_type::list, 0, 3, 2),
-        bc::descriptor(bc::descriptor_type::integer  | bc::descriptor_type::list_value, 1, 1),
-        bc::descriptor(bc::descriptor_type::integer | bc::descriptor_type::list_value, 4, 2),
-        bc::descriptor(bc::descriptor_type::list | bc::descriptor_type::end, 7, 3, 2),
-        bc::descriptor(bc::descriptor_type::stop, 8),
-};
-
-constexpr std::array descriptors_nested_list = {
-        bc::descriptor(bc::descriptor_type::list, 0, 6, 2),
-        bc::descriptor(bc::descriptor_type::integer  | bc::descriptor_type::list_value, 1, 1),
-        bc::descriptor(bc::descriptor_type::list | bc::descriptor_type::list_value, 4, 3, 2),
-        bc::descriptor(bc::descriptor_type::string | bc::descriptor_type::list_value, 5, 2, 3),
-        bc::descriptor(bc::descriptor_type::string | bc::descriptor_type::list_value, 10, 2, 3),
-        bc::descriptor(bc::descriptor_type::list | bc::descriptor_type::end, 15, 3, 2),
-        bc::descriptor(bc::descriptor_type::list | bc::descriptor_type::end, 16, 6, 2),
-        bc::descriptor(bc::descriptor_type::stop, 17),
-};
-
-constexpr auto l_view_const = bc::bview(begin(descriptors_list), data_list.data());
-static auto l_view = bc::bview(begin(descriptors_list), data_list.data());
-
-constexpr auto l_view_nested_const = bc::bview(begin(descriptors_nested_list),
-                                               data_nested_list.data());
-static auto l_view_nested = bc::bview(begin(descriptors_nested_list), data_nested_list.data());
 
 
 TEST_CASE("test list_bview") {
@@ -78,17 +52,17 @@ TEST_CASE("test list_bview") {
 
     SECTION("at()") {
         auto ref = list.at(0);
-        CHECK(ref == 1);
+        CHECK(ref == 2);
         CHECK_THROWS_AS(list.at(3), std::out_of_range);
     }
 
     SECTION("front()") {
-        CHECK(list.front() == 1);
-        CHECK(list_reverse.front() == 1);
+        CHECK(list.front() == 2);
+        CHECK(list_reverse.front() == 2);
     }
     SECTION("back()") {
-        CHECK(list.back() == 2);
-        CHECK(list_reverse.back() == 2);
+        CHECK(list.back() == 3);
+        CHECK(list_reverse.back() == 3);
     }
 
     SECTION("empty()") {
@@ -114,6 +88,8 @@ TEST_CASE("test list_bview") {
             --first;
             --first; // point to list begin
             CHECK(first == list.begin());
+            CHECK(std::distance(list.begin(), list.end()) == list.size());
+            CHECK(std::distance(list.rbegin(), list.rend()) == list.size());
             CHECK(std::distance(list.cbegin(), list.cend()) == list.size());
             CHECK(std::distance(list.crbegin(), list.crend()) == list.size());
         }
