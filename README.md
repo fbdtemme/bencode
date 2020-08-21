@@ -10,12 +10,12 @@ A header-only C++20 bencode serialization/deserialization library.
 ## Features
 
 *  Convenient owning representation of bencoded data with `bvalue`.
-*  Fast and memory efficient read-only, non-owning representation into stable buffers 
-   of bencoded data with `bview`.
+*  Fast and memory efficient read-only, non-owning representation into stable buffers of bencoded data with `bview`.
 *  Build-in serialization/deserializaton for most standard containers.
 *  Support for serializing/deserializing to/from user-defined types. 
 *  Parse directly to custom types by satisfying the `EventConsumer` concept.
 *  Throwing and non throwing variants of common functions.
+*  Iterative parsing to be safe against stack overflow attacks.
 
 ## Documentation
 
@@ -27,10 +27,10 @@ This project requires C++20.
 Currently only GCC 10 is supported.
 
 This library depends on following projects:
-* [Catch2](https://github.com/catchorg/Catch2)
-* [fmt](https://github.com/fmtlib/fmt)
-* [Microsoft GSL](https://github.com/microsoft/GSL)
-* [expected-lite](https://github.com/martinmoene/expected-lite)
+*  [Catch2](https://github.com/catchorg/Catch2)
+*  [fmt](https://github.com/fmtlib/fmt)
+*  [Microsoft GSL](https://github.com/microsoft/GSL)
+*  [expected-lite](https://github.com/martinmoene/expected-lite)
 
 All dependencies can be fetched from github during configure time or can be installed manually.
 
@@ -44,7 +44,6 @@ namespace bc = bencode;
 ```
 
 ```cpp
-#include <bencode/bencode.hpp> 
 #include <bencode/bvalue.hpp> 
 
 using namespace bc::literals;
@@ -60,7 +59,6 @@ auto v2 = get_integer(b[1]);
 Decode a value to a `bview`.
 
 ```cpp
-#include <bencode/bencode.hpp> 
 #include <bencode/bview.hpp> 
 
 namespace bc = bencode;
@@ -77,10 +75,9 @@ auto v2 = get_integer(b[1]);
 
 Serialize to bencode using `bvalue`.
 ```cpp
-#include <bencode/bencode.hpp> 
 #include <bencode/bvalue.hpp> 
 
-bc::value b {
+bc::bvalue b {
   {"foo", 1},
   {"bar", 2},
   {"baz", bc::bvalue(bc::btype::list, {1, 2, 3})},
@@ -93,7 +90,8 @@ bc::encode_to(std::cout, b);
 Serialize to bencode using `encoder`
 
 ```cpp
-#include <bencode/bencode.hpp> 
+#include <bencode/encode.hpp> 
+#include <bencode/traits/vector.hpp> 
 
 bc::encoder es(std::cout);
 
