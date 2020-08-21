@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,56 +11,52 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Bencode 0.1.0 documentation" href="../index.html"/>
-        <link rel="next" title="View interface" href="view.html"/>
-        <link rel="prev" title="Integration" href="../getting_started/integration.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="View interface" href="view.html" />
+    <link rel="prev" title="Integration" href="../getting_started/integration.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> Bencode
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Bencode
           
 
           
             
-            <img src="../_static/bencode.svg" class="logo" />
+            <img src="../_static/bencode.svg" class="logo" alt="Logo"/>
           
           </a>
 
@@ -86,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -133,13 +129,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Bencode</a>
@@ -147,9 +144,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -170,7 +168,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Value interface</li>
     
@@ -195,50 +193,50 @@
 <h1>Value interface<a class="headerlink" href="#value-interface" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p><code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> is class that represents a bencoded value.
-It is a sum-type implemented with a <code class="xref cpp cpp-class docutils literal"><span class="pre">std::variant</span></code> to stores the
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> is class that represents a bencoded value.
+It is a sum-type implemented with a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::variant</span></code> to stores the
 different bencode data types.</p>
-<p><code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> is an instantiation of the class template
-<code class="xref cpp cpp-class docutils literal"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">basic_bvalue</span></code> and the exact types used to store
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> is an instantiation of the class template
+<a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">basic_bvalue</span></code></a> and the exact types used to store
 the different bencode data types can be customized through the Policy template argument.</p>
 <p>The default policy uses following storage types:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="31%" />
-<col width="69%" />
+<col style="width: 31%" />
+<col style="width: 69%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>integer</td>
-<td><code class="code docutils literal"><span class="pre">std::int64_t</span></code></td>
+<tbody>
+<tr class="row-odd"><td><p>integer</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">std::int64_t</span></code></p></td>
 </tr>
-<tr class="row-even"><td>string</td>
-<td><code class="code docutils literal"><span class="pre">std::string</span></code></td>
+<tr class="row-even"><td><p>string</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">std::string</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>list</td>
-<td><code class="code docutils literal"><span class="pre">std::vector</span></code></td>
+<tr class="row-odd"><td><p>list</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">std::vector</span></code></p></td>
 </tr>
-<tr class="row-even"><td>dict</td>
-<td><code class="code docutils literal"><span class="pre">std::map</span></code></td>
+<tr class="row-even"><td><p>dict</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">std::map</span></code></p></td>
 </tr>
 </tbody>
 </table>
 <p>The bvalue class can be used to create, and manipulate bencode values.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In most examples <code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> can be replaced by
-<a class="reference internal" href="../reference/bvalue.html#_CPPv2N7bencode12basic_bvalueE" title="bencode::basic_bvalue"><code class="xref cpp cpp-class docutils literal"><span class="pre">basic_bvalue</span></code></a> with a user-defined Policy template argument.</p>
+<p class="admonition-title">Note</p>
+<p>In most examples <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> can be replaced by
+<a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">basic_bvalue</span></code></a> with a user-defined Policy template argument.</p>
 </div>
 </div>
 <div class="section" id="construction">
 <h2>Construction<a class="headerlink" href="#construction" title="Permalink to this headline">¶</a></h2>
-<p><code class="xref cpp cpp-class docutils literal"><span class="pre">bvalue</span></code> provides similar constructors and assignment operators as <code class="code docutils literal"><span class="pre">std::variant</span></code>.</p>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> provides similar constructors and assignment operators as <code class="code docutils literal notranslate"><span class="pre">std::variant</span></code>.</p>
 <p>Construct an empty bvalue.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="p">{};</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="p">{};</span>
 </pre></div>
 </div>
 <p>Arguments matching one of the storage types will be forwarded to the constructor of the
 underlying type.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// Copy initialize an integer</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Copy initialize an integer</span>
 <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">bi</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 
 <span class="c1">// Copy initialize a bvalue holding a string.</span>
@@ -247,13 +245,13 @@ underlying type.</p>
 </div>
 <p>The type can be passed explicitly using a type tag.
 This is necessary to distinguish between initializer-lists for string, list and dict bencode types.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// construct a vector of 5 times 1</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// construct a vector of 5 times 1</span>
 <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b4</span><span class="p">(</span><span class="n">bc</span><span class="o">::</span><span class="n">btype</span><span class="o">::</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">});</span>
 </pre></div>
 </div>
 <p>Converting constructors allow any type that has the required customization points implemented
 to be passed to the bvalue constructor.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;bencode/traits/list.hpp&gt;</span><span class="cp"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;bencode/traits/list.hpp&gt;</span><span class="cp"></span>
 
 <span class="k">auto</span> <span class="n">l</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bencode</span><span class="o">::</span><span class="n">bvalue</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>
@@ -263,7 +261,7 @@ to be passed to the bvalue constructor.</p>
 <div class="section" id="accessors">
 <h2>Accessors<a class="headerlink" href="#accessors" title="Permalink to this headline">¶</a></h2>
 <p>Check the current activate alternative.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
 
 <span class="c1">// returns true</span>
 <span class="n">is_string</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
@@ -273,7 +271,7 @@ to be passed to the bvalue constructor.</p>
 </pre></div>
 </div>
 <p>Get a reference to the underlying type.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
 
 <span class="k">using</span> <span class="n">bv</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bencode_type</span><span class="p">;</span>
 
@@ -293,7 +291,7 @@ to be passed to the bvalue constructor.</p>
 </pre></div>
 </div>
 <p>Non throwing accessors.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
 
 <span class="k">using</span> <span class="n">bv</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bencode_type</span><span class="p">;</span>
 
@@ -310,7 +308,7 @@ to be passed to the bvalue constructor.</p>
 </pre></div>
 </div>
 <p>Converting accessors.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">bencode</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">bencode</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
 
 <span class="k">auto</span> <span class="n">bytes</span> <span class="o">=</span> <span class="n">get_as</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
 </pre></div>
@@ -320,14 +318,14 @@ to be passed to the bvalue constructor.</p>
 <h2>Modifying operation<a class="headerlink" href="#modifying-operation" title="Permalink to this headline">¶</a></h2>
 <p>The emplace family of functions will discard the current value and construct
 a new value in place forwarding the arguments to the constructor of the underlying type.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
 <span class="n">b</span><span class="p">.</span><span class="n">emplace_list</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">});</span>
 <span class="k">auto</span><span class="o">&amp;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">get_list</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>There are some convenience functions when the underlying type is a list or dict to directly access
 the underlying type without first obtaining a reference with accessor functions.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">blist</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span><span class="p">(</span><span class="n">bc</span><span class="o">::</span><span class="n">type</span><span class="o">::</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">});</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">blist</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span><span class="p">(</span><span class="n">bc</span><span class="o">::</span><span class="n">type</span><span class="o">::</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">});</span>
 <span class="k">auto</span> <span class="n">bdict</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bdict</span><span class="p">(</span><span class="n">bc</span><span class="o">::</span><span class="n">type</span><span class="o">::</span><span class="n">dict</span><span class="p">,</span> <span class="p">{</span>
     <span class="p">{</span><span class="s">&quot;one&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">}.</span>
     <span class="p">{</span><span class="s">&quot;two&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
@@ -362,8 +360,8 @@ the underlying type without first obtaining a reference with accessor functions.
 <p>Comparison operators will look through the bvalue and compare with the underling type.
 If the type you compare with does not match the type of the value contained in bvalue
 the fallback ordering is defined by the ordering of the types:
-<code class="code docutils literal"><span class="pre">integer</span> <span class="pre">&lt;</span> <span class="pre">string</span> <span class="pre">&lt;</span> <span class="pre">list</span> <span class="pre">&lt;</span> <span class="pre">dict</span></code>.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b_int</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<code class="code docutils literal notranslate"><span class="pre">integer</span> <span class="pre">&lt;</span> <span class="pre">string</span> <span class="pre">&lt;</span> <span class="pre">list</span> <span class="pre">&lt;</span> <span class="pre">dict</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b_int</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 
 <span class="c1">// true</span>
 <span class="k">auto</span> <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
@@ -386,7 +384,7 @@ the fallback ordering is defined by the ordering of the types:
 <p>Operations described above are defined for most standard library types.
 They are not enabled by default however and the right trait header must be included.
 The easiest way is to include all traits but this will have a heavy impact on compile times.</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// enable interoperability with all supported types.</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// enable interoperability with all supported types.</span>
 <span class="cp">#include</span> <span class="cpf">&lt;bencode/traits/all.hpp&quot;</span><span class="cp"></span>
 
 <span class="c1">// enable interoperability with std::set, std::unordered_set</span>
@@ -398,9 +396,7 @@ The easiest way is to include all traits but this will have a heavy impact on co
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -409,7 +405,7 @@ The easiest way is to include all traits but this will have a heavy impact on co
         <a href="view.html" class="btn btn-neutral float-right" title="View interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../getting_started/integration.html" class="btn btn-neutral" title="Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../getting_started/integration.html" class="btn btn-neutral float-left" title="Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -418,11 +414,19 @@ The easiest way is to include all traits but this will have a heavy impact on co
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright .
+        
+        &copy; Copyright 
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -434,37 +438,15 @@ The easiest way is to include all traits but this will have a heavy impact on co
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

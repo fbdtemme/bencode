@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,56 +11,52 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Bencode 0.1.0 documentation" href="../index.html"/>
-        <link rel="next" title="Encoding and decoding" href="encoding_decoding.html"/>
-        <link rel="prev" title="View interface" href="view.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Encoding and decoding" href="encoding_decoding.html" />
+    <link rel="prev" title="View interface" href="view.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> Bencode
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Bencode
           
 
           
             
-            <img src="../_static/bencode.svg" class="logo" />
+            <img src="../_static/bencode.svg" class="logo" alt="Logo"/>
           
           </a>
 
@@ -86,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -129,13 +125,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Bencode</a>
@@ -143,9 +140,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -166,7 +164,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Events system</li>
     
@@ -190,12 +188,12 @@
   <div class="section" id="events-system">
 <h1>Events system<a class="headerlink" href="#events-system" title="Permalink to this headline">¶</a></h1>
 <p>The events interface allows different parts of the library to communicate and to efficiently convert between data representations.
-It consists of two concepts <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_consumer</span></code> and <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_producer</span></code>.</p>
+It consists of two concepts <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumer</span></code> and <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code>.</p>
 <div class="section" id="event-consumers">
 <h2>Event consumers<a class="headerlink" href="#event-consumers" title="Permalink to this headline">¶</a></h2>
 <p>The event consumer concepts is modeled after the SAX-interface for XML.
 The most simple consumer which ignores all events would look as following:</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">discard_consumer</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">discard_consumer</span>
 <span class="p">{</span>
     <span class="kt">void</span> <span class="n">integer</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
     <span class="kt">void</span> <span class="n">string</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
@@ -215,27 +213,56 @@ The most simple consumer which ignores all events would look as following:</p>
 </div>
 <p>Every bencode data structure can be discribed by successive calls to this inteface.
 Following bencode data structure (formatted as JSON) would generate these calls.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;one&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">begin_dict</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">string</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+    <span class="n">dict_key</span><span class="p">()</span>
+    <span class="n">begin_list</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">begin_string</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+        <span class="n">list_item</span><span class="p">()</span>
+        <span class="n">string</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+        <span class="n">list_item</span><span class="p">()</span>
+    <span class="n">end_list</span><span class="p">()</span>
+    <span class="n">dict_value</span><span class="p">()</span>
+    <span class="n">string</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
+    <span class="n">dict_key</span><span class="p">()</span>
+    <span class="n">begin_dict</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">string</span><span class="p">(</span><span class="s2">&quot;one&quot;</span><span class="p">)</span>
+        <span class="n">dict_key</span><span class="p">()</span>
+        <span class="n">integer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">dict_value</span><span class="p">()</span>
+        <span class="n">string</span><span class="p">(</span><span class="s2">&quot;two&quot;</span><span class="p">)</span>
+        <span class="n">dict_key</span><span class="p">()</span>
+        <span class="n">integer</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">dict_value</span><span class="p">()</span>
+    <span class="n">end_dict</span><span class="p">()</span>
+    <span class="n">dict_value</span><span class="p">()</span>
+<span class="n">end_dict</span><span class="p">()</span>
+</pre></div>
+</div>
 <p>Note that list_item(), dict_key() and dict_value() are called after describing the value.</p>
 </div>
 <div class="section" id="event-producers">
 <h2>Event producers<a class="headerlink" href="#event-producers" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_producer</span></code> concept is defined as any object that can generate calls to a
-class satisfying the <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_consumer</span></code> concept through the
-<code class="xref cpp cpp-func docutils literal"><span class="pre">connect()</span></code> method.</p>
+<p>The <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code> concept is defined as any object that can generate calls to a
+class satisfying the <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumer</span></code> concept through the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">connect()</span></code> method.</p>
 </div>
 </div>
 <div class="section" id="connecting-consumer-and-producers">
 <h1>Connecting consumer and producers<a class="headerlink" href="#connecting-consumer-and-producers" title="Permalink to this headline">¶</a></h1>
-<p><code class="xref cpp cpp-concept docutils literal"><span class="pre">event_producers</span></code> are connected to <code class="xref cpp cpp-concept docutils literal"><span class="pre">event_consumers</span></code>
+<p><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producers</span></code> are connected to <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumers</span></code>
 with the connect function.</p>
-<p><code class="xref cpp cpp-func docutils literal"><span class="pre">template</span> <span class="pre">&lt;event_consumer</span> <span class="pre">EC,</span> <span class="pre">event_producer</span> <span class="pre">U&gt;</span> <span class="pre">constexpr</span> <span class="pre">void</span> <span class="pre">connect(EC&amp;</span> <span class="pre">consumer,</span> <span class="pre">U&amp;&amp;</span> <span class="pre">producer)()</span></code></p>
+<p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;event_consumer</span> <span class="pre">EC,</span> <span class="pre">event_producer</span> <span class="pre">U&gt;</span> <span class="pre">constexpr</span> <span class="pre">void</span> <span class="pre">connect(EC&amp;</span> <span class="pre">consumer,</span> <span class="pre">U&amp;&amp;</span> <span class="pre">producer)()</span></code></p>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -244,7 +271,7 @@ with the connect function.</p>
         <a href="encoding_decoding.html" class="btn btn-neutral float-right" title="Encoding and decoding" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="view.html" class="btn btn-neutral" title="View interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="view.html" class="btn btn-neutral float-left" title="View interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -253,11 +280,19 @@ with the connect function.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright .
+        
+        &copy; Copyright 
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -269,37 +304,15 @@ with the connect function.</p>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

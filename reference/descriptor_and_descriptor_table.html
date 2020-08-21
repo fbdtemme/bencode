@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,56 +11,52 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Bencode 0.1.0 documentation" href="../index.html"/>
-        <link rel="next" title="License" href="../other/license.html"/>
-        <link rel="prev" title="Encoding and decoding" href="encoding_and_decoding.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="License" href="../other/license.html" />
+    <link rel="prev" title="Encoding and decoding" href="encoding_and_decoding.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> Bencode
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Bencode
           
 
           
             
-            <img src="../_static/bencode.svg" class="logo" />
+            <img src="../_static/bencode.svg" class="logo" alt="Logo"/>
           
           </a>
 
@@ -86,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -125,13 +121,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Bencode</a>
@@ -139,9 +136,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -162,7 +160,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Descriptors</li>
     
@@ -185,234 +183,234 @@
             
   <div class="section" id="descriptors">
 <h1>Descriptors<a class="headerlink" href="#descriptors" title="Permalink to this headline">¶</a></h1>
-<dl class="type">
-<dt id="_CPPv2N7bencode15descriptor_typeE">
-<span id="bencode::descriptor_type"></span><span class="target" id="descriptor_8hpp_1a32dd0363b9da5822af47936224cdb553"></span><em class="property">enum </em><code class="descclassname">bencode::</code><code class="descname">descriptor_type</code><a class="headerlink" href="#_CPPv2N7bencode15descriptor_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enum">
+<dt id="_CPPv4N7bencode15descriptor_typeE">
+<span id="_CPPv3N7bencode15descriptor_typeE"></span><span id="_CPPv2N7bencode15descriptor_typeE"></span><span class="target" id="descriptor_8hpp_1a32dd0363b9da5822af47936224cdb553"></span><em class="property">enum </em><code class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">descriptor_type</code><a class="headerlink" href="#_CPPv4N7bencode15descriptor_typeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Enumeration type specifying the data stored in a descriptor. </p>
 <p><em>Values:</em></p>
-<dl class="enumerator">
-<dt id="_CPPv2N7bencode7integerE">
-<span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a157db7df530023575515d366c9b672e8"></span><code class="descname">integer</code> = 0x01<a class="headerlink" href="#_CPPv2N7bencode7integerE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N7bencode15descriptor_type7integerE">
+<span id="_CPPv3N7bencode15descriptor_type7integerE"></span><span id="_CPPv2N7bencode15descriptor_type7integerE"></span><span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a157db7df530023575515d366c9b672e8"></span><em class="property">enumerator </em><code class="sig-name descname">integer</code> = 0x01<a class="headerlink" href="#_CPPv4N7bencode15descriptor_type7integerE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>descriptor holds integer data </p>
 </dd></dl>
 
-<dl class="enumerator">
-<dt id="_CPPv2N7bencode6stringE">
-<span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553ab45cffe084dd3d20d928bee85e7b0f21"></span><code class="descname">string</code> = 0x02<a class="headerlink" href="#_CPPv2N7bencode6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N7bencode15descriptor_type6stringE">
+<span id="_CPPv3N7bencode15descriptor_type6stringE"></span><span id="_CPPv2N7bencode15descriptor_type6stringE"></span><span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553ab45cffe084dd3d20d928bee85e7b0f21"></span><em class="property">enumerator </em><code class="sig-name descname">string</code> = 0x02<a class="headerlink" href="#_CPPv4N7bencode15descriptor_type6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>descriptor holds string data </p>
 </dd></dl>
 
-<dl class="enumerator">
-<dt id="_CPPv2N7bencode4listE">
-<span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a10ae9fc7d453b0dd525d0edf2ede7961"></span><code class="descname">list</code> = 0x04<a class="headerlink" href="#_CPPv2N7bencode4listE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N7bencode15descriptor_type4listE">
+<span id="_CPPv3N7bencode15descriptor_type4listE"></span><span id="_CPPv2N7bencode15descriptor_type4listE"></span><span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a10ae9fc7d453b0dd525d0edf2ede7961"></span><em class="property">enumerator </em><code class="sig-name descname">list</code> = 0x04<a class="headerlink" href="#_CPPv4N7bencode15descriptor_type4listE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>descriptor holds list data </p>
 </dd></dl>
 
-<dl class="enumerator">
-<dt id="_CPPv2N7bencode4dictE">
-<span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553abb4c374392133719a324ab1ba2799cd6"></span><code class="descname">dict</code> = 0x08<a class="headerlink" href="#_CPPv2N7bencode4dictE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N7bencode15descriptor_type4dictE">
+<span id="_CPPv3N7bencode15descriptor_type4dictE"></span><span id="_CPPv2N7bencode15descriptor_type4dictE"></span><span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553abb4c374392133719a324ab1ba2799cd6"></span><em class="property">enumerator </em><code class="sig-name descname">dict</code> = 0x08<a class="headerlink" href="#_CPPv4N7bencode15descriptor_type4dictE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>descriptor holds dict data </p>
 </dd></dl>
 
-<dl class="enumerator">
-<dt id="_CPPv2N7bencode4noneE">
-<span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a334c4a4c42fdb79d7ebc3e73b517e6f8"></span><code class="descname">none</code> = 0x00<a class="headerlink" href="#_CPPv2N7bencode4noneE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N7bencode15descriptor_type4noneE">
+<span id="_CPPv3N7bencode15descriptor_type4noneE"></span><span id="_CPPv2N7bencode15descriptor_type4noneE"></span><span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a334c4a4c42fdb79d7ebc3e73b517e6f8"></span><em class="property">enumerator </em><code class="sig-name descname">none</code> = 0x00<a class="headerlink" href="#_CPPv4N7bencode15descriptor_type4noneE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>object has no modifiers </p>
 </dd></dl>
 
-<dl class="enumerator">
-<dt id="_CPPv2N7bencode10list_valueE">
-<span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a8789a6a02ddd065e092c9600d634a8ae"></span><code class="descname">list_value</code> = 0x10<a class="headerlink" href="#_CPPv2N7bencode10list_valueE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N7bencode15descriptor_type10list_valueE">
+<span id="_CPPv3N7bencode15descriptor_type10list_valueE"></span><span id="_CPPv2N7bencode15descriptor_type10list_valueE"></span><span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a8789a6a02ddd065e092c9600d634a8ae"></span><em class="property">enumerator </em><code class="sig-name descname">list_value</code> = 0x10<a class="headerlink" href="#_CPPv4N7bencode15descriptor_type10list_valueE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>value is a list item </p>
 </dd></dl>
 
-<dl class="enumerator">
-<dt id="_CPPv2N7bencode8dict_keyE">
-<span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a387754497d96fa02c4db87c4333c7e03"></span><code class="descname">dict_key</code> = 0x20<a class="headerlink" href="#_CPPv2N7bencode8dict_keyE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N7bencode15descriptor_type8dict_keyE">
+<span id="_CPPv3N7bencode15descriptor_type8dict_keyE"></span><span id="_CPPv2N7bencode15descriptor_type8dict_keyE"></span><span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a387754497d96fa02c4db87c4333c7e03"></span><em class="property">enumerator </em><code class="sig-name descname">dict_key</code> = 0x20<a class="headerlink" href="#_CPPv4N7bencode15descriptor_type8dict_keyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>value is a dict key </p>
 </dd></dl>
 
-<dl class="enumerator">
-<dt id="_CPPv2N7bencode10dict_valueE">
-<span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a41672c0118f61668dec9f168d5218325"></span><code class="descname">dict_value</code> = 0x40<a class="headerlink" href="#_CPPv2N7bencode10dict_valueE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N7bencode15descriptor_type10dict_valueE">
+<span id="_CPPv3N7bencode15descriptor_type10dict_valueE"></span><span id="_CPPv2N7bencode15descriptor_type10dict_valueE"></span><span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a41672c0118f61668dec9f168d5218325"></span><em class="property">enumerator </em><code class="sig-name descname">dict_value</code> = 0x40<a class="headerlink" href="#_CPPv4N7bencode15descriptor_type10dict_valueE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>value is a dict value </p>
 </dd></dl>
 
-<dl class="enumerator">
-<dt id="_CPPv2N7bencode3endE">
-<span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a7f021a1415b86f2d013b2618fb31ae53"></span><code class="descname">end</code> = 0x80<a class="headerlink" href="#_CPPv2N7bencode3endE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N7bencode15descriptor_type3endE">
+<span id="_CPPv3N7bencode15descriptor_type3endE"></span><span id="_CPPv2N7bencode15descriptor_type3endE"></span><span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553a7f021a1415b86f2d013b2618fb31ae53"></span><em class="property">enumerator </em><code class="sig-name descname">end</code> = 0x80<a class="headerlink" href="#_CPPv4N7bencode15descriptor_type3endE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>list or dict descriptor is end descriptor </p>
 </dd></dl>
 
-<dl class="enumerator">
-<dt id="_CPPv2N7bencode4stopE">
-<span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553aef399b2d446bb37b7c32ad2cc1b6045b"></span><code class="descname">stop</code> = 0xF0<a class="headerlink" href="#_CPPv2N7bencode4stopE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N7bencode15descriptor_type4stopE">
+<span id="_CPPv3N7bencode15descriptor_type4stopE"></span><span id="_CPPv2N7bencode15descriptor_type4stopE"></span><span class="target" id="dummy_1a32dd0363b9da5822af47936224cdb553aef399b2d446bb37b7c32ad2cc1b6045b"></span><em class="property">enumerator </em><code class="sig-name descname">stop</code> = 0xF0<a class="headerlink" href="#_CPPv4N7bencode15descriptor_type4stopE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>placholder type for the end of a sequence of descriptors </p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="_CPPv2N7bencode10descriptorE">
-<span id="bencode::descriptor"></span><span class="target" id="structbencode_1_1descriptor"></span><em class="property">struct </em><code class="descclassname">bencode::</code><code class="descname">descriptor</code><a class="headerlink" href="#_CPPv2N7bencode10descriptorE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp struct">
+<dt id="_CPPv4N7bencode10descriptorE">
+<span id="_CPPv3N7bencode10descriptorE"></span><span id="_CPPv2N7bencode10descriptorE"></span><span id="bencode::descriptor"></span><span class="target" id="structbencode_1_1descriptor"></span><em class="property">struct </em><code class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">descriptor</code><a class="headerlink" href="#_CPPv4N7bencode10descriptorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>class describing the value and metadata contained in bencoded tokens. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor4typeEv">
-<span id="bencode::descriptor::typeCCE"></span><span class="target" id="structbencode_1_1descriptor_1a1a54a335f90ea5ab05ba8ed7ec6583cf"></span><em class="property">constexpr</em> auto <code class="descname">type</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor4typeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor4typeEv">
+<span id="_CPPv3NK7bencode10descriptor4typeEv"></span><span id="_CPPv2NK7bencode10descriptor4typeEv"></span><span id="bencode::descriptor::typeCCE"></span><span class="target" id="structbencode_1_1descriptor_1a1a54a335f90ea5ab05ba8ed7ec6583cf"></span><em class="property">constexpr</em> auto <code class="sig-name descname">type</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em> -&gt; bencode_type<a class="headerlink" href="#_CPPv4NK7bencode10descriptor4typeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Return the type of the bencode data. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor10is_integerEv">
-<span id="bencode::descriptor::is_integerCCE"></span><span class="target" id="structbencode_1_1descriptor_1a733bddf933553304a55d936c726cd4c4"></span><em class="property">constexpr</em> bool <code class="descname">is_integer</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor10is_integerEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor10is_integerEv">
+<span id="_CPPv3NK7bencode10descriptor10is_integerEv"></span><span id="_CPPv2NK7bencode10descriptor10is_integerEv"></span><span id="bencode::descriptor::is_integerCCE"></span><span class="target" id="structbencode_1_1descriptor_1a733bddf933553304a55d936c726cd4c4"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_integer</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor10is_integerEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes an integer, false otherwise. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor9is_stringEv">
-<span id="bencode::descriptor::is_stringCCE"></span><span class="target" id="structbencode_1_1descriptor_1ab348e1df9c51fcf37cd3eb62df486391"></span><em class="property">constexpr</em> bool <code class="descname">is_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor9is_stringEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor9is_stringEv">
+<span id="_CPPv3NK7bencode10descriptor9is_stringEv"></span><span id="_CPPv2NK7bencode10descriptor9is_stringEv"></span><span id="bencode::descriptor::is_stringCCE"></span><span class="target" id="structbencode_1_1descriptor_1ab348e1df9c51fcf37cd3eb62df486391"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor9is_stringEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes a string, false otherwise. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor13is_list_beginEv">
-<span id="bencode::descriptor::is_list_beginCCE"></span><span class="target" id="structbencode_1_1descriptor_1ad9805c6a57e5a2d458900debf2fdce40"></span><em class="property">constexpr</em> bool <code class="descname">is_list_begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor13is_list_beginEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor13is_list_beginEv">
+<span id="_CPPv3NK7bencode10descriptor13is_list_beginEv"></span><span id="_CPPv2NK7bencode10descriptor13is_list_beginEv"></span><span id="bencode::descriptor::is_list_beginCCE"></span><span class="target" id="structbencode_1_1descriptor_1ad9805c6a57e5a2d458900debf2fdce40"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_list_begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor13is_list_beginEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes a list start token. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor11is_list_endEv">
-<span id="bencode::descriptor::is_list_endCCE"></span><span class="target" id="structbencode_1_1descriptor_1a0285103827ac2d5ef65f9eb16714c9d2"></span><em class="property">constexpr</em> bool <code class="descname">is_list_end</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor11is_list_endEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor11is_list_endEv">
+<span id="_CPPv3NK7bencode10descriptor11is_list_endEv"></span><span id="_CPPv2NK7bencode10descriptor11is_list_endEv"></span><span id="bencode::descriptor::is_list_endCCE"></span><span class="target" id="structbencode_1_1descriptor_1a0285103827ac2d5ef65f9eb16714c9d2"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_list_end</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor11is_list_endEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes a list end token, false otherwise. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor13is_dict_beginEv">
-<span id="bencode::descriptor::is_dict_beginCCE"></span><span class="target" id="structbencode_1_1descriptor_1a15aa591cb5dd7547178dc6174ef42094"></span><em class="property">constexpr</em> bool <code class="descname">is_dict_begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor13is_dict_beginEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor13is_dict_beginEv">
+<span id="_CPPv3NK7bencode10descriptor13is_dict_beginEv"></span><span id="_CPPv2NK7bencode10descriptor13is_dict_beginEv"></span><span id="bencode::descriptor::is_dict_beginCCE"></span><span class="target" id="structbencode_1_1descriptor_1a15aa591cb5dd7547178dc6174ef42094"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_dict_begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor13is_dict_beginEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes a dict start token, false otherwise. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor11is_dict_endEv">
-<span id="bencode::descriptor::is_dict_endCCE"></span><span class="target" id="structbencode_1_1descriptor_1ad91730894292abce9c198afbd1c511c9"></span><em class="property">constexpr</em> bool <code class="descname">is_dict_end</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor11is_dict_endEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor11is_dict_endEv">
+<span id="_CPPv3NK7bencode10descriptor11is_dict_endEv"></span><span id="_CPPv2NK7bencode10descriptor11is_dict_endEv"></span><span id="bencode::descriptor::is_dict_endCCE"></span><span class="target" id="structbencode_1_1descriptor_1ad91730894292abce9c198afbd1c511c9"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_dict_end</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor11is_dict_endEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes a dict end token, false otherwise. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor7is_listEv">
-<span id="bencode::descriptor::is_listCCE"></span><span class="target" id="structbencode_1_1descriptor_1a6535295fe6395a3cd5b4f92f0566b44f"></span><em class="property">constexpr</em> bool <code class="descname">is_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor7is_listEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor7is_listEv">
+<span id="_CPPv3NK7bencode10descriptor7is_listEv"></span><span id="_CPPv2NK7bencode10descriptor7is_listEv"></span><span id="bencode::descriptor::is_listCCE"></span><span class="target" id="structbencode_1_1descriptor_1a6535295fe6395a3cd5b4f92f0566b44f"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor7is_listEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes a list start or end token, false otherwise. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor7is_dictEv">
-<span id="bencode::descriptor::is_dictCCE"></span><span class="target" id="structbencode_1_1descriptor_1a47160ecc22a70b5fb3eb6e850627098e"></span><em class="property">constexpr</em> bool <code class="descname">is_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor7is_dictEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor7is_dictEv">
+<span id="_CPPv3NK7bencode10descriptor7is_dictEv"></span><span id="_CPPv2NK7bencode10descriptor7is_dictEv"></span><span id="bencode::descriptor::is_dictCCE"></span><span class="target" id="structbencode_1_1descriptor_1a47160ecc22a70b5fb3eb6e850627098e"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor7is_dictEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes a dict start or end token, false otherwise. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor13is_list_valueEv">
-<span id="bencode::descriptor::is_list_valueCCE"></span><span class="target" id="structbencode_1_1descriptor_1a0cedaa971f43843e73c8fb6a70da1874"></span><em class="property">constexpr</em> bool <code class="descname">is_list_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor13is_list_valueEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor13is_list_valueEv">
+<span id="_CPPv3NK7bencode10descriptor13is_list_valueEv"></span><span id="_CPPv2NK7bencode10descriptor13is_list_valueEv"></span><span id="bencode::descriptor::is_list_valueCCE"></span><span class="target" id="structbencode_1_1descriptor_1a0cedaa971f43843e73c8fb6a70da1874"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_list_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor13is_list_valueEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes a value of a list, false otherwise. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor11is_dict_keyEv">
-<span id="bencode::descriptor::is_dict_keyCCE"></span><span class="target" id="structbencode_1_1descriptor_1a51b81dea6008b592e9969ed07ca075ec"></span><em class="property">constexpr</em> bool <code class="descname">is_dict_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor11is_dict_keyEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor11is_dict_keyEv">
+<span id="_CPPv3NK7bencode10descriptor11is_dict_keyEv"></span><span id="_CPPv2NK7bencode10descriptor11is_dict_keyEv"></span><span id="bencode::descriptor::is_dict_keyCCE"></span><span class="target" id="structbencode_1_1descriptor_1a51b81dea6008b592e9969ed07ca075ec"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_dict_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor11is_dict_keyEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes a dict key, false otherwise. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor13is_dict_valueEv">
-<span id="bencode::descriptor::is_dict_valueCCE"></span><span class="target" id="structbencode_1_1descriptor_1ac127b9093bf68142816ff24a9d408eb5"></span><em class="property">constexpr</em> bool <code class="descname">is_dict_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor13is_dict_valueEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor13is_dict_valueEv">
+<span id="_CPPv3NK7bencode10descriptor13is_dict_valueEv"></span><span id="_CPPv2NK7bencode10descriptor13is_dict_valueEv"></span><span id="bencode::descriptor::is_dict_valueCCE"></span><span class="target" id="structbencode_1_1descriptor_1ac127b9093bf68142816ff24a9d408eb5"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_dict_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptor13is_dict_valueEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the descriptor describes a dict value, false otherwise. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor8positionEv">
-<span id="bencode::descriptor::positionCCE"></span><span class="target" id="structbencode_1_1descriptor_1a26657ed63e48de024904bc570fec868e"></span><em class="property">constexpr</em> auto <code class="descname">position</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor8positionEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor8positionEv">
+<span id="_CPPv3NK7bencode10descriptor8positionEv"></span><span id="_CPPv2NK7bencode10descriptor8positionEv"></span><span id="bencode::descriptor::positionCCE"></span><span class="target" id="structbencode_1_1descriptor_1a26657ed63e48de024904bc570fec868e"></span><em class="property">constexpr</em> auto <code class="sig-name descname">position</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em> -&gt; <a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::uint32_t<a class="headerlink" href="#_CPPv4NK7bencode10descriptor8positionEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns the position in the bencoded buffer of the start of the token. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor5valueEv">
-<span id="bencode::descriptor::valueCCE"></span><span class="target" id="structbencode_1_1descriptor_1a9fb6edc6c0907e379edb65f8c140b6d0"></span><em class="property">constexpr</em> auto <code class="descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor5valueEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor5valueEv">
+<span id="_CPPv3NK7bencode10descriptor5valueEv"></span><span id="_CPPv2NK7bencode10descriptor5valueEv"></span><span id="bencode::descriptor::valueCCE"></span><span class="target" id="structbencode_1_1descriptor_1a9fb6edc6c0907e379edb65f8c140b6d0"></span><em class="property">constexpr</em> auto <code class="sig-name descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em> -&gt; <a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::int64_t<a class="headerlink" href="#_CPPv4NK7bencode10descriptor5valueEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns the value of an integer token, Behavior is undefined if the data type is not an integer. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2N7bencode10descriptor9set_valueENSt7int64_tE">
-<span id="bencode::descriptor::set_value__std::int64_tCE"></span><span class="target" id="structbencode_1_1descriptor_1aaccfe42e8772e5a3fc9e16eee5c8945c"></span><em class="property">constexpr</em> void <code class="descname">set_value</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::int64_t <em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode10descriptor9set_valueENSt7int64_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4N7bencode10descriptor9set_valueENSt7int64_tE">
+<span id="_CPPv3N7bencode10descriptor9set_valueENSt7int64_tE"></span><span id="_CPPv2N7bencode10descriptor9set_valueENSt7int64_tE"></span><span id="bencode::descriptor::set_value__std::int64_tCE"></span><span class="target" id="structbencode_1_1descriptor_1aaccfe42e8772e5a3fc9e16eee5c8945c"></span><em class="property">constexpr</em> void <code class="sig-name descname">set_value</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::int64_t <em>v</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4N7bencode10descriptor9set_valueENSt7int64_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Sets the value of an integer token, Behavior is undefined if the data type is not an integer. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor4sizeEv">
-<span id="bencode::descriptor::sizeCCE"></span><span class="target" id="structbencode_1_1descriptor_1af374a19ec89490d5b055e607505575f5"></span><em class="property">constexpr</em> auto <code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor4sizeEv">
+<span id="_CPPv3NK7bencode10descriptor4sizeEv"></span><span id="_CPPv2NK7bencode10descriptor4sizeEv"></span><span id="bencode::descriptor::sizeCCE"></span><span class="target" id="structbencode_1_1descriptor_1af374a19ec89490d5b055e607505575f5"></span><em class="property">constexpr</em> auto <code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em> -&gt; <a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::uint32_t<a class="headerlink" href="#_CPPv4NK7bencode10descriptor4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns the size of a string, list or dict data type. Behavior is undefined if the data type is an integer. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2N7bencode10descriptor8set_sizeENSt8uint32_tE">
-<span id="bencode::descriptor::set_size__std::uint32_tCE"></span><span class="target" id="structbencode_1_1descriptor_1a7a18744285758a01e44c95f659d55679"></span><em class="property">constexpr</em> void <code class="descname">set_size</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::uint32_t <em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode10descriptor8set_sizeENSt8uint32_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4N7bencode10descriptor8set_sizeENSt8uint32_tE">
+<span id="_CPPv3N7bencode10descriptor8set_sizeENSt8uint32_tE"></span><span id="_CPPv2N7bencode10descriptor8set_sizeENSt8uint32_tE"></span><span id="bencode::descriptor::set_size__std::uint32_tCE"></span><span class="target" id="structbencode_1_1descriptor_1a7a18744285758a01e44c95f659d55679"></span><em class="property">constexpr</em> void <code class="sig-name descname">set_size</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::uint32_t <em>v</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4N7bencode10descriptor8set_sizeENSt8uint32_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Sets the size of a string, list or dict data type. Behavior is undefined if the data type is an integer. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptor6offsetEv">
-<span id="bencode::descriptor::offsetCCE"></span><span class="target" id="structbencode_1_1descriptor_1aa1ab2538d2043d5c3e22148302c7863d"></span><em class="property">constexpr</em> auto <code class="descname">offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptor6offsetEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptor6offsetEv">
+<span id="_CPPv3NK7bencode10descriptor6offsetEv"></span><span id="_CPPv2NK7bencode10descriptor6offsetEv"></span><span id="bencode::descriptor::offsetCCE"></span><span class="target" id="structbencode_1_1descriptor_1aa1ab2538d2043d5c3e22148302c7863d"></span><em class="property">constexpr</em> auto <code class="sig-name descname">offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em> -&gt; <a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::uint32_t<a class="headerlink" href="#_CPPv4NK7bencode10descriptor6offsetEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns the offset to matching begin/end token for list/dict, or the offset to the string data for strings. Behavior is undefined if the data type is an integer. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2N7bencode10descriptor10set_offsetENSt8uint32_tE">
-<span id="bencode::descriptor::set_offset__std::uint32_tCE"></span><span class="target" id="structbencode_1_1descriptor_1af91bc7e2c74e0ab6bb286ee80482d3ba"></span><em class="property">constexpr</em> void <code class="descname">set_offset</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::uint32_t <em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode10descriptor10set_offsetENSt8uint32_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4N7bencode10descriptor10set_offsetENSt8uint32_tE">
+<span id="_CPPv3N7bencode10descriptor10set_offsetENSt8uint32_tE"></span><span id="_CPPv2N7bencode10descriptor10set_offsetENSt8uint32_tE"></span><span id="bencode::descriptor::set_offset__std::uint32_tCE"></span><span class="target" id="structbencode_1_1descriptor_1af91bc7e2c74e0ab6bb286ee80482d3ba"></span><em class="property">constexpr</em> void <code class="sig-name descname">set_offset</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::uint32_t <em>v</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4N7bencode10descriptor10set_offsetENSt8uint32_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Sets the offset to matching begin/end token for list/dict, or the offset to the string data for strings. Behavior is undefined if the data type is an integer. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2N7bencode10descriptor13set_stop_flagEb">
-<span id="bencode::descriptor::set_stop_flag__bCE"></span><span class="target" id="structbencode_1_1descriptor_1a1ce236969f4a93449854b81dd4603ab9"></span><em class="property">constexpr</em> void <code class="descname">set_stop_flag</code><span class="sig-paren">(</span>bool <em>flag</em> = true<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode10descriptor13set_stop_flagEb" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4N7bencode10descriptor13set_stop_flagEb">
+<span id="_CPPv3N7bencode10descriptor13set_stop_flagEb"></span><span id="_CPPv2N7bencode10descriptor13set_stop_flagEb"></span><span id="bencode::descriptor::set_stop_flag__bCE"></span><span class="target" id="structbencode_1_1descriptor_1a1ce236969f4a93449854b81dd4603ab9"></span><em class="property">constexpr</em> void <code class="sig-name descname">set_stop_flag</code><span class="sig-paren">(</span>bool <em>flag</em> = true<span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4N7bencode10descriptor13set_stop_flagEb" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Set this descriptors to be a placholder to denote the last descriptor. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode10descriptoreqERK10descriptor">
-<span id="bencode::descriptor::eq-operator__descriptorCRCCE"></span><span class="target" id="structbencode_1_1descriptor_1a5b01fdee48bb5bfc6cc566abb4fa6f6d"></span><em class="property">constexpr</em> bool <code class="descname">operator==</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv2N7bencode10descriptorE" title="bencode::descriptor">descriptor</a> &amp;<em>that</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode10descriptoreqERK10descriptor" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode10descriptoreqERK10descriptor">
+<span id="_CPPv3NK7bencode10descriptoreqERK10descriptor"></span><span id="_CPPv2NK7bencode10descriptoreqERK10descriptor"></span><span id="bencode::descriptor::eq-operator__descriptorCRCCE"></span><span class="target" id="structbencode_1_1descriptor_1a5b01fdee48bb5bfc6cc566abb4fa6f6d"></span><em class="property">constexpr</em> bool <code class="sig-name descname">operator==</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7bencode10descriptorE" title="bencode::descriptor">descriptor</a> &amp;<em>that</em><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode10descriptoreqERK10descriptor" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Compare equality. </p>
 </dd></dl>
 
 </div>
 </dd></dl>
 
-<dl class="class">
-<dt id="_CPPv2N7bencode16descriptor_tableE">
-<span id="bencode::descriptor_table"></span><span class="target" id="classbencode_1_1descriptor__table"></span><em class="property">class </em><code class="descclassname">bencode::</code><code class="descname">descriptor_table</code><a class="headerlink" href="#_CPPv2N7bencode16descriptor_tableE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp class">
+<dt id="_CPPv4N7bencode16descriptor_tableE">
+<span id="_CPPv3N7bencode16descriptor_tableE"></span><span id="_CPPv2N7bencode16descriptor_tableE"></span><span id="bencode::descriptor_table"></span><span class="target" id="classbencode_1_1descriptor__table"></span><em class="property">class </em><code class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">descriptor_table</code><a class="headerlink" href="#_CPPv4N7bencode16descriptor_tableE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Data structure that hold a contiguous sequence of descriptors and a pointer to the bencoded data they describe.</p>
-<p>A <a class="reference internal" href="#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a> instance is the result parsing bencoded data with a descriptor_parser. The bencoded data can be accessed using a <code class="docutils literal"><span class="pre">bview</span></code> instance with get_bview(). <dl class="docutils">
-<dt><strong>See</strong></dt>
-<dd>descriptor_parser </dd>
+<p>A <a class="reference internal" href="#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a> instance is the result parsing bencoded data with a descriptor_parser. The bencoded data can be accessed using a <code class="docutils literal notranslate"><span class="pre">bview</span></code> instance with get_bview(). <dl class="simple">
+<dt><strong>See</strong></dt><dd><p>descriptor_parser </p>
+</dd>
 </dl>
 </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
-<dl class="function">
-<dt id="_CPPv2N7bencode16descriptor_table8get_rootENSt6size_tE">
-<span id="bencode::descriptor_table::get_root__std::s"></span><span class="target" id="classbencode_1_1descriptor__table_1a43dc4fe9e5045b3c3a1af900548827bb"></span><a class="reference internal" href="bview.html#_CPPv2N7bencode5bviewE" title="bencode::bview">bview</a> <code class="descname">get_root</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::size_t <em>pos</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode16descriptor_table8get_rootENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4N7bencode16descriptor_table8get_rootENSt6size_tE">
+<span id="_CPPv3N7bencode16descriptor_table8get_rootENSt6size_tE"></span><span id="_CPPv2N7bencode16descriptor_table8get_rootENSt6size_tE"></span><span id="bencode::descriptor_table::get_root__std::s"></span><span class="target" id="classbencode_1_1descriptor__table_1a43dc4fe9e5045b3c3a1af900548827bb"></span><a class="reference internal" href="bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview">bview</a> <code class="sig-name descname">get_root</code><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::size_t <em>pos</em> = 0<span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4N7bencode16descriptor_table8get_rootENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns a bview instance for to the data described by the descriptor at pos. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2N7bencode16descriptor_table11descriptorsEv">
-<span id="bencode::descriptor_table::descriptors"></span><span class="target" id="classbencode_1_1descriptor__table_1a4d4a9e0ac9106c6606c63e150956af3b"></span><a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::vector&lt;<a class="reference internal" href="#_CPPv2N7bencode10descriptorE" title="bencode::descriptor">descriptor</a>&gt; &amp;<code class="descname">descriptors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N7bencode16descriptor_table11descriptorsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4N7bencode16descriptor_table11descriptorsEv">
+<span id="_CPPv3N7bencode16descriptor_table11descriptorsEv"></span><span id="_CPPv2N7bencode16descriptor_table11descriptorsEv"></span><span id="bencode::descriptor_table::descriptors"></span><span class="target" id="classbencode_1_1descriptor__table_1a4d4a9e0ac9106c6606c63e150956af3b"></span><a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::vector&lt;<a class="reference internal" href="#_CPPv4N7bencode10descriptorE" title="bencode::descriptor">descriptor</a>&gt; &amp;<code class="sig-name descname">descriptors</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4N7bencode16descriptor_table11descriptorsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns a reference to a std::vector storing the descriptors. </p>
 </dd></dl>
 
-<dl class="function">
-<dt id="_CPPv2NK7bencode16descriptor_table11descriptorsEv">
-<span id="bencode::descriptor_table::descriptorsC"></span><span class="target" id="classbencode_1_1descriptor__table_1a0866c8dabdb25226b5c98371442d49f2"></span><em class="property">const</em> <a class="reference internal" href="bview.html#_CPPv2St" title="std">std</a>::vector&lt;<a class="reference internal" href="#_CPPv2N7bencode10descriptorE" title="bencode::descriptor">descriptor</a>&gt; &amp;<code class="descname">descriptors</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK7bencode16descriptor_table11descriptorsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode16descriptor_table11descriptorsEv">
+<span id="_CPPv3NK7bencode16descriptor_table11descriptorsEv"></span><span id="_CPPv2NK7bencode16descriptor_table11descriptorsEv"></span><span id="bencode::descriptor_table::descriptorsC"></span><span class="target" id="classbencode_1_1descriptor__table_1a0866c8dabdb25226b5c98371442d49f2"></span><em class="property">const</em> <a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::vector&lt;<a class="reference internal" href="#_CPPv4N7bencode10descriptorE" title="bencode::descriptor">descriptor</a>&gt; &amp;<code class="sig-name descname">descriptors</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4NK7bencode16descriptor_table11descriptorsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns a reference to a std::vector storing the descriptors. </p>
 </dd></dl>
 
@@ -423,9 +421,7 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -434,7 +430,7 @@
         <a href="../other/license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="encoding_and_decoding.html" class="btn btn-neutral" title="Encoding and decoding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="encoding_and_decoding.html" class="btn btn-neutral float-left" title="Encoding and decoding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -443,11 +439,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright .
+        
+        &copy; Copyright 
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -459,37 +463,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
