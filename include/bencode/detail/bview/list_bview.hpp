@@ -10,6 +10,8 @@
 
 namespace bencode {
 
+namespace rng = std::ranges;
+
 namespace detail {
 class list_bview_iterator
 {
@@ -304,7 +306,7 @@ public:
 };
 
 static_assert(std::bidirectional_iterator<list_bview::iterator>);
-static_assert(std::ranges::sized_range<list_bview>);
+static_assert(rng::sized_range<list_bview>);
 
 } // namespace bencode
 

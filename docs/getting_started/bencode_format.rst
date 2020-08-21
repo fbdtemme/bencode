@@ -7,10 +7,10 @@ Introduction
 Bencode is a simple encoding developed for BitTorrent.
 It support 4 basic data types:
 
-    * integer
-    * string
-    * lists
-    * dictionary
+*  integer
+*  string
+*  lists
+*  dictionary
 
 The main advantages of bencode are its simplicity and that is unaffected by endianness,
 which is important for cross-platform applications.

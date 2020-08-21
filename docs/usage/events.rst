@@ -4,7 +4,8 @@
 Events system
 ================
 
-The events interface allows different parts of the library to communicate and to efficiently convert between data representations.
+The events interface allows different parts of the library to communicate and to efficiently
+convert between data representations.
 It consists of two concepts :cpp:concept:`event_consumer` and :cpp:concept:`event_producer`.
 
 Event consumers
@@ -78,7 +79,7 @@ class satisfying the :cpp:concept:`event_consumer` concept through the
 
 
 Connecting consumer and producers
-=================================
+---------------------------------
 
 :cpp:concept:`event_producers` are connected to :cpp:concept:`event_consumers`
 with the connect function.
