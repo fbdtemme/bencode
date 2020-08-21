@@ -1,20 +1,29 @@
 include(FindPackageHandleStandardArgs)
 
 #Look for an executable called sphinx-build
-#find_program(SPHINX_EXECUTABLE
-#        NAMES sphinx-build
-#        DOC "Path to sphinx-build executable")
+find_program(SPHINX_EXECUTABLE
+        NAMES sphinx-build
+        DOC "Path to sphinx-build executable")
 
 if (NOT SPHINX_EXECUTABLE OR SPHINX_EXECUTABLE STREQUAL SPHINX_EXECUTABLE-NOTFOUND)
     include(FindPython3)
     set(FPHSA_NAME_MISMATCHED TRUE)
     find_package(Python3 QUIET COMPONENTS Interpreter)
+    execute_process(
+            COMMAND python -c "import site; print(site.getusersitepackages())"
+            OUTPUT_VARIABLE Python3_USERLIB
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
     find_file(
             SPHINX_LIB_MAIN_PATH  "__main__.py"
             PATH ${Python3_SITELIB}/sphinx
+                 ${Python3_ARCHLIB}/sphinx
+                 ${Python3_USERLIB}/sphinx
     )
     if (SPHINX_LIB_MAIN_PATH)
         set(SPHINX_EXECUTABLE "${Python3_EXECUTABLE};-m;sphinx")
+    else()
+        set(SPHINX_EXECUTABLE "SPHINX_EXECUTABLE-NOTFOUND")
     endif()
 endif()
 
