@@ -15,9 +15,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: install dependencies
         run: sudo apt install doxygen &&
-             python3 -m pip install -U sphinx &&
-             python3 -m pip install -U breathe &&
-             python3 -m pip install -U sphinx-rtd-theme
+             sudo python3 -m pip install sphinx &&
+             sudo python3 -m pip install breathe &&
+             sudo python3 -m pip install sphinx-rtd-theme
 #             sudo apt install python3-sphinx &&
 #             sudo apt install python3-breathe &&
 #             sudo apt install python3-sphinx-rtd-theme
