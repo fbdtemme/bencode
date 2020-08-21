@@ -64,7 +64,8 @@ add_custom_command(
         ${SPHINX_DOC_FILES}
         ${DOXYGEN_INDEX_FILE}
         MAIN_DEPENDENCY ${SPHINX_CONF_OUT}
-        COMMENT "Generating documentation with Sphinx")
+        COMMENT "Generating documentation with Sphinx"
+        COMMAND_EXPAND_LISTS)
 
 # Nice named target so we can run the job easily
 add_custom_target(Sphinx ALL DEPENDS ${SPHINX_INDEX_FILE})
