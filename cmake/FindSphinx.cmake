@@ -16,14 +16,12 @@ if (NOT SPHINX_EXECUTABLE OR SPHINX_EXECUTABLE STREQUAL SPHINX_EXECUTABLE-NOTFOU
     )
     find_file(
             SPHINX_LIB_MAIN_PATH  "__main__.py"
-            PATH ${Python3_SITELIB}/sphinx
-                 ${Python3_ARCHLIB}/sphinx
-                 ${Python3_USERLIB}/sphinx
+            PATHS ${Python3_SITELIB}/sphinx
+                  ${Python3_ARCHLIB}/sphinx
+                  ${Python3_USERLIB}/sphinx
     )
     if (SPHINX_LIB_MAIN_PATH)
         set(SPHINX_EXECUTABLE "${Python3_EXECUTABLE};-m;sphinx")
-    else()
-        set(SPHINX_EXECUTABLE "SPHINX_EXECUTABLE-NOTFOUND")
     endif()
 endif()
 
