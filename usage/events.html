@@ -98,16 +98,17 @@
 <p class="caption"><span class="caption-text">Usage</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="value.html#policies">Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Events system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#event-consumers">Event consumers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#event-producers">Event producers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customization_points.html">Customization points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization_points.html">User-defined type support</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -187,7 +188,8 @@
             
   <div class="section" id="events-system">
 <h1>Events system<a class="headerlink" href="#events-system" title="Permalink to this headline">¶</a></h1>
-<p>The events interface allows different parts of the library to communicate and to efficiently convert between data representations.
+<p>The events interface allows different parts of the library to communicate and to efficiently
+convert between data representations.
 It consists of two concepts <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumer</span></code> and <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code>.</p>
 <div class="section" id="event-consumers">
 <h2>Event consumers<a class="headerlink" href="#event-consumers" title="Permalink to this headline">¶</a></h2>
@@ -252,12 +254,12 @@ Following bencode data structure (formatted as JSON) would generate these calls.
 class satisfying the <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumer</span></code> concept through the
 <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">connect()</span></code> method.</p>
 </div>
-</div>
 <div class="section" id="connecting-consumer-and-producers">
-<h1>Connecting consumer and producers<a class="headerlink" href="#connecting-consumer-and-producers" title="Permalink to this headline">¶</a></h1>
+<h2>Connecting consumer and producers<a class="headerlink" href="#connecting-consumer-and-producers" title="Permalink to this headline">¶</a></h2>
 <p><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producers</span></code> are connected to <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumers</span></code>
 with the connect function.</p>
 <p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;event_consumer</span> <span class="pre">EC,</span> <span class="pre">event_producer</span> <span class="pre">U&gt;</span> <span class="pre">constexpr</span> <span class="pre">void</span> <span class="pre">connect(EC&amp;</span> <span class="pre">consumer,</span> <span class="pre">U&amp;&amp;</span> <span class="pre">producer)()</span></code></p>
+</div>
 </div>
 
 

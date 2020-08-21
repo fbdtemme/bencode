@@ -212,17 +212,11 @@ the fallback ordering is defined by the ordering of the types:
     // returns true
     b_dict == dict;
 
-Standard library types support
-------------------------------
+Policies
+========
 
-Operations described above are defined for most standard library types.
-They are not enabled by default however and the right trait header must be included.
-The easiest way is to include all traits but this will have a heavy impact on compile times.
+The types used to store the different alternatives can be modified with the Policy template
+argument.
 
-.. code-block:: cpp
 
-    // enable interoperability with all supported types.
-    #include <bencode/traits/all.hpp"
 
-    // enable interoperability with std::set, std::unordered_set
-    #include <bencode/traits/set.hpp>

@@ -98,12 +98,12 @@
 <p class="caption"><span class="caption-text">Usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../usage/value.html">Value interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/value.html#policies">Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/events.html">Events system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage/events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/encoding_decoding.html">Encoding and decoding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage/customization_points.html">Customization points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/descriptor.html">Descriptor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/customization_points.html">User-defined type support</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
@@ -114,9 +114,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#string-bview">string_bview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#list-bview">list_bview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dict-bview">dict_bview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#accessors">accessors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#concepts">concepts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exceptions">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessor-functions">Accessor functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#concepts">Concepts</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_and_decoding.html">Encoding and decoding</a></li>
@@ -192,9 +192,26 @@
            <div itemprop="articleBody">
             
   <div class="section" id="view-interface">
-<h1>View interface<a class="headerlink" href="#view-interface" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id1">View interface</a><a class="headerlink" href="#view-interface" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#view-interface" id="id1">View interface</a></p>
+<ul>
+<li><p><a class="reference internal" href="#bview" id="id2">bview</a></p></li>
+<li><p><a class="reference internal" href="#integer-bview" id="id3">integer_bview</a></p></li>
+<li><p><a class="reference internal" href="#string-bview" id="id4">string_bview</a></p></li>
+<li><p><a class="reference internal" href="#list-bview" id="id5">list_bview</a></p></li>
+<li><p><a class="reference internal" href="#dict-bview" id="id6">dict_bview</a></p></li>
+<li><p><a class="reference internal" href="#accessor-functions" id="id7">Accessor functions</a></p></li>
+<li><p><a class="reference internal" href="#exceptions" id="id8">Exceptions</a></p></li>
+<li><p><a class="reference internal" href="#concepts" id="id9">Concepts</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section" id="bview">
-<h2>bview<a class="headerlink" href="#bview" title="Permalink to this headline">¶</a></h2>
+<span id="bview-reference"></span><h2><a class="toc-backref" href="#id2">bview</a><a class="headerlink" href="#bview" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
 <dt id="_CPPv4N7bencode5bviewE">
 <span id="_CPPv3N7bencode5bviewE"></span><span id="_CPPv2N7bencode5bviewE"></span><span id="bencode::bview"></span><span class="target" id="classbencode_1_1bview"></span><em class="property">class </em><code class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">bview</code><a class="headerlink" href="#_CPPv4N7bencode5bviewE" title="Permalink to this definition">¶</a><br /></dt>
@@ -280,7 +297,7 @@
 
 </div>
 <div class="section" id="integer-bview">
-<h2>integer_bview<a class="headerlink" href="#integer-bview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">integer_bview</a><a class="headerlink" href="#integer-bview" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
 <dt id="_CPPv4N7bencode13integer_bviewE">
 <span id="_CPPv3N7bencode13integer_bviewE"></span><span id="_CPPv2N7bencode13integer_bviewE"></span><span id="bencode::integer_bview"></span><span class="target" id="classbencode_1_1integer__bview"></span><em class="property">class </em><code class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">integer_bview</code> : <em class="property">public</em> <a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a>::<a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview">bview</a><a class="headerlink" href="#_CPPv4N7bencode13integer_bviewE" title="Permalink to this definition">¶</a><br /></dt>
@@ -348,7 +365,7 @@
 
 </div>
 <div class="section" id="string-bview">
-<h2>string_bview<a class="headerlink" href="#string-bview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">string_bview</a><a class="headerlink" href="#string-bview" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
 <dt id="_CPPv4N7bencode12string_bviewE">
 <span id="_CPPv3N7bencode12string_bviewE"></span><span id="_CPPv2N7bencode12string_bviewE"></span><span id="bencode::string_bview"></span><span class="target" id="classbencode_1_1string__bview"></span><em class="property">class </em><code class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">string_bview</code> : <em class="property">public</em> <a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a>::<a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview">bview</a><a class="headerlink" href="#_CPPv4N7bencode12string_bviewE" title="Permalink to this definition">¶</a><br /></dt>
@@ -721,7 +738,7 @@
 
 </div>
 <div class="section" id="list-bview">
-<h2>list_bview<a class="headerlink" href="#list-bview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">list_bview</a><a class="headerlink" href="#list-bview" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
 <dt id="_CPPv4N7bencode10list_bviewE">
 <span id="_CPPv3N7bencode10list_bviewE"></span><span id="_CPPv2N7bencode10list_bviewE"></span><span id="bencode::list_bview"></span><span class="target" id="classbencode_1_1list__bview"></span><em class="property">class </em><code class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">list_bview</code> : <em class="property">public</em> <a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a>::<a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview">bview</a><a class="headerlink" href="#_CPPv4N7bencode10list_bviewE" title="Permalink to this definition">¶</a><br /></dt>
@@ -941,7 +958,7 @@
 
 </div>
 <div class="section" id="dict-bview">
-<h2>dict_bview<a class="headerlink" href="#dict-bview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">dict_bview</a><a class="headerlink" href="#dict-bview" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
 <dt id="_CPPv4N7bencode10dict_bviewE">
 <span id="_CPPv3N7bencode10dict_bviewE"></span><span id="_CPPv2N7bencode10dict_bviewE"></span><span id="bencode::dict_bview"></span><span class="target" id="classbencode_1_1dict__bview"></span><em class="property">class </em><code class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">dict_bview</code> : <em class="property">public</em> <a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode">bencode</a>::<a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview">bview</a><a class="headerlink" href="#_CPPv4N7bencode10dict_bviewE" title="Permalink to this definition">¶</a><br /></dt>
@@ -1196,8 +1213,8 @@
 </dd></dl>
 
 </div>
-<div class="section" id="accessors">
-<h2>accessors<a class="headerlink" href="#accessors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="accessor-functions">
+<h2><a class="toc-backref" href="#id7">Accessor functions</a><a class="headerlink" href="#accessor-functions" title="Permalink to this headline">¶</a></h2>
 <p>Provide accessors for bview, integer_bview, string_bview, list_bview and dict_bview types. </p>
 <dl class="cpp type">
 <dt id="_CPPv47bencode">
@@ -1521,7 +1538,7 @@
 <dl class="cpp function">
 <dt id="_CPPv4I_22retrievable_from_bviewEN7bencode6get_asE1TRK5bview">
 <span id="_CPPv3I_22retrievable_from_bviewEN7bencode6get_asERK5bview"></span><span id="_CPPv2I_22retrievable_from_bviewEN7bencode6get_asERK5bview"></span>template&lt;retrievable_from_bview <code class="sig-name descname">T</code>&gt;<br /><span class="target" id="bview_2accessors_8hpp_1aba3d2b438c777d4172b9fc022163bee8"></span><em class="property">constexpr</em> <a class="reference internal" href="#_CPPv4I_22retrievable_from_bviewEN7bencode6get_asE1TRK5bview" title="bencode::get_as::T">T</a> <code class="sig-name descname">get_as</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview">bview</a> &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_22retrievable_from_bviewEN7bencode6get_asE1TRK5bview" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Throwing converting accessor. Try to convert a <a class="reference internal" href="bvalue.html#classbencode_1_1basic__bvalue"><span class="std std-ref">basic_bvalue</span></a> instantiation to T. <dl class="simple">
+<dd><p>Throwing converting accessor. Try to convert a basic_bvalue instantiation to T. <dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>the converted value </p>
 </dd>
 <dt><strong>Exceptions</strong></dt><dd><ul class="breatheparameterlist simple">
@@ -1584,71 +1601,8 @@
 </dd></dl>
 
 </div>
-<div class="section" id="concepts">
-<h2>concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
-<dl class="cpp type">
-<dt>
-<span class="target" id="namespacebencode"></span><em class="property">namespace </em><code class="sig-name descname">bencode</code><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Variables</p>
-<dl class="cpp var">
-<dt>
-<span class="target" id="bview_2concepts_8hpp_1a3e079612d4cbad62be276d3c1f271190"></span><code class="sig-name descname">template&lt;typename T&gt; concept bview_alternative_type  =    std::same_as&lt;std::remove_cvref_t&lt;T&gt;, integer_bview&gt; ||    std::same_as&lt;std::remove_cvref_t&lt;T&gt;, string_bview&gt; ||    std::same_as&lt;std::remove_cvref_t&lt;T&gt;, list_bview&gt; ||    std::same_as&lt;std::remove_cvref_t&lt;T&gt;, dict_bview&gt;</code></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt>
-<span class="target" id="bview_2concepts_8hpp_1a07d272e5f1c35f8e1cb34dd55ddae728"></span><code class="sig-name descname">template&lt;typename T&gt; concept retrievable_from_bview  =    requires(bview desc) {        { detail::convert_from_bview_to&lt;T&gt;(desc) }            -&gt; std::same_as&lt;nonstd::expected&lt;T, conversion_errc&gt;&gt;;}</code></dt>
-<dd><p>The concept convert_from_bview_to is satisfied when the bvalue described by a destriptor can be converted to given type with the get_as&lt;T&gt; accessor function. </p>
-</dd></dl>
-
-</div>
-<dl class="cpp type">
-<dt>
-<span class="target" id="namespacebencode_1_1detail"></span><em class="property">namespace </em><code class="sig-name descname">detail</code><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Functions</p>
-<dl class="cpp function">
-<dt>
-template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><span class="target" id="bview_2concepts_8hpp_1ae8d9bd51e8c7cd002cf4283c0a60aa83"></span><em class="property">constexpr</em> auto <code class="sig-name descname">convert_from_bview_to</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview">bview</a> &amp;<em>desc</em><span class="sig-paren">)</span> -&gt; nonstd::expected&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode6detail21convert_from_bview_toEN6nonstd8expectedI1T15conversion_errcEERK5bview" title="bencode::detail::convert_from_bview_to::T">T</a>, <a class="reference internal" href="#_CPPv4N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a>&gt;<br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt>
-<span class="target" id="bview_2concepts_8hpp_1a081a66d603e07356722c902e7ff9b21d"></span><code class="sig-name descname">template&lt;typename T&gt; consteval bool convertible_from_bview_to_tuple_elements_helper ()</code></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Variables</p>
-<dl class="cpp var">
-<dt>
-<span class="target" id="bview_2concepts_8hpp_1a938f2d8a2d473136ca923b964761c05e"></span><code class="sig-name descname">template&lt;typename T&gt; concept conversion_from_bview_is_adl_overloaded  =requires (const bview&amp; ref) {    { bencode_convert_from_bview(customization_for&lt;T&gt;, ref) }    -&gt; std::same_as&lt;nonstd::expected&lt;T, conversion_errc&gt;&gt;;}</code></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt>
-<span class="target" id="bview_2concepts_8hpp_1a9b3708eea5684a31d9d3f0f52eb75ba6"></span><code class="sig-name descname">template&lt;typename T&gt; concept equality_comparison_with_bview_is_adl_overloaded  =requires(T x, const bencode::bview&amp; bview) {    { bencode_compare_equality_with_bview(customization_for&lt;T&gt;, bview, x) } -&gt; std::same_as&lt;void&gt;;}</code></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt>
-<span class="target" id="bview_2concepts_8hpp_1a69aab4f97618b2a87427202bd4ef7410"></span><code class="sig-name descname">template&lt;typename T&gt; concept three_way_comparison_with_bview_is_adl_overloaded  =requires(T x, const bencode::bview&amp; bview) {    { bencode_compare_three_way_with_bview(customization_for&lt;T&gt;, bview, x) } -&gt; std::same_as&lt;void&gt;;}</code></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt>
-<span class="target" id="bview_2concepts_8hpp_1a0482cb40975a7a1c61149ddb057b277c"></span><code class="sig-name descname">template&lt;typename T&gt; concept convertible_from_bview_to_tuple_elements  = requires() {    (convertible_from_bview_to_tuple_elements_helper&lt;T&gt;() == true);}</code></dt>
-<dd></dd></dl>
-
-</div>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 <div class="section" id="exceptions">
-<h2>exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp type">
 <dt>
 <span class="target" id="namespacebencode"></span><em class="property">namespace </em><code class="sig-name descname">bencode</code><br /></dt>
@@ -1805,6 +1759,69 @@ template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><span cla
 <dt>
 <span class="target" id="structstd_1_1is__error__code__enum_3_01bencode_1_1conversion__errc_01_4"></span><code class="sig-name descname">template&lt;&gt; conversion_errc &gt; : public true_type</code></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="concepts">
+<h2><a class="toc-backref" href="#id9">Concepts</a><a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp type">
+<dt>
+<span class="target" id="namespacebencode"></span><em class="property">namespace </em><code class="sig-name descname">bencode</code><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Variables</p>
+<dl class="cpp var">
+<dt>
+<span class="target" id="bview_2concepts_8hpp_1a3e079612d4cbad62be276d3c1f271190"></span><code class="sig-name descname">template&lt;typename T&gt; concept bview_alternative_type  =    std::same_as&lt;std::remove_cvref_t&lt;T&gt;, integer_bview&gt; ||    std::same_as&lt;std::remove_cvref_t&lt;T&gt;, string_bview&gt; ||    std::same_as&lt;std::remove_cvref_t&lt;T&gt;, list_bview&gt; ||    std::same_as&lt;std::remove_cvref_t&lt;T&gt;, dict_bview&gt;</code></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt>
+<span class="target" id="bview_2concepts_8hpp_1a07d272e5f1c35f8e1cb34dd55ddae728"></span><code class="sig-name descname">template&lt;typename T&gt; concept retrievable_from_bview  =    requires(bview desc) {        { detail::convert_from_bview_to&lt;T&gt;(desc) }            -&gt; std::same_as&lt;nonstd::expected&lt;T, conversion_errc&gt;&gt;;}</code></dt>
+<dd><p>The concept convert_from_bview_to is satisfied when the bvalue described by a destriptor can be converted to given type with the get_as&lt;T&gt; accessor function. </p>
+</dd></dl>
+
+</div>
+<dl class="cpp type">
+<dt>
+<span class="target" id="namespacebencode_1_1detail"></span><em class="property">namespace </em><code class="sig-name descname">detail</code><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="cpp function">
+<dt>
+template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><span class="target" id="bview_2concepts_8hpp_1ae8d9bd51e8c7cd002cf4283c0a60aa83"></span><em class="property">constexpr</em> auto <code class="sig-name descname">convert_from_bview_to</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview">bview</a> &amp;<em>desc</em><span class="sig-paren">)</span> -&gt; nonstd::expected&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode6detail21convert_from_bview_toEN6nonstd8expectedI1T15conversion_errcEERK5bview" title="bencode::detail::convert_from_bview_to::T">T</a>, <a class="reference internal" href="#_CPPv4N7bencode15conversion_errcE" title="bencode::conversion_errc">conversion_errc</a>&gt;<br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt>
+<span class="target" id="bview_2concepts_8hpp_1a081a66d603e07356722c902e7ff9b21d"></span><code class="sig-name descname">template&lt;typename T&gt; consteval bool convertible_from_bview_to_tuple_elements_helper ()</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Variables</p>
+<dl class="cpp var">
+<dt>
+<span class="target" id="bview_2concepts_8hpp_1a938f2d8a2d473136ca923b964761c05e"></span><code class="sig-name descname">template&lt;typename T&gt; concept conversion_from_bview_is_adl_overloaded  =requires (const bview&amp; ref) {    { bencode_convert_from_bview(customization_for&lt;T&gt;, ref) }    -&gt; std::same_as&lt;nonstd::expected&lt;T, conversion_errc&gt;&gt;;}</code></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt>
+<span class="target" id="bview_2concepts_8hpp_1a9b3708eea5684a31d9d3f0f52eb75ba6"></span><code class="sig-name descname">template&lt;typename T&gt; concept equality_comparison_with_bview_is_adl_overloaded  =requires(T x, const bencode::bview&amp; bview) {    { bencode_compare_equality_with_bview(customization_for&lt;T&gt;, bview, x) } -&gt; std::same_as&lt;void&gt;;}</code></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt>
+<span class="target" id="bview_2concepts_8hpp_1a69aab4f97618b2a87427202bd4ef7410"></span><code class="sig-name descname">template&lt;typename T&gt; concept three_way_comparison_with_bview_is_adl_overloaded  =requires(T x, const bencode::bview&amp; bview) {    { bencode_compare_three_way_with_bview(customization_for&lt;T&gt;, bview, x) } -&gt; std::same_as&lt;void&gt;;}</code></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt>
+<span class="target" id="bview_2concepts_8hpp_1a0482cb40975a7a1c61149ddb057b277c"></span><code class="sig-name descname">template&lt;typename T&gt; concept convertible_from_bview_to_tuple_elements  = requires() {    (convertible_from_bview_to_tuple_elements_helper&lt;T&gt;() == true);}</code></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
 
 </dd></dl>
 

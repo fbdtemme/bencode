@@ -1,6 +1,10 @@
 View interface
 ==============
 
+.. contents::
+
+.. _bview_reference:
+
 bview
 -----
 
@@ -31,19 +35,20 @@ dict_bview
 .. doxygenclass:: bencode::dict_bview
    :members:
 
-accessors
----------
+Accessor functions
+------------------
 
 .. doxygenfile:: detail/bview/accessors.hpp
 
-concepts
---------
 
-.. doxygenfile:: detail/bview/concepts.hpp
-
-exceptions
+Exceptions
 ----------
 
 .. doxygenfile:: detail/bview/bad_bview_access.hpp
 
 .. doxygenfile:: detail/conversion_error.hpp
+
+Concepts
+--------
+
+.. doxygenfile:: detail/bview/concepts.hpp

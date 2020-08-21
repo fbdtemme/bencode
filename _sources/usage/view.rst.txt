@@ -7,31 +7,53 @@ Introduction
 ------------
 
 :cpp:class:`bview` is a sum type that provides access to the values stored in a bencoded buffer.
-It holds two pointers, one to a :cpp:class:`descriptor` and a pointer to the bencoded buffer.
+It holds two pointers, one to a :cpp:class:`descriptor`, and one to the bencoded buffer.
 
 The :cpp:class:`descriptor` describes the type and content of the bencoded token the
 :cpp:class:`bview` points to and where the data can be found in the bencoded buffer.
-This information allows :cpp:class:`bview` to navigate through the bencoded buffer and provide access
-to the values.
+This information allows :cpp:class:`bview` to navigate through the bencoded buffer and
+provide access to the values using an interface similar to standard C++ containers.
 
 :cpp:class:`bview` is used together with four subclasses:
-:cpp:class:`integer_bview`, :cpp:class:`string_bview`, :cpp:class:`list_bview` and
-:cpp:class:`dict_bview`.
-These satisfy :cpp:concept:`bview_alternative_type`.
-Each subclass provides an extra interface over the generic :cpp:class:`bview`
-for the corresponding bencode data type.
 
-:cpp:class:`integer_bview` is implicitly convertible to :cpp:class:`std::uint64_t`.
-:cpp:class:`string_bview` provides an interface almost equal to that of :cpp:class:`std::string_view`.
-:cpp:class:`list_bview` provides the interface similiar to a const :cpp:class:`std::vector<bc::bview>`
-:cpp:class:`dict_bview` provides the interface similar to a const :cpp:class:`std::map` with
-:cpp:class:`bc::string_bview`
-keys and :cpp:class:`bc::bview` values.
+*  :cpp:class:`integer_bview`
+*  :cpp:class:`string_bview`
+*  :cpp:class:`list_bview`
+*  :cpp:class:`dict_bview`
+
+Each subclass provides an extra interface over :cpp:class:`bview`
+for the corresponding bencode data type.
+These four classes satisfy the concept :cpp:concept:`bview_alternative_type`.
+
+:cpp:class:`integer_bview` is implicitly convertible to :cpp:class:`std::int64_t`.
+The value stored can also be retrieved using :cpp:func:`integer_bview::value`
+
+:cpp:class:`string_bview` provides an interface equal to that of :cpp:class:`std::string_view`.
+It has an implicit conversion operator to :cpp:class:`std::string_view`.
+
+:cpp:class:`list_bview` provides and interface similar to
+:cpp:class:`std::vector<bc::bview>`. Its iterators are only
+:cpp:concept:`bidirectional_iterators` instead of :cpp:concept:`contiguous_iterator`.
+Access to the elements is linear in the size of the :cpp:class:`list_bview`.
+
+
+:cpp:class:`dict_bview` provides the interface similar to
+:cpp:class:`std::map\<bc::string_bview, bc::bview>`.
+Access to the elements is linear in the size of the :cpp:class:`dict_bview`.
+
+The :ref:`API reference <bview_reference>`  provides more information on how to use these types
+
+.. important::
+
+    The reference returned by the dereference operator for
+    :cpp:class:`list_bview::iterator` and :cpp:class:`dict_bview::iterator`
+    is only valid until the next dereference.
 
 Performance
 -----------
 
-:cpp:class:`bview` is about 5 times faster then `bvalue` in read-only scenarios.
+Thanks to the compact and cache-friendly structure parsing to
+:cpp:class:`bview` is about 5 times faster then parsing to :cpp:class:`bvalue`.
 
 Construction
 -------------
@@ -50,7 +72,7 @@ a bencoded string with :cpp:func:`decode_view`.
 Type checking
 -------------
 
-Checking the bencode data type described in a :cpp:class:`bview`
+Checking the bencode data type of a :cpp:class:`bview`
 can be done using the following functions:
 
 * :cpp:func:`bool is_integer(const bview&)`
@@ -58,7 +80,7 @@ can be done using the following functions:
 * :cpp:func:`bool is_list(const bview&)`
 * :cpp:func:`bool is_dict(const bview&)`
 * :cpp:func:`template \<enum bencode_type E> bool holds_alternative(const bview&)`
-* :cpp:expr:`template \<bview_alternative_type T> bool holds_alternative(const T&)`
+* :cpp:expr:`template \<bview_alternative_type T> bool holds_alternative(const bview&)`
 
 .. code-block::
 
@@ -75,8 +97,8 @@ can be done using the following functions:
 Access
 ------
 
-Converting the :cpp:class:`bview` instance to the interface specific
-for the bencode datatype it points to is done using accessor functions.
+Casting the :cpp:class:`bview` instance to the interface specific
+for the bencode data type is done using accessor functions.
 
 Throwing accessor function will throw :cpp:class:`bad_bview_access` when trying to
 convert a bview to a bview subclass that does not match the bencode data type.
@@ -86,7 +108,7 @@ convert a bview to a bview subclass that does not match the bencode data type.
 * :cpp:func:`const list_bview& get_list(const bview&)`
 * :cpp:func:`const dict_bview& get_dict(const bview&)`
 * :cpp:func:`template \<enum bencode_type E> const bview_alternative_t<E>& get(const bview&)`
-* :cpp:code:`template \<bview_alternative_type T> const T& get(const bview&)`
+* :cpp:expr:`template \<bview_alternative_type T> const T& get(const bview&)`
 
 Non throwing accessor function will return a :cpp:class:`nullptr` when trying to convert
 a bview to a bview subclass that does not match the bencode data type.
@@ -96,7 +118,7 @@ a bview to a bview subclass that does not match the bencode data type.
 * :cpp:func:`bool get_if_list(const bview*)`
 * :cpp:func:`bool get_if_dict(const bview*)`
 * :cpp:func:`template \<enum bencode_type E> const bview_alternative_t<E>* get_if(const bview*)`
-* :cpp:code:`template \<bview_alternative_type T> const T* get_if(const bview&)`
+* :cpp:expr:`template \<bview_alternative_type T> const T* get_if(const bview&)`
 
 
 .. code-block:: cpp
@@ -115,63 +137,55 @@ Comparison
 ----------
 
 Most types can be compared with :cpp:class:`bview` instances.
-When the bencode data type of the :cpp:class:`bview` is not
+Comparison is deep and will compare the content of the bencode data type.
+When the bencode type of :cpp:class:`bview` is not
 the same as the bencode type of the the type you compare with when serialized,
 the fallback order is `integer < string < list < dict`
 
-Conversion to user-defined types can be enabled by implementing
+Conversion to standard library types can be enabled by including the corresponding trait header.
+Comparison to user-defined types can be enabled by implementing
 the necessary :ref:`customization point <customization-compare-to-bview>`.
 
 .. code-block:: cpp
 
-    bview b;    // b is a string_bview with text "foo";
+    bview b;    // b points to a bencoded string with text "foo";
     b == "foo"  // return true
     b > "aa"    // returns true
-    b > 3       // return true
-    b > std::map<std::string, int> {{"foo", 1}}; // return false
+    b > 3       // return true (integer < string)
+    b > std::map<std::string, int> {{"foo", 1}}; // return false (string < dict)
 
 
 Conversion
 ----------
 
 To copy the content of a :cpp:class:`bview` value to a specific type, generic converters are used.
-The throwing converter will throw :cpp:class:`conversion_error` when an error occures.
+The throwing converter will throw :cpp:class:`conversion_error` when an error occurs.
 
 * :cpp:func:`template \<typename T> T get_as(const bview&)`
 
 The non throwing converter will return an expected type with the converted value
-or an as :cpp:enum:`conversion_errc` value.
+or a :cpp:enum:`conversion_errc`.
 
 * :cpp:func:`template \<typename T> nonstd::expected\<T, conversion_errc> try_get_as(const bview&)`
 
 :cpp:class:`bview` values can be converted to any type that satisfies :cpp:concept:`retrievable_from_bview`.
+Conversion to standard library types can be enabled by including the corresponding trait header.
 Conversion to user-defined types can be enabled by implementing
 the necessary :ref:`customization point <customization-convert-from-bview>`.
 
 
 .. code-block::
 
+    #include <bencode/traits/map.hpp>
+    #include <bencode/traits/string.hpp>
+
     // copy a view to a std::map
     auto d = get_as<std::map<std::string, bc::bvalue>>(root_element); //
 
   // copy a view to a std::map
     auto d2 = try_get_as<std::map<std::string, int>>(root_element);
-    if (!d2)
-        d2.error()  //  returns conversion_errc::dict_mapped_type_construction_error
-                    //  (cannot convert one of the dicts values to int)
-
-
-Standard library types support
-------------------------------
-
-Operations described above are defined for most standard library types.
-They are not enabled by default however and the right trait header must be included.
-The easiest way is to include all traits but this will have a heavy impact on compile times.
-
-.. code-block:: cpp
-
-    // enable interoperability with all supported types.
-    #include <bencode/traits/all.hpp"
-
-    // enable interoperability with std::set, std::unordered_set
-    #include <bencode/traits/set.hpp>
+    if (!d2) {
+        //  return conversion_errc::dict_mapped_type_construction_error
+        //  and assign it to a generic std::error_code
+        std::error_code ec = d2.error()
+    }

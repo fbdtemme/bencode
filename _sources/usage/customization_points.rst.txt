@@ -2,8 +2,8 @@
 
 .. _customization-points:
 
-Customization points
-====================
+User-defined type support
+=========================
 
 There are various customization points to integrate user-defined types in this library.
 
@@ -15,7 +15,6 @@ to by specializing :cpp:class:`template <typename T> serialization_traits` for y
 
 Serialization traits has a single member of :cpp:enum:`bencode_type` that defines
 what bencode data type this type serializes to.
-
 
 To make specialization of :cpp:class:`serialization_traits` easy a few helpers are provided.
 
@@ -58,15 +57,15 @@ Example:
 
 
 
-After specializatin :cpp:class:`serialization_traits` the user-defined type satisfies
+After specializing :cpp:class:`serialization_traits` the user-defined type satisfies
 the :cpp:concept:`serializable` concept.
 
 
 Event producer
 --------------
 
-The second specialization point that a user-defined type should provide is
-the :cpp:func:`bencode_connect` specialization point.
+The second required customization point to enable support for a user-defined type is
+the :cpp:func:`bencode_connect`.
 
 .. code-block:: cpp
 
@@ -84,10 +83,10 @@ the :cpp:func:`bencode_connect` specialization point.
         consumer.end_list()
     }
 
-After overrinding this function the type satisfies the :cpp:concept:`event_producer` concept.
+After overriding this function the type satisfies the :cpp:concept:`event_producer` concept.
 
-After satisfying :cpp:concept:`serializable` and cpp:concept:`event_producer` the user defined type.
-Can be serialized trough the :cpp:class:`encoding_ostream` and assigned to :cpp:class:`bvalue`.
+After satisfying :cpp:concept:`serializable` and cpp:concept:`event_producer` the user defined type
+can be serialized with :cpp:class:`encoder` and assigned to :cpp:class:`bvalue`.
 
 .. important::
 
@@ -99,7 +98,7 @@ Assignment to bvalue
 --------------------
 
 Types that satisfy :cpp:concept:`event_producer` have a default implementation
-that allows the type to be assigned to :cpp:class:`bvalue` but is not always the most efficient.
+that allows the type to be assigned to :cpp:class:`bvalue`, but is not always the most efficient.
 The default can be overriden by overriding :cpp:func:`bencode_assign_to_bvalue`
 
 .. code-block:: cpp
@@ -125,7 +124,7 @@ This is done be overriding :cpp:func:`bencode_compare_equality_with_bvalue`
 
     template <typename Policy>
     bencode_compare_equality_with_bvalue(
-            customization_for<rgb_color>, basic_bvalue<Policy>& bv, const rgb_color& value)
+            customization_point_type<rgb_color>, basic_bvalue<Policy>& bv, const rgb_color& value)
     {
         if (!is_list(bv)) return false;
         if (bv.size() != 3) return false;
@@ -138,7 +137,7 @@ For types that can be ordered :cpp:func:`bencode_compare_three_way_with_bvalue` 
 
     template <typename Policy>
     std::partial_ordering bencode_compare_three_way_with_bvalue(
-            customization_for<rgb_color>, basic_bvalue<Policy>& bv, const rgb_color& value)
+            customization_point_type<rgb_color>, basic_bvalue<Policy>& bv, const rgb_color& value)
     {
         if (!is_list(bv))  return std::partial_ordering::unordered;
         if (bv.size() < 3) return std::partial_ordering::greater;
@@ -168,7 +167,7 @@ Errors are reported with :cpp:class:`nonstd::expected<T, conversion_ercc>`.
 
     template <typename Policy>
     nonstd::expected<rgb_color, conversion_errc>
-    bencode_convert_from_bvalue(customization_for<rgb_color>, const basic_bvalue<Policy>& bv)
+    bencode_convert_from_bvalue(customization_point_type<rgb_color>, const basic_bvalue<Policy>& bv)
     {
         if (!is_list(bv))
             return nonstd::make_unexpected(conversion_errc::not_list_type);
@@ -209,7 +208,7 @@ the implementation for :cpp:class:`bvalue`, except the function signature.
 Conversion from bview to custom type
 -------------------------------------
 
-Analogue with conversion from :cpp:class:`bvalue` there is a conversion from :cpp:class:`bview`
+Similar to conversion from :cpp:class:`bvalue` there is a conversion from :cpp:class:`bview`
 by implementing the :cpp:func:`bencode_convert_from_bview` customization point.
 
 The implementation for our example user-defined class is exactly the same as for

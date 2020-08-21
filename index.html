@@ -97,12 +97,12 @@
 <p class="caption"><span class="caption-text">Usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage/value.html">Value interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/value.html#policies">Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/events.html">Events system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage/events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/encoding_decoding.html">Encoding and decoding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage/customization_points.html">Customization points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/descriptor.html">Descriptor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/customization_points.html">User-defined type support</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -218,9 +218,9 @@
 <li class="toctree-l2"><a class="reference internal" href="usage/value.html#accessors">Accessors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/value.html#modifying-operation">Modifying operation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/value.html#comparison">Comparison</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/value.html#standard-library-types-support">Standard library types support</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="usage/value.html#policies">Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/view.html">View interface</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage/view.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/view.html#performance">Performance</a></li>
@@ -229,22 +229,25 @@
 <li class="toctree-l2"><a class="reference internal" href="usage/view.html#access">Access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/view.html#comparison">Comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/view.html#conversion">Conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/view.html#standard-library-types-support">Standard library types support</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage/events.html">Events system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage/events.html#event-consumers">Event consumers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/events.html#event-producers">Event producers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="usage/events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/encoding_decoding.html">Encoding and decoding</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage/encoding_decoding.html#decoding">Decoding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/encoding_decoding.html#encoding">Encoding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/encoding_decoding.html#encoder">Encoder</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="usage/customization_points.html">Customization points</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/descriptor.html">Descriptor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage/descriptor.html#details">Details</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage/customization_points.html">User-defined type support</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage/customization_points.html#serialization-traits">Serialization traits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/customization_points.html#event-producer">Event producer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage/customization_points.html#assignment-to-bvalue">Assignment to bvalue</a></li>
@@ -254,25 +257,28 @@
 <li class="toctree-l2"><a class="reference internal" href="usage/customization_points.html#conversion-from-bview-to-custom-type">Conversion from bview to custom type</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="usage/descriptor.html">Descriptor</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage/descriptor.html#details">Details</a></li>
-</ul>
-</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="reference/bvalue.html">Value interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/bvalue.html">Value interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/bvalue.html#bvalue">bvalue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bvalue.html#policy">Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bvalue.html#accessors">Accessors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bvalue.html#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bvalue.html#exceptions">Exceptions</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="reference/bview.html">View interface</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="reference/bview.html#bview">bview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/bview.html#integer-bview">integer_bview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/bview.html#string-bview">string_bview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/bview.html#list-bview">list_bview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/bview.html#dict-bview">dict_bview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/bview.html#accessors">accessors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/bview.html#concepts">concepts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/bview.html#exceptions">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bview.html#accessor-functions">Accessor functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bview.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bview.html#concepts">Concepts</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference/encoding_and_decoding.html">Encoding and decoding</a></li>

@@ -26,8 +26,9 @@ Content
     usage/view
     usage/events
     usage/encoding_decoding
-    usage/customization_points
     usage/descriptor
+    usage/customization_points
+    usage/traits
 
 .. toctree::
     :maxdepth: 2

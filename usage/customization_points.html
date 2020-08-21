@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Customization points &mdash; Bencode 0.1.0 documentation</title>
+  <title>User-defined type support &mdash; Bencode 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Descriptor" href="descriptor.html" />
-    <link rel="prev" title="Encoding and decoding" href="encoding_decoding.html" /> 
+    <link rel="next" title="Value interface" href="../reference/bvalue.html" />
+    <link rel="prev" title="Descriptor" href="descriptor.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -98,11 +98,12 @@
 <p class="caption"><span class="caption-text">Usage</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="value.html#policies">Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Customization points</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User-defined type support</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#serialization-traits">Serialization traits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#event-producer">Event producer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#assignment-to-bvalue">Assignment to bvalue</a></li>
@@ -112,7 +113,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#conversion-from-bview-to-custom-type">Conversion from bview to custom type</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -171,7 +171,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Customization points</li>
+      <li>User-defined type support</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -190,8 +190,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="customization-points">
-<span id="id1"></span><h1>Customization points<a class="headerlink" href="#customization-points" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="user-defined-type-support">
+<span id="customization-points"></span><h1>User-defined type support<a class="headerlink" href="#user-defined-type-support" title="Permalink to this headline">¶</a></h1>
 <p>There are various customization points to integrate user-defined types in this library.</p>
 <div class="section" id="serialization-traits">
 <h2>Serialization traits<a class="headerlink" href="#serialization-traits" title="Permalink to this headline">¶</a></h2>
@@ -238,13 +238,13 @@ what bencode data type this type serializes to.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>After specializatin <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serialization_traits</span></code> the user-defined type satisfies
+<p>After specializing <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serialization_traits</span></code> the user-defined type satisfies
 the <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">serializable</span></code> concept.</p>
 </div>
 <div class="section" id="event-producer">
 <h2>Event producer<a class="headerlink" href="#event-producer" title="Permalink to this headline">¶</a></h2>
-<p>The second specialization point that a user-defined type should provide is
-the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_connect()</span></code> specialization point.</p>
+<p>The second required customization point to enable support for a user-defined type is
+the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_connect()</span></code>.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="n">event_consumer</span> <span class="n">EC</span><span class="o">&gt;</span>
 <span class="k">constexpr</span> <span class="kt">void</span> <span class="n">bencode_connect</span><span class="p">(</span>
         <span class="n">customization_point_type</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">EC</span><span class="o">&amp;</span> <span class="n">consumer</span><span class="p">,</span> <span class="k">const</span> <span class="n">rgb_color</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span>
@@ -260,9 +260,9 @@ the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pr
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>After overrinding this function the type satisfies the <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code> concept.</p>
-<p>After satisfying <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">serializable</span></code> and cpp:concept:<cite>event_producer</cite> the user defined type.
-Can be serialized trough the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">encoding_ostream</span></code> and assigned to <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code>.</p>
+<p>After overriding this function the type satisfies the <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code> concept.</p>
+<p>After satisfying <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">serializable</span></code> and cpp:concept:<cite>event_producer</cite> the user defined type
+can be serialized with <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">encoder</span></code> and assigned to <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>All customization points prefixed with <code class="code docutils literal notranslate"><span class="pre">bencode_</span></code> must be defined in the
@@ -273,7 +273,7 @@ These functions use ADL to identify the correct overload.</p>
 <div class="section" id="assignment-to-bvalue">
 <h2>Assignment to bvalue<a class="headerlink" href="#assignment-to-bvalue" title="Permalink to this headline">¶</a></h2>
 <p>Types that satisfy <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code> have a default implementation
-that allows the type to be assigned to <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> but is not always the most efficient.
+that allows the type to be assigned to <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>, but is not always the most efficient.
 The default can be overriden by overriding <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_assign_to_bvalue()</span></code></p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Policy</span><span class="o">&gt;</span>
 <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">bencode_assign_to_bvalue</span><span class="p">(</span>
@@ -290,11 +290,11 @@ The default can be overriden by overriding <code class="xref cpp cpp-func docuti
 <div class="section" id="direct-comparison-to-bvalue">
 <h2>Direct comparison to bvalue<a class="headerlink" href="#direct-comparison-to-bvalue" title="Permalink to this headline">¶</a></h2>
 <p>The content of a bvalue can be compared with that of a custom type without
-creating a temporary <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> object.
+creating a temporary <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> object.
 This is done be overriding <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_compare_equality_with_bvalue()</span></code></p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Policy</span><span class="o">&gt;</span>
 <span class="n">bencode_compare_equality_with_bvalue</span><span class="p">(</span>
-        <span class="n">customization_for</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">basic_bvalue</span><span class="o">&lt;</span><span class="n">Policy</span><span class="o">&gt;&amp;</span> <span class="n">bv</span><span class="p">,</span> <span class="k">const</span> <span class="n">rgb_color</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">customization_point_type</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">basic_bvalue</span><span class="o">&lt;</span><span class="n">Policy</span><span class="o">&gt;&amp;</span> <span class="n">bv</span><span class="p">,</span> <span class="k">const</span> <span class="n">rgb_color</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">is_list</span><span class="p">(</span><span class="n">bv</span><span class="p">))</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">bv</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
@@ -305,7 +305,7 @@ This is done be overriding <code class="xref cpp cpp-func docutils literal notra
 <p>For types that can be ordered <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_compare_three_way_with_bvalue()</span></code> can be overridden.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Policy</span><span class="o">&gt;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">partial_ordering</span> <span class="n">bencode_compare_three_way_with_bvalue</span><span class="p">(</span>
-        <span class="n">customization_for</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">basic_bvalue</span><span class="o">&lt;</span><span class="n">Policy</span><span class="o">&gt;&amp;</span> <span class="n">bv</span><span class="p">,</span> <span class="k">const</span> <span class="n">rgb_color</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">customization_point_type</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">basic_bvalue</span><span class="o">&lt;</span><span class="n">Policy</span><span class="o">&gt;&amp;</span> <span class="n">bv</span><span class="p">,</span> <span class="k">const</span> <span class="n">rgb_color</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">is_list</span><span class="p">(</span><span class="n">bv</span><span class="p">))</span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">partial_ordering</span><span class="o">::</span><span class="n">unordered</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">bv</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">partial_ordering</span><span class="o">::</span><span class="n">greater</span><span class="p">;</span>
@@ -333,7 +333,7 @@ This will allow the use of <code class="xref cpp cpp-func docutils literal notra
 Errors are reported with <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">nonstd::expected</span></code>.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Policy</span><span class="o">&gt;</span>
 <span class="n">nonstd</span><span class="o">::</span><span class="n">expected</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="p">,</span> <span class="n">conversion_errc</span><span class="o">&gt;</span>
-<span class="n">bencode_convert_from_bvalue</span><span class="p">(</span><span class="n">customization_for</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">const</span> <span class="n">basic_bvalue</span><span class="o">&lt;</span><span class="n">Policy</span><span class="o">&gt;&amp;</span> <span class="n">bv</span><span class="p">)</span>
+<span class="n">bencode_convert_from_bvalue</span><span class="p">(</span><span class="n">customization_point_type</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">const</span> <span class="n">basic_bvalue</span><span class="o">&lt;</span><span class="n">Policy</span><span class="o">&gt;&amp;</span> <span class="n">bv</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">is_list</span><span class="p">(</span><span class="n">bv</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">nonstd</span><span class="o">::</span><span class="n">make_unexpected</span><span class="p">(</span><span class="n">conversion_errc</span><span class="o">::</span><span class="n">not_list_type</span><span class="p">);</span>
@@ -350,14 +350,14 @@ Errors are reported with <code class="xref cpp cpp-class docutils literal notran
 </div>
 <div class="section" id="direct-comparison-to-bview">
 <span id="customization-compare-to-bview"></span><h2>Direct comparison to bview<a class="headerlink" href="#direct-comparison-to-bview" title="Permalink to this headline">¶</a></h2>
-<p>Analogue with comparison with <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> there are two comparison customization points
+<p>Analogue with comparison with <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> there are two comparison customization points
 for <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a>:</p>
 <ul class="simple">
 <li><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_compare_equality_with_bview()</span></code></p></li>
 <li><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_compare_three_way_with_bview()</span></code></p></li>
 </ul>
 <p>The implementation for our example user-defined class is exactly the same as for
-the implementation for <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code>, except the function signature.</p>
+the implementation for <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>, except the function signature.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">constexpr</span> <span class="nb">bool</span> <span class="n">bencode_compare_equality_with_bview</span><span class="p">(</span>
     <span class="n">customization_point_type</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">const</span> <span class="n">bview</span><span class="o">&amp;</span> <span class="n">bv</span><span class="p">,</span> <span class="n">rgb_color</span> <span class="n">value</span><span class="p">);</span>
 
@@ -368,10 +368,10 @@ the implementation for <code class="xref cpp cpp-class docutils literal notransl
 </div>
 <div class="section" id="conversion-from-bview-to-custom-type">
 <span id="customization-convert-from-bview"></span><h2>Conversion from bview to custom type<a class="headerlink" href="#conversion-from-bview-to-custom-type" title="Permalink to this headline">¶</a></h2>
-<p>Analogue with conversion from <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> there is a conversion from <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a>
+<p>Similar to conversion from <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> there is a conversion from <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a>
 by implementing the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_convert_from_bview()</span></code> customization point.</p>
 <p>The implementation for our example user-defined class is exactly the same as for
-the implementation for <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code>, except the function signature.</p>
+the implementation for <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>, except the function signature.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">nonstd</span><span class="o">::</span><span class="n">expected</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="p">,</span> <span class="n">conversion_errc</span><span class="o">&gt;</span>
 <span class="n">bencode_convert_from_bview</span><span class="p">(</span><span class="n">customization_for</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">const</span> <span class="n">bview</span><span class="o">&amp;</span> <span class="n">bv</span><span class="p">);</span>
 </pre></div>
@@ -387,10 +387,10 @@ the implementation for <code class="xref cpp cpp-class docutils literal notransl
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="descriptor.html" class="btn btn-neutral float-right" title="Descriptor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../reference/bvalue.html" class="btn btn-neutral float-right" title="Value interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="encoding_decoding.html" class="btn btn-neutral float-left" title="Encoding and decoding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="descriptor.html" class="btn btn-neutral float-left" title="Descriptor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

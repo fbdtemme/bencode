@@ -103,15 +103,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#accessors">Accessors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#modifying-operation">Modifying operation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#comparison">Comparison</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#standard-library-types-support">Standard library types support</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#policies">Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="events.html#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customization_points.html">Customization points</a></li>
 <li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization_points.html">User-defined type support</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -193,10 +192,10 @@
 <h1>Value interface<a class="headerlink" href="#value-interface" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> is class that represents a bencoded value.
+<p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> is class that represents a bencoded value.
 It is a sum-type implemented with a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::variant</span></code> to stores the
 different bencode data types.</p>
-<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> is an instantiation of the class template
+<p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> is an instantiation of the class template
 <a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">basic_bvalue</span></code></a> and the exact types used to store
 the different bencode data types can be customized through the Policy template argument.</p>
 <p>The default policy uses following storage types:</p>
@@ -223,13 +222,13 @@ the different bencode data types can be customized through the Policy template a
 <p>The bvalue class can be used to create, and manipulate bencode values.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In most examples <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> can be replaced by
+<p>In most examples <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> can be replaced by
 <a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">basic_bvalue</span></code></a> with a user-defined Policy template argument.</p>
 </div>
 </div>
 <div class="section" id="construction">
 <h2>Construction<a class="headerlink" href="#construction" title="Permalink to this headline">¶</a></h2>
-<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code> provides similar constructors and assignment operators as <code class="code docutils literal notranslate"><span class="pre">std::variant</span></code>.</p>
+<p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> provides similar constructors and assignment operators as <code class="code docutils literal notranslate"><span class="pre">std::variant</span></code>.</p>
 <p>Construct an empty bvalue.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="p">{};</span>
 </pre></div>
@@ -379,19 +378,11 @@ the fallback ordering is defined by the ordering of the types:
 </pre></div>
 </div>
 </div>
-<div class="section" id="standard-library-types-support">
-<h2>Standard library types support<a class="headerlink" href="#standard-library-types-support" title="Permalink to this headline">¶</a></h2>
-<p>Operations described above are defined for most standard library types.
-They are not enabled by default however and the right trait header must be included.
-The easiest way is to include all traits but this will have a heavy impact on compile times.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// enable interoperability with all supported types.</span>
-<span class="cp">#include</span> <span class="cpf">&lt;bencode/traits/all.hpp&quot;</span><span class="cp"></span>
-
-<span class="c1">// enable interoperability with std::set, std::unordered_set</span>
-<span class="cp">#include</span> <span class="cpf">&lt;bencode/traits/set.hpp&gt;</span><span class="cp"></span>
-</pre></div>
 </div>
-</div>
+<div class="section" id="policies">
+<h1>Policies<a class="headerlink" href="#policies" title="Permalink to this headline">¶</a></h1>
+<p>The types used to store the different alternatives can be modified with the Policy template
+argument.</p>
 </div>
 
 
