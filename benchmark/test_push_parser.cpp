@@ -22,63 +22,38 @@ using namespace std::string_view_literals;
 namespace fs = std::filesystem;
 
 
-TEST_CASE("benchmark parsers - Fedora-Workstation", "[parser]")
+void benchmark_helper(std::istream& ifs)
 {
-    std::ifstream ifs(RESOURCES_DIR"/Fedora-Workstation-Live-x86_64-30.torrent");
     std::string torrent(
             std::istreambuf_iterator<char>{ifs},
             std::istreambuf_iterator<char>{});
 
-    BENCHMARK("decode")
-    {
+    BENCHMARK("decode_value") {
         auto d = bencode::decode_value(torrent);
         return d;
     };
 
-    BENCHMARK("decode_view")
-    {
-        auto d = bencode::decode_view(torrent);
-        return d;
-    };
+    BENCHMARK("decode_view") {
+         auto d = bencode::decode_view(torrent);
+         return d;
+     };
 }
 
 
-TEST_CASE("benchmark parsers - NASA mdim_color", "[parser]")
+TEST_CASE("benchmark parsers", "[parser]")
 {
-    std::ifstream ifs(RESOURCES_DIR"/NASA-Viking-Merged-Color-Mosaic.torrent");
-    std::string torrent(
-            std::istreambuf_iterator<char>{ifs},
-            std::istreambuf_iterator<char>{});
-    BENCHMARK("decode")
-    {
-        auto d = bencode::decode_value(torrent);
-        return d;
-    };
+    SECTION("fedora workstation") {
+        std::ifstream ifs(RESOURCES_DIR"/Fedora-Workstation-Live-x86_64-30.torrent");
+        benchmark_helper(ifs);
+    }
 
-    BENCHMARK("decode_view")
-    {
-        auto d = bencode::decode_view(torrent);
-        return d;
-    };
-}
+    SECTION("NASA mdim_color") {
+        std::ifstream ifs(RESOURCES_DIR"/NASA-Viking-Merged-Color-Mosaic.torrent");
+        benchmark_helper(ifs);
+    }
 
-
-TEST_CASE("benchmark parsers - COVID-19", "[parser]")
-{
-    std::ifstream ifs(RESOURCES_DIR"/COVID-19-image-dataset-collection.torrent");
-    std::string torrent(
-            std::istreambuf_iterator<char>{ifs},
-            std::istreambuf_iterator<char>{});
-
-    BENCHMARK("decode")
-    {
-        auto d = bencode::decode_value(torrent);
-        return d;
-    };
-
-    BENCHMARK("decode_view")
-    {
-        auto d = bencode::decode_view(torrent);
-        return d;
-    };
+    SECTION("COVID-19 image dataset") {
+        std::ifstream ifs(RESOURCES_DIR"/COVID-19-image-dataset-collection.torrent");
+        benchmark_helper(ifs);
+    }
 }
