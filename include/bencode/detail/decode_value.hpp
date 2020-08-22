@@ -68,7 +68,7 @@ inline basic_bvalue<Policy> decode_value(const Rng& range)
     auto consumer = bencode::events::to_bvalue<Policy>{};
     bencode::push_parser<rng::iterator_t<const Rng&>,
                          rng::sentinel_t<const Rng&>> parser{};
-    if (!parser.parse(range, consumer))
+    if (!parser.parse(consumer, range))
         throw parser.error();
     return consumer.value();
 }

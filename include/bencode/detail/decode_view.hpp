@@ -37,7 +37,7 @@ inline descriptor_table decode_view(Rng&& range)
 {
     bencode::descriptor_parser parser{};
     auto r = parser.parse(std::forward<Rng>(range));
-    if (!r) { throw r.error(); }
+    if (!r) { throw parser.error(); }
     return std::move(*r);
 }
 
