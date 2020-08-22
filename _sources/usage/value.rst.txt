@@ -213,7 +213,7 @@ the fallback ordering is defined by the ordering of the types:
     b_dict == dict;
 
 Policies
-========
+--------
 
 The types used to store the different alternatives can be modified with the Policy template
 argument.

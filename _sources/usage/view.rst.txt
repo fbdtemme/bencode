@@ -52,8 +52,9 @@ The :ref:`API reference <bview_reference>`  provides more information on how to 
 Performance
 -----------
 
-Thanks to the compact and cache-friendly structure parsing to
-:cpp:class:`bview` is about 5 times faster then parsing to :cpp:class:`bvalue`.
+Parsing to :cpp:class:`bview` is about 5 times faster then parsing to :cpp:class:`bvalue`.
+
+.. image:: ../images/benchmark_barplot.svg
 
 Construction
 -------------
