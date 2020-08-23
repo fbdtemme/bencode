@@ -35,7 +35,7 @@ target_link_libraries(bencode-tests
         bencode
 )
 
-if (BENCODE_ENABLE_COVERAGE)
+if (BENCODE_BUILD_TESTS_COVERAGE)
     message(STATUS "Building with coverage enabled")
     set(CMAKE_CXX_FLAGS --coverage)
     set(CMAKE_C_FLAGS --coverage)
