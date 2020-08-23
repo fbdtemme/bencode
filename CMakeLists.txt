@@ -30,15 +30,13 @@ target_include_directories(bencode INTERFACE
 include(external/CMakeLists.txt)
 
 
-cmake_dependent_option(BENCODE_BUILD_TESTS    "Build tests override."
-                       ON  "BUILD_TESTING;BENCODE_STANDALONE" OFF)
-cmake_dependent_option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"
-                       ON  "BENCODE_STANDALONE"      OFF)
+option(BENCODE_BUILD_TESTS    "Build tests."  ON)
+cmake_dependent_option(BENCODE_BUILD_TESTS_COVERAGE
+                       "Build with coverage enabled"
+                       OFF "BENCODE_BUILD_TESTS" OFF)
 
-cmake_dependent_option(BENCODE_BUILD_DOCS       "Build documentation"
-                        ON  "BENCODE_STANDALONE"  OFF)
-
-option(BENCODE_ENABLE_COVERAGE "Build with coverage enabled" ON)
+option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"    OFF)
+option(BENCODE_BUILD_DOCS        "Build documentation" OFF)
 
 # Concepts compile flags
 
@@ -51,7 +49,7 @@ target_link_libraries(bencode
 add_library(bencode::bencode ALIAS bencode)
 
 
-if (BENCODE_BUILD_TESTS)
+if ((BUILD_TESTING AND BENCODE_BUILD_TESTS) OR BENCODE_BUILD_TESTS)
     enable_testing()
     message(STATUS "Building tests enabled")
     add_subdirectory(tests)
