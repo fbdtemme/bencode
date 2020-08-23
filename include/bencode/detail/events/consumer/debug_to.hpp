@@ -79,6 +79,11 @@ public:
         fmt::format_to(out_, "dict value\n");
     };
 
+    constexpr void error(const bencode::parsing_error& e)
+    {
+        fmt::format_to(out_, "error: {}", e.what());
+    }
+
 private:
     OIter out_;
 };

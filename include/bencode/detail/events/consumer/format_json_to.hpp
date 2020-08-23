@@ -95,7 +95,7 @@ public:
         first_ = false;
     }
 
-    static void error(bencode::parsing_error e) {
+    static void error(const bencode::parsing_error& e) {
         throw e;
     }
 
