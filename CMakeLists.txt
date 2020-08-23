@@ -30,10 +30,8 @@ target_include_directories(bencode INTERFACE
 include(external/CMakeLists.txt)
 
 
-cmake_dependent_option(BENCODE_BUILD_TESTS    "Build tests."
+cmake_dependent_option(BENCODE_BUILD_TESTS    "Build tests override."
                        ON  "BUILD_TESTING;BENCODE_STANDALONE" OFF)
-option(BENCODE_BUILD_TESTS_COVERAGE   "Build tests with coverage" OFF)
-
 cmake_dependent_option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"
                        ON  "BENCODE_STANDALONE"      OFF)
 
