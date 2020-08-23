@@ -2,6 +2,8 @@
 
 [![build](https://github.com/fbdtemme/bencode/workflows/build/badge.svg?branch=master)](https://github.com/fbdtemme/bencode/actions?query=workflow%3Abuild)
 [![docs](https://github.com/fbdtemme/bencode/workflows/documentation/badge.svg?branch=master)](https://fbdtemme.github.io/bencode/)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fbdtemme/bencode)](https://github.com/fbdtemme/bencode/releases)
+[![C++ standard](https://img.shields.io/badge/C%2B%2B-20-blue)](https://isocpp.org/)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5cc3eec94d8a486dab62afeab5130def)](https://app.codacy.com/manual/floriandetemmerman/bencode?utm_source=github.com&utm_medium=referral&utm_content=fbdtemme/bencode&utm_campaign=Badge_Grade_Dashboard)
 [![codecov](https://codecov.io/gh/fbdtemme/bencode/branch/master/graph/badge.svg)](https://codecov.io/gh/fbdtemme/bencode)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
