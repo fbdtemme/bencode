@@ -19,7 +19,6 @@ TEST_CASE("test string conversion", "[type]")
     auto [input, expected] = GENERATE(table<bencode::bencode_type, std::string>({
         {bencode_type::uninitialized, "uninitialized"},
         {bencode_type::integer,       "integer"},
-        {bencode_type::string_view,   "string_view"},
         {bencode_type::string,        "string"},
         {bencode_type::list,          "list"},
         {bencode_type::dict,          "dict"}
@@ -38,12 +37,13 @@ TEST_CASE("test string conversion", "[type]")
 TEST_CASE("check comparison operators", "[type]")
 {
     static std::array types = {
-            bencode_type::uninitialized, bencode_type::integer,
-            bencode_type::string_view, bencode_type::string,
+            bencode_type::uninitialized,
+            bencode_type::integer,
+            bencode_type::string,
             bencode_type::list, bencode_type::dict
     };
 
-    auto i = GENERATE(range(0, 5));
+    auto i = GENERATE(range(0, 4));
     int j = 0;
 
     for (; j < i; ++j) {

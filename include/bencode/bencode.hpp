@@ -2,6 +2,5 @@
 
 #include "bvalue.hpp"
 #include "bview.hpp"
-
 #include "encode.hpp"
 

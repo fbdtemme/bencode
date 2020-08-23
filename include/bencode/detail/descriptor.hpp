@@ -40,7 +40,7 @@ enum class descriptor_type : std::uint8_t
 };
 
 /// class describing the value and metadata contained in bencoded tokens.
-struct descriptor
+class descriptor
 {
 private:
     /// the decoded bvalue of an bencoded integer

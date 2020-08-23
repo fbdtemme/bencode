@@ -3,9 +3,9 @@
 //
 #include <catch2/catch.hpp>
 
-#include "bencode/bview.hpp"
 #include "bencode/traits/all.hpp"
-#include "bencode/detail/parser/descriptor_parser.hpp"
+#include "bencode/bview.hpp"
+#include "bencode/parsers/descriptor_parser.hpp"
 
 #include <type_traits>
 #include <string>

@@ -1,10 +1,3 @@
-//
-// Created by fbdtemme on 15/07/19.
-//
-////
-//// Created by fbdtemme on 26/03/19.
-////
-//
 #include <catch2/catch.hpp>
 
 #include <type_traits>

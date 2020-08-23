@@ -10,7 +10,7 @@
 namespace bc = bencode;
 
 
-TEST_CASE("test stream encoder")
+TEST_CASE("test encoder", "[encoder]")
 {
     using namespace std::string_view_literals;
     using namespace std::string_literals;

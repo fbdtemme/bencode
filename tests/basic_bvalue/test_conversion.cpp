@@ -4,8 +4,8 @@
 
 #include <catch2/catch.hpp>
 
-#include "bencode/bvalue.hpp"
 #include "bencode/traits/all.hpp"
+#include "bencode/bvalue.hpp"
 
 using namespace bencode;
 

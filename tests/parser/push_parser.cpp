@@ -1,6 +1,7 @@
 //#include <bencode/detail/parser/input_adapter.hpp>
 #include <bencode/detail/parser/push_parser.hpp>
-#include <bencode/detail/events/consumers.hpp>
+#include <bencode/detail/events/format_json_to.hpp>
+#include <bencode/detail/events/debug_to.hpp>
 #include <bencode/detail/bvalue/events.hpp>
 #include <catch2/catch.hpp>
 #include <sstream>

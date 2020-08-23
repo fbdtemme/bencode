@@ -1,19 +1,15 @@
 ////
 //// Created by fbdtemme on 02/06/19.
 ////
+#include <vector>
+#include <string>
+#include <string_view>
 
 #include <catch2/catch.hpp>
 
-#include <vector>
-
-#include "bencode/bvalue.hpp"
 #include "bencode/traits/all.hpp"
+#include "bencode/bvalue.hpp"
 
-//using namespace Catch;
-//using namespace Catch::Generators;
-
-#include <string>
-#include <string_view>
 
 using namespace bencode;
 using namespace std::string_literals;

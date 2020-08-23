@@ -1,4 +1,6 @@
 #include <bencode/bview.hpp>
+#include <bencode/detail/events/format_json_to.hpp>
+
 #include <catch2/catch.hpp>
 
 #include <iostream>

@@ -1,10 +1,7 @@
-//
-// Created by fbdtemme on 8/14/20.
-//
-
-#include <catch2/catch.hpp>
-#include <bencode/bview.hpp>
 #include <string_view>
+#include <catch2/catch.hpp>
+
+#include "bencode/bview.hpp"
 #include "data.hpp"
 
 using namespace std::string_literals;

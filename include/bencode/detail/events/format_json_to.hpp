@@ -9,6 +9,7 @@
 #include <bencode/detail/bencode_type.hpp>
 #include <bencode/detail/utils.hpp>
 #include <bencode/detail/parser/parsing_error.hpp>
+#include <bencode/detail/itoa.hpp>
 
 namespace bencode::events {
 

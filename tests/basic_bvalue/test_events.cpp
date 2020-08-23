@@ -5,7 +5,8 @@
 
 #include <bencode/traits/all.hpp>
 #include "bencode/bvalue.hpp"
-#include <bencode/detail/events/consumer/debug_to.hpp>
+
+#include <bencode/events/debug_to.hpp>
 
 
 #include <sstream>

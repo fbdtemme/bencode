@@ -6,15 +6,12 @@
 #include <bencode/detail/bvalue/concepts.hpp>
 #include <bencode/detail/serialization_traits.hpp>
 #include <bencode/detail/bvalue/events.hpp>
-#include <bencode/detail/bvalue/to_bvalue.hpp>
+#include <bencode/detail/events/to_bvalue.hpp>
 
 namespace bencode {
 
 // forward declarations
 class bview;
-
-//template <typename T, typename Policy, typename U>
-//constexpr void bencode_assign_to_bvalue(customization_point_type<T>, basic_bvalue<Policy>&, U&&);
 
 namespace detail {
 

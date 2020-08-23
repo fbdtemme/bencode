@@ -23,9 +23,9 @@ target_sources(bencode-tests
         parser/descriptor_parser.cpp
 
         test_concepts.cpp
-        test_decode.cpp
-        test_encode.cpp
-        test_stream_encoder.cpp
+        test_encoder.cpp
+        test_itoa.cpp
+        test_bencode_type.cpp
 )
 
 #include_directories("../include/")

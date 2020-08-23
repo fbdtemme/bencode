@@ -1,8 +1,8 @@
-#include <bencode/detail/events/consumers.hpp>
 #include <catch2/catch.hpp>
 
 #include <sstream>
 #include <ranges>
+
 
 #include <bencode/detail/parser/parsing_error.hpp>
 #include <bencode/detail/parser/common.hpp>

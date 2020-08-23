@@ -2,10 +2,12 @@
 // Created by fbdtemme on 8/14/20.
 //
 #include <catch2/catch.hpp>
-#include <bencode/traits/all.hpp>
-#include "bencode/bvalue.hpp"
 
 #include <string_view>
+
+#include "bencode/traits/all.hpp"
+#include "bencode/bvalue.hpp"
+
 
 using namespace std::string_view_literals;
 namespace bc = bencode;

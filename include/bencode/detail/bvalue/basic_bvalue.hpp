@@ -93,9 +93,6 @@ public:
     using list_value_type   = typename list_type::value_type;
     using string_value_type = typename string_type::value_type;
 
-    static_assert(std::numeric_limits<integer_type>::is_integer,    "integer storage type must be integral");
-    static_assert(std::numeric_limits<integer_type>::is_signed,     "integer storage type must be signed");
-
     constexpr basic_bvalue() noexcept = default;
     constexpr basic_bvalue(const basic_bvalue& other) noexcept(std::is_nothrow_copy_constructible_v<storage_type>) = default;
     constexpr basic_bvalue(basic_bvalue&& other) noexcept(std::is_nothrow_move_constructible_v<storage_type>) = default;

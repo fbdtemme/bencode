@@ -49,7 +49,9 @@ struct bvalue_policy
         using list_type          = ListType<BV>;                // bencoded list
         using dict_type          = DictType<string_type, BV>;   // bencoded dict
 
-        static_assert(std::integral<integer_type>,  "invalid integer_type");
+        static_assert(std::numeric_limits<integer_type>::is_integer,    "integer storage type must be integral");
+        static_assert(std::numeric_limits<integer_type>::is_signed,     "integer storage type must be signed");
+
     };
 
     /// Enable overflow safe narrowing conversion to unsigned integers.

@@ -1,7 +1,6 @@
 #include <catch2/catch.hpp>
 
-#include <bencode/bview.hpp>
-#include "bencode/traits/all.hpp"
+#include "bencode/bview.hpp"
 
 #include <type_traits>
 #include <string>

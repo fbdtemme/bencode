@@ -1,6 +1,7 @@
 #pragma once
 
 #include "bencode/detail/bvalue/bvalue_policy.hpp"
+#include "bencode/detail/bvalue/basic_bvalue.hpp"
 
 namespace bencode::events {
 

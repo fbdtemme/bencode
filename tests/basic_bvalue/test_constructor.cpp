@@ -2,13 +2,13 @@
 // Created by fbdtemme on 07/04/19.
 //
 #include <catch2/catch.hpp>
-#include <bencode/traits/all.hpp>
 
-#include "bencode/bvalue.hpp"
 #include <sstream>
 #include <numeric>
 #include <filesystem>
-#include <gmpxx.h>
+
+#include "bencode/traits/all.hpp"
+#include "bencode/bvalue.hpp"
 
 using namespace bencode;
 using namespace std::string_literals;

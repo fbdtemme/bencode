@@ -5,8 +5,8 @@
 #include <ranges>
 
 #include <bencode/detail/parser/push_parser.hpp>
-#include <bencode/detail/bvalue/to_bvalue.hpp>
-#include <bencode/detail/events/consumer/encode_to.hpp>
+#include <bencode/detail/events/to_bvalue.hpp>
+#include <bencode/detail/events/encode_to.hpp>
 
 /// @file
 
