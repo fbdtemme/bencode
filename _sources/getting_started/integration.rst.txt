@@ -27,9 +27,10 @@ The source tree can be included in your project and included with :code:`add_sub
 .. code-block::
 
     # CMakeLists.txt
-    # Typically you don't care so much for a third party library's tests to be
-    # run from your own project's code.
+    # Disable building tests and benchmarks.
     set(BENCODE_BUILD_TESTS OFF)
+    set(BENCODE_BUILD_BENCHMARKS OFF)
+
     add_subdirectory(bencode)
     ...
     add_library(foo ...)
@@ -49,5 +50,7 @@ Embedded (FetchContent)
       GIT_TAG "master")
 
     FetchContent_MakeAvailable(bencode)
-
+    ...
+    add_library(foo ...)
+    ...
     target_link_libraries(foo INTERFACE bencode::bencode)

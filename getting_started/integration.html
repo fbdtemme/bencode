@@ -209,9 +209,10 @@ target_link_libraries(foo INTERFACE bencode::bencode)
 <h3>Embedded<a class="headerlink" href="#embedded" title="Permalink to this headline">¶</a></h3>
 <p>The source tree can be included in your project and included with <code class="code docutils literal notranslate"><span class="pre">add_subdirectory</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CMakeLists.txt</span>
-<span class="c1"># Typically you don&#39;t care so much for a third party library&#39;s tests to be</span>
-<span class="c1"># run from your own project&#39;s code.</span>
+<span class="c1"># Disable building tests and benchmarks.</span>
 <span class="nb">set</span><span class="p">(</span><span class="n">BENCODE_BUILD_TESTS</span> <span class="n">OFF</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">BENCODE_BUILD_BENCHMARKS</span> <span class="n">OFF</span><span class="p">)</span>
+
 <span class="n">add_subdirectory</span><span class="p">(</span><span class="n">bencode</span><span class="p">)</span>
 <span class="o">...</span>
 <span class="n">add_library</span><span class="p">(</span><span class="n">foo</span> <span class="o">...</span><span class="p">)</span>
@@ -230,7 +231,9 @@ target_link_libraries(foo INTERFACE bencode::bencode)
   <span class="n">GIT_TAG</span> <span class="s2">&quot;master&quot;</span><span class="p">)</span>
 
 <span class="n">FetchContent_MakeAvailable</span><span class="p">(</span><span class="n">bencode</span><span class="p">)</span>
-
+<span class="o">...</span>
+<span class="n">add_library</span><span class="p">(</span><span class="n">foo</span> <span class="o">...</span><span class="p">)</span>
+<span class="o">...</span>
 <span class="n">target_link_libraries</span><span class="p">(</span><span class="n">foo</span> <span class="n">INTERFACE</span> <span class="n">bencode</span><span class="p">::</span><span class="n">bencode</span><span class="p">)</span>
 </pre></div>
 </div>
