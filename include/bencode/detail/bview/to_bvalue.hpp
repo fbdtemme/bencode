@@ -11,7 +11,7 @@ constexpr void assign_to_bvalue_default_integer_impl(
         customization_point_type<integer_bview>,
         basic_bvalue<Policy>& bvalue, integer_bview value)
 {
-    bvalue.assign_integer(value);
+    bvalue.emplace_integer(value);
 }
 
 template <typename Policy>
@@ -19,7 +19,7 @@ constexpr void assign_to_bvalue_default_string_impl(
         customization_point_type<string_bview>,
         basic_bvalue<Policy>& bvalue, string_bview value)
 {
-    bvalue.assign_string(value);
+    bvalue.emplace_string(value);
 }
 
 template <typename Policy>
