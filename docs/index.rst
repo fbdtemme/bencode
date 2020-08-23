@@ -5,6 +5,8 @@ bencode
 
 A C++20 bencode serialisation/deserialization library.
 
+Source code is hosted on `GitHub <https://github.com/fbdtemme/bencode>`_ under the :ref:`MIT license <license>`.
+
 .. note:: This documentation site is under construction.
 
 Content
