@@ -685,54 +685,7 @@ template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><spa
 <dl class="cpp struct">
 <dt id="_CPPv4I000I0E0I00E0EN7bencode13bvalue_policyE">
 <span id="_CPPv3I000I0E0I00E0EN7bencode13bvalue_policyE"></span><span id="_CPPv2I000I0E0I00E0EN7bencode13bvalue_policyE"></span>template&lt;typename <code class="sig-name descname">IntegralType</code>, typename <code class="sig-name descname">StringViewType</code>, typename <code class="sig-name descname">StringType</code>, template&lt;typename T&gt; typename <code class="sig-name descname">ListType</code>, template&lt;typename K, typename V&gt; typename <code class="sig-name descname">DictType</code>&gt;<br /><span class="target" id="structbencode_1_1bvalue__policy"></span><em class="property">struct </em><code class="sig-name descname">bvalue_policy</code><a class="headerlink" href="#_CPPv4I000I0E0I00E0EN7bencode13bvalue_policyE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><em>#include &lt;bvalue_policy.hpp&gt;</em><p>Policy class defining the behavior of the basic_bvalue container and default serialisation traits_old. </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Attributes</p>
-<dl class="cpp var">
-<dt id="_CPPv4N7bencode13bvalue_policy36enable_unsigned_narrowing_conversionE">
-<span id="_CPPv3N7bencode13bvalue_policy36enable_unsigned_narrowing_conversionE"></span><span id="_CPPv2N7bencode13bvalue_policy36enable_unsigned_narrowing_conversionE"></span><span id="bencode::bvalue_policy::enable_unsigned_narrowing_conversion__b"></span><span class="target" id="structbencode_1_1bvalue__policy_1aafc6067ff77fca22afb5de1d141e740e"></span><em class="property">constexpr</em> bool <code class="sig-name descname">enable_unsigned_narrowing_conversion</code> = true<a class="headerlink" href="#_CPPv4N7bencode13bvalue_policy36enable_unsigned_narrowing_conversionE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Enable overflow safe narrowing conversion to unsigned integers.</p>
-<p>Construction or assignment will throw std::overflow_error when the integer has a negative bvalue. Only conversions to unsigned integers of the same bit width as the integer storage type are considered. </p>
-</dd></dl>
-
-</div>
-<dl class="cpp struct">
-<dt id="_CPPv4I0EN7bencode13bvalue_policy7storageE">
-<span id="_CPPv3I0EN7bencode13bvalue_policy7storageE"></span><span id="_CPPv2I0EN7bencode13bvalue_policy7storageE"></span>template&lt;typename <code class="sig-name descname">BV</code>&gt;<br /><span class="target" id="structbencode_1_1bvalue__policy_1_1storage"></span><em class="property">struct </em><code class="sig-name descname">storage</code><a class="headerlink" href="#_CPPv4I0EN7bencode13bvalue_policy7storageE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><em>#include &lt;bvalue_policy.hpp&gt;</em><p>Types used to store the different possible bencode types.</p>
-<p>According to bencode specification these types should meet following requirements.</p>
-<p>integer_type : signed integer type The bencode specification does not mention a required width but to support metafiles containing files larger then 4 GiB it must be at least 64 bits wide. string_view_type : non-owning string container for utf8 strings. string_type : owning string container for utf8 strings. list_type : list container dict_type : dictionary container with sorted keys Requirements: string_type and string_view_type must conform to the std interface. </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Types</p>
-<dl class="cpp type">
-<dt id="_CPPv4N7bencode13bvalue_policy7storage18uninitialized_typeE">
-<span id="_CPPv3N7bencode13bvalue_policy7storage18uninitialized_typeE"></span><span id="_CPPv2N7bencode13bvalue_policy7storage18uninitialized_typeE"></span><span class="target" id="structbencode_1_1bvalue__policy_1_1storage_1a8d559688b471db50456af2e7d3a05506"></span><em class="property">using </em><code class="sig-name descname">uninitialized_type</code> = <a class="reference internal" href="bview.html#_CPPv4St" title="std">std</a>::monostate<a class="headerlink" href="#_CPPv4N7bencode13bvalue_policy7storage18uninitialized_typeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp type">
-<dt id="_CPPv4N7bencode13bvalue_policy7storage12integer_typeE">
-<span id="_CPPv3N7bencode13bvalue_policy7storage12integer_typeE"></span><span id="_CPPv2N7bencode13bvalue_policy7storage12integer_typeE"></span><span class="target" id="structbencode_1_1bvalue__policy_1_1storage_1ab4175ea2aeaabd48aab7dd7c870282fc"></span><em class="property">using </em><code class="sig-name descname">integer_type</code> = <a class="reference internal" href="#_CPPv4I000I0E0I00E0EN7bencode13bvalue_policyE" title="bencode::bvalue_policy::IntegralType">IntegralType</a><a class="headerlink" href="#_CPPv4N7bencode13bvalue_policy7storage12integer_typeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp type">
-<dt id="_CPPv4N7bencode13bvalue_policy7storage11string_typeE">
-<span id="_CPPv3N7bencode13bvalue_policy7storage11string_typeE"></span><span id="_CPPv2N7bencode13bvalue_policy7storage11string_typeE"></span><span class="target" id="structbencode_1_1bvalue__policy_1_1storage_1a9113e74faafa6a99cf6cbaaafae06f7a"></span><em class="property">using </em><code class="sig-name descname">string_type</code> = <a class="reference internal" href="#_CPPv4I000I0E0I00E0EN7bencode13bvalue_policyE" title="bencode::bvalue_policy::StringType">StringType</a><a class="headerlink" href="#_CPPv4N7bencode13bvalue_policy7storage11string_typeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp type">
-<dt id="_CPPv4N7bencode13bvalue_policy7storage9list_typeE">
-<span id="_CPPv3N7bencode13bvalue_policy7storage9list_typeE"></span><span id="_CPPv2N7bencode13bvalue_policy7storage9list_typeE"></span><span class="target" id="structbencode_1_1bvalue__policy_1_1storage_1a436e8882a49c5dc7d0479841de1c461e"></span><em class="property">using </em><code class="sig-name descname">list_type</code> = <a class="reference internal" href="#_CPPv4I000I0E0I00E0EN7bencode13bvalue_policyE" title="bencode::bvalue_policy::ListType">ListType</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode13bvalue_policy7storageE" title="bencode::bvalue_policy::storage::BV">BV</a>&gt;<a class="headerlink" href="#_CPPv4N7bencode13bvalue_policy7storage9list_typeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp type">
-<dt id="_CPPv4N7bencode13bvalue_policy7storage9dict_typeE">
-<span id="_CPPv3N7bencode13bvalue_policy7storage9dict_typeE"></span><span id="_CPPv2N7bencode13bvalue_policy7storage9dict_typeE"></span><span class="target" id="structbencode_1_1bvalue__policy_1_1storage_1a28ee55ee0590b2341fc28c21ede6ccc7"></span><em class="property">using </em><code class="sig-name descname">dict_type</code> = <a class="reference internal" href="#_CPPv4I000I0E0I00E0EN7bencode13bvalue_policyE" title="bencode::bvalue_policy::DictType">DictType</a>&lt;<a class="reference internal" href="#_CPPv4N7bencode13bvalue_policy7storage11string_typeE" title="bencode::bvalue_policy::storage::string_type">string_type</a>, <a class="reference internal" href="#_CPPv4I0EN7bencode13bvalue_policy7storageE" title="bencode::bvalue_policy::storage::BV">BV</a>&gt;<a class="headerlink" href="#_CPPv4N7bencode13bvalue_policy7storage9dict_typeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-</div>
-</dd></dl>
-
-</dd></dl>
+<dd><em>#include &lt;bvalue_policy.hpp&gt;</em></dd></dl>
 
 <dl class="cpp struct">
 <dt id="_CPPv4N7bencode21default_bvalue_policyE">
