@@ -96,7 +96,6 @@ TEST_CASE("test list_bview") {
 
         SECTION("nested") {
             auto first = nested_list.begin();
-            auto last = nested_list.end();
             ++first; // points to first key
             ++first; // points to end
             CHECK(first == nested_list.end());

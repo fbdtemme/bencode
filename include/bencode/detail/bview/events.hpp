@@ -80,7 +80,6 @@ constexpr void connect_events_default_runtime_impl(
         const bview& bref,
         detail::priority_tag<1>)
 {
-    using value_type = bview;
     switch (bref.type()) {
         case bencode_type::integer:  connect(consumer, get_integer(bref)); break;
         case bencode_type::string:   connect(consumer, get_string(bref));  break;

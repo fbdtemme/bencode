@@ -167,8 +167,6 @@ private:
         Expects(!stack_.empty());
         Expects(stack_.top() == encoder_state::expect_dict_value);
 
-        using D = std::remove_cvref_t<T>;
-
         stack_.top() = encoder_state::expect_dict_key;
         connect(consumer_, std::forward<U>(value));
         consumer_.dict_value();

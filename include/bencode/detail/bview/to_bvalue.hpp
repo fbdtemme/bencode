@@ -43,7 +43,6 @@ constexpr void assign_bview_to_bvalue(
         customization_point_type<bview>,
         basic_bvalue<Policy>& bvalue, const bview& view)
 {
-    using value_type = bview;
     switch (view.type()) {
     case bencode_type::integer: {
         assign_to_bvalue_default_integer_impl(

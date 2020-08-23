@@ -37,7 +37,7 @@ TEST_CASE("test equality", "[bvalue]")
             false, true, false, false, false, false, false, false, false, false
         };
 
-        for (int i = 0; i < std::size(b_ref) ; ++i) {
+        for (std::size_t i = 0; i < std::size(b_ref) ; ++i) {
             auto& input = b_ref[i];
             auto& expected = expected_values[i];
 
@@ -69,7 +69,7 @@ TEST_CASE("test equality", "[bvalue]")
             false, false, true, false, true, false, false, false, false, false
         };
 
-        for (int i = 0; i < std::size(b_ref) ; ++i) {
+        for (std::size_t i = 0; i < std::size(b_ref) ; ++i) {
             auto& input = b_ref[i];
             auto& expected = expected_values[i];
 
@@ -85,7 +85,7 @@ TEST_CASE("test equality", "[bvalue]")
             false, false, false, false, false, false, true, false, false, false
         };
 
-        for (int i = 0; i < std::size(b_ref) ; ++i) {
+        for (std::size_t i = 0; i < std::size(b_ref) ; ++i) {
             auto& input = b_ref[i];
             auto& expected = expected_values[i];
 
@@ -101,7 +101,7 @@ TEST_CASE("test equality", "[bvalue]")
             false, false, false, false, false, false, false, false, true, false
         };
 
-        for (int i = 0; i < std::size(b_ref) ; ++i) {
+        for (std::size_t i = 0; i < std::size(b_ref) ; ++i) {
             auto& input = b_ref[i];
             auto& expected = expected_values[i];
 

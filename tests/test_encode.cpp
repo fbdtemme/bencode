@@ -36,7 +36,6 @@ constexpr std::pair<std::array<char, N>, std::size_t> to_iterator_test()
 TEST_CASE("constexpr encoder to iterator")
 {
     using namespace std::string_view_literals;
-    std::array<char, 100> buffer {};
     constexpr auto p = to_iterator_test<100>();
     const auto view = std::string_view(p.first.data(), p.second);
     CHECK(view == "d5:test1li1e2:v2i3e2:v4e5:test2i2ee"sv);

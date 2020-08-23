@@ -106,7 +106,6 @@ TEST_CASE("test dict_bview") {
 
         SECTION("nested") {
             auto first = nested_dict.begin();
-            auto last = nested_dict.end();
             ++first; // points to second key
             ++first; // points to end
             CHECK(first == nested_dict.end());

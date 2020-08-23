@@ -60,8 +60,8 @@ class descriptor_parser
 
 public:
     explicit descriptor_parser(const parser_options& options = {})
-            : options_(options)
-            , descriptors_()
+            : descriptors_()
+            , options_(options)
     {}
 
     std::optional<descriptor_table> parse(std::string_view s) noexcept

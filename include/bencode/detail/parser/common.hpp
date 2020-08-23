@@ -252,7 +252,6 @@ bdecode_string_token(It& begin , It end) noexcept
         return nonstd::make_unexpected(parsing_errc::negative_string_length);
     }
 
-    const auto init_pos = static_cast<std::uint32_t>(std::distance(begin, it));
     auto result = parse_integer<std::size_t>(it, end);
 
     if (!result) [[unlikely]] {

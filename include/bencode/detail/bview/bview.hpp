@@ -43,13 +43,14 @@ public:
     /// Default constructor. Constructs an empty bview.
     /// After construction, data() is equal to nullptr, and size() is equal to 0.
     constexpr bview() noexcept
-        : desc_(nullptr), buffer_(nullptr) {}
+        :  buffer_(nullptr), desc_(nullptr)
+    {}
 
     /// Constructs a bview from a descriptor and a character buffer.
     /// Behavior is undefined when data or buffer is nullptr
     constexpr bview(const descriptor* data, const char* buffer) noexcept
-            : desc_(data)
-            , buffer_(buffer)
+            : buffer_(buffer)
+            , desc_(data)
     {
         Expects(data != nullptr);
         Expects(buffer != nullptr);

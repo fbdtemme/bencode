@@ -135,7 +135,6 @@ constexpr void connect_events_default_list_impl(customization_point_type<T>,
         consumer.begin_list();
     }
     for (auto&& v : value) {
-        using V = std::remove_cvref_t<decltype(v)>;
         connect(consumer, detail::forward_like<U>(v));
     }
 
