@@ -31,7 +31,7 @@ struct descriptor_parser_stack_frame
     std::uint32_t size;
 };
 
-constexpr auto descriptor_type_modifier(parser_state s) noexcept -> descriptor_type
+constexpr descriptor_type descriptor_type_modifier(parser_state s) noexcept
 {
     switch (s) {
     case parser_state::expect_list_value:
@@ -135,10 +135,10 @@ private:
                     }
                 }
                 case state::expect_dict_value: {
-                    if (c == symbol::end) [[unlikely]] {
-                        set_error(parsing_errc::expected_dict_value, btype::dict);
-                        continue;
-                    }
+//                    if (c == symbol::end) [[unlikely]] {
+//                        set_error(parsing_errc::expected_dict_value, btype::dict);
+//                        continue;
+//                    }
                     handle_value<dict_t>();
                     continue;
                 }
@@ -154,8 +154,8 @@ private:
                 }
                 default:
                     set_error(parsing_errc::internal_error);
-                    BENCODE_UNREACHABLE;
                 }
+                break;
             }
             // No current parsing context. This means we are parsing the first element
             // from the data or successive elements from a stream.
@@ -164,6 +164,16 @@ private:
 
         if (error_.has_value())
             return false;
+
+        if (!stack_.empty()) {
+            if (stack_.top().state == detail::parser_state::expect_dict_key) {
+                set_error(parsing_errc::expected_dict_key_or_end);
+            }
+            if (stack_.top().state == detail::parser_state::expect_list_value) {
+                set_error(parsing_errc::expected_list_value_or_end);
+            }
+            return false;
+        }
 
         // set stop flag on last token
         if (!descriptors_.empty())
@@ -214,6 +224,7 @@ private:
     inline bool handle_value() noexcept
     {
         Expects(ParserState != state::expect_dict_key);
+        Expects(stack_.empty() || stack_.top().state == ParserState);
 
         constexpr auto type_modifier = detail::descriptor_type_modifier(ParserState);
 
@@ -246,10 +257,10 @@ private:
                 return dispatch(handle_string(type_modifier));
             }
             if constexpr (ParserState == state::expect_list_value) {
-                set_error(parsing_errc::expected_value, btype::list);
+                set_error(parsing_errc::expected_list_value_or_end, btype::list);
             }
             else if constexpr (ParserState == state::expect_dict_value) {
-                set_error(parsing_errc::expected_value, btype::dict);
+                set_error(parsing_errc::expected_dict_value, btype::dict);
             } else {
                 set_error(parsing_errc::expected_value);
             }
@@ -265,7 +276,7 @@ private:
         const auto type = (descriptor_type::list | modifier);
         const auto position = current_position();
 
-        if (stack_.size() == options_.recursion_limit) {
+        if (stack_.size() >= options_.recursion_limit) {
             set_error(parsing_errc::recursion_depth_exceeded);
             return false;
         }
@@ -288,7 +299,7 @@ private:
         const auto type = (descriptor_type::dict | modifier);
         const auto position = current_position();
 
-        if (stack_.size() == options_.recursion_limit) {
+        if (stack_.size() >= options_.recursion_limit) {
             set_error(parsing_errc::recursion_depth_exceeded);
             return false;
         }
@@ -383,10 +394,8 @@ private:
         const auto old_state = state;
         ++size;
 
-        switch (state) {
-        case state::expect_dict_value:  state = state::expect_dict_key;   break;
-        case state::expect_dict_key  :  state = state::expect_dict_value; break;
-        default: break;
+        if (state == state::expect_dict_value) {
+            state = state::expect_dict_key;
         }
         return old_state;
     }

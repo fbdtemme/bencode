@@ -84,21 +84,19 @@ TEST_CASE("descriptor parser", "[descriptor_parser]")
         CHECK_FALSE(r);
         CHECK(parser.error().errc() == parsing_errc::expected_dict_value);
     }
-    SECTION("invalid dict value") {
-        auto r = parser.parse(expected_dict_key_or_end);
+
+    SECTION("error - recursion limit - list") {
+        auto parser2 = bencode::descriptor_parser({.recursion_limit=10});
+        auto r = parser2.parse(recursion_limit_list);
         CHECK_FALSE(r);
-        CHECK(parser.error().errc() == parsing_errc::expected_dict_key_or_end);
-    }
-    SECTION("invalid dict value") {
-        auto r = parser.parse(expected_value);
-        CHECK_FALSE(r);
-        CHECK(parser.error().errc() == parsing_errc::expected_value);
+        CHECK(parser2.error().errc() == parsing_errc::recursion_depth_exceeded);
     }
 
-    SECTION("error - recursion limit") {
-        auto r = parser.parse(recursion_limit);
+    SECTION("error - recursion limit - dict") {
+        auto parser2 = bencode::descriptor_parser({.recursion_limit=10});
+        auto r = parser2.parse(recursion_limit_dict);
         CHECK_FALSE(r);
-        CHECK(parser.error().errc() == parsing_errc::recursion_depth_exceeded);
+        CHECK(parser2.error().errc() == parsing_errc::recursion_depth_exceeded);
     }
 
     SECTION("error - value limit") {
@@ -106,6 +104,51 @@ TEST_CASE("descriptor parser", "[descriptor_parser]")
         auto r = parser2.parse(sintel_torrent);
         REQUIRE_FALSE(r);
         CHECK(parser2.error().errc() == parsing_errc::value_limit_exceeded);
+    }
+    SECTION("error - integer parsing") {
+        auto r = parser.parse(error_integer);
+        REQUIRE_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::leading_zero);
+    }
+    SECTION("error - string parsing") {
+        auto r = parser.parse(error_string);
+        REQUIRE_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::unexpected_eof);
+    }
+    SECTION("error - dict key parsing") {
+        auto r = parser.parse(error_dict_key);
+        REQUIRE_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::expected_colon);
+    }
+    SECTION("error - missing end - list") {
+        auto r = parser.parse(error_missing_end_list);
+        REQUIRE_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::expected_list_value_or_end);
+    }
+    SECTION("error - missing end - dict") {
+        auto r = parser.parse(error_missing_end_dict);
+        REQUIRE_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::expected_dict_key_or_end);
+    }
+    SECTION("error - missing value") {
+        auto r = parser.parse(error_missing_value);
+        REQUIRE_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::expected_value);
+    }
+    SECTION("error - missing dict value") {
+        auto r = parser.parse(error_missing_dict_value);
+        REQUIRE_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::expected_dict_value);
+    }
+    SECTION("error - missing list value or end") {
+        auto r = parser.parse(error_missing_list_value_or_end);
+        REQUIRE_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::expected_list_value_or_end);
+    }
+    SECTION("error - error_missing_dict_key_or_end") {
+        auto r = parser.parse(error_missing_dict_key_or_end);
+        CHECK_FALSE(r);
+        CHECK(parser.error().errc() == parsing_errc::expected_dict_key_or_end);
     }
 }
 

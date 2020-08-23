@@ -18,6 +18,7 @@ enum class parsing_errc {
     expected_colon = 1,
     expected_digit,
     expected_dict_key_or_end,
+    expected_list_value_or_end,
     expected_end,
     expected_value,
     expected_dict_value,
@@ -44,6 +45,8 @@ constexpr std::string_view to_string(parsing_errc ec) {
         return "expected digit";
     case parsing_errc::expected_dict_key_or_end:
         return "expected a dict key or end token";
+    case parsing_errc::expected_list_value_or_end:
+        return "expected a list value or end token";
     case parsing_errc::expected_end:
         return "expected end token";
     case parsing_errc::expected_value:

@@ -73,10 +73,7 @@ private:
         constexpr auto dict_t = state::expect_dict_value;
         constexpr auto value_t = state::expect_value;
 
-        while (it_ != end_) {
-            if (error_.has_value()) [[unlikely]]
-                return false;
-
+        while (it_ != end_ && !error_.has_value() ) {
             // verify bvalue limits
             if (value_count_ > options_.value_limit) [[unlikely]] {
                 set_error(parsing_errc::value_limit_exceeded);
@@ -108,10 +105,10 @@ private:
                 }
                 case state::expect_dict_value:
                 {
-                    if (c == symbol::end) [[unlikely]] {
-                        set_error(parsing_errc::expected_dict_value, btype::dict);
-                        continue;
-                    }
+//                    if (c == symbol::end) [[unlikely]] {
+//                        set_error(parsing_errc::expected_dict_value, btype::dict);
+//                        continue;
+//                    }
                     handle_value<dict_t>(consumer);
                     continue;
                 }
@@ -130,6 +127,7 @@ private:
                     // this should not happen
                     set_error(parsing_errc::internal_error);
                 }
+                break;
             }
             // No current parsing context.
             // This means we are parsing the first element from the data
@@ -138,15 +136,23 @@ private:
         }
 
         // Error exit path -> pass error to consumer
-        if (has_error()) {
+        if (has_error()) [[unlikely]] {
             consumer.error(*error_);
             return false;
         }
-        else {
-            Ensures(stack_.empty());
-            Ensures(it_ == end_);
-            return true;
+        if (!stack_.empty()) [[unlikely]] {
+            if (stack_.top() == detail::parser_state::expect_dict_key) {
+                set_error(parsing_errc::expected_dict_key_or_end);
+            }
+            if (stack_.top() == detail::parser_state::expect_list_value) {
+                set_error(parsing_errc::expected_list_value_or_end);
+            }
+            return false;
         }
+
+        Ensures(stack_.empty());
+        Ensures(it_ == end_);
+        return true;
     }
 
     template <bencode::event_consumer Consumer>
@@ -186,7 +192,6 @@ private:
     {
         Expects(ParserState != state::expect_dict_key);
         Expects(stack_.empty() || stack_.top() == ParserState);
-        Expects(*it_ == symbol::value);
 
         // TODO: merge this lambda with handle_nested_structures
         const auto dispatch = [&](bool success) {
@@ -216,10 +221,10 @@ private:
                 return dispatch(handle_string(consumer));
             }
             if constexpr (ParserState == state::expect_list_value) {
-                set_error(parsing_errc::expected_value, btype::list);
+                set_error(parsing_errc::expected_list_value_or_end, btype::list);
             }
             else if constexpr (ParserState == state::expect_dict_value) {
-                set_error(parsing_errc::expected_value, btype::dict);
+                set_error(parsing_errc::expected_dict_value, btype::dict);
             } else {
                 set_error(parsing_errc::expected_value);
             }
@@ -233,7 +238,7 @@ private:
     {
         Expects(*it_ == symbol::begin_list);
 
-        if (stack_.size() == options_.recursion_limit) {
+        if (stack_.size() >= options_.recursion_limit) {
             set_error(parsing_errc::recursion_depth_exceeded);
             return false;
         }
@@ -249,7 +254,7 @@ private:
     {
         Expects(*it_ == symbol::begin_dict);
 
-        if (stack_.size() == options_.recursion_limit) {
+        if (stack_.size() >= options_.recursion_limit) {
             set_error(parsing_errc::recursion_depth_exceeded);
             return false;
         }
