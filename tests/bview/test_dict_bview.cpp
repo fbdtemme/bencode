@@ -129,11 +129,17 @@ TEST_CASE("test dict_bview") {
         CHECK(dict.bencoded_view() == data_dict);
     }
 
-    SECTION("comparison with bview") {
+    SECTION("comparison with dict_bview") {
         CHECK(d_view == dict);
         CHECK_FALSE(d_view != dict);
         CHECK(d_view <= dict);
         CHECK(d_view >= dict);
+    }
+    SECTION("comparison with other bview types")
+    {
+        CHECK(dict > i_view);
+        CHECK(dict > s_view);
+        CHECK(dict > l_view);
     }
 }
 

@@ -1,8 +1,0 @@
-//
-// Created by fbdtemme on 8/16/20.
-//
-
-#ifndef BENCODE_TEST_COMPARISON_HPP
-#define BENCODE_TEST_COMPARISON_HPP
-
-#endif //BENCODE_TEST_COMPARISON_HPP

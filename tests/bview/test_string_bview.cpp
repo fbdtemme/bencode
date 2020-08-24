@@ -32,29 +32,6 @@ TEST_CASE("test string_bview") {
         CHECK(is_string(bv));
     }
 
-    SECTION("equality comparison") {
-        bc::string_bview bv = string;
-        CHECK(bv == string);
-    }
-    SECTION("order comparison") {
-        SECTION("with string_bview") {
-            bc::string_bview bv = string;
-            CHECK_FALSE(bv<string);
-            CHECK_FALSE(bv>string);
-            CHECK(bv>=string);
-            CHECK(bv<=string);
-        }
-        SECTION("with std::string_view") {
-            CHECK(string == "spam");
-            CHECK_FALSE(string != "spam");
-            CHECK(string < "zzzzzz");
-            CHECK(string <= "zzzzzz");
-            CHECK(string > "aaa");
-            CHECK(string >= "aaa");
-            CHECK(string >= "spam");
-            CHECK(string <= "spam");
-        }
-    }
     SECTION("at()") {
         auto ref = string.at(0);
         CHECK(ref == 's');
@@ -85,7 +62,7 @@ TEST_CASE("test string_bview") {
     SECTION("empty()") {
         CHECK_FALSE(string.empty());
     }
-    SECTION("size()/length()"){
+    SECTION("size()/length()") {
         CHECK(string.size() == 4);
         CHECK(string.length() == 4);
     }
@@ -118,10 +95,33 @@ TEST_CASE("test string_bview") {
         CHECK(string.bencoded_view() == data_string);
     }
 
-    SECTION("comparison with bview") {
-        CHECK(s_view == string);
-        CHECK_FALSE(s_view != string);
-        CHECK(s_view <= string);
-        CHECK(s_view >= string);
+    SECTION("equality comparison") {
+        bc::string_bview bv = string;
+        CHECK(bv==string);
+        CHECK_FALSE(bv!=string);
+    }
+    SECTION("order comparison") {
+        SECTION("with string_bview") {
+            bc::string_bview bv = string;
+            CHECK_FALSE(bv < string);
+            CHECK_FALSE(bv > string);
+            CHECK(bv >=string);
+            CHECK(bv <=string);
+        }
+        SECTION("with c-str") {
+            CHECK(string == "spam");
+            CHECK_FALSE(string != "spam");
+            CHECK(string < "zzzzzz");
+            CHECK(string <= "zzzzzz");
+            CHECK(string > "aaa");
+            CHECK(string >= "aaa");
+            CHECK(string >= "spam");
+            CHECK(string <= "spam");
+        }
+        SECTION("with other bview types") {
+            CHECK(string > i_view);
+            CHECK(string < l_view);
+            CHECK(string < d_view);
+        }
     }
 }

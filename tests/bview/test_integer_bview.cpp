@@ -33,4 +33,23 @@ TEST_CASE("test integer_bview") {
         CHECK(i_view <= integer);
         CHECK(i_view >= integer);
     }
+
+    SECTION("comparison with integer value")
+    {
+        auto v = 63;
+
+        CHECK(i_view == v);
+        CHECK_FALSE(i_view != v);
+        CHECK(i_view < 100);
+        CHECK(i_view <= v);
+        CHECK(i_view >= v);
+        CHECK(i_view > 0);
+    }
+
+    SECTION("comparison with other bview types")
+    {
+        CHECK(i_view < s_view);
+        CHECK(i_view < l_view);
+        CHECK(i_view < d_view);
+    }
 }

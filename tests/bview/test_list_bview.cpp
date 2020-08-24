@@ -122,4 +122,11 @@ TEST_CASE("test list_bview") {
         CHECK(l_view <= list);
         CHECK(l_view >= list);
     }
+
+    SECTION("comparison with other bview types")
+    {
+        CHECK(list > i_view);
+        CHECK(list > s_view);
+        CHECK(list < d_view);
+    }
 }
