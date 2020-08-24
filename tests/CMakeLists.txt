@@ -45,7 +45,7 @@ target_compile_options(bencode-tests PRIVATE -fconcepts-diagnostics-depth=4)
 
 target_compile_definitions(bencode-tests PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources\")
 
-target_compile_options(bencode-tests PRIVATE "-mavx2" "-msse2" "-mpclmul")
+target_compile_options(bencode-tests PRIVATE)
 
 include(Catch)
 catch_discover_tests(bencode-tests)
