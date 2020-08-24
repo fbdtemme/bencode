@@ -48,7 +48,7 @@ void assign_to_bvalue_default_string_impl(customization_point_type<const CharT*>
                                           const CharT* value,
                                           priority_tag<4>)
 {
-    b.assign_string(value);
+    b.emplace_string(value);
 }
 
 // specialization for implicit/explicit conversion to string_type.
@@ -155,7 +155,7 @@ constexpr void assign_to_bvalue_default_list_impl(
         U&& value,
         priority_tag<1>)
 {
-    bvalue.assign_list(std::forward<U>(value));
+    bvalue.emplace_list(std::forward<U>(value));
 }
 
 template <typename T, typename U, typename Policy>
