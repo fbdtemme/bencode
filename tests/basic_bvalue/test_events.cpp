@@ -22,7 +22,6 @@ static const bc::bvalue b{
 
 constexpr std::string_view b_events =
 R"(begin dict (size=5)
-begin list
 string (size=1, value="a")
 dict key
 integer (1)
@@ -42,7 +41,6 @@ dict value
 string (size=1, value="f")
 dict key
 begin list (size=4)
-begin list
 integer (1)
 list item
 integer (2)
@@ -53,7 +51,7 @@ integer (4)
 list item
 end list
 dict value
-end list
+end dict
 )";
 
 

@@ -36,8 +36,9 @@ public:
     {
         if (size) {
             fmt::format_to(out_, "begin list (size={})\n", *size);
+        } else {
+            fmt::format_to(out_, "begin list\n");
         }
-        fmt::format_to(out_, "begin list\n");
     }
 
     constexpr void list_item() noexcept
@@ -49,24 +50,27 @@ public:
     {
         if (size) {
             fmt::format_to(out_, "end list (size={})\n", *size);
+        } else {
+            fmt::format_to(out_, "end list\n");
         }
-        fmt::format_to(out_, "end list\n");
     }
 
     constexpr void begin_dict([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
     {
         if (size) {
             fmt::format_to(out_, "begin dict (size={})\n", *size);
+        } else {
+            fmt::format_to(out_, "begin dict\n");
         }
-        fmt::format_to(out_, "begin list\n");
     }
 
     constexpr void end_dict([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
     {
         if (size) {
             fmt::format_to(out_, "end dict (size={})\n", *size);
+        } else {
+            fmt::format_to(out_, "end dict\n");
         }
-        fmt::format_to(out_, "end list\n");
     }
 
     constexpr void dict_key() noexcept
