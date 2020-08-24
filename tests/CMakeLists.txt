@@ -26,6 +26,7 @@ target_sources(bencode-tests
         test_encoder.cpp
         test_itoa.cpp
         test_bencode_type.cpp
+        test_connect.cpp
 )
 
 #include_directories("../include/")

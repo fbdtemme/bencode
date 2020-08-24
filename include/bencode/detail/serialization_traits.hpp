@@ -11,14 +11,24 @@ namespace bencode {
 template<typename T> struct serialization_traits {};
 
 
+enum class dict_key_order {
+    sorted,
+    unsorted
+};
+
 /// Helper classes to create specializations of `serialisation_traits`.
 /// @example:
 ///     template<> struct serialisation_traits<MyType> : serializes_to_integer {};
 struct serializes_to_runtime_type { static constexpr auto type = bencode_type::uninitialized; };
 struct serializes_to_integer      { static constexpr auto type = bencode_type::integer; };
 struct serializes_to_string       { static constexpr auto type = bencode_type::string; };
-struct serializes_to_list         { static constexpr auto type = bencode_type::list;};
-struct serializes_to_dict         { static constexpr auto type = bencode_type::dict; };
+struct serializes_to_list         { static constexpr auto type = bencode_type::list; };
+
+template <dict_key_order Order = dict_key_order::sorted>
+struct serializes_to_dict         {
+    static constexpr auto type = bencode_type::dict;
+    static constexpr auto key_order = Order;
+};
 
 /// A type T satisfied the serialisable concept if it has a valid specialization of `serialisation_traits`.
 template <typename T>
@@ -52,6 +62,13 @@ BENCODE_SERIALIZES_TO(string, __VA_ARGS__)
 #define BENCODE_SERIALIZES_TO_LIST(...) \
 BENCODE_SERIALIZES_TO(list, __VA_ARGS__)
 
-#define BENCODE_SERIALIZES_TO_DICT(...) \
-BENCODE_SERIALIZES_TO(dict, __VA_ARGS__)
+#define BENCODE_SERIALIZES_TO_DICT(TYPE, ORDER) \
+template <> struct bencode::serialization_traits<TYPE> : serializes_to_dict<dict_key_order::ORDER> {}; \
+
+#define BENCODE_SERIALIZES_TO_DICT_SORTED(TYPE) \
+BENCODE_SERIALIZES_TO_DICT(TYPE, sorted)
+
+#define BENCODE_SERIALIZES_TO_DICT_UNSORTED(TYPE) \
+BENCODE_SERIALIZES_TO_DICT(TYPE, sorted)
+
 

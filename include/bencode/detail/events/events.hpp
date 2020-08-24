@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+
 #include <bencode/detail/concepts.hpp>
 
 #include <concepts>
@@ -7,6 +9,7 @@
 #include "bencode/detail/bencode_type.hpp"
 #include "bencode/detail/concepts.hpp"
 #include "bencode/detail/events/concepts.hpp"
+#include "bencode/detail/serialization_traits.hpp"
 
 
 // TODO: Modify event calling key does not take a string parameter and must be followed
@@ -49,7 +52,7 @@ void connect_events_default_string_impl(customization_point_type<T>,
         U&& value,
         priority_tag<3>)
 {
-    consumer.string(detail::forward_like<U>(value.str()));
+    consumer.string(value.str());
 }
 
 
@@ -64,14 +67,14 @@ void connect_events_default_string_impl(customization_point_type<T>,
         U&& value,
         priority_tag<2>)
 {
-    consumer.string(detail::forward_like<U>(value.c_str()));
+    consumer.string(value.c_str());
 }
 
 
-// character range
+// contiguous character range
 
 template<typename T, event_consumer EC>
-requires rng::input_range<T> &&
+requires rng::contiguous_range<T> &&
         std::convertible_to<rng::range_reference_t<T>,
                 typename std::string_view::value_type> &&
         std::constructible_from<std::string_view,
@@ -86,34 +89,33 @@ void connect_events_default_string_impl(
 
 template<typename T, event_consumer EC>
 requires rng::contiguous_range<T> &&
-         std::same_as<rng::range_value_t<T>, std::byte> &&
-         std::constructible_from<std::string_view,
-                rng::iterator_t<T>, rng::sentinel_t<T> >
+         std::same_as<rng::range_value_t<T>, std::byte>
 void connect_events_default_string_impl(customization_point_type<T>,
         EC& consumer,
         const T& value,
         priority_tag<0>)
 {
-    auto v = rng::transform_view(value, [](auto x) { return std::to_integer<char>(x); });
-    consumer.string(std::string_view(rng::begin(value), rng::end(value)));
+    consumer.string(std::string_view(
+            reinterpret_cast<const char*>(value.data()),
+            rng::size(value)));
 }
 
 
 // Tuple like types, except std::array
 
 template<event_consumer EC, typename T, typename U>
-    requires has_tuple_like_structured_binding<T>
+    requires has_tuple_like_structured_binding<T> &&
+             tuple_elements_are_event_producers<T>
 constexpr void connect_events_default_list_impl(customization_point_type<T>,
         EC& consumer,
         U&& value,
         priority_tag<0>)
 {
-
     consumer.begin_list(std::tuple_size_v<T>);
     std::apply([&](auto&& ... v) {
         (
             (connect(consumer, detail::forward_like<T>(v)),
-                    consumer.element())
+                     consumer.list_item())
             , ... );
     }, value);
     consumer.end_list(std::tuple_size_v<T>);
@@ -121,12 +123,12 @@ constexpr void connect_events_default_list_impl(customization_point_type<T>,
 
 template<typename T, typename U, event_consumer EC>
 requires rng::input_range<T> &&
-         event_producer<rng::range_value_t<T>> &&
-         (!std::same_as<rng::range_value_t<T>, T>)     //  prevent infinite recursion !
+         event_producer<rng::range_value_t<T>> /*&&
+         (!std::same_as<rng::range_value_t<T>, T>)     //  prevent infinite recursion !*/
 constexpr void connect_events_default_list_impl(customization_point_type<T>,
         EC& consumer,
         U&& value,
-        priority_tag<0>)
+        priority_tag<1>)
 {
     if constexpr (rng::sized_range<T>) {
         consumer.begin_list(std::size(value));
@@ -136,6 +138,7 @@ constexpr void connect_events_default_list_impl(customization_point_type<T>,
     }
     for (auto&& v : value) {
         connect(consumer, detail::forward_like<U>(v));
+        consumer.list_item();
     }
 
     if constexpr (rng::sized_range<T>) {
@@ -148,7 +151,8 @@ constexpr void connect_events_default_list_impl(customization_point_type<T>,
 
 template<typename T, typename U, event_consumer EC>
     requires rng::input_range<T> &&
-             event_producer<rng::range_reference_t<T>>
+            (serialization_traits<typename T::key_type>::type == bencode_type::string) &&
+             event_producer<typename T::mapped_type>
 constexpr void connect_events_default_dict_impl(customization_point_type<T>,
         EC& consumer,
         U&& value,
@@ -159,12 +163,33 @@ constexpr void connect_events_default_dict_impl(customization_point_type<T>,
 
     consumer.begin_dict(rng::size(value));
 
-    for (auto&&[k, v] : value) {
-        connect(consumer, detail::forward_like<K>(v));
-        consumer.key();
+    if constexpr (serialization_traits<T>::key_order == dict_key_order::sorted) {
+        for (auto&& [k, v] : value) {
+            connect(consumer, detail::forward_like<K>(k));
+            consumer.dict_key();
 
-        connect(consumer, detail::forward_like<V>(v));
-        consumer.member();
+            connect(consumer, detail::forward_like<V>(v));
+            consumer.dict_value();
+        }
+    }
+    else {
+        // sort keys before serializing
+
+        std::vector<K> keys{};
+        keys.reserve(rng::size(value));
+        std::transform(rng::begin(value), rng::end(value), std::back_inserter(keys),
+                       [](const auto& p) { return p.first; });
+        std::sort(keys.begin(), keys.end());
+
+        for (auto&& key : keys) {
+            auto it = value.find(key);
+
+            connect(consumer, detail::forward_like<K>(it->first));
+            consumer.dict_key();
+
+            connect(consumer, detail::forward_like<V>(it->second));
+            consumer.dict_value();
+        }
     }
     consumer.end_dict(std::size(value));
 }

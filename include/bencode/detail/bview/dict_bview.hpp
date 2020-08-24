@@ -336,4 +336,4 @@ static_assert(std::three_way_comparable<dict_bview::value_type> , "internal erro
 
 } // namespace bencode
 
-BENCODE_SERIALIZES_TO_DICT(bencode::dict_bview);
+BENCODE_SERIALIZES_TO_DICT_SORTED(bencode::dict_bview);

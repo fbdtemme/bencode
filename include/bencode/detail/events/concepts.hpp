@@ -73,4 +73,30 @@ concept event_producer = serializable<T> &&
         connect(consumer, producer);
     };
 
+
+namespace detail {
+
+template <typename T>
+consteval bool tuple_elements_event_producers_helper()
+{
+    using IS = std::make_index_sequence<std::tuple_size<T>::value>;
+    auto r = std::apply(
+            []<std::size_t... Is2>(auto&&... v) constexpr {
+                return (event_producer<std::tuple_element_t<Is2, T>> && ...);
+            },
+            std::forward_as_tuple(IS{})
+    );
+
+    if constexpr (r) { return true; }
+    static_assert(detail::always_false_v<T>, "Not all events satisfy event_producer.");
+}
+
+template <typename T>
+concept tuple_elements_are_event_producers =
+requires (T& t) {
+    tuple_elements_event_producers_helper<T>();
+};
+
+}
+
 } // namespace bencode
