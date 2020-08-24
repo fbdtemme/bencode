@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(Bencode
         DESCRIPTION "A modern C++ Bencode library"
         LANGUAGES CXX
-        VERSION 0.1.0)
+        VERSION 0.1.1)
 
 set(PROJECT_AUTHOR "fbdtemme")
 # Make Find modules in cmake dir available
