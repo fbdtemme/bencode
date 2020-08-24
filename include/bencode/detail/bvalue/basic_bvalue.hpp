@@ -332,47 +332,6 @@ public:
         return storage_.template emplace<Type>(std::move(il), std::forward<Args>(args)...);
     }
 
-//============================================================================//
-//  Assign a variant type in an existing object.                              //
-//============================================================================//
-
-//    /// Assign a value to a bvalue.
-//    /// Forwards arguments to the current alternative member function assign if possible.
-//    /// Otherwise tries to use the assignment operator of the underlying type.
-//    /// If the current active alternative is not equal to T, emplace will be called.
-//    template <typename T, typename... Args>
-//    decltype(auto) assign(Args&&... args)
-//    {
-//        auto* ptr = std::get_if<T>(&storage_);
-//
-//        // check if current type is equal to T. If not call emplace.
-//        if (ptr == nullptr) {
-//            return storage_.template emplace<T>(std::forward<Args>(args)...);
-//        }
-//        if constexpr (sizeof...(Args) == 1) {
-//            ((*ptr = std::forward<Args>(args)), ...);
-//        }
-//        else if (detail::member_assignable_from<T, Args...>) {
-//            ptr->assign(std::forward<Args>(args)...);
-//        }
-//        else {
-//            static_assert(detail::always_false_v<T>, "cannot assign Args..");
-//        }
-//        return *ptr;
-//    }
-////
-////#define BENCODE_VALUE_ASSIGN_TEMPLATE(ALTERNATIVE_TYPE)                       \
-////    template <typename... Args>                                               \
-////    decltype(auto) assign_##ALTERNATIVE_TYPE(Args... args)                    \
-////    { return assign<ALTERNATIVE_TYPE##_type>(std::forward<Args>(args)...); }  \
-////
-////    BENCODE_VALUE_ASSIGN_TEMPLATE(integer)
-////    BENCODE_VALUE_ASSIGN_TEMPLATE(string)
-////    BENCODE_VALUE_ASSIGN_TEMPLATE(list)
-////    BENCODE_VALUE_ASSIGN_TEMPLATE(dict)
-////
-////#undef BENCODE_VALUE_ASSIGN_TEMPLATE
-
 //===========================================================================//
 //  Inspect current alternative                                              //
 //===========================================================================//

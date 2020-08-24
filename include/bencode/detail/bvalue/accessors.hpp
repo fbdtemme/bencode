@@ -291,36 +291,6 @@ template <typename Policy>
 constexpr auto* get_if_dict(basic_bvalue<Policy>* value)
 { return bencode::get_if<bencode_type::dict>(value); }
 
-//
-//#define BENCODE_BASIC_VALUE_ACCESSORS_TEMPLATE(ALTERNATIVE)                    \
-//template <typename Policy>                                                     \
-//constexpr const auto& get_##ALTERNATIVE(const basic_bvalue<Policy>& value)     \
-//{ return bencode::get<bencode_type::ALTERNATIVE>(value); }                      \
-//                                                                               \
-//template <typename Policy>                                                     \
-//constexpr auto& get_##ALTERNATIVE(basic_bvalue<Policy>& value)                 \
-//{ return bencode::get<bencode_type::ALTERNATIVE>(value); }                      \
-//                                                                               \
-//template <typename Policy>                                                     \
-//constexpr auto&& get_##ALTERNATIVE(basic_bvalue<Policy>&& value)               \
-//{ return bencode::get<bencode_type::ALTERNATIVE>(std::move(value)); }           \
-//                                                                               \
-//template <typename Policy>                                                     \
-//constexpr const auto* get_if_##ALTERNATIVE(const basic_bvalue<Policy>* value)  \
-//{ return bencode::get_if<bencode_type::ALTERNATIVE>(value); }                   \
-//                                                                               \
-//template <typename Policy>                                                     \
-//constexpr auto* get_if_##ALTERNATIVE(basic_bvalue<Policy>* value)              \
-//{ return bencode::get_if<bencode_type::ALTERNATIVE>(value); }                   \
-
-
-//BENCODE_BASIC_VALUE_ACCESSORS_TEMPLATE(string)
-//BENCODE_BASIC_VALUE_ACCESSORS_TEMPLATE(list)
-//BENCODE_BASIC_VALUE_ACCESSORS_TEMPLATE(string)
-//BENCODE_BASIC_VALUE_ACCESSORS_TEMPLATE(dict)
-//
-//#undef BENCODE_BASIC_VALUE_ACCESSORS_TEMPLATE
-
 
 /// Returns true if the type of the current alternative is equal to E.
 /// @param bv a basic_bvalue instance.
@@ -351,23 +321,5 @@ template <typename Policy>
 constexpr bool is_dict(const basic_bvalue<Policy>& value) noexcept
 { return holds_alternative<bencode_type::dict>(value); }
 
-
-//
-//
-//#define BENCODE_BASIC_VALUE_TYPE_CHECK_TEMPLATE(ALTERNATIVE_TYPE)                \
-//template <typename Policy>                                                       \
-//constexpr bool is_##ALTERNATIVE_TYPE(const basic_bvalue<Policy>& value) noexcept \
-//{                                                                                \
-//    using T = typename detail::policy_##ALTERNATIVE_TYPE##_t<Policy>;            \
-//    return std::holds_alternative<T>(detail::get_storage(value));                \
-//}                                                                                \
-//
-//BENCODE_BASIC_VALUE_TYPE_CHECK_TEMPLATE(uninitialized)
-//BENCODE_BASIC_VALUE_TYPE_CHECK_TEMPLATE(integer)
-//BENCODE_BASIC_VALUE_TYPE_CHECK_TEMPLATE(string)
-//BENCODE_BASIC_VALUE_TYPE_CHECK_TEMPLATE(list)
-//BENCODE_BASIC_VALUE_TYPE_CHECK_TEMPLATE(dict)
-//
-//#undef BENCODE_BASIC_VALUE_TYPE_CHECK_TEMPLATE
 
 } // namespace bencode
