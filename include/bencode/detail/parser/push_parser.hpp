@@ -342,16 +342,4 @@ private:
     options options_;
 };
 
-// CTAD hints
-
-template <typename Range>
-explicit push_parser(const Range&, parser_options = {})
-        -> push_parser<typename rng::iterator_t<const Range>,
-                       typename rng::sentinel_t<const Range>>;
-
-
-template <typename Iterator, typename Sentinel>
-explicit push_parser(Iterator first, Sentinel last, parser_options = {})
-        -> push_parser<Iterator, Sentinel>;
-
 } // namespace bencode
