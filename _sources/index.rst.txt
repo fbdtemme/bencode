@@ -24,13 +24,14 @@ Content
     :maxdepth: 2
     :caption: Usage
 
+    usage/value_and_view
     usage/value
     usage/view
     usage/events
     usage/encoding_decoding
     usage/descriptor
     usage/customization_points
-    usage/traits
+    usage/traits_headers
 
 .. toctree::
     :maxdepth: 2
@@ -40,6 +41,7 @@ Content
     reference/bview
     reference/encoding_and_decoding
     reference/descriptor_and_descriptor_table
+    reference/consumers
 
 .. toctree::
     :maxdepth: 1

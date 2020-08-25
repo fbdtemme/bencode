@@ -15,10 +15,10 @@ will return a descriptor table from which a :cpp:class:`bview` to the root eleme
 
     const std::string data = "d3:cow3:moo4:spam4:eggse";
 
-    bc::bvalue decoded= bc::decode(data);
+    bc::bvalue decoded= bc::decode_value(data);
 
-    // pass custom policy template argument for the bvalue
-    bc::basic_bvalue<MyPolicy> decoded2 = bc::decode<MyPolicy>(data);
+    // pass custom policy template argument for the basic_bvalue
+    bc::basic_bvalue<MyPolicy> decoded2 = bc::decode_value<MyPolicy>(data);
 
     bc::descriptor_table desc_table = bc::decode_view(data);
     bc::bview root_view = desc_table.get_root();

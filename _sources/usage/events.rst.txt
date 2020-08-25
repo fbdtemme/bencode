@@ -11,8 +11,8 @@ It consists of two concepts :cpp:concept:`event_consumer` and :cpp:concept:`even
 Event consumers
 ---------------
 
-The event consumer concepts is modeled after the SAX-interface for XML.
-The most simple consumer which ignores all events would look as following:
+The :cpp:concept `event_consumer` concepts is modeled after the SAX-interface for XML.
+The most simple consumer which ignores all events would look as follows:
 
 .. code-block:: cpp
 
@@ -33,7 +33,7 @@ The most simple consumer which ignores all events would look as following:
         void dict_value() {}
     };
 
-Every bencode data structure can be discribed by successive calls to this inteface.
+Every bencode data structure can be described by successive calls to this interface.
 Following bencode data structure (formatted as JSON) would generate these calls.
 
 .. code-block::
@@ -83,5 +83,19 @@ Connecting consumer and producers
 
 :cpp:concept:`event_producers` are connected to :cpp:concept:`event_consumers`
 with the connect function.
+Connecting a producer and consumer will generate calls from the producer to the consumers interface.
 
-:cpp:func:`template \<event_consumer EC, event_producer U> constexpr void connect(EC& consumer, U&& producer)`
+:code:`connect(EC& consumer, U&& producer)`
+
+Available consumers
+-------------------
+
+:cpp:class:`bencode::events::debug_to` will print events to an output stream or output iterator.
+It is defined in ``<bencode/events/debug_to.hpp>``.
+
+:cpp:class:`bencode::events::encode_to` will convert events into bencode.
+This consumer is used by the ``encode`` and ``encode_to`` convenience functions.
+It is defined in ``<bencode/events/encode_to.hpp>``.
+
+:cpp:class:`bencode::events::format_json_to` will convert events into json;
+It is defined in ``<bencode/events/format_json_to.hpp>``.

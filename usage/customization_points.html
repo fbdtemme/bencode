@@ -97,6 +97,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Usage</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="value_and_view.html">Value and view types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events system</a></li>
@@ -119,6 +120,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/encoding_and_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/consumers.html">Event consumers</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -201,12 +203,12 @@ what bencode data type this type serializes to.</p>
 <p>To make specialization of <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serialization_traits</span></code> easy a few helpers are provided.</p>
 <dl class="simple">
 <dt>Helper classes:</dt><dd><ul class="simple">
-<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">serializes_to_integer</span></code></p></li>
-<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">serializes_to_runtime_type</span></code></p></li>
-<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">serializes_to_integer</span></code></p></li>
-<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">serializes_to_string</span></code></p></li>
-<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">serializes_to_list</span></code></p></li>
-<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">serializes_to_dict</span></code></p></li>
+<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serializes_to_runtime_type</span></code></p></li>
+<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serializes_to_integer</span></code></p></li>
+<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serializes_to_integer</span></code></p></li>
+<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serializes_to_string</span></code></p></li>
+<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serializes_to_list</span></code></p></li>
+<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;dict_key_order</span> <span class="pre">Order</span> <span class="pre">=</span> <span class="pre">dict_key_order::sorted&gt;</span> <span class="pre">struct</span> <span class="pre">serializes_to_dict</span></code></p></li>
 </ul>
 </dd>
 <dt>Helper macros:</dt><dd><ul class="simple">
@@ -214,12 +216,18 @@ what bencode data type this type serializes to.</p>
 <li><p><code class="xref c c-macro docutils literal notranslate"><span class="pre">BENCODE_SERIALIZES_TO_INTEGER</span></code></p></li>
 <li><p><code class="xref c c-macro docutils literal notranslate"><span class="pre">BENCODE_SERIALIZES_TO_STRING</span></code></p></li>
 <li><p><code class="xref c c-macro docutils literal notranslate"><span class="pre">BENCODE_SERIALIZES_TO_LIST</span></code></p></li>
-<li><p><code class="xref c c-macro docutils literal notranslate"><span class="pre">BENCODE_SERIALIZES_TO_DICT</span></code></p></li>
+<li><p><code class="xref c c-macro docutils literal notranslate"><span class="pre">BENCODE_SERIALIZES_TO_DICT_SORTED</span></code></p></li>
+<li><p><code class="xref c c-macro docutils literal notranslate"><span class="pre">BENCODE_SERIALIZES_TO_DICT_UNSORTED</span></code></p></li>
 </ul>
 </dd>
 </dl>
 <p>When the user-defined type can be converted to different bencode data types depending on the value
 <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serializes_to_runtime_type</span></code> or <code class="xref c c-macro docutils literal notranslate"><span class="pre">BENCODE_SERIALIZES_TO_RUNTIME_TYPE</span></code> should be used.</p>
+<p>After specializing <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serialization_traits</span></code> the user-defined type satisfies
+the <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">serializable</span></code> concept.</p>
+<p>When a type serializes to a dict bencode type we make a differentiation between sorted and
+unsorted dicts. Since a bencode dict requires keys to be in sorted order we must mark
+map-like types with unsorted keys as such.</p>
 <p>Example:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rgb_color</span>
 <span class="p">{</span>
@@ -237,8 +245,6 @@ what bencode data type this type serializes to.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>After specializing <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serialization_traits</span></code> the user-defined type satisfies
-the <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">serializable</span></code> concept.</p>
 </div>
 <div class="section" id="event-producer">
 <h2>Event producer<a class="headerlink" href="#event-producer" title="Permalink to this headline">¶</a></h2>
@@ -288,7 +294,7 @@ The default can be overriden by overriding <code class="xref cpp cpp-func docuti
 </div>
 <div class="section" id="direct-comparison-to-bvalue">
 <h2>Direct comparison to bvalue<a class="headerlink" href="#direct-comparison-to-bvalue" title="Permalink to this headline">¶</a></h2>
-<p>The content of a bvalue can be compared with that of a custom type without
+<p>The content of a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> can be compared with that of a custom type without
 creating a temporary <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> object.
 This is done be overriding <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_compare_equality_with_bvalue()</span></code></p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Policy</span><span class="o">&gt;</span>

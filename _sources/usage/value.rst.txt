@@ -26,7 +26,7 @@ The default policy uses following storage types:
 | dict     | :code:`std::map`     |
 +----------+----------------------+
 
-The bvalue class can be used to create, and manipulate bencode values.
+:cpp:class:`bvalue` can be used to create and edit bencode values.
 
 .. note::
 
@@ -58,6 +58,8 @@ underlying type.
 The type can be passed explicitly using a type tag.
 This is necessary to distinguish between initializer-lists for string, list and dict bencode types.
 
+The constructor taking an initializer_list without a type tag will construct a dict.
+
 .. code-block:: cpp
 
     // construct a vector of 5 times 1
@@ -74,23 +76,48 @@ to be passed to the bvalue constructor.
     auto l = std::list{1, 2, 4, 5};
     auto b = bencode::bvalue(l);
 
+
+Type checking
+-------------
+
+Checking the bencode data type of a :cpp:class:`bvalue`
+can be done using the following functions:
+
+* :cpp:func:`template \<typename Policy> bool is_integer(const basic_bvalue<Policy>&)`
+* :cpp:func:`template \<typename Policy> bool is_string(const basic_bvalue<Policy>&)`
+* :cpp:func:`template \<typename Policy> bool is_list(const basic_bvalue<Policy>&)`
+* :cpp:func:`template \<typename Policy> bool is_dict(const basic_bvalue<Policy>&)`
+* :cpp:func:`template \<enum bencode_type E, typename Policy> bool holds_alternative(const basic_bvalue<Policy>&)`
+* :cpp:expr:`template \<bview_alternative_type T, typename Policy> bool holds_alternative(const basic_bvalue<Policy>&)`
+
+.. code-block:: cpp
+
+    auto b = bencode::bvalue({{"a", 1}, {"b", 2}});
+
+    is_integer(b)    // returns false
+    is_dict(b)       // returns true
+
+    // type tag based check
+    bc::holds_alternative<bc::type::dict>(b); // returns true
+
+    // bvalue access with the exact storage type.
+    using T = std::map<std::string, bv::bvalue>;
+    bc::holds_alternative<T>(b); // returns true
+
 Accessors
 ---------
 
-Check the current activate alternative.
+Accessor functions are used to get access to the alternative types stored in a :cpp:class:`bvalue`.
+Throwing accessor function will throw :cpp:class:`bad_bvalue_access` when the current
+activate alternative type does not match the access type.
 
-.. code-block::  cpp
+Non throwing accessor functions will return a pointer to the alternative type or a nullptr.
 
-    bc::bvalue b = "string";
+These accessors are all very similar to accessing `std::variant` values.
+Except that there are aliases (eg. :code:`get_integer`, :code:`get_if_integer`) for all possible
+bencode types.
 
-    // returns true
-    is_string(b)
-
-    // return false
-    is_dict(b)
-
-
-Get a reference to the underlying type.
+Accessor functions documentation can be found :ref:`here <bvalue_accessors>`:
 
 .. code-block:: cpp
 
@@ -101,7 +128,7 @@ Get a reference to the underlying type.
     // access by enum / type tag
     auto& s1 = get<bc::btype::string>(b); // is equivalent to: get<bc::bencode_type::string>(b);
 
-    // access by exact type
+    // access by exact alterantive type
     auto& s1 = get<std::string>(b);
 
     // or the more succinct version
@@ -111,6 +138,7 @@ Get a reference to the underlying type.
 
     // move the string out of the bvalue.
     auto s = get_string(std::move(b));
+
 
 Non throwing accessors.
 
@@ -131,7 +159,17 @@ Non throwing accessors.
 
     auto* l = get_if_list(b); // l is nullptr
 
-Converting accessors.
+Conversion
+----------
+
+Retrieving the value contained in a :cpp:class:`bvalue` as another type can be done using the
+converting accessor functions.
+
+:code:`get_as<T>(const bvalue&)` is a throwing converter which will throw :cpp:class:`conversion_error`
+when the current active alternative can not be converted to the requested type.
+
+:code:`try_get_as<T>(const bvalue&)` is a non throwing converter an will return the result as a
+:code:`nonstd::expected` type.
 
 .. code-block:: cpp
 
@@ -139,8 +177,15 @@ Converting accessors.
 
     auto bytes = get_as<std::vector<std::byte>>(b);
 
+    auto bytes = try_get_as<std::vector<std::byte>>(b);
+    if (bytes.has_value()) {
+        // do something with *bytes
+    } else {
+        // do something with the error code: bytes.error()
+    }
 
-Modifying operation
+
+Modifying operations
 -------------------
 
 The emplace family of functions will discard the current value and construct

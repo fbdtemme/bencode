@@ -19,22 +19,31 @@ what bencode data type this type serializes to.
 To make specialization of :cpp:class:`serialization_traits` easy a few helpers are provided.
 
 Helper classes:
-    * :cpp:class:`template \<typename T> serializes_to_integer`
-    * :cpp:class:`template \<typename T> serializes_to_runtime_type`
-    * :cpp:class:`template \<typename T> serializes_to_integer`
-    * :cpp:class:`template \<typename T> serializes_to_string`
-    * :cpp:class:`template \<typename T> serializes_to_list`
-    * :cpp:class:`template \<typename T> serializes_to_dict`
+    * :cpp:class:`serializes_to_runtime_type`
+    * :cpp:class:`serializes_to_integer`
+    * :cpp:class:`serializes_to_integer`
+    * :cpp:class:`serializes_to_string`
+    * :cpp:class:`serializes_to_list`
+    * :cpp:class:`template <dict_key_order Order = dict_key_order::sorted> struct serializes_to_dict`
 
 Helper macros:
     * :c:macro:`BENCODE_SERIALIZES_TO_RUNTIME_TYPE`
     * :c:macro:`BENCODE_SERIALIZES_TO_INTEGER`
     * :c:macro:`BENCODE_SERIALIZES_TO_STRING`
     * :c:macro:`BENCODE_SERIALIZES_TO_LIST`
-    * :c:macro:`BENCODE_SERIALIZES_TO_DICT`
+    * :c:macro:`BENCODE_SERIALIZES_TO_DICT_SORTED`
+    * :c:macro:`BENCODE_SERIALIZES_TO_DICT_UNSORTED`
+
 
 When the user-defined type can be converted to different bencode data types depending on the value
 :cpp:class:`serializes_to_runtime_type` or :c:macro:`BENCODE_SERIALIZES_TO_RUNTIME_TYPE` should be used.
+
+After specializing :cpp:class:`serialization_traits` the user-defined type satisfies
+the :cpp:concept:`serializable` concept.
+
+When a type serializes to a dict bencode type we make a differentiation between sorted and
+unsorted dicts. Since a bencode dict requires keys to be in sorted order we must mark
+map-like types with unsorted keys as such.
 
 Example:
 
@@ -56,9 +65,6 @@ Example:
     }
 
 
-
-After specializing :cpp:class:`serialization_traits` the user-defined type satisfies
-the :cpp:concept:`serializable` concept.
 
 
 Event producer
@@ -116,7 +122,7 @@ The default can be overriden by overriding :cpp:func:`bencode_assign_to_bvalue`
 Direct comparison to bvalue
 ---------------------------
 
-The content of a bvalue can be compared with that of a custom type without
+The content of a :cpp:class:`bvalue` can be compared with that of a custom type without
 creating a temporary :cpp:class:`bvalue` object.
 This is done be overriding :cpp:func:`bencode_compare_equality_with_bvalue`
 

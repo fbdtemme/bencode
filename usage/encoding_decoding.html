@@ -97,6 +97,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Usage</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="value_and_view.html">Value and view types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events system</a></li>
@@ -115,6 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/encoding_and_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/consumers.html">Event consumers</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -194,10 +196,10 @@
 will return a descriptor table from which a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> to the root element can be obtained.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">data</span> <span class="o">=</span> <span class="s">&quot;d3:cow3:moo4:spam4:eggse&quot;</span><span class="p">;</span>
 
-<span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">decoded</span><span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">decode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">decoded</span><span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">decode_value</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
 
-<span class="c1">// pass custom policy template argument for the bvalue</span>
-<span class="n">bc</span><span class="o">::</span><span class="n">basic_bvalue</span><span class="o">&lt;</span><span class="n">MyPolicy</span><span class="o">&gt;</span> <span class="n">decoded2</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">decode</span><span class="o">&lt;</span><span class="n">MyPolicy</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="c1">// pass custom policy template argument for the basic_bvalue</span>
+<span class="n">bc</span><span class="o">::</span><span class="n">basic_bvalue</span><span class="o">&lt;</span><span class="n">MyPolicy</span><span class="o">&gt;</span> <span class="n">decoded2</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">decode_value</span><span class="o">&lt;</span><span class="n">MyPolicy</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
 
 <span class="n">bc</span><span class="o">::</span><span class="n">descriptor_table</span> <span class="n">desc_table</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">decode_view</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
 <span class="n">bc</span><span class="o">::</span><span class="n">bview</span> <span class="n">root_view</span> <span class="o">=</span> <span class="n">desc_table</span><span class="p">.</span><span class="n">get_root</span><span class="p">();</span>

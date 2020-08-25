@@ -49,13 +49,6 @@ The :ref:`API reference <bview_reference>`  provides more information on how to 
     :cpp:class:`list_bview::iterator` and :cpp:class:`dict_bview::iterator`
     is only valid until the next dereference.
 
-Performance
------------
-
-Parsing to :cpp:class:`bview` is about 5 times faster then parsing to :cpp:class:`bvalue`.
-
-.. image:: ../images/benchmark_barplot.svg
-
 Construction
 -------------
 
@@ -83,7 +76,7 @@ can be done using the following functions:
 * :cpp:func:`template \<enum bencode_type E> bool holds_alternative(const bview&)`
 * :cpp:expr:`template \<bview_alternative_type T> bool holds_alternative(const bview&)`
 
-.. code-block::
+.. code-block:: cpp
 
     is_integer(root_element)    // returns false
     is_dict(root_element)       // returns true
@@ -95,8 +88,9 @@ can be done using the following functions:
     bc::holds_alternative<bc::dict_bview>(root_element); // returns true
 
 
-Access
-------
+
+Accessors
+---------
 
 Casting the :cpp:class:`bview` instance to the interface specific
 for the bencode data type is done using accessor functions.
@@ -111,7 +105,7 @@ convert a bview to a bview subclass that does not match the bencode data type.
 * :cpp:func:`template \<enum bencode_type E> const bview_alternative_t<E>& get(const bview&)`
 * :cpp:expr:`template \<bview_alternative_type T> const T& get(const bview&)`
 
-Non throwing accessor function will return a :cpp:class:`nullptr` when trying to convert
+Non throwing accessor function will return a :cpp:expr:`nullptr` when trying to convert
 a bview to a bview subclass that does not match the bencode data type.
 
 * :cpp:func:`bool get_if_integer(const bview*)`
@@ -132,28 +126,6 @@ a bview to a bview subclass that does not match the bencode data type.
 
     // bview type based check
     auto get<bc::dict_bview>(root_element);     // return dict_bview instance
-
-
-Comparison
-----------
-
-Most types can be compared with :cpp:class:`bview` instances.
-Comparison is deep and will compare the content of the bencode data type.
-When the bencode type of :cpp:class:`bview` is not
-the same as the bencode type of the the type you compare with when serialized,
-the fallback order is `integer < string < list < dict`
-
-Conversion to standard library types can be enabled by including the corresponding trait header.
-Comparison to user-defined types can be enabled by implementing
-the necessary :ref:`customization point <customization-compare-to-bview>`.
-
-.. code-block:: cpp
-
-    bview b;    // b points to a bencoded string with text "foo";
-    b == "foo"  // return true
-    b > "aa"    // returns true
-    b > 3       // return true (integer < string)
-    b > std::map<std::string, int> {{"foo", 1}}; // return false (string < dict)
 
 
 Conversion
@@ -190,3 +162,27 @@ the necessary :ref:`customization point <customization-convert-from-bview>`.
         //  and assign it to a generic std::error_code
         std::error_code ec = d2.error()
     }
+
+
+Comparison
+----------
+
+Most types can be compared with :cpp:class:`bview` instances.
+Comparison is deep and will compare the content of the bencode data type.
+When the bencode type of :cpp:class:`bview` is not
+the same as the bencode type of the the type you compare with when serialized,
+the fallback order is `integer < string < list < dict`
+
+Conversion to standard library types can be enabled by including the corresponding trait header.
+Comparison to user-defined types can be enabled by implementing
+the necessary :ref:`customization point <customization-compare-to-bview>`.
+
+.. code-block:: cpp
+
+    bview b;    // b points to a bencoded string with text "foo";
+    b == "foo"  // return true
+    b > "aa"    // returns true
+    b > 3       // return true (integer < string)
+    b > std::map<std::string, int> {{"foo", 1}}; // return false (string < dict)
+
+

@@ -19,6 +19,8 @@ Policy
 Accessors
 ---------
 
+.. _bvalue_accessors:
+
 .. doxygenfile:: detail/bvalue/accessors.hpp
 
 Concepts

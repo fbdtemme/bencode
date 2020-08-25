@@ -97,12 +97,14 @@
 </ul>
 <p class="caption"><span class="caption-text">Usage</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="value_and_view.html">Value and view types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Events system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#event-consumers">Event consumers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#event-producers">Event producers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#connecting-consumer-and-producers">Connecting consumer and producers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#available-consumers">Available consumers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
@@ -115,6 +117,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/encoding_and_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/consumers.html">Event consumers</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -192,8 +195,8 @@ convert between data representations.
 It consists of two concepts <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumer</span></code> and <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code>.</p>
 <div class="section" id="event-consumers">
 <h2>Event consumers<a class="headerlink" href="#event-consumers" title="Permalink to this headline">¶</a></h2>
-<p>The event consumer concepts is modeled after the SAX-interface for XML.
-The most simple consumer which ignores all events would look as following:</p>
+<p>The :cpp:concept <cite>event_consumer</cite> concepts is modeled after the SAX-interface for XML.
+The most simple consumer which ignores all events would look as follows:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">discard_consumer</span>
 <span class="p">{</span>
     <span class="kt">void</span> <span class="n">integer</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
@@ -212,7 +215,7 @@ The most simple consumer which ignores all events would look as following:</p>
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>Every bencode data structure can be discribed by successive calls to this inteface.
+<p>Every bencode data structure can be described by successive calls to this interface.
 Following bencode data structure (formatted as JSON) would generate these calls.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span>
@@ -256,8 +259,19 @@ class satisfying the <code class="xref cpp cpp-concept docutils literal notransl
 <div class="section" id="connecting-consumer-and-producers">
 <h2>Connecting consumer and producers<a class="headerlink" href="#connecting-consumer-and-producers" title="Permalink to this headline">¶</a></h2>
 <p><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producers</span></code> are connected to <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumers</span></code>
-with the connect function.</p>
-<p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;event_consumer</span> <span class="pre">EC,</span> <span class="pre">event_producer</span> <span class="pre">U&gt;</span> <span class="pre">constexpr</span> <span class="pre">void</span> <span class="pre">connect(EC&amp;</span> <span class="pre">consumer,</span> <span class="pre">U&amp;&amp;</span> <span class="pre">producer)()</span></code></p>
+with the connect function.
+Connecting a producer and consumer will generate calls from the producer to the consumers interface.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">connect(EC&amp;</span> <span class="pre">consumer,</span> <span class="pre">U&amp;&amp;</span> <span class="pre">producer)</span></code></p>
+</div>
+<div class="section" id="available-consumers">
+<h2>Available consumers<a class="headerlink" href="#available-consumers" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../reference/consumers.html#_CPPv4I0EN7bencode6events8debug_toE" title="bencode::events::debug_to"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bencode::events::debug_to</span></code></a> will print events to an output stream or output iterator.
+It is defined in <code class="docutils literal notranslate"><span class="pre">&lt;bencode/events/debug_to.hpp&gt;</span></code>.</p>
+<p><a class="reference internal" href="../reference/consumers.html#_CPPv4I0EN7bencode6events9encode_toE" title="bencode::events::encode_to"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bencode::events::encode_to</span></code></a> will convert events into bencode.
+This consumer is used by the <code class="docutils literal notranslate"><span class="pre">encode</span></code> and <code class="docutils literal notranslate"><span class="pre">encode_to</span></code> convenience functions.
+It is defined in <code class="docutils literal notranslate"><span class="pre">&lt;bencode/events/encode_to.hpp&gt;</span></code>.</p>
+<p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bencode::events::format_json_to</span></code> will convert events into json;
+It is defined in <code class="docutils literal notranslate"><span class="pre">&lt;bencode/events/format_json_to.hpp&gt;</span></code>.</p>
 </div>
 </div>
 

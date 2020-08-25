@@ -95,6 +95,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Usage</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/value_and_view.html">Value and view types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/events.html">Events system</a></li>
@@ -108,6 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="reference/bview.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/encoding_and_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/consumers.html">Event consumers</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Other</span></p>
 <ul>
@@ -379,8 +381,6 @@
 </li>
       <li><a href="reference/bvalue.html#_CPPv4N7bencode6detail22policy_uninitialized_tE">bencode::detail::policy_uninitialized_t (C++ type)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/bview.html#_CPPv4N7bencode10dict_bviewE">bencode::dict_bview (C++ class)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4NK7bencode10dict_bview2atENSt11string_viewE">bencode::dict_bview::at (C++ function)</a>
@@ -391,6 +391,8 @@
 </li>
       <li><a href="reference/bview.html#_CPPv4NK7bencode10dict_bview4cendEv">bencode::dict_bview::cend (C++ function)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/bview.html#_CPPv4NK7bencode10dict_bview8containsENSt11string_viewE">bencode::dict_bview::contains (C++ function)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4NK7bencode10dict_bview5countENSt11string_viewE">bencode::dict_bview::count (C++ function)</a>
@@ -428,6 +430,24 @@
       <li><a href="reference/encoding_and_decoding.html#_CPPv4I_14event_producerEN7bencode6encodeENSt6stringERK1T">bencode::encode (C++ function)</a>
 </li>
       <li><a href="reference/encoding_and_decoding.html#_CPPv4I_14event_producerEN7bencode9encode_toEvRNSt7ostreamERK1T">bencode::encode_to (C++ function)</a>, <a href="reference/encoding_and_decoding.html#_CPPv4I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toEv8OutputItRK1T">[1]</a>
+</li>
+      <li><a href="reference/consumers.html#_CPPv4I0EN7bencode6events8debug_toE">bencode::events::debug_to (C++ class)</a>
+</li>
+      <li><a href="reference/consumers.html#_CPPv4N7bencode6events8debug_to8debug_toE5OIter">bencode::events::debug_to::debug_to (C++ function)</a>, <a href="reference/consumers.html#_CPPv4N7bencode6events8debug_to8debug_toERNSt7ostreamE">[1]</a>
+</li>
+      <li><a href="reference/consumers.html#_CPPv4I0EN7bencode6events14encode_json_toE">bencode::events::encode_json_to (C++ class)</a>
+</li>
+      <li><a href="reference/consumers.html#_CPPv4N7bencode6events14encode_json_to14encode_json_toE5OIter6size_t">bencode::events::encode_json_to::encode_json_to (C++ function)</a>, <a href="reference/consumers.html#_CPPv4N7bencode6events14encode_json_to14encode_json_toERNSt7ostreamE6size_t">[1]</a>
+</li>
+      <li><a href="reference/consumers.html#_CPPv4I0EN7bencode6events9encode_toE">bencode::events::encode_to (C++ class)</a>
+</li>
+      <li><a href="reference/consumers.html#_CPPv4N7bencode6events9encode_to9encode_toE5OIter">bencode::events::encode_to::encode_to (C++ function)</a>, <a href="reference/consumers.html#_CPPv4N7bencode6events9encode_to9encode_toERNSt7ostreamE">[1]</a>
+</li>
+      <li><a href="reference/consumers.html#_CPPv4I0EN7bencode6events9to_bvalueE">bencode::events::to_bvalue (C++ class)</a>
+</li>
+      <li><a href="reference/consumers.html#_CPPv4N7bencode6events9to_bvalue9to_bvalueEv">bencode::events::to_bvalue::to_bvalue (C++ function)</a>
+</li>
+      <li><a href="reference/consumers.html#_CPPv4N7bencode6events9to_bvalue5valueEv">bencode::events::to_bvalue::value (C++ function)</a>
 </li>
       <li><a href="reference/bvalue.html#_CPPv4I_12bencode_type_26basic_bvalue_instantiationEN7bencode3getEDcRR2BV">bencode::get (C++ function)</a>, <a href="reference/bview.html#_CPPv4I_12bencode_typeEN7bencode3getER19bview_alternative_tI1EER5bview">[1]</a>, <a href="reference/bview.html#_CPPv4I_12bencode_typeEN7bencode3getERK19bview_alternative_tI1EERK5bview">[2]</a>, <a href="reference/bview.html#_CPPv4I_22bview_alternative_typeEN7bencode3getER1TR5bview">[3]</a>, <a href="reference/bview.html#_CPPv4I_22bview_alternative_typeEN7bencode3getERK1TRK5bview">[4]</a>
 </li>

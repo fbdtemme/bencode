@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Trait headers &mdash; Bencode 0.1.1 documentation</title>
+  <title>Value and view types &mdash; Bencode 0.1.1 documentation</title>
   
 
   
@@ -35,7 +35,9 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Value interface" href="value.html" />
+    <link rel="prev" title="Integration" href="../getting_started/integration.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,8 +96,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/integration.html">Integration</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Usage</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="value_and_view.html">Value and view types</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Value and view types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#performance">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contents">Contents</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events system</a></li>
@@ -161,13 +167,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Trait headers</li>
+      <li>Value and view types</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/usage/trait_headers.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/usage/value_and_view.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -180,87 +186,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="trait-headers">
-<h1>Trait headers<a class="headerlink" href="#trait-headers" title="Permalink to this headline">¶</a></h1>
-<p>Trait headers contain predefined specialisations for <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serialization_traits</span></code>.
-This allows the library the serialize and deserialize to the specific type.</p>
-<p>Following headers can be included to enable support for standard library types.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 55%" />
-<col style="width: 45%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Implementation for</p></th>
-<th class="head"><p>Header</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>std::array</p></td>
-<td><p>bencode/traits/array.hpp</p></td>
-</tr>
-<tr class="row-odd"><td><p>std::deque</p></td>
-<td><p>bencode/traits/deque.hpp</p></td>
-</tr>
-<tr class="row-even"><td><p>enum types</p></td>
-<td><p>bencode/traits/enum.hpp</p></td>
-</tr>
-<tr class="row-odd"><td><p>std::filesystem::path</p></td>
-<td><p>bencode/traits/filesystem.hpp</p></td>
-</tr>
-<tr class="row-even"><td><p>std::forward_list</p></td>
-<td><p>bencode/traits/forward_list.hpp</p></td>
-</tr>
-<tr class="row-odd"><td><p>std::list</p></td>
-<td><p>bencode/traits/list.hpp</p></td>
-</tr>
-<tr class="row-even"><td><p>std::map</p></td>
-<td><p>bencode/traits/map.hpp</p></td>
-</tr>
-<tr class="row-odd"><td><p>std::multimap</p></td>
-<td><p>bencode/traits/map.hpp</p></td>
-</tr>
-<tr class="row-even"><td><p>std::pair</p></td>
-<td><p>bencode/traits/pair.hpp</p></td>
-</tr>
-<tr class="row-odd"><td><p>std::set</p></td>
-<td><p>bencode/traits/set_traits.hpp</p></td>
-</tr>
-<tr class="row-even"><td><p>std::multiset</p></td>
-<td><p>bencode/traits/multiset.hpp</p></td>
-</tr>
-<tr class="row-odd"><td><p>std::string</p></td>
-<td><p>bencode/traits/string.hpp</p></td>
-</tr>
-<tr class="row-even"><td><p>std::string_view</p></td>
-<td><p>bencode/traits/string_view.hpp</p></td>
-</tr>
-<tr class="row-odd"><td><p>std::stringstream</p></td>
-<td><p>bencode/traits/stringstream.hpp</p></td>
-</tr>
-<tr class="row-even"><td><p>std::tuple</p></td>
-<td><p>bencode/traits/tuple.hpp</p></td>
-</tr>
-<tr class="row-odd"><td><p>std::unordered_map</p></td>
-<td><p>bencode/traits/unordered_map.hpp</p></td>
-</tr>
-<tr class="row-even"><td><p>std::unordered_multimap</p></td>
-<td><p>bencode/traits/unordered_map.hpp</p></td>
-</tr>
-<tr class="row-odd"><td><p>std::unordered_set</p></td>
-<td><p>bencode/traits/unordered_set.hpp</p></td>
-</tr>
-<tr class="row-even"><td><p>std::unordered_multiset</p></td>
-<td><p>bencode/traits/unordered_set.hpp</p></td>
-</tr>
-<tr class="row-odd"><td><p>std::valarray</p></td>
-<td><p>bencode/traits/valarray.hpp</p></td>
-</tr>
-<tr class="row-even"><td><p>std::vector</p></td>
-<td><p>bencode/traits/vector.hpp</p></td>
-</tr>
-</tbody>
-</table>
+  <div class="section" id="value-and-view-types">
+<h1>Value and view types<a class="headerlink" href="#value-and-view-types" title="Permalink to this headline">¶</a></h1>
+<p>This library contains two main types to represent bencoded data.
+A value types and a view type.
+They can be conceptually compared the value type <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::string</span></code>
+and the view type <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::string_view</span></code>.</p>
+<p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> owns the data it contains. Parsing to <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> involves copying data to
+the internal storage of a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>. <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> can modify the stored values.</p>
+<p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> does not own any data.
+Parsing to <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> is done by creating an index into a stable buffer with the
+bencoded data, a <a class="reference internal" href="../reference/descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_tableE" title="bencode::descriptor_table"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor_table</span></code></a>.
+Based on this index <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> provides read-only access to the bencoded data.</p>
+<p>The interfaces of <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> and <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> are very similar and use free functions.
+This enable the use of both types in a single generic function.</p>
+<div class="section" id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h2>
+<p>Parsing to <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> is about 5 times faster then parsing to <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>.</p>
+<img alt="../_images/benchmark_barplot.svg" src="../_images/benchmark_barplot.svg" /></div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<p><span class="xref std std-ref">value</span>
+<span class="xref std std-ref">view</span></p>
+</div>
 </div>
 
 
@@ -268,6 +216,15 @@ This allows the library the serialize and deserialize to the specific type.</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="value.html" class="btn btn-neutral float-right" title="Value interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../getting_started/integration.html" class="btn btn-neutral float-left" title="Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
