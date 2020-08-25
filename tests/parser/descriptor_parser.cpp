@@ -1,5 +1,5 @@
 #include <bencode/bview.hpp>
-#include <bencode/detail/events/format_json_to.hpp>
+#include <bencode/detail/events/encode_json_to.hpp>
 
 #include <catch2/catch.hpp>
 
@@ -166,7 +166,7 @@ TEST_CASE("descriptor parser - example, sintel")
     auto r = parser.parse(data);
     CHECK(r);
     auto desc = r->get_root();
-    auto consumer = bencode::events::format_json_to(std::back_inserter(out));
+    auto consumer = bencode::events::encode_json_to(std::back_inserter(out));
     bencode::connect(consumer, desc);
     CHECK(out == expected);
 }

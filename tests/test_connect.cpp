@@ -9,7 +9,7 @@
 
 
 #include "bencode/bencode.hpp"
-#include "bencode/events/format_json_to.hpp"
+#include "bencode/events/encode_json_to.hpp"
 #include "bencode/traits/all.hpp"
 #include <fmt/format.h>
 
@@ -40,7 +40,7 @@ using namespace bencode;
 TEST_CASE("test connect")
 {
     std::stringstream ss {};
-    auto consumer = events::format_json_to(ss);
+    auto consumer = events::encode_json_to(ss);
 
     SECTION("std::vector<char>") {
         std::vector<char> lst {'a', 'b', 'c'};
@@ -99,7 +99,7 @@ TEST_CASE("test connect")
                                                   {"b", 2},
                                                   {"a", 3}};
         std::stringstream ss {};
-        auto consumer = events::format_json_to(ss);
+        auto consumer = events::encode_json_to(ss);
         connect(consumer, umap);
         CHECK(ss.str() == map_result);
     }

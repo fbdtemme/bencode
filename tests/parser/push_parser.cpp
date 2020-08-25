@@ -1,6 +1,6 @@
 //#include <bencode/detail/parser/input_adapter.hpp>
 #include <bencode/detail/parser/push_parser.hpp>
-#include <bencode/detail/events/format_json_to.hpp>
+#include <bencode/detail/events/encode_json_to.hpp>
 #include <bencode/detail/events/debug_to.hpp>
 #include <bencode/detail/bvalue/events.hpp>
 #include <catch2/catch.hpp>
@@ -15,7 +15,7 @@ TEST_CASE("test push parser to json")
 {
     auto parser = push_parser();
     std::string out{};
-    auto json_consumer = bencode::events::format_json_to(std::back_inserter(out));
+    auto json_consumer = bencode::events::encode_json_to(std::back_inserter(out));
     auto consumer = bencode::events::debug_to(std::back_inserter(out));
 
     SECTION("compare json output") {

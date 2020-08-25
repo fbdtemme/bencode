@@ -17,9 +17,12 @@ using namespace std::string_view_literals;
 
 template <typename OIter>
     requires std::output_iterator<OIter, char>
-class format_json_to {
+class encode_json_to {
 public:
-    explicit format_json_to(OIter out, size_t indent=4)
+    /// Construct a event consumer that generates json.
+    /// @param out an output iterator to write to
+    /// @param indent level of indentation
+    explicit encode_json_to(OIter out, size_t indent=4)
             : out_(out)
             , indent_(indent)
             , current_indent_(0)
@@ -27,12 +30,15 @@ public:
         std::fill(line_buffer_.begin(), line_buffer_.end(), ' ');
     };
 
-    explicit format_json_to(std::ostream& out, size_t indent=4)
-        : format_json_to(std::ostreambuf_iterator{out}, indent)
+    /// Construct a event consumer that generates json.
+    /// @param os an output stream to write to
+    /// @param indent level of indentation
+    explicit encode_json_to(std::ostream& os, size_t indent=4)
+            : encode_json_to(std::ostreambuf_iterator{os}, indent)
     {};
 
-    format_json_to(const format_json_to&) = delete;
-    format_json_to(format_json_to&&) = delete;
+    encode_json_to(const encode_json_to&) = delete;
+    encode_json_to(encode_json_to&&) = delete;
 
     void integer(std::int64_t value)
     {
@@ -134,11 +140,11 @@ private:
 };
 
 template <typename OutputIterator>
-format_json_to(OutputIterator out) -> format_json_to<OutputIterator>;
+encode_json_to(OutputIterator out) -> encode_json_to<OutputIterator>;
 
-format_json_to(std::basic_ostream<char>& out) -> format_json_to<std::ostreambuf_iterator<char>>;
+encode_json_to(std::basic_ostream<char>& out) -> encode_json_to<std::ostreambuf_iterator<char>>;
 
-static_assert(event_consumer<format_json_to<char*>>, "internal error");
+static_assert(event_consumer<encode_json_to<char*>>, "internal error");
 
 } // namespace bencode::events::consumer
 
