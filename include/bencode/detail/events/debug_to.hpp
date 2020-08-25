@@ -14,8 +14,15 @@ template <typename OIter>
 class debug_to
 {
 public:
+    /// Construct a event consumer that print out events.
+    /// @param out an output iterator to write to
     explicit constexpr debug_to(OIter out) noexcept
             : out_(out) {}
+
+    /// Construct a event consumer that print out events.
+    /// @param os an output stream to write to
+    explicit constexpr debug_to(std::ostream& os) noexcept
+        : out_(std::ostreambuf_iterator<char>{os}) {}
 
     debug_to(const debug_to&) = delete;
     debug_to(debug_to&&) = delete;
@@ -92,10 +99,11 @@ private:
     OIter out_;
 };
 
-template <typename OutputIterator>
-debug_to(OutputIterator out) -> debug_to<OutputIterator>;
+template <typename OIter>
+debug_to(OIter out) -> debug_to<OIter>;
 
-debug_to(std::basic_ostream<char>& os) -> debug_to<std::ostreambuf_iterator<char>>;
+debug_to(std::basic_ostream<char>& out) -> debug_to<std::ostreambuf_iterator<char>>;
+
 
 static_assert(event_consumer<debug_to<char*>>);
 

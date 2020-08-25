@@ -15,7 +15,7 @@ namespace bencode {
 /// @param value the value to encode
 /// @returns a string with the bencoded representation of value.
 template <event_producer T>
-inline auto encode(const T& value) -> std::string
+inline std::string encode(const T& value)
 {
     std::string s {};
     auto consumer = bencode::events::encode_to(std::back_inserter(s));

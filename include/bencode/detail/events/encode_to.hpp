@@ -22,8 +22,15 @@ template <typename OIter>
 class encode_to
 {
 public:
+    /// Construct a event consumer that generates json.
+    /// @param out an output iterator to write to
     explicit constexpr encode_to(OIter out) noexcept
             : out_(out) {}
+
+    /// Construct a event consumer that generates json.
+    /// @param out an output stream to write to
+    explicit constexpr encode_to(std::ostream& os) noexcept
+            : out_(std::ostreambuf_iterator{os}) {}
 
     encode_to(const encode_to&) = delete;
     encode_to(encode_to&&) = delete;
