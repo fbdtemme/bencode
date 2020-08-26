@@ -20,6 +20,8 @@ endif()
 
 
 add_library(bencode INTERFACE)
+add_library(bencode::bencode ALIAS bencode)
+
 target_compile_features(bencode INTERFACE cxx_std_20)
 
 target_include_directories(bencode INTERFACE
@@ -42,7 +44,7 @@ option(BENCODE_BUILD_DOCS        "Build documentation" OFF)
 
 target_link_libraries(bencode
     INTERFACE
-        fmt::fmt
+        fmt::fmt-header-only
         Microsoft.GSL::GSL
         nonstd::expected-lite)
 
@@ -66,30 +68,61 @@ if (BENCODE_BUILD_DOCS)
     add_subdirectory(docs)
 endif()
 
+set(bencode_cmake_install_dir   ${CMAKE_INSTALL_LIBDIR}/cmake/bencode)
+set(bencode_version_config      ${PROJECT_BINARY_DIR}/bencode-config-version.cmake)
+set(bencode_project_config      ${PROJECT_BINARY_DIR}/bencode-config.cmake)
+set(bencode_targets_export_name bencode-targets)
+set(bencode_targets_file        ${bencode_targets_export_name}.cmake)
+set(bencode_include_build_dir   ${PROJECT_SOURCE_DIR}/include/)
+
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(
+        ${bencode_version_config}
+        VERSION ${PACKAGE_VERSION}
+        COMPATIBILITY AnyNewerVersion
+)
+configure_package_config_file(
+        ${PROJECT_SOURCE_DIR}/cmake/bencode-config.cmake.in
+        ${bencode_project_config}
+        INSTALL_DESTINATION ${bencode_cmake_install_dir})
+
+
+# install headers
+install(DIRECTORY ${bencode_include_build_dir}
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+# install project config file and config version file
+install(FILES ${bencode_project_config}
+              ${bencode_version_config}
+        DESTINATION ${bencode_cmake_install_dir}
+)
+
+
+# install targets to an export set
+install(TARGETS bencode
+        EXPORT ${bencode_targets_export_name}
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+
 if (NOT fmt_FOUND)
     message(STATUS "Adding fmt to install set")
-    install(TARGETS fmt
-            EXPORT bencode-targets
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    install(TARGETS fmt-header-only
+            EXPORT ${bencode_targets_export_name}
             INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endif()
 
 if (NOT expected-lite_FOUND)
     message(STATUS "Adding expected-lite to install set")
     install(TARGETS expected-lite
-            EXPORT bencode-targets
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            EXPORT ${bencode_targets_export_name}
             INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endif()
 
 if (NOT Microsoft.GSL_FOUND)
     message(STATUS "Adding Microsoft.GSL to install set")
     install(TARGETS GSL
-            EXPORT bencode-targets
+            EXPORT ${bencode_targets_export_name}
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
             RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -97,19 +130,13 @@ if (NOT Microsoft.GSL_FOUND)
 endif()
 
 
+# Install the export set to enable importing targets from the build tree
+export(EXPORT ${bencode_targets_export_name}
+        FILE ${bencode_targets_file}
+        NAMESPACE ${PROJECT_NAME}::)
 
-# install targets to an export set
-install(TARGETS bencode
-        EXPORT bencode-targets
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-
-
-# Install the export set
-install(EXPORT bencode-targets
-        FILE bencode-targets.cmake
-        NAMESPACE bencode::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/bencode)
+# Install the export set to enable importing targets from the install tree
+install(EXPORT ${bencode_targets_export_name}
+        FILE ${bencode_targets_file}
+        NAMESPACE ${PROJECT_NAME}::
+        DESTINATION ${bencode_cmake_install_dir})
