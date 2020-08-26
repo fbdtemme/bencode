@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(Bencode
+project(bencode
         DESCRIPTION "A modern C++ Bencode library"
         LANGUAGES CXX
         VERSION 0.1.1)
@@ -107,7 +107,7 @@ install(TARGETS bencode
 
 if (NOT fmt_FOUND)
     message(STATUS "Adding fmt to install set")
-    install(TARGETS fmt-header-only
+    install(TARGETS fmt fmt-header-only
             EXPORT ${bencode_targets_export_name}
             INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endif()
