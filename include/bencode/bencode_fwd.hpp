@@ -4,22 +4,6 @@
 
 namespace bencode {
 
-class bview;
-class integer_bview;
-class string_bview;
-class list_bview;
-class dict_bview;
-
-class descriptor;
-class descriptor_table;
-
-class bad_access;
-class bad_bview_access;
-class bad_bview_access;
-class parsing_error;
-class conversion_error;
-
-
 template<
         typename IntegralType,
         typename StringViewType,
@@ -32,11 +16,28 @@ struct bvalue_policy;
 struct default_bvalue_policy;
 template <typename Policy> class basic_bvalue;
 
+class bview;
+class integer_bview;
+class string_bview;
+class list_bview;
+class dict_bview;
 
-template <typename Iterator = const char*, typename Sentinel = Iterator>
+class bpointer;
+
+class bad_access;
+class bad_bview_access;
+class bad_bvalue_access;
+class parsing_error;
+class conversion_error;
+class bpointer_error;
+
+class descriptor;
+class descriptor_table;
+
+template <typename Iterator, typename Sentinel>
 class descriptor_parser;
 
-template <typename Iterator = const char*, typename Sentinel = Iterator>
+template <typename Iterator, typename Sentinel>
 class push_parser;
 
 }
