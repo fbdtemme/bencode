@@ -9,7 +9,7 @@
 #include <numeric>
 #include <algorithm>
 
-#include "bview.hpp"
+#include "bencode/detail/bview/bview.hpp"
 
 namespace bencode {
 

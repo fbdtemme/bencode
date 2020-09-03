@@ -34,7 +34,7 @@ convert_from_bvalue_default_string_impl(customization_point_type<const char*>,
                                         const basic_bvalue<Policy>& b,
                                         priority_tag<3>) noexcept
 {
-    if (!is_string(b)) [[unlikely]]
+    if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
     const auto& s = get_string(b);
     return s.c_str();
@@ -53,7 +53,7 @@ convert_from_bvalue_default_string_impl(customization_point_type<T>,
                                         const basic_bvalue<Policy>& b,
                                         priority_tag<2>) noexcept
 {
-    if (!is_string(b)) [[unlikely]]
+    if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
 
     const auto& bstring = get_string(b);
@@ -72,7 +72,7 @@ convert_from_bvalue_default_string_impl(customization_point_type<T>,
                                         priority_tag<1>) noexcept
 
 {
-    if (!is_string(b)) [[unlikely]]
+    if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
     try { return T(static_cast<std::string_view>(get_string(b))); }
     catch (...) { return nonstd::make_unexpected(conversion_errc::construction_error); }
@@ -90,7 +90,7 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_default_strin
         const basic_bvalue<Policy>& b,
         priority_tag<2>) noexcept
 {
-    if (!is_string(b)) [[unlikely]]
+    if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
 
     const auto& bstring = get_string(b);
@@ -113,7 +113,7 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_default_list_
         U&& bv,
         priority_tag<1>) noexcept
 {
-    if (!is_list(bv)) [[unlikely]]
+    if (!holds_list(bv)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_list_type);
 
     auto& blist = get_list(bv);

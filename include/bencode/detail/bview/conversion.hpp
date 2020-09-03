@@ -21,7 +21,7 @@ template <typename T>
 constexpr nonstd::expected<T, conversion_errc>
 convert_from_bview_default_integer_impl(customization_point_type<T>, const bview& v) noexcept
 {
-    if (!is_integer(v)) [[unlikely]]
+    if (!holds_integer(v)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_integer_type);
     return static_cast<T>(get_integer(v));
 }
@@ -38,7 +38,7 @@ convert_from_bview_default_string_impl(
         const bview& b,
         priority_tag<2>) noexcept
 {
-    if (!is_string(b)) [[unlikely]]
+    if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
 
     const auto& bstring = get_string(b);
@@ -57,7 +57,7 @@ convert_from_bview_default_string_impl(
         priority_tag<1>) noexcept
 
 {
-    if (!is_string(b)) [[unlikely]]
+    if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
     try { return T(static_cast<std::string_view>(get_string(b))); }
     catch (...) { return nonstd::make_unexpected(conversion_errc::construction_error); }
@@ -75,7 +75,7 @@ convert_from_bview_default_string_impl(
         const bview& b,
         priority_tag<2>) noexcept
 {
-    if (!is_string(b)) [[unlikely]]
+    if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
 
     const auto& bstring = get_string(b);
@@ -98,7 +98,7 @@ convert_from_bview_default_list_impl(
         const bview& bv,
         priority_tag<1>) noexcept
 {
-    if (!is_list(bv)) [[unlikely]]
+    if (!holds_list(bv)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_list_type);
 
     auto& blist = get_list(bv);
@@ -140,7 +140,7 @@ convert_from_bview_default_list_impl(
         const bview& b,
         priority_tag<0>) noexcept
 {
-    if (!is_list(b)) [[unlikely]]
+    if (!holds_list(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_list_type);
 
     auto& blist = get_list(b);
@@ -178,7 +178,7 @@ convert_from_bview_default_dict_impl(
         const bview& b,
         priority_tag<0>) noexcept
 {
-    if (!is_dict(b)) [[unlikely]]
+    if (!holds_dict(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_dict_type);
 
     auto& bdict = get_dict(b);
@@ -210,7 +210,7 @@ convert_from_bview_default_dict_impl(
         const bview& b,
         priority_tag<0>) noexcept
 {
-    if (!is_dict(b)) [[unlikely]]
+    if (!holds_dict(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_dict_type);
 
     T out{};
@@ -218,7 +218,7 @@ convert_from_bview_default_dict_impl(
 
     try {
         for (auto&& [k, v] : bdict) {
-            if (is_list(v)) {
+            if (holds_list(v)) {
                 for (auto&& v2 : get_list(v)) {
                     out.emplace(k, get_as<typename T::mapped_type>(v2));
                 }

@@ -25,7 +25,7 @@ constexpr auto compare_equality_with_bview_default_integer_impl(
             T value,
             priority_tag<0>) -> bool
 {
-    if (!is_integer(bview)) return false;
+    if (!holds_integer(bview)) return false;
     return (get_integer(bview) == value);
 }
 
@@ -37,7 +37,7 @@ constexpr auto compare_equality_with_bview_default_string_impl(
         const T& value,
         priority_tag<1>) -> bool
 {
-    if (!is_string(bview)) return false;
+    if (!holds_string(bview)) return false;
     return (get_string(bview) == value);
 }
 
@@ -48,7 +48,7 @@ constexpr auto compare_equality_with_bvalue_default_string_impl(
         const T& value,
         priority_tag<0>) -> bool
 {
-    if (!is_string(bv)) return false;
+    if (!holds_string(bv)) return false;
     const auto& s = get_string(bv);
     return std::lexicographical_compare(
             rng::begin(s), rng::end(s),
@@ -62,7 +62,7 @@ constexpr auto compare_equality_with_bview_default_list_impl(
         const T& value,
         priority_tag<0>) -> bool
 {
-    if (!is_list(bv)) return false;
+    if (!holds_list(bv)) return false;
     const auto& l = get_list(bv);
     return std::equal(
             rng::begin(l), rng::end(l),
@@ -76,7 +76,7 @@ constexpr auto compare_equality_with_bview_default_dict_impl(
         const T& value,
         priority_tag<0>) -> bool
 {
-    if (!is_dict(bview)) return false;
+    if (!holds_dict(bview)) return false;
 
     const auto& bdict = get_dict(bview);
     if (rng::size(bdict) != rng::size(value)) return false;
@@ -102,7 +102,7 @@ constexpr auto compare_three_way_with_bview_default_integer_impl(
         T value,
         priority_tag<0>) -> std::weak_ordering
 {
-    if (!is_integer(bview)) return (bview.type() <=> bencode_type::integer);
+    if (!holds_integer(bview)) return (bview.type() <=> bencode_type::integer);
     return (get_integer(bview) <=> value);
 }
 
@@ -114,7 +114,7 @@ constexpr auto compare_three_way_with_bview_default_string_impl(
         const T& value,
         priority_tag<1>) -> std::weak_ordering
 {
-    if (!is_string(bview)) return (bview.type() <=> bencode_type::string);
+    if (!holds_string(bview)) return (bview.type() <=> bencode_type::string);
     return (get_string(bview) <=> value);
 }
 
@@ -126,7 +126,7 @@ constexpr auto compare_three_way_with_bview_default_string_impl(
         const T& value,
         priority_tag<0>) -> std::weak_ordering
 {
-    if (!is_string(b)) return (b.type() <=> bencode_type::string);
+    if (!holds_string(b)) return (b.type() <=> bencode_type::string);
     const auto& bstring = get_string(b);
 
     return std::lexicographical_compare_three_way(
@@ -143,7 +143,7 @@ constexpr auto compare_three_way_with_bview_default_list_impl(
         const T& value,
         priority_tag<0>) -> std::weak_ordering
 {
-    if (!is_string(b)) return (b.type() <=> bencode_type::string);
+    if (!holds_string(b)) return (b.type() <=> bencode_type::string);
     const auto& blist = get_list(b);
 
     return std::lexicographical_compare_three_way(
@@ -158,7 +158,7 @@ constexpr auto compare_three_way_with_bview_default_dict_impl(
         const T& value,
         priority_tag<0>) -> std::weak_ordering
 {
-    if (!is_dict(b)) return (b.type() <=> bencode_type::dict);
+    if (!holds_dict(b)) return (b.type() <=> bencode_type::dict);
     const auto& bdict = get_dict(b);
 
     return std::lexicographical_compare_three_way(

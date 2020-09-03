@@ -20,20 +20,20 @@ TEST_CASE("test list_bview") {
     SECTION("construction") {
         SECTION("default construction") {
             bc::list_bview bv{};
-            CHECK(is_uninitialized(bv));
+            CHECK(holds_uninitialized(bv));
         }
         SECTION("construction from pointers") {
             bc::list_bview bv(begin(descriptors_list), data_list.data());
-            CHECK(is_list(bv));
+            CHECK(holds_list(bv));
         }
         SECTION("converting constructor") {
             bc::list_bview bv(l_view_const);
-            CHECK(is_list(bv));
+            CHECK(holds_list(bv));
         }
     }
     SECTION("assignment") {
         bc::list_bview bv = list;
-        CHECK(is_list(bv));
+        CHECK(holds_list(bv));
     }
 
     SECTION("equality comparison") {

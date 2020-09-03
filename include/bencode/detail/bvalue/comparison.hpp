@@ -89,7 +89,7 @@ constexpr auto compare_equality_with_bvalue_default_integer_impl(
             T value,
             priority_tag<0>) -> bool
 {
-    if (!is_integer(bvalue)) return false;
+    if (!holds_integer(bvalue)) return false;
     return (get_integer(bvalue) == value);
 }
 
@@ -101,7 +101,7 @@ constexpr auto compare_equality_with_bvalue_default_string_impl(
         const T& value,
         priority_tag<3>) -> bool
 {
-    if (!is_string(bvalue)) return false;
+    if (!holds_string(bvalue)) return false;
     return (get_string(bvalue) == value);
 }
 
@@ -113,7 +113,7 @@ constexpr auto compare_equality_with_bvalue_default_string_impl(
         const T& value,
         priority_tag<2>) -> bool
 {
-    if (!is_string(bvalue)) return false;
+    if (!holds_string(bvalue)) return false;
     const auto& s = get_string(bvalue);
     return std::equal(
             rng::begin(s), rng::end(s),
@@ -129,7 +129,7 @@ constexpr auto compare_equality_with_bvalue_default_string_impl(
         const T& value,
         priority_tag<1>) -> bool
 {
-    if (!is_string(bvalue)) return false;
+    if (!holds_string(bvalue)) return false;
     const auto& s = get_string(bvalue);
     return std::equal(
             rng::begin(s), rng::end(s),
@@ -147,7 +147,7 @@ constexpr auto compare_equality_with_bvalue_default_string_impl(
         const T& value,
         priority_tag<0>) -> bool
 {
-    if (!is_string(bvalue)) return false;
+    if (!holds_string(bvalue)) return false;
     const auto& s = get_string(bvalue);
     return s == value.string();
 }
@@ -161,7 +161,7 @@ constexpr auto compare_equality_with_bvalue_default_list_impl(
         const T& value,
         priority_tag<0>) -> bool
 {
-    if (!is_list(bvalue)) return false;
+    if (!holds_list(bvalue)) return false;
     return (get_list(bvalue) == value);
 }
 
@@ -174,7 +174,7 @@ constexpr auto compare_equality_with_bvalue_default_dict_impl(
         const T& value,
         priority_tag<1>) -> bool
 {
-    if (!is_dict(bvalue)) return false;
+    if (!holds_dict(bvalue)) return false;
     return (get_dict(bvalue) == value);
 }
 
@@ -186,7 +186,7 @@ constexpr auto compare_equality_with_bvalue_default_dict_impl(
         const T& value,
         priority_tag<0>) -> bool
 {
-    if (!is_dict(bvalue)) return false;
+    if (!holds_dict(bvalue)) return false;
 
     const auto& bdict = get_dict(bvalue);
     if (rng::size(bdict) != rng::size(value)) return false;
@@ -212,7 +212,7 @@ constexpr auto compare_three_way_with_bvalue_default_integer_impl(
         T value,
         priority_tag<0>) -> std::weak_ordering
 {
-    if (!is_integer(bvalue)) return (bvalue.type() <=> bencode_type::integer);
+    if (!holds_integer(bvalue)) return (bvalue.type() <=> bencode_type::integer);
     return (get_integer(bvalue) <=> value);
 }
 
@@ -224,7 +224,7 @@ constexpr auto compare_three_way_with_bvalue_default_string_impl(
         const T& value,
         priority_tag<2>) -> std::weak_ordering
 {
-    if (!is_string(bvalue)) return (bvalue.type() <=> bencode_type::string);
+    if (!holds_string(bvalue)) return (bvalue.type() <=> bencode_type::string);
     return (get_string(bvalue) <=> value);
 }
 
@@ -237,7 +237,7 @@ constexpr auto compare_three_way_with_bvalue_default_string_impl(
         const T& value,
         priority_tag<1>) -> std::weak_ordering
 {
-    if (!is_string(b)) return (b.type() <=> bencode_type::string);
+    if (!holds_string(b)) return (b.type() <=> bencode_type::string);
     const auto& bstring = get_string(b);
 
     return std::lexicographical_compare_three_way(
@@ -256,7 +256,7 @@ constexpr auto compare_three_way_with_bvalue_default_string_impl(
         const T& value,
         priority_tag<0>) -> std::weak_ordering
 {
-    if (!is_string(bvalue)) return (bvalue.type() <=> bencode_type::string);
+    if (!holds_string(bvalue)) return (bvalue.type() <=> bencode_type::string);
     const auto& bstring = get_string(bvalue);
     return std::lexicographical_compare_three_way(
             rng::begin(bstring), rng::end(bstring),
@@ -274,7 +274,7 @@ constexpr auto compare_three_way_with_bvalue_default_string_impl(
         const T& value,
         priority_tag<0>) -> bool
 {
-    if (!is_string(bvalue)) return false;
+    if (!holds_string(bvalue)) return false;
     const auto& s = get_string(bvalue);
     return s <=> value.string();
 }
@@ -288,7 +288,7 @@ constexpr auto compare_three_way_with_bvalue_default_list_impl(
         const T& value,
         priority_tag<1>) -> std::weak_ordering
 {
-    if (!is_list(bvalue)) return (bvalue.type() <=> bencode_type::list);
+    if (!holds_list(bvalue)) return (bvalue.type() <=> bencode_type::list);
     return (get_list(bvalue) <=> value);
 }
 
@@ -300,7 +300,7 @@ constexpr auto compare_three_way_with_bvalue_default_list_impl(
         const T& value,
         priority_tag<0>) -> std::weak_ordering
 {
-    if (!is_string(b)) return (b.type() <=> bencode_type::string);
+    if (!holds_string(b)) return (b.type() <=> bencode_type::string);
     const auto& blist = get_list(b);
 
     return std::lexicographical_compare_three_way(
@@ -317,7 +317,7 @@ constexpr auto compare_three_way_with_bvalue_default_dict_impl(
         const T& value,
         priority_tag<1>) -> std::weak_ordering
 {
-    if (!is_dict(bvalue)) return (bvalue.type() <=> bencode_type::dict);
+    if (!holds_dict(bvalue)) return (bvalue.type() <=> bencode_type::dict);
     return (get_dict(bvalue) <=> value);
 }
 
@@ -329,7 +329,7 @@ constexpr auto compare_three_way_with_bvalue_default_dict_impl(
         const T& value,
         priority_tag<0>) -> std::weak_ordering
 {
-    if (!is_dict(b)) return (b.type() <=> bencode_type::dict);
+    if (!holds_dict(b)) return (b.type() <=> bencode_type::dict);
     const auto& bdict = get_dict(b);
 
     return std::lexicographical_compare_three_way(

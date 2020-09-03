@@ -69,7 +69,7 @@ public:
 
     void dict_key()
     {
-        Expects(is_string(value_));
+        Expects(holds_string(value_));
         keys_.emplace(get_string(std::move(value_)));
     };
 

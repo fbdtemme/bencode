@@ -166,12 +166,10 @@ constexpr auto try_get_as(BV&& value) -> nonstd::expected<T, conversion_errc>
     static_assert(!std::is_reference_v<T>, "T cannot have cv-qualifiers");
 
     if constexpr (bvalue_alternative_type<T, BV>) {
-        // was a bug: be carefull to not bind to const auto*
-        // since then moving from  propagation wont work
+        // do not bind to const auto* since then move propagation wont work
         if (auto* ptr = get_if<serialization_traits<T>::type>(&value); ptr)
             return detail::forward_like<BV>(*ptr);
     }
-
     return detail::convert_from_bvalue_to<T>(std::forward<BV>(value));
 }
 
@@ -186,7 +184,8 @@ template <typename T, basic_bvalue_instantiation BV>
 constexpr auto get_as(BV&& value) -> T
 {
     auto v = try_get_as<T>(std::forward<BV>(value));
-    if (!v) throw conversion_error(v.error());
+    if (!v)
+        throw conversion_error(v.error());
     return detail::forward_like<BV>(*v);
 }
 
@@ -302,23 +301,23 @@ constexpr bool holds_alternative(const basic_bvalue<Policy>& bv)
 }
 
 template <typename Policy>
-constexpr bool is_uninitialized(const basic_bvalue<Policy>& value) noexcept
+constexpr bool holds_uninitialized(const basic_bvalue<Policy>& value) noexcept
 { return holds_alternative<bencode_type::uninitialized>(value); }
 
 template <typename Policy>
-constexpr bool is_integer(const basic_bvalue<Policy>& value) noexcept
+constexpr bool holds_integer(const basic_bvalue<Policy>& value) noexcept
 { return holds_alternative<bencode_type::integer>(value); }
 
 template <typename Policy>
-constexpr bool is_string(const basic_bvalue<Policy>& value) noexcept
+constexpr bool holds_string(const basic_bvalue<Policy>& value) noexcept
 { return holds_alternative<bencode_type::string>(value); }
 
 template <typename Policy>
-constexpr bool is_list(const basic_bvalue<Policy>& value) noexcept
+constexpr bool holds_list(const basic_bvalue<Policy>& value) noexcept
 { return holds_alternative<bencode_type::list>(value); }
 
 template <typename Policy>
-constexpr bool is_dict(const basic_bvalue<Policy>& value) noexcept
+constexpr bool holds_dict(const basic_bvalue<Policy>& value) noexcept
 { return holds_alternative<bencode_type::dict>(value); }
 
 

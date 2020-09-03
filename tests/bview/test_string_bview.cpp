@@ -16,20 +16,20 @@ TEST_CASE("test string_bview") {
     SECTION("construction") {
         SECTION("default construction") {
             bc::string_bview bv{};
-            CHECK(is_uninitialized(bv));
+            CHECK(holds_uninitialized(bv));
         }
         SECTION("construction from pointers") {
             bc::string_bview bv(begin(descriptors_string), data_string.data());
-            CHECK(is_string(bv));
+            CHECK(holds_string(bv));
         }
         SECTION("converting constructor") {
             bc::string_bview bv(s_view_const);
-            CHECK(is_string(bv));
+            CHECK(holds_string(bv));
         }
     }
     SECTION("assignment") {
         bc::string_bview bv = string;
-        CHECK(is_string(bv));
+        CHECK(holds_string(bv));
     }
 
     SECTION("at()") {

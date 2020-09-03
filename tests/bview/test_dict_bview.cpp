@@ -19,20 +19,20 @@ TEST_CASE("test dict_bview") {
     SECTION("construction") {
         SECTION("default construction") {
             bc::dict_bview bv{};
-            CHECK(is_uninitialized(bv));
+            CHECK(holds_uninitialized(bv));
         }
         SECTION("construction from pointers") {
             bc::dict_bview bv(begin(descriptors_dict), data_dict.data());
-            CHECK(is_dict(bv));
+            CHECK(holds_dict(bv));
         }
         SECTION("converting constructor") {
             bc::dict_bview bv(d_view_const);
-            CHECK(is_dict(bv));
+            CHECK(holds_dict(bv));
         }
     }
     SECTION("assignment") {
         bc::dict_bview bv = dict;
-        CHECK(is_dict(bv));
+        CHECK(holds_dict(bv));
     }
 
     SECTION("equality comparison") {

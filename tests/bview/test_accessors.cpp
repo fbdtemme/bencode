@@ -281,39 +281,39 @@ TEST_CASE("test current alternative check functions", "[accessors]")
      }
 
     SECTION("is_uninitialised") {
-        auto b = is_uninitialized(uninit);
+        auto b = holds_uninitialized(uninit);
         CHECK(b);
-        CHECK_FALSE(is_integer(uninit));
-        CHECK_FALSE(is_string(uninit));
-        CHECK_FALSE(is_list(uninit));
-        CHECK_FALSE(is_dict(uninit));
+        CHECK_FALSE(holds_integer(uninit));
+        CHECK_FALSE(holds_string(uninit));
+        CHECK_FALSE(holds_list(uninit));
+        CHECK_FALSE(holds_dict(uninit));
     }
     SECTION("is_integer") {
-        auto b = is_integer(i_view_const);
+        auto b = holds_integer(i_view_const);
         CHECK(b);
-        CHECK_FALSE(is_string(i_view_const));
-        CHECK_FALSE(is_list(i_view_const));
-        CHECK_FALSE(is_dict(i_view_const));
+        CHECK_FALSE(holds_string(i_view_const));
+        CHECK_FALSE(holds_list(i_view_const));
+        CHECK_FALSE(holds_dict(i_view_const));
     }
     SECTION("is_string") {
-        auto b = is_string(s_view_const);
+        auto b = holds_string(s_view_const);
         CHECK(b);
-        CHECK_FALSE(is_integer(s_view_const));
-        CHECK_FALSE(is_list(s_view_const));
-        CHECK_FALSE(is_dict(s_view_const));
+        CHECK_FALSE(holds_integer(s_view_const));
+        CHECK_FALSE(holds_list(s_view_const));
+        CHECK_FALSE(holds_dict(s_view_const));
     }
     SECTION("is_list") {
-        auto b = is_list(l_view_const);
+        auto b = holds_list(l_view_const);
         CHECK(b);
-        CHECK_FALSE(is_integer(l_view_const));
-        CHECK_FALSE(is_string(l_view_const));
-        CHECK_FALSE(is_dict(l_view_const));
+        CHECK_FALSE(holds_integer(l_view_const));
+        CHECK_FALSE(holds_string(l_view_const));
+        CHECK_FALSE(holds_dict(l_view_const));
     }
     SECTION("is_dict") {
-        auto b = is_dict(d_view_const);
+        auto b = holds_dict(d_view_const);
         CHECK(b);
-        CHECK_FALSE(is_integer(d_view_const));
-        CHECK_FALSE(is_string(d_view_const));
-        CHECK_FALSE(is_list(d_view_const));
+        CHECK_FALSE(holds_integer(d_view_const));
+        CHECK_FALSE(holds_string(d_view_const));
+        CHECK_FALSE(holds_list(d_view_const));
     }
 }

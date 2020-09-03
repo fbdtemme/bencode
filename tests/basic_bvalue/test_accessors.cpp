@@ -245,40 +245,40 @@ TEST_CASE("test current alternative check functions (bview)", "[accessors]")
      bencode::bvalue dict(btype::dict, {{"test1", 1}, {"test2", "2"}});
 
     SECTION("is_uninitialised") {
-        auto b = is_uninitialized(uninit);
+        auto b = holds_uninitialized(uninit);
         CHECK(b);
-        CHECK_FALSE(is_integer(uninit));
-        CHECK_FALSE(is_string(uninit));
-        CHECK_FALSE(is_list(uninit));
-        CHECK_FALSE(is_dict(uninit));
+        CHECK_FALSE(holds_integer(uninit));
+        CHECK_FALSE(holds_string(uninit));
+        CHECK_FALSE(holds_list(uninit));
+        CHECK_FALSE(holds_dict(uninit));
     }
     SECTION("is_integer") {
-        auto b = is_integer(integer);
+        auto b = holds_integer(integer);
         CHECK(b);
-        CHECK_FALSE(is_string(integer));
-        CHECK_FALSE(is_list(integer));
-        CHECK_FALSE(is_dict(integer));
+        CHECK_FALSE(holds_string(integer));
+        CHECK_FALSE(holds_list(integer));
+        CHECK_FALSE(holds_dict(integer));
     }
     SECTION("is_string") {
-        auto b = is_string(string);
+        auto b = holds_string(string);
         CHECK(b);
-        CHECK_FALSE(is_integer(string));
-        CHECK_FALSE(is_list(string));
-        CHECK_FALSE(is_dict(string));
+        CHECK_FALSE(holds_integer(string));
+        CHECK_FALSE(holds_list(string));
+        CHECK_FALSE(holds_dict(string));
     }
     SECTION("is_list") {
-        auto b = is_list(list);
+        auto b = holds_list(list);
         CHECK(b);
-        CHECK_FALSE(is_integer(list));
-        CHECK_FALSE(is_string(list));
-        CHECK_FALSE(is_dict(list));
+        CHECK_FALSE(holds_integer(list));
+        CHECK_FALSE(holds_string(list));
+        CHECK_FALSE(holds_dict(list));
     }
     SECTION("is_dict") {
-        auto b = is_dict(dict);
+        auto b = holds_dict(dict);
         CHECK(b);
-        CHECK_FALSE(is_integer(dict));
-        CHECK_FALSE(is_string(dict));
-        CHECK_FALSE(is_list(dict));
+        CHECK_FALSE(holds_integer(dict));
+        CHECK_FALSE(holds_string(dict));
+        CHECK_FALSE(holds_list(dict));
     }
 
 }

@@ -245,29 +245,29 @@ constexpr bool holds_alternative(const bview& v) noexcept
 
 /// Alias for holds_alternative<bencode_type::unknown>(v).
 /// @note this is only true for a default constructed bview.
-constexpr bool is_uninitialized(const bview& v) noexcept
+constexpr bool holds_uninitialized(const bview& v) noexcept
 { return detail::get_storage(v) == nullptr; }
 
 /// Alias for holds_alternative<bencode_type::integer>(v).
-constexpr bool is_integer(const bview& v) noexcept
+constexpr bool holds_integer(const bview& v) noexcept
 {
     return holds_alternative<bencode_type::integer>(v);
 }
 
 /// Alias for holds_alternative<bencode_type::string>(v).
-constexpr bool is_string(const bview& v) noexcept
+constexpr bool holds_string(const bview& v) noexcept
 {
     return holds_alternative<bencode_type::string>(v);
 }
 
 /// Alias for holds_alternative<bencode_type::list>(v).
-constexpr bool is_list(const bview& v) noexcept
+constexpr bool holds_list(const bview& v) noexcept
 {
     return holds_alternative<bencode_type::list>(v);
 }
 
 /// Alias for holds_alternative<bencode_type::dict>(v).
-constexpr bool is_dict(const bview& v) noexcept
+constexpr bool holds_dict(const bview& v) noexcept
 {
     return holds_alternative<bencode_type::dict>(v);
 }
