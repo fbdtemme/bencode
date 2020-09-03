@@ -2,9 +2,23 @@
 #include <iterator>
 #include <ranges>
 
-#include "utils.hpp"
+#include "bencode/detail/utils.hpp"
 #include "bencode/detail/bencode_type.hpp"
 #include "serialization_traits.hpp"
+#include "bencode/bencode_fwd.hpp"
+
+namespace bencode
+{
+
+template <typename T>
+concept bvalue_or_bview =
+    detail::is_instantiation_of_v<basic_bvalue, std::remove_cvref_t<T>> ||
+    std::same_as<std::remove_cvref_t<T>, bview> ||
+    std::same_as<std::remove_cvref_t<T>, integer_bview> ||
+    std::same_as<std::remove_cvref_t<T>, string_bview> ||
+    std::same_as<std::remove_cvref_t<T>, list_bview> ||
+    std::same_as<std::remove_cvref_t<T>, dict_bview>;
+}
 
 
 namespace bencode::detail {
