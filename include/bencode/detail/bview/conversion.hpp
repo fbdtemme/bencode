@@ -6,7 +6,7 @@
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/concepts.hpp"
-#include "bencode/detail/conversion_error.hpp"
+#include "bencode/detail/bad_conversion.hpp"
 #include "bencode/detail/bview/concepts.hpp"
 #include "bencode/detail/bview/bview.hpp"
 #include "bencode/detail/bview/accessors.hpp"
@@ -121,7 +121,7 @@ convert_from_bview_default_list_impl(
             std::transform(rng::begin(blist), rng::end(blist),
                            std::inserter(value, rng::begin(value)), func);
         }
-    } catch (const conversion_error& e) {
+    } catch (const bad_conversion& e) {
         return nonstd::make_unexpected(e.errc());
     } catch (...) {
         return nonstd::make_unexpected(conversion_errc::construction_error);
@@ -158,7 +158,7 @@ convert_from_bview_default_list_impl(
                 },
                 std::forward_as_tuple(std::make_index_sequence<std::tuple_size_v<T>>{})
         );
-    } catch (const conversion_error& e) {
+    } catch (const bad_conversion& e) {
         return nonstd::make_unexpected(conversion_errc::list_value_type_construction_error);
     } catch (...) {
         return nonstd::make_unexpected(conversion_errc::construction_error);
@@ -188,7 +188,7 @@ convert_from_bview_default_dict_impl(
         for ( auto&& [k, v] : bdict) {
             out.emplace(k, get_as<typename T::mapped_type>(v));
         }
-    } catch (const conversion_error& e) {
+    } catch (const bad_conversion& e) {
         return nonstd::make_unexpected(conversion_errc::dict_mapped_type_construction_error);
     } catch (...) {
         return nonstd::make_unexpected(conversion_errc::construction_error);
@@ -228,7 +228,7 @@ convert_from_bview_default_dict_impl(
             }
         }
     }
-    catch (const conversion_error& e) {
+    catch (const bad_conversion& e) {
         return nonstd::make_unexpected(conversion_errc::dict_mapped_type_construction_error);
     } catch (...) {
         return nonstd::make_unexpected(conversion_errc::construction_error);

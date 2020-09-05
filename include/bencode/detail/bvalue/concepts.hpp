@@ -5,9 +5,10 @@
 #include <type_traits>
 
 #include <nonstd/expected.hpp>
+#include <bencode/detail/bad_conversion.hpp>
 
+#include "bencode/bencode_fwd.hpp"
 #include "bencode/detail/utils.hpp"
-
 
 namespace bencode {
 

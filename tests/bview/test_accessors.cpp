@@ -14,39 +14,6 @@
 #include "data.hpp"
 
 
-
-
-//constexpr auto example = (
-//        "d"
-//            "3:one"
-//                "i1e"
-//            "5:three"
-//                "l"
-//                    "d"
-//                        "3:bar" "i0e" "3:foo" "i0e"
-//                    "e"
-//                "e"
-//            "3:two"
-//                "l"
-//                    "i3e" "3:foo" "i4e"
-//                "e"
-//            "e"sv
-//);
-
-
-//auto get_descriptors() -> std::vector<bencode::descriptor>
-//{
-//    auto p = bencode::descriptor_parser();
-//    auto r = p.parse(example);
-//    if (!r)
-//        throw r.error();
-//    return r->descriptors();
-//}
-
-//const std::vector<bc::descriptor> tokens = get_descriptors();
-//const auto bv = bc::bview(tokens.data(), example.data());
-
-
 TEST_CASE("test get(bview)", "[bview][accessors]") {
     SECTION("const reference - access by enum/tag ") {
         const auto& i_ptr = get<bc::btype::integer>(i_view_const);

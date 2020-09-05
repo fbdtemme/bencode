@@ -31,7 +31,7 @@ Content
     usage/encoding_decoding
     usage/descriptor
     usage/customization_points
-    usage/traits_headers
+    usage/trait_headers
 
 .. toctree::
     :maxdepth: 2

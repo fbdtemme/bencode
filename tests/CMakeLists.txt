@@ -17,6 +17,7 @@ target_sources(bencode-tests
         bview/test_string_bview.cpp
         bview/test_list_bview.cpp
         bview/test_dict_bview.cpp
+        bview/test_bview.cpp
 
         parser/test_common.cpp
         parser/push_parser.cpp
@@ -27,6 +28,7 @@ target_sources(bencode-tests
         test_itoa.cpp
         test_bencode_type.cpp
         test_connect.cpp
+        test_bpointer.cpp
 )
 
 #include_directories("../include/")
@@ -42,7 +44,7 @@ if (BENCODE_BUILD_TESTS_COVERAGE)
     set(CMAKE_C_FLAGS --coverage)
 endif()
 
-target_compile_options(bencode-tests PRIVATE -fconcepts-diagnostics-depth=4)
+target_compile_options(bencode-tests PRIVATE -fconcepts-diagnostics-depth=4 -Wfatal-errors)
 
 target_compile_definitions(bencode-tests PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources\")
 

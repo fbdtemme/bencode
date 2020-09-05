@@ -1,0 +1,28 @@
+#pragma once
+#include <exception>
+#include <string>
+
+namespace bencode {
+
+class exception : public std::exception
+{
+public:
+    exception() noexcept = default;
+
+    explicit exception(const std::string& msg)
+        : msg_(msg)
+    {}
+
+    explicit exception(std::string&& msg)
+        : msg_(std::move(msg))
+    {}
+
+    const char* what() const noexcept override
+    {
+        return msg_.c_str();
+    }
+private:
+    std::string msg_;
+};
+
+}

@@ -10,13 +10,12 @@
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 
-#include <bencode/detail/concepts.hpp>
-
-#include <bencode/detail/utils.hpp>
-#include <bencode/detail/conversion_error.hpp>
-
+#include "bencode/detail/concepts.hpp"
+#include "bencode/detail/utils.hpp"
+#include "bencode/detail/bad_conversion.hpp"
 #include "bencode/detail/bencode_type.hpp"
 #include "bencode/detail/bvalue/bvalue_policy.hpp"
+#include "bencode/detail/out_of_range.hpp"
 #include "bencode/detail/bvalue/accessors.hpp"
 #include "bencode/detail/bvalue/assignment.hpp"
 #include "bencode/detail/bvalue/comparison.hpp"
@@ -37,19 +36,22 @@ constexpr const auto* get_storage(const basic_bvalue<Policy>* value) noexcept;
 template <typename Policy>
 constexpr auto* get_storage(basic_bvalue<Policy>* value) noexcept;
 
-// forward declare
+// forward declarations
 template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
 inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
 
+template <basic_bvalue_instantiation BV>
+decltype(auto) evaluate(const bpointer& pointer, BV&& bv);
+
 } // namespace detail
 
-
 /// A class template storing a bencoded bvalue.
+///
 /// An instance of basic_bvalue at any given time either holds a bvalue of one of the
 /// bencode data types, or uninitialized_type in the case of error or no bvalue.
 /// A single bvalue can store large and complicated bencoded data structures consisting
 /// of arbitrarily nested lists and dicts with many sub-values, that are again bvalue instances.
-/// implemented using a std::variant.
+///
 /// @tparam Policy instantation of bvalue_policy to defining the storage types
 template <typename Policy>
 class basic_bvalue
@@ -364,13 +366,18 @@ public:
     /// bencode::bad_bvalue_access is thrown.
     /// @param pos position of the element to return
     /// @returns Reference to the requested element.
-    /// @throw std::out_of_range if !(pos < size())
+    /// @throw bencode::out_of_range if !(pos < size())
     /// @throw bencode::bad_bvalue_access if the current active alternative is not list.
     reference at(std::size_t pos)
     {
         if (!is_list())
             throw bad_bvalue_access("bvalue alternative type is not list");
-        return std::get_if<list_type>(&storage_)->at(pos);
+
+        auto* l = std::get_if<list_type>(&storage_);
+        if (pos >= l->size()) [[unlikely]]
+            throw out_of_range(fmt::format("list index \"{}\" is out of range", pos));
+
+        return l->operator[](pos);
     }
 
     /// @copydoc at(std::size_t)
@@ -378,7 +385,12 @@ public:
     {
         if (!is_list()) [[unlikely]]
             throw bad_bvalue_access("bvalue alternative type is not list");
-        return std::get_if<list_type>(&storage_)->at(pos);
+
+        const auto* l = std::get_if<list_type>(&storage_);
+        if (pos >= l->size()) [[unlikely]]
+            throw out_of_range(fmt::format("list index \"{}\" is out of range", pos));
+
+        return l->operator[](pos);
     }
 
     /// Returns a reference to the mapped bvalue of the element with key equivalent to key.
@@ -393,7 +405,12 @@ public:
     {
         if (!is_dict()) [[unlikely]]
             throw bad_bvalue_access("bvalue alternative type is not dict");
-        return std::get_if<dict_type>(&storage_)->at(key);
+
+        auto* d = std::get_if<dict_type>(&storage_);
+        if (!d->contains(key)) [[unlikely]]
+            throw out_of_range(fmt::format("dict key \"{}\" not found", key));
+
+        return d->operator[](key);
     }
 
 
@@ -402,7 +419,23 @@ public:
     {
         if (!is_dict()) [[unlikely]]
             throw bad_bvalue_access("bvalue alternative type is not dict");
-        return std::get_if<dict_type>(&storage_)->at(key);
+        auto* d = std::get_if<dict_type>(&storage_);
+        if (auto it = d->find(key); it != d->end()) [[likely]]
+            return it->second;
+        throw out_of_range(fmt::format("dict key \"{}\" not found", key));
+    }
+
+    /// Return a reference to the bvalue referenced by a bpointer.
+    /// @throws bpointer_error when the pointer does not resolve for this value
+    const_reference at(const bpointer& pointer) const
+    {
+        return detail::evaluate(pointer, *this);
+    }
+
+    /// @copydoc at(const bpointer& pointer)
+    reference at(const bpointer& pointer)
+    {
+        return detail::evaluate(pointer, *this);
     }
 
     /// Returns a reference to the element at specified location pos.
@@ -434,8 +467,9 @@ public:
     ///          Otherwise a reference to the mapped bvalue of the existing element whose key is equivalent to key.
     reference operator[](const string_type& key)
     {
-        if (is_uninitialized()) emplace_dict();
-        else if (!is_dict())
+        if (is_uninitialized())  [[unlikely]]
+            emplace_dict();
+        else if (!is_dict()) [[unlikely]]
             throw bad_bvalue_access("bvalue alternative type is not dict");
         return (*std::get_if<dict_type>(&storage_))[key];
 
@@ -444,8 +478,9 @@ public:
     /// @copydoc operator[](const string_type&)
     reference operator[](string_type&& key)
     {
-        if (is_uninitialized()) emplace_dict();
-        else if (!is_dict())
+        if (is_uninitialized()) [[unlikely]]
+            emplace_dict();
+        else if (!is_dict()) [[unlikely]]
             throw bad_bvalue_access("bvalue alternative type is not dict");
         return (*std::get_if<dict_type>(&storage_))[std::move(key)];
     }
@@ -456,7 +491,7 @@ public:
     /// @throws bad_bvalue_access when current active alternative is not a list.
     reference front()
     {
-        if (!is_list())
+        if (!is_list()) [[unlikely]]
             throw bad_bvalue_access("bvalue alternative type is not list");
         return std::get_if<list_type>(&storage_)->front();
     }
@@ -464,7 +499,7 @@ public:
     /// @copydoc front()
     const_reference front() const
     {
-        if (!is_list())
+        if (!is_list()) [[unlikely]]
             throw bad_bvalue_access("bvalue alternative type is not list");
         return std::get_if<list_type>(&storage_)->front();
     }
@@ -476,7 +511,7 @@ public:
     /// @throws bad_bvalue_access when current active alternative is not a list.
     reference back()
     {
-        if (!is_list())
+        if (!is_list()) [[unlikely]]
             throw bad_bvalue_access("bvalue alternative type is not list");
         return std::get_if<list_type>(&storage_)->back();
     }
@@ -484,19 +519,19 @@ public:
     /// @copydoc back()
     const_reference back() const
     {
-        if (!is_list())
+        if (!is_list()) [[unlikely]]
             throw bad_bvalue_access("bvalue alternative type is not list");
         return std::get_if<list_type>(&storage_)->back();
     }
 
-//    /// Appends a new element to the end of a list.
-//    /// If the active alternative is uninintialized, first constructs an empty list in place.
-//    /// If the active alternative is not a list, an exception of type bencode::bad_bvalue_access
-//    /// is thrown. The arguments args... are forwarded to the constructor of the list type.
-//    /// @param args arguments to forward to the constructor of the element
-//    /// @returns Reference to the mapped bvalue of the new element if no element with key key
-//    ///     existed. Otherwise a reference to the mapped bvalue of the existing element whose key is
-//    ///     equivalent to key.
+    /// Appends a new element to the end of a list.
+    /// If the active alternative is uninintialized, first constructs an empty list in place.
+    /// If the active alternative is not a list, an exception of type bencode::bad_bvalue_access
+    /// is thrown. The arguments args... are forwarded to the constructor of the list type.
+    /// @param args arguments to forward to the constructor of the element
+    /// @returns Reference to the mapped bvalue of the new element if no element with key key
+    ///     existed. Otherwise a reference to the mapped bvalue of the existing element whose key is
+    ///     equivalent to key.
     template <typename... Args>
     reference emplace_back(Args&&... args)
     {

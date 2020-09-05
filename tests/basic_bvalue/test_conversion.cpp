@@ -417,7 +417,7 @@ TEST_CASE("conversions from dict", "[conversion][accessors]")
             CHECK(get_string(t_dict["test2"]).empty());
         }
         SECTION("error - construction error") {
-            CHECK_THROWS_AS(get_as<T>(t_dict_fail), conversion_error);
+            CHECK_THROWS_AS(get_as<T>(t_dict_fail), bad_conversion);
         }
     }
 
@@ -440,7 +440,7 @@ TEST_CASE("conversions from dict", "[conversion][accessors]")
             CHECK(get_string(t_dict["test2"]).empty());
         }
         SECTION("error - mapped type construction error") {
-            CHECK_THROWS_AS(get_as<T>(t_dict_fail), conversion_error);
+            CHECK_THROWS_AS(get_as<T>(t_dict_fail), bad_conversion);
         }
     }
 
@@ -472,11 +472,11 @@ TEST_CASE("conversions from dict", "[conversion][accessors]")
 
         SECTION("error - not dict type") {
             bvalue b = 1;
-            CHECK_THROWS_AS(get_as<T>(b), conversion_error);
+            CHECK_THROWS_AS(get_as<T>(b), bad_conversion);
         }
 
         SECTION("error - mapped type construction error") {
-            CHECK_THROWS_AS(get_as<T>(t_multidict_fail), conversion_error);
+            CHECK_THROWS_AS(get_as<T>(t_multidict_fail), bad_conversion);
         }
     }
 
@@ -506,7 +506,7 @@ TEST_CASE("conversions from dict", "[conversion][accessors]")
             CHECK(get_string(t_multidict["test2"]).empty());
         }
         SECTION("error - mapped type construction error") {
-            CHECK_THROWS_AS(get_as<T>(t_multidict_fail), conversion_error);
+            CHECK_THROWS_AS(get_as<T>(t_multidict_fail), bad_conversion);
         }
     }
     SECTION("error - not dict type") {

@@ -9,6 +9,7 @@
 
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/bencode_type.hpp"
+#include "bencode/detail/exception.hpp"
 
 namespace bencode {
 
@@ -105,10 +106,10 @@ namespace bencode {
 
 
 /// Exception class for parser errors.
-class parsing_error : public std::runtime_error {
+class parsing_error : public exception {
 public:
      parsing_error(parsing_errc ec, std::size_t pos, std::optional<bencode_type> context = std::nullopt)
-            : std::runtime_error(make_what_msg(ec, pos, context))
+            : exception(make_what_msg(ec, pos, context))
             , position_(pos)
             , context_(context)
             , errc_(ec)
@@ -132,7 +133,7 @@ public:
 
 private:
     parsing_error(const char* what, parsing_errc ec, std::size_t position, std::optional<bencode_type> context)
-            : std::runtime_error(what)
+            : exception(what)
             , position_(position)
             , context_(context)
             , errc_(ec)

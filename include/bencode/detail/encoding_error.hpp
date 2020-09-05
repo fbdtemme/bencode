@@ -2,6 +2,8 @@
 #include <stdexcept>
 #include <system_error>
 
+#include "bencode/detail/exception.hpp"
+
 namespace bencode {
 
 enum class encoding_errc : std::uint8_t
@@ -56,12 +58,12 @@ template <> struct is_error_code_enum<bencode::encoding_category> : std::true_ty
 namespace bencode {
 
 /// Error thrown when encoding invalid data with encoding_ostream.
-class encoding_error : std::logic_error {
+class encoding_error : exception {
 public:
-    using std::logic_error::logic_error;
+    using exception::exception;
 
     explicit encoding_error(encoding_errc ec)
-            : logic_error(std::string(to_string(ec)))
+            :exception(std::string(to_string(ec)))
             , errc_(ec) {};
 
     encoding_errc errc() const noexcept { return errc_; }

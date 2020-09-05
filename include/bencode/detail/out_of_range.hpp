@@ -3,8 +3,7 @@
 
 namespace bencode {
 
-/// Base class for bad_bvalue_access and bad_bview_access exceptions.
-class bad_access : public exception {
+class out_of_range : exception {
 public:
     using exception::exception;
 };

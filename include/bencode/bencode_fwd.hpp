@@ -24,12 +24,15 @@ class dict_bview;
 
 class bpointer;
 
+class exception;
 class bad_access;
 class bad_bview_access;
 class bad_bvalue_access;
+class out_of_range;
 class parsing_error;
-class conversion_error;
+class bad_conversion;
 class bpointer_error;
+class encoding_error;
 
 class descriptor;
 class descriptor_table;
@@ -40,4 +43,6 @@ class descriptor_parser;
 template <typename Iterator, typename Sentinel>
 class push_parser;
 
+template <typename Iterator, typename Sentinel>
+class pull_parser;
 }

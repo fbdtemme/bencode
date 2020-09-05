@@ -1,5 +1,7 @@
 .. cpp:namespace:: bencode
 
+.. _bvalue:
+
 Value interface
 ===============
 
@@ -7,14 +9,16 @@ Introduction
 ------------
 
 :cpp:class:`bvalue` is class that represents a bencoded value.
-It is a sum-type implemented with a :cpp:class:`std::variant` to stores the
-different bencode data types.
+It is a sum-type implemented with a :cpp:class:`std::variant`.
+
+The possible alternative types stored in a :cpp:class:`bvalue` are the bencode data types:
+integer, string, list, dict, and a special uninitialized type.
 
 :cpp:class:`bvalue` is an instantiation of the class template
 :cpp:class:`template <typename Policy> basic_bvalue` and the exact types used to store
 the different bencode data types can be customized through the Policy template argument.
 
-The default policy uses following storage types:
+The default policy uses following storage types for the possible alternatives:
 
 +----------+----------------------+
 | integer  | :code:`std::int64_t` |
@@ -25,6 +29,7 @@ The default policy uses following storage types:
 +----------+----------------------+
 | dict     | :code:`std::map`     |
 +----------+----------------------+
+
 
 :cpp:class:`bvalue` can be used to create and edit bencode values.
 
@@ -80,22 +85,25 @@ to be passed to the bvalue constructor.
 Type checking
 -------------
 
-Checking the bencode data type of a :cpp:class:`bvalue`
+Checking the alternative of a :cpp:class:`bvalue`
 can be done using the following functions:
 
-* :cpp:func:`template \<typename Policy> bool is_integer(const basic_bvalue<Policy>&)`
-* :cpp:func:`template \<typename Policy> bool is_string(const basic_bvalue<Policy>&)`
-* :cpp:func:`template \<typename Policy> bool is_list(const basic_bvalue<Policy>&)`
-* :cpp:func:`template \<typename Policy> bool is_dict(const basic_bvalue<Policy>&)`
+* :cpp:func:`template \<typename Policy> bool holds_integer(const basic_bvalue<Policy>&)`
+* :cpp:func:`template \<typename Policy> bool holds_string(const basic_bvalue<Policy>&)`
+* :cpp:func:`template \<typename Policy> bool holds_list(const basic_bvalue<Policy>&)`
+* :cpp:func:`template \<typename Policy> bool holds_dict(const basic_bvalue<Policy>&)`
 * :cpp:func:`template \<enum bencode_type E, typename Policy> bool holds_alternative(const basic_bvalue<Policy>&)`
 * :cpp:expr:`template \<bview_alternative_type T, typename Policy> bool holds_alternative(const basic_bvalue<Policy>&)`
+
+The :code:`holds_<type>` (where :code:`<type>` is one of the bencode data types)
+functions are convenience functions that wrap the templated :code:`holds_alternative` function.
 
 .. code-block:: cpp
 
     auto b = bencode::bvalue({{"a", 1}, {"b", 2}});
 
-    is_integer(b)    // returns false
-    is_dict(b)       // returns true
+    holds_integer(b)    // returns false
+    holds_dict(b)       // returns true
 
     // type tag based check
     bc::holds_alternative<bc::type::dict>(b); // returns true
@@ -165,7 +173,7 @@ Conversion
 Retrieving the value contained in a :cpp:class:`bvalue` as another type can be done using the
 converting accessor functions.
 
-:code:`get_as<T>(const bvalue&)` is a throwing converter which will throw :cpp:class:`conversion_error`
+:code:`get_as<T>(const bvalue&)` is a throwing converter which will throw :cpp:class:`bad_conversion`
 when the current active alternative can not be converted to the requested type.
 
 :code:`try_get_as<T>(const bvalue&)` is a non throwing converter an will return the result as a

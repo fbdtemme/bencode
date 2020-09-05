@@ -3,6 +3,7 @@
 #include <exception>
 #include <stdexcept>
 #include <string_view>
+#include "exception.hpp"
 
 namespace bencode {
 
@@ -85,10 +86,10 @@ namespace bencode {
 
 /// Error thrown when trying to convert a bvalue or bview to a type that does
 /// not match the type of the current alternative.
-class conversion_error : public std::exception
+class bad_conversion : public exception
 {
 public:
-    explicit conversion_error(const conversion_errc& ec)
+    explicit bad_conversion(const conversion_errc& ec)
         : errc_(ec)
     {};
 

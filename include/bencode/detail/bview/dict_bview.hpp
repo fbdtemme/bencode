@@ -165,11 +165,11 @@ public:
     /// If no such element exists, an exception of type std::out_of_range is thrown.
     /// @param key the key of the element to find
     /// @returns Reference to the mapped value of the requested element.
-    constexpr auto at(std::string_view key) const -> mapped_type
+    constexpr mapped_type at(std::string_view key) const
     {
         if (auto it = find(key); it != end())
             return it.value();
-        throw std::out_of_range("no item with given key found");
+        throw out_of_range("no item with given key found");
     }
 
     // iterator support
@@ -177,7 +177,7 @@ public:
     /// Returns an iterator to the first element of the dict_bview.
     /// If the dict_bview is empty, the returned iterator will be equal to end().
     /// @returns Iterator to the first element.
-    constexpr auto begin() const noexcept -> const_iterator
+    constexpr const_iterator begin() const noexcept
     {
         if (desc_->is_dict_begin()) {
             // point to first key element of the dict
@@ -196,7 +196,7 @@ public:
     /// This element acts as a placeholder;
     /// attempting to access it results in undefined behavior.
     /// @returns Iterator to the element following the last element.
-    constexpr auto end() const noexcept -> const_iterator
+    constexpr const_iterator end() const noexcept
     {
         if (desc_->is_dict_begin()) {
             return {std::next(desc_, desc_->offset()), buffer_};

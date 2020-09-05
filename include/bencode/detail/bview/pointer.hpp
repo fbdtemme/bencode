@@ -1,42 +1,43 @@
 #pragma once
 
-#include <nonstd/expected.hpp>
-#include "bencode/detail/bvalue/concepts.hpp"
+#include "bencode/detail/bview/bview.hpp"
 #include "bencode/detail/bpointer.hpp"
-
+#include "bencode/detail/out_of_range.hpp"
+#include "bencode/detail/bview/accessors.hpp"
 
 namespace bencode::detail {
 
-template <basic_bvalue_instantiation BV>
-inline decltype(auto) evaluate(const bpointer& pointer, BV&& bv)
+inline bview evaluate(const bpointer& pointer, const bview& bv)
 {
-    auto* ptr = &bv;
+    auto v = bv;
 
     for (const auto& token : pointer) {
-        switch (ptr->type()) {
+        switch (v.type()) {
         case bencode_type::dict: {
-            ptr = &(get_dict(*ptr).at(token));
+            v = get_dict(v).at(token);
             break;
         }
         case bencode_type::list: {
-            if (token == "-") [[unlikely]]
+            if (token=="-") [[unlikely]] {
                 throw out_of_range("unresolved token '-': list index '-' is not supported");
+            }
 
             auto res = detail::parse_integer<std::uint64_t>(token.begin(), token.end());
-            if (!res) [[unlikely]]
+            if (!res) [[unlikely]] {
                 throw out_of_range(
                         fmt::format("unresolved token '{}': expected list index", token));
+            }
 
-            ptr = &(get_list(*ptr).at(res.value()));
+            v = get_list(v).at(res.value());
             break;
         }
         default:
             throw out_of_range(
                     fmt::format("unresolved token '{}': expected list or dict but got {}",
-                                token, ptr->type()));
+                            token, v.type()));
         }
     }
-    return detail::forward_like<BV>(*ptr);
+    return v;
 }
 
 }

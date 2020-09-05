@@ -469,7 +469,7 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //            CHECK(get_string(t_dict["test2"]).empty());
 //        }
 //        SECTION("error - construction error") {
-//            CHECK_THROWS_AS(get_as<T>(t_dict_fail), conversion_error);
+//            CHECK_THROWS_AS(get_as<T>(t_dict_fail), bad_conversion);
 //        }
 //    }
 //
@@ -492,7 +492,7 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //            CHECK(get_string(t_dict["test2"]).empty());
 //        }
 //        SECTION("error - mapped type construction error") {
-//            CHECK_THROWS_AS(get_as<T>(t_dict_fail), conversion_error);
+//            CHECK_THROWS_AS(get_as<T>(t_dict_fail), bad_conversion);
 //        }
 //    }
 //
@@ -523,7 +523,7 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //        }
 //
 //        SECTION("error - mapped type construction error") {
-//            CHECK_THROWS_AS(get_as<T>(t_multidict_fail), conversion_error);
+//            CHECK_THROWS_AS(get_as<T>(t_multidict_fail), bad_conversion);
 //        }
 //    }
 //
@@ -553,7 +553,7 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //            CHECK(get_string(t_multidict["test2"]).empty());
 //        }
 //        SECTION("error - mapped type construction error") {
-//            CHECK_THROWS_AS(get_as<T>(t_multidict_fail), conversion_error);
+//            CHECK_THROWS_AS(get_as<T>(t_multidict_fail), bad_conversion);
 //        }
 //    }
 //    SECTION("error - not dict type") {

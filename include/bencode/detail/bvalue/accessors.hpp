@@ -13,7 +13,7 @@
 #include "bencode/detail/bvalue/concepts.hpp"
 #include "bencode/detail/bvalue/bvalue_policy.hpp"
 #include "bencode/detail/bencode_type.hpp"
-#include "bencode/detail/conversion_error.hpp"
+#include "bencode/detail/bad_conversion.hpp"
 #include "bencode/detail/bvalue/bad_bvalue_access.hpp"
 #include "bencode/detail/bvalue/basic_bvalue.hpp"
 #include "bencode/detail/bvalue/conversion.hpp"
@@ -176,7 +176,7 @@ constexpr auto try_get_as(BV&& value) -> nonstd::expected<T, conversion_errc>
 /// Throwing converting accessor.
 /// Try to convert a basic_bvalue instantiation to T.
 /// @returns the converted value
-/// @throws conversion_error when the value could not be converted to the requested type.
+/// @throws bad_conversion when the value could not be converted to the requested type.
 template <typename T, basic_bvalue_instantiation BV>
 /// \cond CONCEPTS
     requires retrievable_from_bvalue_for<T, typename std::remove_cvref_t<BV>::policy_type>
@@ -185,7 +185,7 @@ constexpr auto get_as(BV&& value) -> T
 {
     auto v = try_get_as<T>(std::forward<BV>(value));
     if (!v)
-        throw conversion_error(v.error());
+        throw bad_conversion(v.error());
     return detail::forward_like<BV>(*v);
 }
 

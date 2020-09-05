@@ -17,7 +17,7 @@ namespace rng = std::ranges;
 class descriptor_table {
 public:
     descriptor_table() noexcept
-            :buffer_(), descriptors_() { }
+            : buffer_(), descriptors_() { }
 
     descriptor_table(std::span<descriptor> descriptors, const char* buffer)
             : buffer_(buffer)
@@ -38,7 +38,7 @@ public:
     descriptor_table& operator=(descriptor_table&&) = default;
 
     /// Returns a bview instance for to the data described by the descriptor at pos.
-    bview get_root(std::size_t pos = 0) noexcept
+    bview get_root(std::size_t pos = 0) const noexcept
     {
         Expects(pos<descriptors_.size());
         return bview(descriptors_.data()+pos, buffer_+pos);

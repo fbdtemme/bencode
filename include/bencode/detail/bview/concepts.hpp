@@ -4,9 +4,8 @@
 #include <concepts>
 #include <nonstd/expected.hpp>
 
-#include "bencode/detail/conversion_error.hpp"
 #include "bencode/detail/utils.hpp"
-#include "bencode/detail/utils.hpp"
+#include "bencode/detail/bad_conversion.hpp"
 
 
 namespace bencode {

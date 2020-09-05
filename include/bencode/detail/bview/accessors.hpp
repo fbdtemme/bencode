@@ -5,7 +5,7 @@
 #include <fmt/ostream.h>
 
 #include "bencode/detail/bencode_type.hpp"
-#include "bencode/detail/conversion_error.hpp"
+#include "bencode/detail/bad_conversion.hpp"
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/utils.hpp"
 
@@ -62,7 +62,7 @@ constexpr bview_alternative_t<E>& get(bview& v)
     using D = typename bview_alternative<E>::type;
     if (v.type() != E) [[unlikely]]
         throw bad_bview_access(fmt::format("bvalue is not of type: {}\"", E));
-    return reinterpret_cast<D&>(v);
+    return static_cast<D&>(v);
 }
 
 /// Enum based bview accessor.
@@ -77,7 +77,7 @@ constexpr const bview_alternative_t<E>& get(const bview& v)
     using D = typename bview_alternative<E>::type;
     if (v.type() != E) [[unlikely]]
         throw bad_bview_access(fmt::format("bvalue is not of type: {}\"", E));
-    return reinterpret_cast<const D&>(v);
+    return static_cast<const D&>(v);
 }
 
 /// Type based bview accessor.
@@ -110,7 +110,7 @@ constexpr bview_alternative_t<E>* get_if(bview* pv) noexcept
 {
     using D = typename bview_alternative<E>::type;
     if (pv == nullptr || pv->type() != E) [[unlikely]] return nullptr;
-    return reinterpret_cast<D*>(pv);
+    return static_cast<D*>(pv);
 }
 
 /// Enum-based non-throwing accessor.
@@ -123,7 +123,7 @@ constexpr const bview_alternative_t<E>* get_if(const bview* desc) noexcept
 {
     using D = typename bview_alternative<E>::type;
     if (desc->type() != E) [[unlikely]] return nullptr;
-    return reinterpret_cast<const D*>(desc);
+    return static_cast<const D*>(desc);
 }
 
 
@@ -136,7 +136,7 @@ template <bview_alternative_type  T>
 constexpr T* get_if(bview* pv) noexcept
 {
     if (pv == nullptr || pv->type() != serialization_traits<T>::type) [[unlikely]] return nullptr;
-    return reinterpret_cast<T*>(pv);
+    return static_cast<T*>(pv);
 }
 
 /// Type-based non-throwing accessor.
@@ -148,7 +148,7 @@ template <bview_alternative_type T>
 constexpr const T* get_if(const bview* pv) noexcept
 {
     if (pv == nullptr || pv->type() != serialization_traits<T>::type) [[unlikely]] return nullptr;
-    return reinterpret_cast<const T*>(pv);
+    return static_cast<const T*>(pv);
 }
 
 
@@ -275,7 +275,7 @@ constexpr bool holds_dict(const bview& v) noexcept
 
 /// Throwing converting bview accessor.
 /// If serialization_traits<T>::type == bview.type(), converts bvalue to T.
-/// If the active alternative type could not be converted returns conversion_error.
+/// If the active alternative type could not be converted returns bad_conversion.
 /// @tparam the type to convert to
 /// @param v reference to bview
 /// @returns an expected instance with the returned value or an error code.
@@ -296,12 +296,12 @@ constexpr nonstd::expected<T, conversion_errc> try_get_as(const bview& v)
 /// Throwing converting accessor.
 /// Try to convert a basic_bvalue instantiation to T.
 /// @returns the converted value
-/// @throws conversion_error when the value could not be converted to the requested type.
+/// @throws bad_conversion when the value could not be converted to the requested type.
 template <retrievable_from_bview T>
 constexpr T get_as(const bview& value)
 {
     auto v = try_get_as<T>(value);
-    if (!v) throw conversion_error(v.error());
+    if (!v) throw bad_conversion(v.error());
     return *v;
 }
 

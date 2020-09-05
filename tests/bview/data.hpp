@@ -62,12 +62,12 @@ constexpr std::array descriptors_nested_dict = {
         bc::descriptor(bc::descriptor_type::stop, 24),
 };
 
-inline constexpr auto i_view_const = bc::bview(begin(descriptors_integer), data_integer.data());
-inline constexpr auto s_view_const  = bc::bview(begin(descriptors_string), data_string.data());
-inline constexpr auto l_view_const = bc::bview(begin(descriptors_list), data_list.data());
-inline constexpr auto l_view_nested_const = bc::bview(begin(descriptors_nested_list), data_nested_list.data());
-inline constexpr auto d_view_const = bc::bview(begin(descriptors_dict), data_dict.data());
-inline constexpr auto d_view_nested_const = bc::bview(begin(descriptors_nested_dict), data_nested_dict.data());
+inline const auto i_view_const = bc::bview(begin(descriptors_integer), data_integer.data());
+inline const auto s_view_const  = bc::bview(begin(descriptors_string), data_string.data());
+inline const auto l_view_const = bc::bview(begin(descriptors_list), data_list.data());
+inline const auto l_view_nested_const = bc::bview(begin(descriptors_nested_list), data_nested_list.data());
+inline const auto d_view_const = bc::bview(begin(descriptors_dict), data_dict.data());
+inline const auto d_view_nested_const = bc::bview(begin(descriptors_nested_dict), data_nested_dict.data());
 
 static auto i_view = bc::bview(begin(descriptors_integer), data_integer.data());
 static auto s_view  = bc::bview(begin(descriptors_string), data_string.data());

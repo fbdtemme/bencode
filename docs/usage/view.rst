@@ -1,5 +1,7 @@
 .. cpp:namespace:: bencode
 
+.. _bview:
+
 View interface
 ==============
 
@@ -7,7 +9,8 @@ Introduction
 ------------
 
 :cpp:class:`bview` is a sum type that provides access to the values stored in a bencoded buffer.
-It holds two pointers, one to a :cpp:class:`descriptor`, and one to the bencoded buffer.
+It holds two pointers, one to a :cpp:class:`descriptor`, and one to the buffer contained the
+bencoded data.
 
 The :cpp:class:`descriptor` describes the type and content of the bencoded token the
 :cpp:class:`bview` points to and where the data can be found in the bencoded buffer.
@@ -16,13 +19,15 @@ provide access to the values using an interface similar to standard C++ containe
 
 :cpp:class:`bview` is used together with four subclasses:
 
-*  :cpp:class:`integer_bview`
-*  :cpp:class:`string_bview`
-*  :cpp:class:`list_bview`
-*  :cpp:class:`dict_bview`
+*   :cpp:class:`integer_bview`
+*   :cpp:class:`string_bview`
+*   :cpp:class:`list_bview`
+*   :cpp:class:`dict_bview`
+
 
 Each subclass provides an extra interface over :cpp:class:`bview`
 for the corresponding bencode data type.
+
 These four classes satisfy the concept :cpp:concept:`bview_alternative_type`.
 
 :cpp:class:`integer_bview` is implicitly convertible to :cpp:class:`std::int64_t`.
@@ -66,8 +71,7 @@ a bencoded string with :cpp:func:`decode_view`.
 Type checking
 -------------
 
-Checking the bencode data type of a :cpp:class:`bview`
-can be done using the following functions:
+Checking the alternative type of a :cpp:class:`bview` can be done using the following functions:
 
 * :cpp:func:`bool is_integer(const bview&)`
 * :cpp:func:`bool is_string(const bview&)`
@@ -88,15 +92,13 @@ can be done using the following functions:
     bc::holds_alternative<bc::dict_bview>(root_element); // returns true
 
 
-
 Accessors
 ---------
 
-Casting the :cpp:class:`bview` instance to the interface specific
-for the bencode data type is done using accessor functions.
+Retrieving the alternative type from the :cpp:class:`bview` instance is done using accessor functions.
 
 Throwing accessor function will throw :cpp:class:`bad_bview_access` when trying to
-convert a bview to a bview subclass that does not match the bencode data type.
+convert a :cpp:class:`bview` to a :cpp:class:`bview` subclass that does not match the bencode data type.
 
 * :cpp:func:`const integer_bview& get_integer(const bview&)`
 * :cpp:func:`const string_bview& get_string(const bview&)`
@@ -132,7 +134,7 @@ Conversion
 ----------
 
 To copy the content of a :cpp:class:`bview` value to a specific type, generic converters are used.
-The throwing converter will throw :cpp:class:`conversion_error` when an error occurs.
+The throwing converter will throw :cpp:class:`bad_conversion` when an error occurs.
 
 * :cpp:func:`template \<typename T> T get_as(const bview&)`
 

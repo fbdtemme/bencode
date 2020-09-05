@@ -5,6 +5,7 @@
 
 #include "bencode/detail/bview/concepts.hpp"
 #include "bencode/detail/descriptor.hpp"
+#include "bencode/detail/bview/bad_bview_access.hpp"
 
 
 namespace bencode {
@@ -61,6 +62,9 @@ public:
 
     /// Copy assignment.
     constexpr bview& operator=(const bview&) noexcept = default;
+
+    explicit constexpr operator bool() const noexcept
+    { return desc_ != nullptr && buffer_ != nullptr; }
 
     /// Returns the type of the descriptor this bview points to.
     /// @returns The bencode data type described by this bview.
@@ -126,7 +130,75 @@ public:
         return detail::compare_three_way_with_bview(*this, that);
     }
 
+    /// Returns a view to the element at specified location pos.
+    /// No bounds checking is performed.
+    /// Out of bounds access results in undefined behavior.
+    /// If the active alternative is not a list an exception of type bad_bview_access is thrown.
+    /// @param pos  position of the element to return
+    /// @returns view to the requested element.
+    constexpr bview operator[](std::size_t pos) const;
+
+
+    /// Returns a view to the element at specified location pos, with bounds checking.
+    /// If pos is not within the range of the list, an exception of type out_of_range is
+    /// thrown.
+    /// If the current active alternative is not a list, and exception of type
+    /// bad_bview_access is thrown.
+    /// @param pos position of the element to return
+    /// @returns View of the requested element.
+    /// @throws out_of_range if !(pos < size())
+    /// @throws bad_bview_access if the current active alternative is not a list.
+    constexpr bview at(std::size_t pos) const;
+
+    /// Returns a reference to the mapped bvalue of the element with key equivalent to key.
+    /// If the current active alternative is not a dict, and exception of type
+    /// bad_bview_access is thrown.
+    /// If no such element exists, an exception of type std::out_of_range is thrown.
+    /// @param pos  	the key of the element to find
+    /// @returns View to the mapped value of the requested element.
+    /// @throws out_of_range if the container does not have an element with the specified key,
+    /// @throws bad_bview_access if the current active alternative is not dict.
+    constexpr bview at(std::string_view key) const;
+
+    /// Return a view to the value referenced by a bpointer.
+    /// If the bpointer does not resolve an exceptionn of type out_of_range is thrown.
+    /// @param pointer the bpointer to the element to return
+    /// @returns View to the element pointed to by pointer.
+    /// @throws out_of_range if the pointer does not resolve for this value
+    bview at(const bpointer& pointer) const;
+
+    /// Returns a view to the first element in the list.
+    /// Calling front on an empty container is undefined behavior.
+    /// @returns reference to the first element
+    /// @throws bad_bview_access when the current active alternative is not a list.
+    constexpr bview front() const;
+
+    /// Returns a view to the last element in the list.
+    /// Calling back on an empty list is undefined behavior.
+    /// @returns reference to the last element
+    /// @throws bad_bview_access when current active alternative is not a list.
+    constexpr bview back() const;
+
+    /// Checks if there is an element with key equivalent to key in the dict.
+    /// If the active alternative is not a dict, an exception of type bad_bview_access is thrown.
+    /// @param key 	key bvalue of the element to search for
+    /// @returns true if there is such an element, otherwise false.
+    constexpr bool contains(std::string_view key) const;
+
+
 protected:
+    constexpr bool is_integer() const noexcept
+    { return desc_->is_integer(); }
+
+    constexpr bool is_string() const noexcept
+    { return desc_->is_string(); }
+
+    constexpr bool is_list() const noexcept
+    { return desc_->is_list(); }
+
+    constexpr bool is_dict() const noexcept
+    { return desc_->is_dict(); }
+
     friend constexpr const descriptor* detail::get_storage(const bview& value) noexcept;
 
     /// pointer to bencode data

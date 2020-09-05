@@ -7,6 +7,7 @@
 
 #include "bencode/detail/bview/concepts.hpp"
 #include "bencode/detail/symbol.hpp"
+#include "bencode/detail/out_of_range.hpp"
 
 namespace bencode {
 
@@ -239,6 +240,7 @@ public:
 
     /// Returns a reference to the element at specified location pos.
     /// No bounds checking is performed.
+    /// Accessing element out of bound is undefined behavior.
     /// @param pos position of the element to return
     /// @returns Reference to the requested element.
     /// @complexity linear in size of the container
@@ -257,7 +259,7 @@ public:
     constexpr value_type at(std::size_t pos) const
     {
         if (pos >= size())
-            throw std::out_of_range("element index out of range");
+            throw out_of_range("element index out of range");
         return *std::next(begin(), pos);
     };
 

@@ -50,7 +50,7 @@ TEST_CASE("test dict_bview") {
     SECTION("at()") {
         auto ref = dict.at("spam");
         CHECK(ref == 1);
-        CHECK_THROWS_AS(dict.at("blah"), std::out_of_range);
+        CHECK_THROWS_AS(dict.at("blah"), bc::out_of_range);
     }
 
     SECTION("empty()") {

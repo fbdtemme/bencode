@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.2.0
+
+*   make `descriptor_table::get_root` not being const qualified.
+*   rename `conversion_error` to `bad_conversion`.
+*   rename `format_json_to` to `encode_json_to`
+*   throw `bencode::out_of_range` instead of `std::out_of_range`
+*   add accessor functions to `bview` similar to the accessor functions of `basic_bvalue`:
+    *   `at(std::size_t)` 
+    *   `at(std::string_view)` 
+    *   `operator[](std::size_t)` 
+    *   `front()` 
+    *   `back()`
+*   add `bpointer`: a bencode pointer similar to json pointers.
+
+ 
 ## v0.1.1
 
 *   Fix invalid output of `events::debug_to` for lists and dicts.

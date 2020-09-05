@@ -6,7 +6,7 @@
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/concepts.hpp"
-#include "bencode/detail/conversion_error.hpp"
+#include "bencode/detail/bad_conversion.hpp"
 
 #include "bencode/detail/bvalue/concepts.hpp"
 #include "bencode/detail/bvalue/bvalue_policy.hpp"
@@ -19,7 +19,7 @@ template <typename T, basic_bvalue_instantiation U>
 constexpr nonstd::expected<T, conversion_errc>
 convert_from_bvalue_default_integer_impl(customization_point_type<T>, U&& v) noexcept
 {
-    if (!is_integer(v)) [[unlikely]]
+    if (!holds_integer(v)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_integer_type);
     return static_cast<T>(detail::forward_like<U>(get_integer(v)));
 }
@@ -136,7 +136,7 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_default_list_
             std::transform(rng::begin(blist), rng::end(blist),
                            std::inserter(value, rng::begin(value)), func);
         }
-    } catch (const conversion_error& e) {
+    } catch (const bad_conversion& e) {
         return nonstd::make_unexpected(e.errc());
     } catch (...) {
         return nonstd::make_unexpected(conversion_errc::construction_error);
@@ -154,7 +154,7 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_default_list_
             BV&& b,
             priority_tag<0>) noexcept
 {
-    if (!is_list(b)) [[unlikely]]
+    if (!holds_list(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_list_type);
 
     auto& blist = get_list(b);
@@ -173,7 +173,7 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_default_list_
             },
             std::forward_as_tuple(std::make_index_sequence<std::tuple_size_v<T>>{})
         );
-    } catch (const conversion_error& e) {
+    } catch (const bad_conversion& e) {
          return nonstd::make_unexpected(conversion_errc::list_value_type_construction_error);
     } catch (...) {
         return nonstd::make_unexpected(conversion_errc::construction_error);
@@ -193,7 +193,7 @@ convert_from_bvalue_default_dict_impl(
             BV&& b,
             priority_tag<0>) noexcept
 {
-    if (!is_dict(b)) [[unlikely]]
+    if (!holds_dict(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_dict_type);
 
     auto& bdict = get_dict(b);
@@ -205,7 +205,7 @@ convert_from_bvalue_default_dict_impl(
                     detail::forward_like<BV>(k),
                     get_as<typename T::mapped_type>(detail::forward_like<BV>(v)));
         }
-    } catch (const conversion_error& e) {
+    } catch (const bad_conversion& e) {
         return nonstd::make_unexpected(conversion_errc::dict_mapped_type_construction_error);
     } catch (...) {
         return nonstd::make_unexpected(conversion_errc::construction_error);
@@ -227,7 +227,7 @@ convert_from_bvalue_default_dict_impl(
         BV&& b,
         priority_tag<0>) noexcept
 {
-    if (!is_dict(b)) [[unlikely]]
+    if (!holds_dict(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_dict_type);
 
     T out{};
@@ -235,7 +235,7 @@ convert_from_bvalue_default_dict_impl(
 
     try {
         for (auto&& [k, v] : bdict) {
-            if (is_list(v)) {
+            if (holds_list(v)) {
                 for (auto&& v2 : get_list(v)) {
                     out.emplace(
                         detail::forward_like<BV>(k),
@@ -249,7 +249,7 @@ convert_from_bvalue_default_dict_impl(
             }
         }
     }
-    catch (const conversion_error& e) {
+    catch (const bad_conversion& e) {
         return nonstd::make_unexpected(conversion_errc::dict_mapped_type_construction_error);
     } catch (...) {
         return nonstd::make_unexpected(conversion_errc::construction_error);

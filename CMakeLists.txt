@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.14)
 project(bencode
         DESCRIPTION "A modern C++ Bencode library"
+        HOMEPAGE_URL https://github.com/fbdtemme/bencode
         LANGUAGES CXX
-        VERSION 0.1.1)
+        VERSION 0.2.0)
 
 set(PROJECT_AUTHOR "fbdtemme")
 # Make Find modules in cmake dir available
@@ -29,7 +30,7 @@ target_include_directories(bencode INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         )
 
-include(external/CMakeLists.txt)
+include(external/external.cmake)
 
 
 option(BENCODE_BUILD_TESTS    "Build tests."  ON)
@@ -123,9 +124,6 @@ if (NOT Microsoft.GSL_FOUND)
     message(STATUS "Adding Microsoft.GSL to install set")
     install(TARGETS GSL
             EXPORT ${bencode_targets_export_name}
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
             INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endif()
 

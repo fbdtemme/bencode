@@ -12,7 +12,7 @@
 using namespace std::string_view_literals;
 namespace bc = bencode;
 
-TEST_CASE("test basic_bvalue member", "[bvalue]")
+TEST_CASE("test basic_bvalue members", "[bvalue]")
 {
     const bencode::bvalue const_integer(1);
     const bencode::bvalue const_string("test");

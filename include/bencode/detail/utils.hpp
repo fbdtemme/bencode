@@ -10,7 +10,6 @@
 #include <type_traits>
 #include <bit>
 
-#include <nonstd/expected.hpp>
 #include "bencode/detail/parser/parsing_error.hpp"
 
 #ifdef NDEBUG

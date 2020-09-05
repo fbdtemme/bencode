@@ -51,7 +51,7 @@ TEST_CASE("test list_bview") {
     SECTION("at()") {
         auto ref = list.at(0);
         CHECK(ref == 2);
-        CHECK_THROWS_AS(list.at(3), std::out_of_range);
+        CHECK_THROWS_AS(list.at(3), bc::out_of_range);
     }
 
     SECTION("front()") {
