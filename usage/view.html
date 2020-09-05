@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>View interface &mdash; bencode 0.1.1 documentation</title>
+  <title>View interface &mdash; bencode 0.2.0 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.2.0
               </div>
             
           
@@ -112,6 +112,7 @@
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="customization_points.html">User-defined type support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trait_headers.html">Trait headers</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -191,11 +192,12 @@
            <div itemprop="articleBody">
             
   <div class="section" id="view-interface">
-<h1>View interface<a class="headerlink" href="#view-interface" title="Permalink to this headline">¶</a></h1>
+<span id="bview"></span><h1>View interface<a class="headerlink" href="#view-interface" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> is a sum type that provides access to the values stored in a bencoded buffer.
-It holds two pointers, one to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor</span></code>, and one to the bencoded buffer.</p>
+It holds two pointers, one to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor</span></code>, and one to the buffer contained the
+bencoded data.</p>
 <p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor</span></code> describes the type and content of the bencoded token the
 <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> points to and where the data can be found in the bencoded buffer.
 This information allows <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> to navigate through the bencoded buffer and
@@ -208,8 +210,8 @@ provide access to the values using an interface similar to standard C++ containe
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode10dict_bviewE" title="bencode::dict_bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">dict_bview</span></code></a></p></li>
 </ul>
 <p>Each subclass provides an extra interface over <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a>
-for the corresponding bencode data type.
-These four classes satisfy the concept <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">bview_alternative_type</span></code>.</p>
+for the corresponding bencode data type.</p>
+<p>These four classes satisfy the concept <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">bview_alternative_type</span></code>.</p>
 <p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode13integer_bviewE" title="bencode::integer_bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">integer_bview</span></code></a> is implicitly convertible to <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::int64_t</span></code>.
 The value stored can also be retrieved using <a class="reference internal" href="../reference/bview.html#_CPPv4NK7bencode13integer_bview5valueEv" title="bencode::integer_bview::value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">integer_bview::value()</span></code></a></p>
 <p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode12string_bviewE" title="bencode::string_bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">string_bview</span></code></a> provides an interface equal to that of <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::string_view</span></code>.
@@ -242,13 +244,12 @@ a bencoded string with <a class="reference internal" href="../reference/encoding
 </div>
 <div class="section" id="type-checking">
 <h2>Type checking<a class="headerlink" href="#type-checking" title="Permalink to this headline">¶</a></h2>
-<p>Checking the bencode data type of a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a>
-can be done using the following functions:</p>
+<p>Checking the alternative type of a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> can be done using the following functions:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode10is_integerERK5bview" title="bool is_integer(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">is_integer(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
-<li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode9is_stringERK5bview" title="bool is_string(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">is_string(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
-<li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode7is_listERK5bview" title="bool is_list(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">is_list(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
-<li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode7is_dictERK5bview" title="bool is_dict(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">is_dict(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
+<li><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">is_integer(const</span> <span class="pre">bview&amp;)()</span></code></p></li>
+<li><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">is_string(const</span> <span class="pre">bview&amp;)()</span></code></p></li>
+<li><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">is_list(const</span> <span class="pre">bview&amp;)()</span></code></p></li>
+<li><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">is_dict(const</span> <span class="pre">bview&amp;)()</span></code></p></li>
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4I_12bencode_typeEN7bencode17holds_alternativeEbRK5bview" title="template&lt;enum bencode_type E&gt; bool holds_alternative(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;enum</span> <span class="pre">bencode_type</span> <span class="pre">E&gt;</span> <span class="pre">bool</span> <span class="pre">holds_alternative(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
 <li><p><code class="xref cpp cpp-expr docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;bview_alternative_type</span> <span class="pre">T&gt;</span> <span class="pre">bool</span> <span class="pre">holds_alternative(const</span> <span class="pre">bview&amp;)</span></code></p></li>
 </ul>
@@ -265,10 +266,9 @@ can be done using the following functions:</p>
 </div>
 <div class="section" id="accessors">
 <h2>Accessors<a class="headerlink" href="#accessors" title="Permalink to this headline">¶</a></h2>
-<p>Casting the <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> instance to the interface specific
-for the bencode data type is done using accessor functions.</p>
+<p>Retrieving the alternative type from the <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> instance is done using accessor functions.</p>
 <p>Throwing accessor function will throw <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode16bad_bview_accessE" title="bencode::bad_bview_access"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_bview_access</span></code></a> when trying to
-convert a bview to a bview subclass that does not match the bencode data type.</p>
+convert a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> to a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> subclass that does not match the bencode data type.</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode11get_integerERK5bview" title="const integer_bview &amp;get_integer(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">const</span> <span class="pre">integer_bview&amp;</span> <span class="pre">get_integer(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode10get_stringERK5bview" title="const string_bview &amp;get_string(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">const</span> <span class="pre">string_bview&amp;</span> <span class="pre">get_string(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
@@ -301,7 +301,7 @@ a bview to a bview subclass that does not match the bencode data type.</p>
 <div class="section" id="conversion">
 <h2>Conversion<a class="headerlink" href="#conversion" title="Permalink to this headline">¶</a></h2>
 <p>To copy the content of a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> value to a specific type, generic converters are used.
-The throwing converter will throw <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode16conversion_errorE" title="bencode::conversion_error"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">conversion_error</span></code></a> when an error occurs.</p>
+The throwing converter will throw <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode14bad_conversionE" title="bencode::bad_conversion"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_conversion</span></code></a> when an error occurs.</p>
 <ul class="simple">
 <li><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">T</span> <span class="pre">get_as(const</span> <span class="pre">bview&amp;)()</span></code></p></li>
 </ul>

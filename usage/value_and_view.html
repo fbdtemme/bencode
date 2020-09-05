@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Value and view types &mdash; bencode 0.1.1 documentation</title>
+  <title>Value and view types &mdash; bencode 0.2.0 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.2.0
               </div>
             
           
@@ -108,6 +108,7 @@
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="customization_points.html">User-defined type support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trait_headers.html">Trait headers</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -188,26 +189,25 @@
             
   <div class="section" id="value-and-view-types">
 <h1>Value and view types<a class="headerlink" href="#value-and-view-types" title="Permalink to this headline">¶</a></h1>
-<p>This library contains two main types to represent bencoded data.
-A value types and a view type.
-They can be conceptually compared the value type <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::string</span></code>
-and the view type <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::string_view</span></code>.</p>
-<p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> owns the data it contains. Parsing to <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> involves copying data to
-the internal storage of a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>. <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> can modify the stored values.</p>
+<p>This library contains two types to represent bencoded data,
+the value type <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> and the view type <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a>.</p>
+<p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> owns the data it contains.
+Parsing to <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> involves copying data to the internal storage of a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>.
+<a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> can modify the stored values.</p>
 <p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> does not own any data.
-Parsing to <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> is done by creating an index into a stable buffer with the
-bencoded data, a <a class="reference internal" href="../reference/descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_tableE" title="bencode::descriptor_table"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor_table</span></code></a>.
+Parsing to <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> is done by creating an index of type <a class="reference internal" href="../reference/descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_tableE" title="bencode::descriptor_table"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor_table</span></code></a>
+into a stable buffer with bencoded data.
 Based on this index <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> provides read-only access to the bencoded data.</p>
-<p>The interfaces of <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> and <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> are very similar and use free functions.
-This enable the use of both types in a single generic function.</p>
+<p>The interfaces of <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> and <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> are very similar.
+This enable the use of both types in a generic code.</p>
 <div class="section" id="performance">
 <h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h2>
 <p>Parsing to <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> is about 5 times faster then parsing to <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>.</p>
 <img alt="../_images/benchmark_barplot.svg" src="../_images/benchmark_barplot.svg" /></div>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
-<p><span class="xref std std-ref">value</span>
-<span class="xref std std-ref">view</span></p>
+<p><a class="reference internal" href="value.html#bvalue"><span class="std std-ref">Value interface</span></a>
+<a class="reference internal" href="view.html#bview"><span class="std std-ref">View interface</span></a></p>
 </div>
 </div>
 

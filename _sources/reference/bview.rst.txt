@@ -46,7 +46,7 @@ Exceptions
 
 .. doxygenfile:: detail/bview/bad_bview_access.hpp
 
-.. doxygenfile:: detail/conversion_error.hpp
+.. doxygenfile:: detail/bad_conversion.hpp
 
 Concepts
 --------

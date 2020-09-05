@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; bencode 0.1.1 documentation</title>
+  <title>Index &mdash; bencode 0.2.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.2.0
               </div>
             
           
@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="usage/encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/descriptor.html">Descriptor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/customization_points.html">User-defined type support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/trait_headers.html">Trait headers</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -195,9 +196,19 @@
 </li>
       <li><a href="reference/bview.html#_CPPv4N7bencode16bad_bview_accessE">bencode::bad_bview_access (C++ class)</a>
 </li>
+      <li><a href="reference/bview.html#_CPPv4N7bencode14bad_conversionE">bencode::bad_conversion (C++ class)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv4N7bencode14bad_conversion14bad_conversionERK15conversion_errc">bencode::bad_conversion::bad_conversion (C++ function)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv4NK7bencode14bad_conversion4errcEv">bencode::bad_conversion::errc (C++ function)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv4N7bencode14bad_conversion5errc_E">bencode::bad_conversion::errc_ (C++ member)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv4NK7bencode14bad_conversion4whatEv">bencode::bad_conversion::what (C++ function)</a>
+</li>
       <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE">bencode::basic_bvalue (C++ class)</a>, <a href="reference/bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE">[1]</a>
 </li>
-      <li><a href="reference/bvalue.html#_CPPv4N7bencode12basic_bvalue2atENSt6size_tE">bencode::basic_bvalue::at (C++ function)</a>, <a href="reference/bvalue.html#_CPPv4N7bencode12basic_bvalue2atERK11string_type">[1]</a>, <a href="reference/bvalue.html#_CPPv4NK7bencode12basic_bvalue2atENSt6size_tE">[2]</a>, <a href="reference/bvalue.html#_CPPv4NK7bencode12basic_bvalue2atERK11string_type">[3]</a>
+      <li><a href="reference/bvalue.html#_CPPv4N7bencode12basic_bvalue2atENSt6size_tE">bencode::basic_bvalue::at (C++ function)</a>, <a href="reference/bvalue.html#_CPPv4N7bencode12basic_bvalue2atERK11string_type">[1]</a>, <a href="reference/bvalue.html#_CPPv4NK7bencode12basic_bvalue2atENSt6size_tE">[2]</a>, <a href="reference/bvalue.html#_CPPv4NK7bencode12basic_bvalue2atERK11string_type">[3]</a>, <a href="reference/bvalue.html#_CPPv4NK7bencode12basic_bvalue2atERK8bpointer">[4]</a>
 </li>
       <li><a href="reference/bvalue.html#_CPPv4N7bencode12basic_bvalue4backEv">bencode::basic_bvalue::back (C++ function)</a>, <a href="reference/bvalue.html#_CPPv4NK7bencode12basic_bvalue4backEv">[1]</a>
 </li>
@@ -210,6 +221,8 @@
       <li><a href="reference/bvalue.html#_CPPv4N7bencode12basic_bvalue7discardEv">bencode::basic_bvalue::discard (C++ function)</a>
 </li>
       <li><a href="reference/bvalue.html#_CPPv4I_12bencode_typeDpEN7bencode12basic_bvalue7emplaceEDcDpRR4Args">bencode::basic_bvalue::emplace (C++ function)</a>
+</li>
+      <li><a href="reference/bvalue.html#_CPPv4IDpEN7bencode12basic_bvalue12emplace_backE9referenceDpRR4Args">bencode::basic_bvalue::emplace_back (C++ function)</a>
 </li>
       <li><a href="reference/bvalue.html#_CPPv4IDpEIQNSt18constructible_fromI9dict_type14dict_init_listDp4ArgsEEEN7bencode12basic_bvalue12emplace_dictER9dict_type14dict_init_listDpRR4Args">bencode::basic_bvalue::emplace_dict (C++ function)</a>, <a href="reference/bvalue.html#_CPPv4IDpEN7bencode12basic_bvalue12emplace_dictER9dict_typeDpRR4Args">[1]</a>
 </li>
@@ -255,13 +268,23 @@
 </li>
       <li><a href="reference/bview.html#_CPPv4N7bencode5bviewE">bencode::bview (C++ class)</a>
 </li>
+      <li><a href="reference/bview.html#_CPPv4NK7bencode5bview2atENSt11string_viewE">bencode::bview::at (C++ function)</a>, <a href="reference/bview.html#_CPPv4NK7bencode5bview2atENSt6size_tE">[1]</a>, <a href="reference/bview.html#_CPPv4NK7bencode5bview2atERK8bpointer">[2]</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv4NK7bencode5bview4backEv">bencode::bview::back (C++ function)</a>
+</li>
       <li><a href="reference/bview.html#_CPPv4NK7bencode5bview13bencoded_viewEv">bencode::bview::bencoded_view (C++ function)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4N7bencode5bview5bviewEPK10descriptorPKc">bencode::bview::bview (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode5bview5bviewERK5bview">[1]</a>, <a href="reference/bview.html#_CPPv4N7bencode5bview5bviewEv">[2]</a>
 </li>
+      <li><a href="reference/bview.html#_CPPv4NK7bencode5bview8containsENSt11string_viewE">bencode::bview::contains (C++ function)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv4NK7bencode5bview5frontEv">bencode::bview::front (C++ function)</a>
+</li>
       <li><a href="reference/bview.html#_CPPv4N7bencode5bviewaSERK5bview">bencode::bview::operator= (C++ function)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4I0ENK7bencode5bvieweqEbRK1T">bencode::bview::operator== (C++ function)</a>
+</li>
+      <li><a href="reference/bview.html#_CPPv4NK7bencode5bviewixENSt6size_tE">bencode::bview::operator[] (C++ function)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4NK7bencode5bview4typeEv">bencode::bview::type (C++ function)</a>
 </li>
@@ -299,16 +322,6 @@
 </li>
       <li><a href="reference/bview.html#_CPPv4N7bencode15conversion_errc20undefined_conversionE">bencode::conversion_errc::undefined_conversion (C++ enumerator)</a>
 </li>
-      <li><a href="reference/bview.html#_CPPv4N7bencode16conversion_errorE">bencode::conversion_error (C++ class)</a>
-</li>
-      <li><a href="reference/bview.html#_CPPv4N7bencode16conversion_error16conversion_errorERK15conversion_errc">bencode::conversion_error::conversion_error (C++ function)</a>
-</li>
-      <li><a href="reference/bview.html#_CPPv4NK7bencode16conversion_error4errcEv">bencode::conversion_error::errc (C++ function)</a>
-</li>
-      <li><a href="reference/bview.html#_CPPv4N7bencode16conversion_error5errc_E">bencode::conversion_error::errc_ (C++ member)</a>
-</li>
-      <li><a href="reference/bview.html#_CPPv4NK7bencode16conversion_error4whatEv">bencode::conversion_error::what (C++ function)</a>
-</li>
       <li><a href="reference/encoding_and_decoding.html#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyENSt11string_viewE">bencode::decode_value (C++ function)</a>, <a href="reference/encoding_and_decoding.html#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyERNSt7istreamE">[1]</a>, <a href="reference/encoding_and_decoding.html#_CPPv4I0_N3rng11input_rangeEEN7bencode12decode_valueE12basic_bvalueI6PolicyERK3Rng">[2]</a>, <a href="reference/encoding_and_decoding.html#_CPPv4I0_NSt14input_iteratorEEN7bencode12decode_valueE12basic_bvalueI6PolicyE13InputIterator13InputIterator">[3]</a>
 </li>
       <li><a href="reference/encoding_and_decoding.html#_CPPv4I_N3rng16contiguous_rangeEEN7bencode11decode_viewE16descriptor_tableRR3Rng">bencode::decode_view (C++ function)</a>, <a href="reference/encoding_and_decoding.html#_CPPv4I_NSt14input_iteratorEEN7bencode11decode_viewE16descriptor_table13InputIterator13InputIterator">[1]</a>, <a href="reference/encoding_and_decoding.html#_CPPv4N7bencode11decode_viewENSt11string_viewE">[2]</a>
@@ -319,7 +332,7 @@
 </li>
       <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_table11descriptorsEv">bencode::descriptor_table::descriptors (C++ function)</a>, <a href="reference/descriptor_and_descriptor_table.html#_CPPv4NK7bencode16descriptor_table11descriptorsEv">[1]</a>
 </li>
-      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_table8get_rootENSt6size_tE">bencode::descriptor_table::get_root (C++ function)</a>
+      <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv4NK7bencode16descriptor_table8get_rootENSt6size_tE">bencode::descriptor_table::get_root (C++ function)</a>
 </li>
       <li><a href="reference/descriptor_and_descriptor_table.html#_CPPv4N7bencode15descriptor_typeE">bencode::descriptor_type (C++ enum)</a>
 </li>
@@ -385,14 +398,14 @@
 </li>
       <li><a href="reference/bview.html#_CPPv4NK7bencode10dict_bview2atENSt11string_viewE">bencode::dict_bview::at (C++ function)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/bview.html#_CPPv4NK7bencode10dict_bview5beginEv">bencode::dict_bview::begin (C++ function)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4NK7bencode10dict_bview6cbeginEv">bencode::dict_bview::cbegin (C++ function)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4NK7bencode10dict_bview4cendEv">bencode::dict_bview::cend (C++ function)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/bview.html#_CPPv4NK7bencode10dict_bview8containsENSt11string_viewE">bencode::dict_bview::contains (C++ function)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4NK7bencode10dict_bview5countENSt11string_viewE">bencode::dict_bview::count (C++ function)</a>
@@ -473,6 +486,16 @@
 </li>
       <li><a href="reference/bvalue.html#_CPPv4I_12bencode_type0EN7bencode17holds_alternativeEbRK12basic_bvalueI6PolicyE">bencode::holds_alternative (C++ function)</a>, <a href="reference/bview.html#_CPPv4I_12bencode_typeEN7bencode17holds_alternativeEbRK5bview">[1]</a>
 </li>
+      <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode10holds_dictEbRK12basic_bvalueI6PolicyE">bencode::holds_dict (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode10holds_dictERK5bview">[1]</a>
+</li>
+      <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode13holds_integerEbRK12basic_bvalueI6PolicyE">bencode::holds_integer (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode13holds_integerERK5bview">[1]</a>
+</li>
+      <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode10holds_listEbRK12basic_bvalueI6PolicyE">bencode::holds_list (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode10holds_listERK5bview">[1]</a>
+</li>
+      <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode12holds_stringEbRK12basic_bvalueI6PolicyE">bencode::holds_string (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode12holds_stringERK5bview">[1]</a>
+</li>
+      <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode19holds_uninitializedEbRK12basic_bvalueI6PolicyE">bencode::holds_uninitialized (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode19holds_uninitializedERK5bview">[1]</a>
+</li>
       <li><a href="reference/bview.html#_CPPv4N7bencode13integer_bviewE">bencode::integer_bview (C++ class)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4N7bencode13integer_bview13integer_bviewERK13integer_bview">bencode::integer_bview::integer_bview (C++ function)</a>
@@ -484,16 +507,6 @@
       <li><a href="reference/bview.html#_CPPv4NK7bencode13integer_bvieweqERK13integer_bview">bencode::integer_bview::operator== (C++ function)</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4NK7bencode13integer_bview5valueEv">bencode::integer_bview::value (C++ function)</a>
-</li>
-      <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode7is_dictEbRK12basic_bvalueI6PolicyE">bencode::is_dict (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode7is_dictERK5bview">[1]</a>
-</li>
-      <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode10is_integerEbRK12basic_bvalueI6PolicyE">bencode::is_integer (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode10is_integerERK5bview">[1]</a>
-</li>
-      <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode7is_listEbRK12basic_bvalueI6PolicyE">bencode::is_list (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode7is_listERK5bview">[1]</a>
-</li>
-      <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode9is_stringEbRK12basic_bvalueI6PolicyE">bencode::is_string (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode9is_stringERK5bview">[1]</a>
-</li>
-      <li><a href="reference/bvalue.html#_CPPv4I0EN7bencode16is_uninitializedEbRK12basic_bvalueI6PolicyE">bencode::is_uninitialized (C++ function)</a>, <a href="reference/bview.html#_CPPv4N7bencode16is_uninitializedERK5bview">[1]</a>
 </li>
       <li><a href="reference/bview.html#_CPPv4N7bencode10list_bviewE">bencode::list_bview (C++ class)</a>
 </li>

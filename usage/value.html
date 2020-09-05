@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Value interface &mdash; bencode 0.1.1 documentation</title>
+  <title>Value interface &mdash; bencode 0.2.0 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.2.0
               </div>
             
           
@@ -114,6 +114,7 @@
 <li class="toctree-l1"><a class="reference internal" href="encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="descriptor.html">Descriptor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="customization_points.html">User-defined type support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trait_headers.html">Trait headers</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
@@ -193,16 +194,17 @@
            <div itemprop="articleBody">
             
   <div class="section" id="value-interface">
-<h1>Value interface<a class="headerlink" href="#value-interface" title="Permalink to this headline">¶</a></h1>
+<span id="bvalue"></span><h1>Value interface<a class="headerlink" href="#value-interface" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> is class that represents a bencoded value.
-It is a sum-type implemented with a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::variant</span></code> to stores the
-different bencode data types.</p>
+It is a sum-type implemented with a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::variant</span></code>.</p>
+<p>The possible alternative types stored in a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> are the bencode data types:
+integer, string, list, dict, and a special uninitialized type.</p>
 <p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> is an instantiation of the class template
 <a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">basic_bvalue</span></code></a> and the exact types used to store
 the different bencode data types can be customized through the Policy template argument.</p>
-<p>The default policy uses following storage types:</p>
+<p>The default policy uses following storage types for the possible alternatives:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 31%" />
@@ -264,20 +266,22 @@ to be passed to the bvalue constructor.</p>
 </div>
 <div class="section" id="type-checking">
 <h2>Type checking<a class="headerlink" href="#type-checking" title="Permalink to this headline">¶</a></h2>
-<p>Checking the bencode data type of a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>
+<p>Checking the alternative of a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>
 can be done using the following functions:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode10is_integerEbRK12basic_bvalueI6PolicyE" title="template&lt;typename Policy&gt; bool is_integer(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">is_integer(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
-<li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode9is_stringEbRK12basic_bvalueI6PolicyE" title="template&lt;typename Policy&gt; bool is_string(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">is_string(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
-<li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode7is_listEbRK12basic_bvalueI6PolicyE" title="template&lt;typename Policy&gt; bool is_list(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">is_list(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
-<li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode7is_dictEbRK12basic_bvalueI6PolicyE" title="template&lt;typename Policy&gt; bool is_dict(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">is_dict(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
+<li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode13holds_integerEbRK12basic_bvalueI6PolicyE" title="template&lt;typename Policy&gt; bool holds_integer(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">holds_integer(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
+<li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode12holds_stringEbRK12basic_bvalueI6PolicyE" title="template&lt;typename Policy&gt; bool holds_string(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">holds_string(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
+<li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode10holds_listEbRK12basic_bvalueI6PolicyE" title="template&lt;typename Policy&gt; bool holds_list(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">holds_list(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
+<li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode10holds_dictEbRK12basic_bvalueI6PolicyE" title="template&lt;typename Policy&gt; bool holds_dict(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">holds_dict(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
 <li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I_12bencode_type0EN7bencode17holds_alternativeEbRK12basic_bvalueI6PolicyE" title="template&lt;enum bencode_type E, typename Policy&gt; bool holds_alternative(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;enum</span> <span class="pre">bencode_type</span> <span class="pre">E,</span> <span class="pre">typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">holds_alternative(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
 <li><p><code class="xref cpp cpp-expr docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;bview_alternative_type</span> <span class="pre">T,</span> <span class="pre">typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">holds_alternative(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></p></li>
 </ul>
+<p>The <code class="code docutils literal notranslate"><span class="pre">holds_&lt;type&gt;</span></code> (where <code class="code docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> is one of the bencode data types)
+functions are convenience functions that wrap the templated <code class="code docutils literal notranslate"><span class="pre">holds_alternative</span></code> function.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bencode</span><span class="o">::</span><span class="n">bvalue</span><span class="p">({{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">}});</span>
 
-<span class="n">is_integer</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>    <span class="c1">// returns false</span>
-<span class="n">is_dict</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>       <span class="c1">// returns true</span>
+<span class="n">holds_integer</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>    <span class="c1">// returns false</span>
+<span class="n">holds_dict</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>       <span class="c1">// returns true</span>
 
 <span class="c1">// type tag based check</span>
 <span class="n">bc</span><span class="o">::</span><span class="n">holds_alternative</span><span class="o">&lt;</span><span class="n">bc</span><span class="o">::</span><span class="n">type</span><span class="o">::</span><span class="n">dict</span><span class="o">&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">);</span> <span class="c1">// returns true</span>
@@ -339,7 +343,7 @@ bencode types.</p>
 <h2>Conversion<a class="headerlink" href="#conversion" title="Permalink to this headline">¶</a></h2>
 <p>Retrieving the value contained in a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> as another type can be done using the
 converting accessor functions.</p>
-<p><code class="code docutils literal notranslate"><span class="pre">get_as&lt;T&gt;(const</span> <span class="pre">bvalue&amp;)</span></code> is a throwing converter which will throw <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode16conversion_errorE" title="bencode::conversion_error"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">conversion_error</span></code></a>
+<p><code class="code docutils literal notranslate"><span class="pre">get_as&lt;T&gt;(const</span> <span class="pre">bvalue&amp;)</span></code> is a throwing converter which will throw <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode14bad_conversionE" title="bencode::bad_conversion"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_conversion</span></code></a>
 when the current active alternative can not be converted to the requested type.</p>
 <p><code class="code docutils literal notranslate"><span class="pre">try_get_as&lt;T&gt;(const</span> <span class="pre">bvalue&amp;)</span></code> is a non throwing converter an will return the result as a
 <code class="code docutils literal notranslate"><span class="pre">nonstd::expected</span></code> type.</p>

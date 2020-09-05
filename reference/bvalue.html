@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Value interface &mdash; bencode 0.1.1 documentation</title>
+  <title>Value interface &mdash; bencode 0.2.0 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="View interface" href="bview.html" />
-    <link rel="prev" title="User-defined type support" href="../usage/customization_points.html" /> 
+    <link rel="prev" title="Trait headers" href="../usage/trait_headers.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.2.0
               </div>
             
           
@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/encoding_decoding.html">Encoding and decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/descriptor.html">Descriptor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/customization_points.html">User-defined type support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/trait_headers.html">Trait headers</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
@@ -216,7 +217,9 @@
 <dl class="cpp class">
 <dt id="_CPPv4I0EN7bencode12basic_bvalueE">
 <span id="_CPPv3I0EN7bencode12basic_bvalueE"></span><span id="_CPPv2I0EN7bencode12basic_bvalueE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="classbencode_1_1basic__bvalue"></span><em class="property">class </em><code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv47bencode" title="bencode">bencode</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">basic_bvalue</code><a class="headerlink" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A class template storing a bencoded bvalue. An instance of basic_bvalue at any given time either holds a bvalue of one of the bencode data types, or uninitialized_type in the case of error or no bvalue. A single bvalue can store large and complicated bencoded data structures consisting of arbitrarily nested lists and dicts with many sub-values, that are again bvalue instances. implemented using a std::variant. <dl class="simple">
+<dd><p>A class template storing a bencoded bvalue.</p>
+<p>An instance of basic_bvalue at any given time either holds a bvalue of one of the bencode data types, or uninitialized_type in the case of error or no bvalue. A single bvalue can store large and complicated bencoded data structures consisting of arbitrarily nested lists and dicts with many sub-values, that are again bvalue instances.</p>
+<p><dl class="simple">
 <dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Policy</span></code>: instantation of <a class="reference internal" href="#structbencode_1_1bvalue__policy"><span class="std std-ref">bvalue_policy</span></a> to defining the storage types </p></li>
 </ul>
@@ -379,7 +382,7 @@ template&lt;typename ...<code class="sig-name descname">Args</code>&gt;<br />req
 </ul>
 </dd>
 <dt><strong>Exceptions</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">std::out_of_range</span></code>: if !(pos &lt; size()) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bencode::out_of_range</span></code>: if !(pos &lt; size()) </p></li>
 <li><p><code class="docutils literal notranslate"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bencode::bad_bvalue_access</span></span></a></code>: if the current active alternative is not list. </p></li>
 </ul>
 </dd>
@@ -398,7 +401,7 @@ template&lt;typename ...<code class="sig-name descname">Args</code>&gt;<br />req
 </ul>
 </dd>
 <dt><strong>Exceptions</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">std::out_of_range</span></code>: if !(pos &lt; size()) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bencode::out_of_range</span></code>: if !(pos &lt; size()) </p></li>
 <li><p><code class="docutils literal notranslate"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bencode::bad_bvalue_access</span></span></a></code>: if the current active alternative is not list. </p></li>
 </ul>
 </dd>
@@ -438,6 +441,18 @@ template&lt;typename ...<code class="sig-name descname">Args</code>&gt;<br />req
 <dt><strong>Exceptions</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">std::out_of_range</span></code>: if the container does not have an element with the specified key, </p></li>
 <li><p><code class="docutils literal notranslate"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bencode::bad_bvalue_access</span></span></a></code>: if the current active alternative is not dict. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4NK7bencode12basic_bvalue2atERK8bpointer">
+<span id="_CPPv3NK7bencode12basic_bvalue2atERK8bpointer"></span><span id="_CPPv2NK7bencode12basic_bvalue2atERK8bpointer"></span><span id="bencode::basic_bvalue::at__bpointerCRC"></span><span class="target" id="classbencode_1_1basic__bvalue_1a6032201dd4001c2f7c793d060b9a366e"></span>const_reference <code class="sig-name descname">at</code><span class="sig-paren">(</span><em class="property">const</em> bpointer &amp;<em>pointer</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7bencode12basic_bvalue2atERK8bpointer" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return a reference to the bvalue referenced by a bpointer. <dl class="simple">
+<dt><strong>Exceptions</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bpointer_error</span></code>: when the pointer does not resolve for this value </p></li>
 </ul>
 </dd>
 </dl>
@@ -550,6 +565,20 @@ template&lt;typename ...<code class="sig-name descname">Args</code>&gt;<br />req
 </dd>
 <dt><strong>Exceptions</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref"><span class="pre">bad_bvalue_access</span></span></a></code>: when current active alternative is not a list. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4IDpEN7bencode12basic_bvalue12emplace_backE9referenceDpRR4Args">
+<span id="_CPPv3IDpEN7bencode12basic_bvalue12emplace_backEDpRR4Args"></span><span id="_CPPv2IDpEN7bencode12basic_bvalue12emplace_backEDpRR4Args"></span>template&lt;typename ...<code class="sig-name descname">Args</code>&gt;<br /><span class="target" id="classbencode_1_1basic__bvalue_1acfc7c5ac5ab0ced93601aa939f4131bd"></span>reference <code class="sig-name descname">emplace_back</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN7bencode12basic_bvalue12emplace_backE9referenceDpRR4Args" title="bencode::basic_bvalue::emplace_back::Args">Args</a>&amp;&amp;... <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN7bencode12basic_bvalue12emplace_backE9referenceDpRR4Args" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Appends a new element to the end of a list. If the active alternative is uninintialized, first constructs an empty list in place. If the active alternative is not a list, an exception of type <a class="reference internal" href="#classbencode_1_1bad__bvalue__access"><span class="std std-ref">bencode::bad_bvalue_access</span></a> is thrown. The arguments args… are forwarded to the constructor of the list type. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Reference to the mapped bvalue of the new element if no element with key key existed. Otherwise a reference to the mapped bvalue of the existing element whose key is equivalent to key. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">args</span></code>: arguments to forward to the constructor of the element </p></li>
 </ul>
 </dd>
 </dl>
@@ -877,7 +906,7 @@ basic_bvalue instance. Otherwise, throws <a class="reference internal" href="#cl
 <dt><strong>Return</strong></dt><dd><p>the converted value </p>
 </dd>
 <dt><strong>Exceptions</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><a class="reference internal" href="bview.html#classbencode_1_1conversion__error"><span class="std std-ref"><span class="pre">conversion_error</span></span></a></code>: when the value could not be converted to the requested type. </p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="bview.html#classbencode_1_1bad__conversion"><span class="std std-ref"><span class="pre">bad_conversion</span></span></a></code>: when the value could not be converted to the requested type. </p></li>
 </ul>
 </dd>
 </dl>
@@ -1017,28 +1046,28 @@ basic_bvalue instance. Otherwise, throws <a class="reference internal" href="#cl
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4I0EN7bencode16is_uninitializedEbRK12basic_bvalueI6PolicyE">
-<span id="_CPPv3I0EN7bencode16is_uninitializedERK12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencode16is_uninitializedERK12basic_bvalueI6PolicyE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="bvalue_2accessors_8hpp_1a4b28eeb52090387d523fcffa08e43972"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_uninitialized</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode16is_uninitializedEbRK12basic_bvalueI6PolicyE" title="bencode::is_uninitialized::Policy">Policy</a>&gt; &amp;<em>value</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4I0EN7bencode16is_uninitializedEbRK12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4I0EN7bencode19holds_uninitializedEbRK12basic_bvalueI6PolicyE">
+<span id="_CPPv3I0EN7bencode19holds_uninitializedERK12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencode19holds_uninitializedERK12basic_bvalueI6PolicyE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="bvalue_2accessors_8hpp_1a0ae9064d5d8827f367193e84c7a25294"></span><em class="property">constexpr</em> bool <code class="sig-name descname">holds_uninitialized</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode19holds_uninitializedEbRK12basic_bvalueI6PolicyE" title="bencode::holds_uninitialized::Policy">Policy</a>&gt; &amp;<em>value</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4I0EN7bencode19holds_uninitializedEbRK12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4I0EN7bencode10is_integerEbRK12basic_bvalueI6PolicyE">
-<span id="_CPPv3I0EN7bencode10is_integerERK12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencode10is_integerERK12basic_bvalueI6PolicyE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="bvalue_2accessors_8hpp_1afc8ea279c3639f1d60292d7f8b41943f"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_integer</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode10is_integerEbRK12basic_bvalueI6PolicyE" title="bencode::is_integer::Policy">Policy</a>&gt; &amp;<em>value</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4I0EN7bencode10is_integerEbRK12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4I0EN7bencode13holds_integerEbRK12basic_bvalueI6PolicyE">
+<span id="_CPPv3I0EN7bencode13holds_integerERK12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencode13holds_integerERK12basic_bvalueI6PolicyE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="bvalue_2accessors_8hpp_1adb2f926e48f773cc4b996b7948754b91"></span><em class="property">constexpr</em> bool <code class="sig-name descname">holds_integer</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode13holds_integerEbRK12basic_bvalueI6PolicyE" title="bencode::holds_integer::Policy">Policy</a>&gt; &amp;<em>value</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4I0EN7bencode13holds_integerEbRK12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4I0EN7bencode9is_stringEbRK12basic_bvalueI6PolicyE">
-<span id="_CPPv3I0EN7bencode9is_stringERK12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencode9is_stringERK12basic_bvalueI6PolicyE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="bvalue_2accessors_8hpp_1a6d09979b3c2376df0642ff358fecac33"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_string</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode9is_stringEbRK12basic_bvalueI6PolicyE" title="bencode::is_string::Policy">Policy</a>&gt; &amp;<em>value</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4I0EN7bencode9is_stringEbRK12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4I0EN7bencode12holds_stringEbRK12basic_bvalueI6PolicyE">
+<span id="_CPPv3I0EN7bencode12holds_stringERK12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencode12holds_stringERK12basic_bvalueI6PolicyE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="bvalue_2accessors_8hpp_1afb7de5c8ce7df9f51dc237cce1e9ffbb"></span><em class="property">constexpr</em> bool <code class="sig-name descname">holds_string</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode12holds_stringEbRK12basic_bvalueI6PolicyE" title="bencode::holds_string::Policy">Policy</a>&gt; &amp;<em>value</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4I0EN7bencode12holds_stringEbRK12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4I0EN7bencode7is_listEbRK12basic_bvalueI6PolicyE">
-<span id="_CPPv3I0EN7bencode7is_listERK12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencode7is_listERK12basic_bvalueI6PolicyE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="bvalue_2accessors_8hpp_1aff62883ccf7cb1491599854aea193aec"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_list</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode7is_listEbRK12basic_bvalueI6PolicyE" title="bencode::is_list::Policy">Policy</a>&gt; &amp;<em>value</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4I0EN7bencode7is_listEbRK12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4I0EN7bencode10holds_listEbRK12basic_bvalueI6PolicyE">
+<span id="_CPPv3I0EN7bencode10holds_listERK12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencode10holds_listERK12basic_bvalueI6PolicyE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="bvalue_2accessors_8hpp_1af0953a729d69107b594c2218d11b0dde"></span><em class="property">constexpr</em> bool <code class="sig-name descname">holds_list</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode10holds_listEbRK12basic_bvalueI6PolicyE" title="bencode::holds_list::Policy">Policy</a>&gt; &amp;<em>value</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4I0EN7bencode10holds_listEbRK12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4I0EN7bencode7is_dictEbRK12basic_bvalueI6PolicyE">
-<span id="_CPPv3I0EN7bencode7is_dictERK12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencode7is_dictERK12basic_bvalueI6PolicyE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="bvalue_2accessors_8hpp_1af35a27de602a91a3d180f51248f8b899"></span><em class="property">constexpr</em> bool <code class="sig-name descname">is_dict</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode7is_dictEbRK12basic_bvalueI6PolicyE" title="bencode::is_dict::Policy">Policy</a>&gt; &amp;<em>value</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4I0EN7bencode7is_dictEbRK12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv4I0EN7bencode10holds_dictEbRK12basic_bvalueI6PolicyE">
+<span id="_CPPv3I0EN7bencode10holds_dictERK12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencode10holds_dictERK12basic_bvalueI6PolicyE"></span>template&lt;typename <code class="sig-name descname">Policy</code>&gt;<br /><span class="target" id="bvalue_2accessors_8hpp_1aeaf90220f38de0ccd73e1114ae7fddfa"></span><em class="property">constexpr</em> bool <code class="sig-name descname">holds_dict</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue">basic_bvalue</a>&lt;<a class="reference internal" href="#_CPPv4I0EN7bencode10holds_dictEbRK12basic_bvalueI6PolicyE" title="bencode::holds_dict::Policy">Policy</a>&gt; &amp;<em>value</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4I0EN7bencode10holds_dictEbRK12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -1262,7 +1291,7 @@ basic_bvalue instance. Otherwise, throws <a class="reference internal" href="#cl
         <a href="bview.html" class="btn btn-neutral float-right" title="View interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../usage/customization_points.html" class="btn btn-neutral float-left" title="User-defined type support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../usage/trait_headers.html" class="btn btn-neutral float-left" title="Trait headers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
