@@ -39,7 +39,7 @@ enum class descriptor_type : std::uint8_t
     stop = 0xF0          ///< placholder type for the end of a sequence of descriptors
 };
 
-/// class describing the value and metadata contained in bencoded tokens.
+/// class describing the value and metadata contained in bencode tokens.
 class descriptor
 {
 private:
@@ -95,7 +95,8 @@ public:
     }
 
 
-    /// Return the type of the bencode data.
+    /// Returns the type of the bencode data.
+    /// @returns the type of the bencode data
     [[nodiscard]]
     constexpr auto type() const noexcept -> bencode_type
     {
@@ -176,6 +177,7 @@ public:
 
     /// Sets the value of an integer token,
     /// Behavior is undefined if the data type is not an integer.
+    /// @param v the value to set
     constexpr void set_value(std::int64_t v) noexcept
     {
         Expects(is_integer());
@@ -193,6 +195,7 @@ public:
 
     /// Sets the size of a string, list or dict data type.
     /// Behavior is undefined if the data type is an integer.
+    /// @param v the size to set
     constexpr void set_size(std::uint32_t v) noexcept
     {
         Expects(is_string() || is_list() || is_dict());
@@ -211,17 +214,20 @@ public:
     /// Sets the offset to matching begin/end token for list/dict,
     /// or the offset to the string data for strings.
     /// Behavior is undefined if the data type is an integer.
+    /// @param v the offset to set
     constexpr void set_offset(std::uint32_t v) noexcept
     {
         Expects(is_string() || is_list() || is_dict());
         data_.structured.offset = v;
     }
 
-    /// Set this descriptors to be a placholder to denote the last descriptor
+    /// Set this descriptor to be the last one in a sequence of descriptors.
+    /// @param flag whether to enable or disable the stop flag
     constexpr void set_stop_flag(bool flag = true) noexcept
     { type_ |= descriptor_type::stop; }
 
     /// Compare equality
+    /// @param that the descriptor to compare with
     constexpr bool operator==(const descriptor& that) const noexcept
     {
         if (type_ != that.type_) return false;

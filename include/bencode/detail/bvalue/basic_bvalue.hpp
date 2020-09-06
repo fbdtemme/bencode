@@ -348,9 +348,9 @@ public:
 //===========================================================================//
 
 public:
-    /// @brief Returns whether the container hold a bvalue.
+    /// @brief Returns whether the bvalue hold a value.
     /// @return Return true if the container is NOT in the unitialized state,
-    ///         else false.
+    ///         false otherwise.
     explicit operator bool() const noexcept
     { return (!(storage_.valueless_by_exception() || is_uninitialized())); }
 
@@ -360,14 +360,14 @@ public:
 
 public:
     /// Returns a reference to the element at specified location pos, with bounds checking.
-    /// If pos is not within the range of the container, an exception of type std::out_of_range is
+    /// If pos is not within the range of the container, an exception of type out_of_range is
     /// thrown.
     /// If the current active alternative is not a list, and exception of type
     /// bencode::bad_bvalue_access is thrown.
     /// @param pos position of the element to return
     /// @returns Reference to the requested element.
-    /// @throw bencode::out_of_range if !(pos < size())
-    /// @throw bencode::bad_bvalue_access if the current active alternative is not list.
+    /// @throws out_of_range if !(pos < size())
+    /// @throws bad_bvalue_access if the current active alternative is not list.
     reference at(std::size_t pos)
     {
         if (!is_list())
@@ -396,10 +396,10 @@ public:
     /// Returns a reference to the mapped bvalue of the element with key equivalent to key.
     /// If the current active alternative is not a dict, and exception of type
     /// bencode::bad_bvalue_access is thrown.
-    /// If no such element exists, an exception of type std::out_of_range is thrown.
+    /// If no such element exists, an exception of type out_of_range is thrown.
     /// @param pos  	the key of the element to find
     /// @returns Reference to the mapped bvalue of the requested element
-    /// @throw std::out_of_range if the container does not have an element with the specified key,
+    /// @throw out_of_range if the container does not have an element with the specified key,
     /// @throw bencode::bad_bvalue_access if the current active alternative is not dict.
     reference at(const string_type& key)
     {

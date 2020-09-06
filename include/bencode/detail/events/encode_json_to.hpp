@@ -134,9 +134,10 @@ private:
     bool first_ = true;
     bool after_key_ = true;
 
+    // buffer for indentation
     std::array<char, 24> line_buffer_ {};
-    std::array<char, 20> int_buffer_ {};
     // buffer for integer to string conversion
+    std::array<char, 20> int_buffer_ {};
 };
 
 template <typename OutputIterator>

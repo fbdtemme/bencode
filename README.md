@@ -20,13 +20,14 @@ A header-only C++20 bencode serialization/deserialization library.
 
 ## Features
 
-*  Convenient owning representation of bencoded data with `bvalue`.
-*  Fast and memory efficient read-only, non-owning representation into stable buffers of bencoded data with `bview`.
-*  Build-in serialization/deserializaton for most standard containers.
-*  Support for serializing/deserializing to/from user-defined types. 
-*  Parse directly to custom types by satisfying the `EventConsumer` concept.
-*  Throwing and non throwing variants of common functions.
-*  Iterative parsing to protect against stack overflow attacks.
+*   Convenient owning representation of bencoded data with `bvalue`.
+*   Fast and memory efficient read-only, non-owning representation into stable buffers of bencoded data with `bview`.
+*   Build-in serialization/deserializaton for most standard containers.
+*   Support for serializing/deserializing to/from user-defined types. 
+*   Parse directly to custom types by satisfying the `EventConsumer` concept.
+*   Throwing and non throwing variants of common functions.
+*   Iterative parsing to protect against stack overflow attacks.
+*   bencode pointer similar to json pointer.   
 
 ## Status
 

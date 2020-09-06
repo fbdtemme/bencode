@@ -9,6 +9,8 @@ Introduction
 ------------
 
 :cpp:class:`bvalue` is class that represents a bencoded value.
+:cpp:class:`bvalue` can be used to create and edit bencode values.
+
 It is a sum-type implemented with a :cpp:class:`std::variant`.
 
 The possible alternative types stored in a :cpp:class:`bvalue` are the bencode data types:
@@ -30,13 +32,11 @@ The default policy uses following storage types for the possible alternatives:
 | dict     | :code:`std::map`     |
 +----------+----------------------+
 
-
-:cpp:class:`bvalue` can be used to create and edit bencode values.
-
 .. note::
 
     In most examples :cpp:class:`bvalue` can be replaced by
     :cpp:class:`basic_bvalue` with a user-defined Policy template argument.
+
 
 Construction
 ------------
@@ -60,22 +60,29 @@ underlying type.
     // Copy initialize a bvalue holding a string.
     bc::bvalue b3 = "string";
 
-The type can be passed explicitly using a type tag.
-This is necessary to distinguish between initializer-lists for string, list and dict bencode types.
+The type can be passed explicitly using one of the following type tags:
 
-The constructor taking an initializer_list without a type tag will construct a dict.
+*   bc::btype::integer
+*   bc::btype::string
+*   bc::btype::list
+*   bc::btype::dict
+
+This is necessary to distinguish between initializer-lists for string, list and dict bencode types.
+The constructor taking an initializer-list without a type tag will construct a dict.
 
 .. code-block:: cpp
+
+    // initialized-list without type-tag constructs a dict.
+    auto dict_from_init_list = bc::bvalue({{"foo", 1}});
 
     // construct a vector of 5 times 1
     bc::bvalue b4(bc::btype::list, {5, 1});
 
 
-Converting constructors allow any type that has the required customization points implemented
+The converting constructor allow any type that has the required customization points implemented
 to be passed to the bvalue constructor.
 
 .. code-block:: cpp
-
     #include <bencode/traits/list.hpp>
 
     auto l = std::list{1, 2, 4, 5};
@@ -102,8 +109,8 @@ functions are convenience functions that wrap the templated :code:`holds_alterna
 
     auto b = bencode::bvalue({{"a", 1}, {"b", 2}});
 
-    holds_integer(b)    // returns false
-    holds_dict(b)       // returns true
+    holds_integer(b);    // returns false
+    holds_dict(b);       // returns true
 
     // type tag based check
     bc::holds_alternative<bc::type::dict>(b); // returns true
@@ -119,11 +126,11 @@ Accessor functions are used to get access to the alternative types stored in a :
 Throwing accessor function will throw :cpp:class:`bad_bvalue_access` when the current
 activate alternative type does not match the access type.
 
-Non throwing accessor functions will return a pointer to the alternative type or a nullptr.
+Non throwing accessor functions will return a pointer to the alternative type or a :cpp:expr:`nullptr`.
 
-These accessors are all very similar to accessing `std::variant` values.
+The interface is similar to that of :cpp:class:`std::variant`.
 Except that there are aliases (eg. :code:`get_integer`, :code:`get_if_integer`) for all possible
-bencode types.
+alternative types.
 
 Accessor functions documentation can be found :ref:`here <bvalue_accessors>`:
 
@@ -167,14 +174,16 @@ Non throwing accessors.
 
     auto* l = get_if_list(b); // l is nullptr
 
+
 Conversion
 ----------
 
 Retrieving the value contained in a :cpp:class:`bvalue` as another type can be done using the
 converting accessor functions.
 
-:code:`get_as<T>(const bvalue&)` is a throwing converter which will throw :cpp:class:`bad_conversion`
-when the current active alternative can not be converted to the requested type.
+:code:`get_as<T>(const bvalue&)` is a throwing converter which will throw
+:cpp:class:`bad_conversion` when the current active alternative can not be converted to the
+requested type.
 
 :code:`try_get_as<T>(const bvalue&)` is a non throwing converter an will return the result as a
 :code:`nonstd::expected` type.

@@ -3,13 +3,13 @@ Value interface
 
 .. contents::
 
-bvalue
+Bvalue
 ------
 
 .. doxygentypedef:: bencode::bvalue
 
 .. doxygenclass:: bencode::basic_bvalue
-   :members:
+    :members:
 
 Policy
 ------
@@ -32,3 +32,4 @@ Exceptions
 ----------
 
 .. doxygenfile:: detail/bvalue/bad_bvalue_access.hpp
+    :members:

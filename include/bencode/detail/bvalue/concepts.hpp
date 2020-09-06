@@ -13,7 +13,7 @@
 namespace bencode {
 
 /// The concept basic_bvalue_instantiation<T> is satisified if T is a template instantiation of
-/// basic_bvalue template.
+/// the basic_bvalue template class.
 /// Ignores cv-qualifiers and reference types.
 template <typename T>
 concept basic_bvalue_instantiation =
@@ -21,7 +21,7 @@ concept basic_bvalue_instantiation =
 
 
 /// The concept bvalue_alternative_for<T, BV> specifies that T is one of the types
-/// that can be stored in the @ref basic_value variant type BV.
+/// that can be stored in the basic_bvalue variant type BV.
 /// Ignores cv-qualifiers and reference types.
 template <typename T, typename BV>
 concept bvalue_alternative_type =
@@ -50,8 +50,8 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_to(U&& bvalue
 }
 
 
-/// Check if a type can be assigned to a basic_bvalue<Policy> type using built conversions or
-/// the user defined extension point function `bencode_assign_to_value`
+/// Check if a type can be assigned to a basic_bvalue<Policy> type using built-in conversions or
+/// by using the user-defined extension point function `bencode_assign_to_value` for given T.
 template <typename T, typename Policy>
 concept assignable_to_bvalue_for =
     serializable<T> &&
@@ -61,8 +61,8 @@ concept assignable_to_bvalue_for =
     };
 
 
-/// Check if a basic_bvalue<Policy> can be converted to type T using built conversions or
-/// the user defined extension point function.
+/// Check if a basic_bvalue<Policy> can be converted to type T using built-in conversions or
+/// the user defined extension point function 'bencode_convert_from_bvalue.
 template <typename T, typename Policy>
 concept retrievable_from_bvalue_for =
     serializable<T> &&

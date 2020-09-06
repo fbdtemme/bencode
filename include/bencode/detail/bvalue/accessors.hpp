@@ -18,8 +18,7 @@
 #include "bencode/detail/bvalue/basic_bvalue.hpp"
 #include "bencode/detail/bvalue/conversion.hpp"
 
-/// @file accessors.hpp
-/// This header defines accessors functions to basic_bvalue instances.
+/// @file
 
 
 namespace bencode {
@@ -81,7 +80,10 @@ constexpr auto* get_storage(basic_bvalue<Policy>* value) noexcept
 /// Otherwise, throws bad_bvalue_access.
 /// @param v reference to a basic_value<Policy> instance
 /// @throws bad_bvalue_access when current active alternative is not of category E.
-template <enum bencode_type E, basic_bvalue_instantiation BV>
+template <enum bencode_type E, typename BV>
+/// \cond CONCEPTS
+    requires basic_bvalue_instantiation<BV>
+/// \endcond
 constexpr decltype(auto) get(BV&& v)
 {
     using T = bvalue_alternative_t<E, std::remove_cvref_t<BV>>;
@@ -98,7 +100,11 @@ constexpr decltype(auto) get(BV&& v)
 /// @param v reference to a basic_value<Policy> instance
 /// @returns a reference to the value stored in the basic_bvalue instance.
 /// @throws bad_bvalue_access when the current active alternative type is not of type T.
-template <basic_bvalue_instantiation BV, bvalue_alternative_type<BV> T>
+template <typename BV, typename T>
+/// \cond CONCEPTS
+    requires basic_bvalue_instantiation<BV> &&
+             bvalue_alternative_type<T, BV>
+/// \endcond
 constexpr decltype(auto) get(BV&& v)
 {
     static_assert(!std::is_const_v<T>, "T cannot have cv-qualifiers");

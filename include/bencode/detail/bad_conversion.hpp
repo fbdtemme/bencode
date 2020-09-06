@@ -93,9 +93,11 @@ public:
         : errc_(ec)
     {};
 
+    /// Returns the explanatory string.
     const char * what() const noexcept override
     { return to_string(errc_).data(); }
 
+    /// Return the error code enumeration matching this exception.
     conversion_errc errc() const noexcept
     { return errc_; }
 
