@@ -198,7 +198,8 @@
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> is class that represents a bencoded value.
-It is a sum-type implemented with a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::variant</span></code>.</p>
+<a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> can be used to create and edit bencode values.</p>
+<p>It is a sum-type implemented with a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::variant</span></code>.</p>
 <p>The possible alternative types stored in a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> are the bencode data types:
 integer, string, list, dict, and a special uninitialized type.</p>
 <p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> is an instantiation of the class template
@@ -225,7 +226,6 @@ the different bencode data types can be customized through the Policy template a
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> can be used to create and edit bencode values.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In most examples <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> can be replaced by
@@ -248,21 +248,24 @@ underlying type.</p>
 <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b3</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>The type can be passed explicitly using a type tag.
-This is necessary to distinguish between initializer-lists for string, list and dict bencode types.</p>
-<p>The constructor taking an initializer_list without a type tag will construct a dict.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// construct a vector of 5 times 1</span>
+<p>The type can be passed explicitly using one of the following type tags:</p>
+<ul class="simple">
+<li><p>bc::btype::integer</p></li>
+<li><p>bc::btype::string</p></li>
+<li><p>bc::btype::list</p></li>
+<li><p>bc::btype::dict</p></li>
+</ul>
+<p>This is necessary to distinguish between initializer-lists for string, list and dict bencode types.
+The constructor taking an initializer-list without a type tag will construct a dict.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// initialized-list without type-tag constructs a dict.</span>
+<span class="k">auto</span> <span class="n">dict_from_init_list</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span><span class="p">({{</span><span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">}});</span>
+
+<span class="c1">// construct a vector of 5 times 1</span>
 <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b4</span><span class="p">(</span><span class="n">bc</span><span class="o">::</span><span class="n">btype</span><span class="o">::</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">});</span>
 </pre></div>
 </div>
-<p>Converting constructors allow any type that has the required customization points implemented
+<p>The converting constructor allow any type that has the required customization points implemented
 to be passed to the bvalue constructor.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;bencode/traits/list.hpp&gt;</span><span class="cp"></span>
-
-<span class="k">auto</span> <span class="n">l</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
-<span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bencode</span><span class="o">::</span><span class="n">bvalue</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="type-checking">
 <h2>Type checking<a class="headerlink" href="#type-checking" title="Permalink to this headline">¶</a></h2>
@@ -280,8 +283,8 @@ can be done using the following functions:</p>
 functions are convenience functions that wrap the templated <code class="code docutils literal notranslate"><span class="pre">holds_alternative</span></code> function.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bencode</span><span class="o">::</span><span class="n">bvalue</span><span class="p">({{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">}});</span>
 
-<span class="n">holds_integer</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>    <span class="c1">// returns false</span>
-<span class="n">holds_dict</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>       <span class="c1">// returns true</span>
+<span class="n">holds_integer</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>    <span class="c1">// returns false</span>
+<span class="n">holds_dict</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>       <span class="c1">// returns true</span>
 
 <span class="c1">// type tag based check</span>
 <span class="n">bc</span><span class="o">::</span><span class="n">holds_alternative</span><span class="o">&lt;</span><span class="n">bc</span><span class="o">::</span><span class="n">type</span><span class="o">::</span><span class="n">dict</span><span class="o">&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">);</span> <span class="c1">// returns true</span>
@@ -295,12 +298,12 @@ functions are convenience functions that wrap the templated <code class="code do
 <div class="section" id="accessors">
 <h2>Accessors<a class="headerlink" href="#accessors" title="Permalink to this headline">¶</a></h2>
 <p>Accessor functions are used to get access to the alternative types stored in a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>.
-Throwing accessor function will throw <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode17bad_bvalue_accessE" title="bencode::bad_bvalue_access"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_bvalue_access</span></code></a> when the current
+Throwing accessor function will throw <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_bvalue_access</span></code> when the current
 activate alternative type does not match the access type.</p>
-<p>Non throwing accessor functions will return a pointer to the alternative type or a nullptr.</p>
-<p>These accessors are all very similar to accessing <cite>std::variant</cite> values.
+<p>Non throwing accessor functions will return a pointer to the alternative type or a <code class="xref cpp cpp-expr docutils literal notranslate"><span class="pre">nullptr</span></code>.</p>
+<p>The interface is similar to that of <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::variant</span></code>.
 Except that there are aliases (eg. <code class="code docutils literal notranslate"><span class="pre">get_integer</span></code>, <code class="code docutils literal notranslate"><span class="pre">get_if_integer</span></code>) for all possible
-bencode types.</p>
+alternative types.</p>
 <p>Accessor functions documentation can be found <a class="reference internal" href="../reference/bvalue.html#bvalue-accessors"><span class="std std-ref">here</span></a>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>
 
@@ -343,8 +346,9 @@ bencode types.</p>
 <h2>Conversion<a class="headerlink" href="#conversion" title="Permalink to this headline">¶</a></h2>
 <p>Retrieving the value contained in a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> as another type can be done using the
 converting accessor functions.</p>
-<p><code class="code docutils literal notranslate"><span class="pre">get_as&lt;T&gt;(const</span> <span class="pre">bvalue&amp;)</span></code> is a throwing converter which will throw <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode14bad_conversionE" title="bencode::bad_conversion"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_conversion</span></code></a>
-when the current active alternative can not be converted to the requested type.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">get_as&lt;T&gt;(const</span> <span class="pre">bvalue&amp;)</span></code> is a throwing converter which will throw
+<a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode14bad_conversionE" title="bencode::bad_conversion"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_conversion</span></code></a> when the current active alternative can not be converted to the
+requested type.</p>
 <p><code class="code docutils literal notranslate"><span class="pre">try_get_as&lt;T&gt;(const</span> <span class="pre">bvalue&amp;)</span></code> is a non throwing converter an will return the result as a
 <code class="code docutils literal notranslate"><span class="pre">nonstd::expected</span></code> type.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">bencode</span><span class="o">::</span><span class="n">bvalue</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;string&quot;</span><span class="p">;</span>

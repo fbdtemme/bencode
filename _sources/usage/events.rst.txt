@@ -11,7 +11,7 @@ It consists of two concepts :cpp:concept:`event_consumer` and :cpp:concept:`even
 Event consumers
 ---------------
 
-The :cpp:concept `event_consumer` concepts is modeled after the SAX-interface for XML.
+The :cpp:concept:`event_consumer` concepts is modeled after the SAX-interface for XML.
 The most simple consumer which ignores all events would look as follows:
 
 .. code-block:: cpp

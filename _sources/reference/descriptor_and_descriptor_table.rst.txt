@@ -3,7 +3,7 @@ Descriptors
 
 .. doxygenenum:: bencode::descriptor_type
 
-.. doxygenstruct:: bencode::descriptor
+.. doxygenclass:: bencode::descriptor
     :members:
 
 .. doxygenclass:: bencode::descriptor_table

@@ -38,7 +38,7 @@ It has an implicit conversion operator to :cpp:class:`std::string_view`.
 
 :cpp:class:`list_bview` provides and interface similar to
 :cpp:class:`std::vector<bc::bview>`. Its iterators are only
-:cpp:concept:`bidirectional_iterators` instead of :cpp:concept:`contiguous_iterator`.
+:cpp:concept:`bidirectional_iterator` instead of :cpp:concept:`contiguous_iterator`.
 Access to the elements is linear in the size of the :cpp:class:`list_bview`.
 
 
@@ -73,17 +73,17 @@ Type checking
 
 Checking the alternative type of a :cpp:class:`bview` can be done using the following functions:
 
-* :cpp:func:`bool is_integer(const bview&)`
-* :cpp:func:`bool is_string(const bview&)`
-* :cpp:func:`bool is_list(const bview&)`
-* :cpp:func:`bool is_dict(const bview&)`
+* :cpp:func:`bool holds_integer(const bview&)`
+* :cpp:func:`bool holds_string(const bview&)`
+* :cpp:func:`bool holds_list(const bview&)`
+* :cpp:func:`bool holds_dict(const bview&)`
 * :cpp:func:`template \<enum bencode_type E> bool holds_alternative(const bview&)`
 * :cpp:expr:`template \<bview_alternative_type T> bool holds_alternative(const bview&)`
 
 .. code-block:: cpp
 
-    is_integer(root_element)    // returns false
-    is_dict(root_element)       // returns true
+    holds_integer(root_element)    // returns false
+    holds_dict(root_element)       // returns true
 
     // type tag based check
     bc::holds_alternative<bc::type::dict>(root_element); // returns true
@@ -98,7 +98,7 @@ Accessors
 Retrieving the alternative type from the :cpp:class:`bview` instance is done using accessor functions.
 
 Throwing accessor function will throw :cpp:class:`bad_bview_access` when trying to
-convert a :cpp:class:`bview` to a :cpp:class:`bview` subclass that does not match the bencode data type.
+convert a :cpp:class:`bview` to an alternative type that does not match the bencode data type.
 
 * :cpp:func:`const integer_bview& get_integer(const bview&)`
 * :cpp:func:`const string_bview& get_string(const bview&)`
@@ -108,7 +108,7 @@ convert a :cpp:class:`bview` to a :cpp:class:`bview` subclass that does not matc
 * :cpp:expr:`template \<bview_alternative_type T> const T& get(const bview&)`
 
 Non throwing accessor function will return a :cpp:expr:`nullptr` when trying to convert
-a bview to a bview subclass that does not match the bencode data type.
+a bview to a bview alternative type that does not match the bencode data type.
 
 * :cpp:func:`bool get_if_integer(const bview*)`
 * :cpp:func:`bool get_if_string(const bview*)`
@@ -138,15 +138,15 @@ The throwing converter will throw :cpp:class:`bad_conversion` when an error occu
 
 * :cpp:func:`template \<typename T> T get_as(const bview&)`
 
-The non throwing converter will return an expected type with the converted value
-or a :cpp:enum:`conversion_errc`.
+The non throwing converter will return a instance of :cpp:class:`nonstd::expected`
+with the converted value or a :cpp:enum:`conversion_errc`.
 
 * :cpp:func:`template \<typename T> nonstd::expected\<T, conversion_errc> try_get_as(const bview&)`
 
 :cpp:class:`bview` values can be converted to any type that satisfies :cpp:concept:`retrievable_from_bview`.
 Conversion to standard library types can be enabled by including the corresponding trait header.
 Conversion to user-defined types can be enabled by implementing
-the necessary :ref:`customization point <customization-convert-from-bview>`.
+the necessary :ref:`customization points <customization-convert-from-bview>`.
 
 
 .. code-block::
@@ -160,7 +160,7 @@ the necessary :ref:`customization point <customization-convert-from-bview>`.
   // copy a view to a std::map
     auto d2 = try_get_as<std::map<std::string, int>>(root_element);
     if (!d2) {
-        //  return conversion_errc::dict_mapped_type_construction_error
+        //  returns conversion_errc::dict_mapped_type_construction_error
         //  and assign it to a generic std::error_code
         std::error_code ec = d2.error()
     }
