@@ -60,8 +60,8 @@ concept event_connecting_is_adl_overloaded =
 
 
 // forward declaration
-template <event_consumer EC, typename U, typename T = std::remove_cvref_t<U>>
-    requires serializable<T>
+template <typename EC, typename U, typename T = std::remove_cvref_t<U>>
+    requires serializable<T> && event_consumer<EC>
 constexpr void connect(EC& consumer, U&& producer);
 
 
