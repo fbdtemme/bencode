@@ -44,7 +44,7 @@ if (BENCODE_BUILD_TESTS_COVERAGE)
     set(CMAKE_C_FLAGS --coverage)
 endif()
 
-target_compile_options(bencode-tests PRIVATE -fconcepts-diagnostics-depth=4 -Wfatal-errors)
+target_compile_options(bencode-tests PRIVATE -fconcepts-diagnostics-depth=4)
 
 target_compile_definitions(bencode-tests PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources\")
 
