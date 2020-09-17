@@ -5,6 +5,9 @@
 #include <ostream>
 #include <concepts>
 
+#include <bencode/detail/events/concepts.hpp>
+
+
 #include "fmt/format.h"
 
 namespace bencode::events {

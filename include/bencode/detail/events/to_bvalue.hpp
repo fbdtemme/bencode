@@ -2,6 +2,8 @@
 
 #include "bencode/detail/bvalue/bvalue_policy.hpp"
 #include "bencode/detail/bvalue/basic_bvalue.hpp"
+#include "bencode/detail/events/concepts.hpp"
+
 
 namespace bencode::events {
 

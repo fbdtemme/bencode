@@ -6,6 +6,7 @@
 #include <sstream>
 #include <ranges>
 
+#include <bencode/detail/events/concepts.hpp>
 #include <bencode/detail/bencode_type.hpp>
 #include <bencode/detail/utils.hpp>
 #include <bencode/detail/parser/parsing_error.hpp>
