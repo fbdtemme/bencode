@@ -43,6 +43,9 @@ inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
 template <basic_bvalue_instantiation BV>
 decltype(auto) evaluate(const bpointer& pointer, BV&& bv);
 
+template <basic_bvalue_instantiation BV>
+bool contains(const bpointer& pointer, const BV& bv);
+
 } // namespace detail
 
 /// A class template storing a bencoded bvalue.
@@ -594,6 +597,14 @@ public:
             throw bad_bvalue_access("bvalue alternative type is not dict");
         auto& bdict = *std::get_if<dict_type>(&storage_);
         return bdict.find(key) != end(bdict);
+    }
+
+
+    /// Return a reference to the bvalue referenced by a bpointer.
+    /// @throws bpointer_error when the pointer does not resolve for this value
+    bool contains(const bpointer& pointer) const
+    {
+        return detail::contains(pointer, *this);
     }
 
     /// Remove all elements from the current alternative.

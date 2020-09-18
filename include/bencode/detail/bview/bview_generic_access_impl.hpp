@@ -10,6 +10,7 @@ namespace bencode
 // forward declaration
 namespace detail {
 bview evaluate(const bpointer& pointer, const bview& bv);
+bool contains(const bpointer& pointer, const bview& bv);
 }
 
 
@@ -60,6 +61,11 @@ constexpr bool bview::contains(std::string_view key) const
         throw bad_bview_access("bview alternative type is not dict");
     const auto* bdict = static_cast<const dict_bview*>(this);
     return bdict->find(key) != bdict->end();
+}
+
+inline bool bview::contains(const bpointer& pointer) const
+{
+    return detail::contains(pointer, *this);
 }
 
 

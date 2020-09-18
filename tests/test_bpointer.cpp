@@ -298,5 +298,76 @@ TEST_CASE("test bpointer")
             bview b_primitive {};
             CHECK_THROWS_AS(b_primitive.at("/foo"_bpointer), out_of_range);
         }
+
+        SECTION("contains - bview")
+        {
+            const auto& b = b_view;
+
+            // the whole document
+            CHECK(b.contains(bpointer()));
+            CHECK(b.contains(bpointer("")));
+
+            // checked array access
+            CHECK(b.contains(bpointer("/foo")));
+            CHECK(b.contains(bpointer("/foo/0")));
+            CHECK(b.contains(bpointer("/foo/1")));
+
+            // empty string access
+            CHECK(b.contains(bpointer("/")));
+
+            // other cases
+            CHECK(b.contains(bpointer("/ ")));
+            CHECK(b.contains(bpointer("/c%d")));
+            CHECK(b.contains(bpointer("/e^f")));
+            CHECK(b.contains(bpointer("/g|h")));
+            CHECK(b.contains(bpointer("/i\\j")));
+            CHECK(b.contains(bpointer("/k\"l")));
+
+            // escaped access
+            auto p1 = bpointer("/a~1b");
+            CHECK(b.contains(p1));
+            auto p2 = bpointer("/m~0n");
+            CHECK(b.contains(p2));
+
+            // unresolved access
+            bview b_primitive {};
+            CHECK_FALSE(b_primitive.contains("/foo"_bpointer));
+        }
+
+
+        SECTION("contains - bvalue")
+        {
+            const auto& b = b_value;
+
+            // the whole document
+            CHECK(b.contains(bpointer()));
+            CHECK(b.contains(bpointer("")));
+
+            // checked array access
+            CHECK(b.contains(bpointer("/foo")));
+            CHECK(b.contains(bpointer("/foo/0")));
+            CHECK(b.contains(bpointer("/foo/1")));
+
+            // empty string access
+            CHECK(b.contains(bpointer("/")));
+
+            // other cases
+            CHECK(b.contains(bpointer("/ ")));
+            CHECK(b.contains(bpointer("/c%d")));
+            CHECK(b.contains(bpointer("/e^f")));
+            CHECK(b.contains(bpointer("/g|h")));
+            CHECK(b.contains(bpointer("/i\\j")));
+            CHECK(b.contains(bpointer("/k\"l")));
+
+            // escaped access
+            auto p1 = bpointer("/a~1b");
+            CHECK(b.contains(p1));
+            auto p2 = bpointer("/m~0n");
+            CHECK(b.contains(p2));
+
+            // unresolved access
+            bview b_primitive {};
+            CHECK_FALSE(b_primitive.contains("/foo"_bpointer));
+        }
     }
 }

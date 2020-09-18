@@ -3,6 +3,7 @@
 #include <compare>
 #include <cassert>
 
+#include "bencode/bencode_fwd.hpp"
 #include "bencode/detail/bview/concepts.hpp"
 #include "bencode/detail/descriptor.hpp"
 #include "bencode/detail/bview/bad_bview_access.hpp"
@@ -41,6 +42,12 @@ constexpr std::weak_ordering compare_three_way_bview_impl(const bview& lhs, cons
 /// bview subclasses describe bencoded data with a known type and can thus provide a richer interface.
 class bview {
 public:
+    // storage type aliasesPolicy
+    using integer_type       = integer_bview;
+    using string_type        = string_bview;
+    using list_type          = list_bview;
+    using dict_type          = dict_bview;
+
     /// Default constructor. Constructs an empty bview.
     /// After construction, data() is equal to nullptr, and size() is equal to 0.
     constexpr bview() noexcept
@@ -185,6 +192,7 @@ public:
     /// @returns true if there is such an element, otherwise false.
     constexpr bool contains(std::string_view key) const;
 
+    bool contains(const bpointer& pointer) const;
 
 protected:
     constexpr bool is_integer() const noexcept

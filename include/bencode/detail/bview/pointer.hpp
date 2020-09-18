@@ -40,4 +40,38 @@ inline bview evaluate(const bpointer& pointer, const bview& bv)
     return v;
 }
 
+inline bool contains(const bpointer& pointer, const bview& bv)
+{
+    auto v = bv;
+
+    for (const auto& token : pointer) {
+        switch (v.type()) {
+        case bencode_type::dict: {
+            if (!get_dict(v).contains(token))
+                return false;
+            v = get_dict(v).at(token);
+            break;
+        }
+        case bencode_type::list: {
+            if (token=="-") [[unlikely]]
+                return false;
+
+            auto res = detail::parse_integer<std::uint64_t>(token.begin(), token.end());
+            if (!res) [[unlikely]] {
+                return false;
+            }
+
+            if (res.value() >= get_list(v).size())
+                return false;
+
+            v = get_list(v).at(res.value());
+            break;
+        }
+        default:
+            return false;
+        }
+    }
+    return true;
+}
+
 }
