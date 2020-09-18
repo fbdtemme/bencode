@@ -638,6 +638,18 @@ template&lt;typename ...<code class="sig-name descname">Args</code>&gt;<br />req
 </dd></dl>
 
 <dl class="cpp function">
+<dt id="_CPPv4NK7bencode12basic_bvalue8containsERK8bpointer">
+<span id="_CPPv3NK7bencode12basic_bvalue8containsERK8bpointer"></span><span id="_CPPv2NK7bencode12basic_bvalue8containsERK8bpointer"></span><span id="bencode::basic_bvalue::contains__bpointerCRC"></span><span class="target" id="classbencode_1_1basic__bvalue_1a13fa5dcad92751d87776b5d79451a021"></span>bool <code class="sig-name descname">contains</code><span class="sig-paren">(</span><em class="property">const</em> bpointer &amp;<em>pointer</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK7bencode12basic_bvalue8containsERK8bpointer" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return a reference to the bvalue referenced by a bpointer. <dl class="simple">
+<dt><strong>Exceptions</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bpointer_error</span></code>: when the pointer does not resolve for this value </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt id="_CPPv4N7bencode12basic_bvalue5clearEv">
 <span id="_CPPv3N7bencode12basic_bvalue5clearEv"></span><span id="_CPPv2N7bencode12basic_bvalue5clearEv"></span><span id="bencode::basic_bvalue::clear"></span><span class="target" id="classbencode_1_1basic__bvalue_1ad5bddb5612413fa98ce0b2eeba6e781e"></span>void <code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv4N7bencode12basic_bvalue5clearEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Remove all elements from the current alternative. If the current alternative is a dict, list, string, calls clear on the underlying container. If the current alternative is an integer, set the bvalue to zero. If the current alternative is uninitialized, do nothing. </p>
