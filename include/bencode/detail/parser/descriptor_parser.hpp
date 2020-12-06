@@ -27,7 +27,9 @@ namespace detail {
 struct descriptor_parser_stack_frame
 {
     detail::parser_state state;
+    // start position in the input stream of the structured data
     std::uint32_t position;
+    // number of elements
     std::uint32_t size;
 };
 

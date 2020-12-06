@@ -192,7 +192,7 @@ constexpr auto get_as(BV&& value) -> T
     auto v = try_get_as<T>(std::forward<BV>(value));
     if (!v)
         throw bad_conversion(v.error());
-    return detail::forward_like<BV>(*v);
+    return std::move(*v);
 }
 
 

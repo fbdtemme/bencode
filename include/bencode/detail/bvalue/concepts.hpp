@@ -38,12 +38,13 @@ concept bvalue_alternative_type =
 namespace detail {
 
 // forward declaration.
-template<typename U, typename Policy, typename T = std::remove_cvref_t<U>>
-inline auto assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value) -> basic_bvalue<Policy>&;
+template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
+    requires serializable<T>
+inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
 
 
 // forward declaration.
-template <typename T, basic_bvalue_instantiation U>
+template <serializable T, basic_bvalue_instantiation U>
 constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_to(U&& bvalue) noexcept;
 
 
@@ -56,8 +57,7 @@ template <typename T, typename Policy>
 concept assignable_to_bvalue_for =
     serializable<T> &&
     requires(basic_bvalue<Policy> b, T x) {
-        { detail::assign_to_bvalue(b, x) }
-            -> std::same_as<std::add_lvalue_reference_t<basic_bvalue<Policy> > >;
+        detail::assign_to_bvalue(b, x);
     };
 
 

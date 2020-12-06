@@ -17,7 +17,7 @@ namespace rng = std::ranges;
 
 template <typename T, basic_bvalue_instantiation U>
 constexpr nonstd::expected<T, conversion_errc>
-convert_from_bvalue_default_integer_impl(customization_point_type<T>, U&& v) noexcept
+convert_from_bvalue_integer_impl(customization_point_type<T>, U&& v, priority_tag<0>) noexcept
 {
     if (!holds_integer(v)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_integer_type);
@@ -29,10 +29,10 @@ convert_from_bvalue_default_integer_impl(customization_point_type<T>, U&& v) noe
 
 template <typename Policy>
     requires has_c_str_member<policy_string_t<Policy> >
-constexpr nonstd::expected<const char*, conversion_errc>
-convert_from_bvalue_default_string_impl(customization_point_type<const char*>,
-                                        const basic_bvalue<Policy>& b,
-                                        priority_tag<3>) noexcept
+inline nonstd::expected<const char*, conversion_errc>
+convert_from_bvalue_string_impl(customization_point_type<const char*>,
+                                const basic_bvalue<Policy>& b,
+                                priority_tag<0>) noexcept
 {
     if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
@@ -49,9 +49,9 @@ template <typename T, typename Policy>
         std::constructible_from<
                 policy_string_t<Policy>, rng::iterator_t<T>, rng::sentinel_t<T>>
 constexpr nonstd::expected<T, conversion_errc>
-convert_from_bvalue_default_string_impl(customization_point_type<T>,
-                                        const basic_bvalue<Policy>& b,
-                                        priority_tag<2>) noexcept
+convert_from_bvalue_string_impl(customization_point_type<T>,
+                                const basic_bvalue<Policy>& b,
+                                priority_tag<1>) noexcept
 {
     if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
@@ -67,9 +67,9 @@ template <typename T, typename Policy>
     requires std::constructible_from<T, std::string_view> &&
              std::convertible_to<policy_string_t<Policy>, std::string_view>
 constexpr nonstd::expected<T, conversion_errc>
-convert_from_bvalue_default_string_impl(customization_point_type<T>,
-                                        const basic_bvalue<Policy>& b,
-                                        priority_tag<1>) noexcept
+convert_from_bvalue_string_impl(customization_point_type<T>,
+                                const basic_bvalue<Policy>& b,
+                                priority_tag<0>) noexcept
 
 {
     if (!holds_string(b)) [[unlikely]]
@@ -85,10 +85,10 @@ template <typename T, typename Policy>
     requires std::same_as<rng::range_value_t<T>, std::byte> &&
              std::constructible_from<T, const std::byte*, const std::byte*> &&
              rng::contiguous_range<policy_string_t<Policy>>
-constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_default_string_impl(
+constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_string_impl(
         customization_point_type<T>,
         const basic_bvalue<Policy>& b,
-        priority_tag<2>) noexcept
+        priority_tag<0>) noexcept
 {
     if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
@@ -108,7 +108,7 @@ template <typename T, typename U, typename Policy = typename std::remove_cvref_t
              rng::range<T> &&
              retrievable_from_bvalue_for<rng::range_value_t<T>, Policy> &&
              (supports_back_inserter<T> || supports_front_inserter<T> || supports_inserter<T>)
-constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_default_list_impl(
+constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_list_impl(
         customization_point_type<T>,
         U&& bv,
         priority_tag<1>) noexcept
@@ -149,7 +149,7 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_default_list_
 template <typename T, basic_bvalue_instantiation BV, typename U = std::remove_cvref_t<BV>>
     requires has_tuple_like_structured_binding<T> &&
              convertible_from_bvalue_to_tuple_elements<T, typename U::policy_type>
-constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_default_list_impl(
+constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_list_impl(
             customization_point_type<T>,
             BV&& b,
             priority_tag<0>) noexcept
@@ -188,7 +188,7 @@ template <typename T, basic_bvalue_instantiation BV, typename Policy = typename 
              retrievable_from_bvalue_for<typename T::mapped_type, Policy> &&
              std::constructible_from<typename T::key_type, policy_string_t<Policy>>
 inline constexpr nonstd::expected<T, conversion_errc>
-convert_from_bvalue_default_dict_impl(
+convert_from_bvalue_dict_impl(
             customization_point_type<T>,
             BV&& b,
             priority_tag<0>) noexcept
@@ -222,7 +222,7 @@ requires key_value_associative_container<T> &&
         ( is_instantiation_of_v<std::multimap, T> ||
           is_instantiation_of_v<std::unordered_multimap, T>)
 inline constexpr nonstd::expected<T, conversion_errc>
-convert_from_bvalue_default_dict_impl(
+convert_from_bvalue_dict_impl(
         customization_point_type<T>,
         BV&& b,
         priority_tag<0>) noexcept
@@ -257,9 +257,62 @@ convert_from_bvalue_default_dict_impl(
     return out;
 }
 
+template <typename T, basic_bvalue_instantiation U>
+inline nonstd::expected<T, conversion_errc>
+convert_from_bvalue_to_pointer_impl(customization_point_type<T>, U&& bvalue) noexcept
+{
+    using E = typename std::pointer_traits<T>::element_type;
+
+    // default construct pointer type
+    auto result = convert_from_bvalue_to<E>(std::forward<U>(bvalue));
+    if (!result.has_value()) {
+        return nonstd::make_unexpected(result.error());
+    }
+
+    using E = typename std::pointer_traits<T>::element_type;
+
+    if constexpr (std::same_as<T, std::unique_ptr<E>>) {
+        return std::make_unique<E>(std::move(*result));
+    }
+    else if constexpr (std::same_as<T, std::shared_ptr<E>>) {
+        return std::make_shared<E>(std::move(*result));
+    }
+    else {
+       return T(new E(std::move(*result)));
+    }
+}
 
 
 template <typename T, basic_bvalue_instantiation U>
+constexpr nonstd::expected<T, conversion_errc>
+convert_from_bvalue_to_impl_dispatcher(U&& bvalue) noexcept
+{
+    if constexpr (bencode::serialization_traits<T>::type == bencode_type::integer) {
+        return convert_from_bvalue_integer_impl(
+                customization_for<T>, std::forward<U>(bvalue), priority_tag<0>{});
+    }
+    else if constexpr (bencode::serialization_traits<T>::type == bencode_type::string) {
+        return convert_from_bvalue_string_impl(
+                customization_for<T>, std::forward<U>(bvalue), priority_tag<4>{});
+    }
+    else if constexpr (bencode::serialization_traits<T>::type == bencode_type::list) {
+        return convert_from_bvalue_list_impl(
+                customization_for<T>, std::forward<U>(bvalue), priority_tag<1>{});
+    }
+    else if constexpr (bencode::serialization_traits<T>::type == bencode_type::dict) {
+        return convert_from_bvalue_dict_impl(
+                customization_for<T>, std::forward<U>(bvalue), priority_tag<0>{});
+    }
+    else {
+        static_assert(detail::always_false<T>::value,
+                "no serializer for T found, check if the correct trait class is included!");
+    }
+}
+
+
+
+
+template <serializable T, basic_bvalue_instantiation U>
 constexpr nonstd::expected<T, conversion_errc>
 convert_from_bvalue_to(U&& bvalue) noexcept
 {
@@ -267,31 +320,16 @@ convert_from_bvalue_to(U&& bvalue) noexcept
 
     // Check if there is a user-provided specialization found by ADL.
     if constexpr (conversion_from_bvalue_is_adl_overloaded<T, Policy>) {
-        return bencode_convert_from_bvalue(customization_for<T>, std::forward<T>(bvalue));
+        return bencode_convert_from_bvalue(customization_for<T>, std::forward<U>(bvalue));
+    }
+    else if constexpr (serialization_traits<T>::is_pointer) {
+        return convert_from_bvalue_to_pointer_impl(customization_for<T>, std::forward<U>(bvalue));
     }
     // Use bencode::serialisation_traits to split the overload set per bencode_type bvalue.
     // This makes build errors easier to debug since we have to check less candidates.
-    else if constexpr (bencode::serialization_traits<T>::type == bencode_type::integer) {
-        return convert_from_bvalue_default_integer_impl(
-                customization_for<T>, std::forward<U>(bvalue));
-    }
-    else if constexpr (bencode::serialization_traits<T>::type == bencode_type::string) {
-        return convert_from_bvalue_default_string_impl(
-                customization_for<T>, std::forward<U>(bvalue), priority_tag<3>{});
-    }
-    else if constexpr (bencode::serialization_traits<T>::type == bencode_type::list) {
-        return convert_from_bvalue_default_list_impl(
-                customization_for<T>, std::forward<U>(bvalue), priority_tag<1>{});
-    }
-    else if constexpr (bencode::serialization_traits<T>::type == bencode_type::dict) {
-        return convert_from_bvalue_default_dict_impl(
-                customization_for<T>, std::forward<U>(bvalue), priority_tag<0>{});
-    }
     else {
-        static_assert(detail::always_false<T>::value,
-                "no serializer for T found, check if the correct trait class is included!");
+        return convert_from_bvalue_to_impl_dispatcher<T>(std::forward<U>(bvalue));
     }
-    return nonstd::make_unexpected(conversion_errc::undefined_conversion);
 }
 
 

@@ -19,21 +19,49 @@ enum class dict_key_order {
 /// Helper classes to create specializations of `serialisation_traits`.
 /// @example:
 ///     template<> struct serialisation_traits<MyType> : serializes_to_integer {};
-struct serializes_to_runtime_type { static constexpr auto type = bencode_type::uninitialized; };
-struct serializes_to_integer      { static constexpr auto type = bencode_type::integer; };
-struct serializes_to_string       { static constexpr auto type = bencode_type::string; };
-struct serializes_to_list         { static constexpr auto type = bencode_type::list; };
-
-template <dict_key_order Order = dict_key_order::sorted>
-struct serializes_to_dict         {
-    static constexpr auto type = bencode_type::dict;
-    static constexpr auto key_order = Order;
+struct serializes_to_runtime_type
+{
+    static constexpr auto type = bencode_type::uninitialized;
+    static constexpr auto is_pointer = false;
 };
 
+struct serializes_to_integer
+{
+    static constexpr auto type = bencode_type::integer;
+    static constexpr auto is_pointer = false;
+};
+
+struct serializes_to_string
+{
+    static constexpr auto type = bencode_type::string;
+    static constexpr auto is_pointer = false;
+};
+
+struct serializes_to_list
+{
+    static constexpr auto type = bencode_type::list;
+    static constexpr auto is_pointer = false;
+};
+
+template <dict_key_order Order = dict_key_order::sorted, bool IsPointer = false>
+struct serializes_to_dict
+{
+    static constexpr auto type = bencode_type::dict;
+    static constexpr auto key_order = Order;
+    static constexpr auto is_pointer = false;
+};
+
+
 /// A type T satisfied the serialisable concept if it has a valid specialization of `serialisation_traits`.
+//template <typename T>
+//concept serializable =
+//    requires() {
+//        { serialization_traits<T>::type } -> std::convertible_to<bencode_type>;
+//    };
 template <typename T>
 concept serializable =
     requires() {
+//        typename serialization_traits<T>::type;
         { serialization_traits<T>::type } -> std::convertible_to<bencode_type>;
     };
 

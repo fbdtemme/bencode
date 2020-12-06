@@ -23,7 +23,7 @@ constexpr void assign_bview_to_bvalue(customization_point_type<bview>,
 namespace rng = std::ranges;
 
 template <std::integral T, typename Policy>
-constexpr void assign_to_bvalue_default_integer_impl(customization_point_type<T>,
+constexpr void assign_to_bvalue_integer_impl(customization_point_type<T>,
                                                      basic_bvalue<Policy>& bvalue,
                                                      std::type_identity_t<T> value)
 {
@@ -43,7 +43,7 @@ constexpr void assign_to_bvalue_default_integer_impl(customization_point_type<T>
 template <typename CharT, typename Policy>
     requires character<CharT> &&
              std::assignable_from<policy_string_t<Policy>, const CharT*>
-void assign_to_bvalue_default_string_impl(customization_point_type<const CharT*>,
+void assign_to_bvalue_string_impl(customization_point_type<const CharT*>,
                                           basic_bvalue<Policy>& b,
                                           const CharT* value,
                                           priority_tag<4>)
@@ -56,7 +56,7 @@ void assign_to_bvalue_default_string_impl(customization_point_type<const CharT*>
 template <typename T, typename U, typename Policy>
     requires std::same_as<T, std::remove_cvref_t<U>> &&
              std::constructible_from<policy_string_t<Policy>, U>
-void assign_to_bvalue_default_string_impl(customization_point_type<T>,
+void assign_to_bvalue_string_impl(customization_point_type<T>,
                                           basic_bvalue<Policy>& b,
                                           U&& value,
                                           priority_tag<3>)
@@ -70,7 +70,7 @@ template <typename T, typename U, typename CharT, typename Policy>
     requires std::same_as<T, std::remove_cvref_t<U>> &&
              std::convertible_to<U, std::string_view> &&
              std::constructible_from<policy_string_t<Policy>, std::string_view>
-void assign_to_bvalue_default_string_impl(customization_point_type<T>,
+void assign_to_bvalue_string_impl(customization_point_type<T>,
                                           basic_bvalue<Policy>& b,
                                           U&& value,
                                           priority_tag<4>)
@@ -85,7 +85,7 @@ template <typename T, typename U, typename Policy>
              has_str_member<T> &&
              std::constructible_from<
                      policy_string_t<Policy>, decltype(std::declval<U>().str())>
-void assign_to_bvalue_default_string_impl(customization_point_type<T>,
+void assign_to_bvalue_string_impl(customization_point_type<T>,
                                    basic_bvalue<Policy>& b,
                                    U&& value,
                                    priority_tag<2>)
@@ -100,7 +100,7 @@ template <typename T, std::common_with<T> U, typename Policy>
     requires std::same_as<T, std::remove_cvref_t<U>> &&
              std::assignable_from<policy_string_t<Policy>, const char*> &&
              has_c_str_member<T>
-void assign_to_bvalue_default_string_impl(customization_point_type<T>,
+void assign_to_bvalue_string_impl(customization_point_type<T>,
                                    basic_bvalue<Policy>& b,
                                    U&& value,
                                    priority_tag<1>)
@@ -115,7 +115,7 @@ template <typename T, typename Policy>
              std::convertible_to<rng::range_reference_t<T>, policy_string_value_t<Policy> > &&
              std::constructible_from<
                      policy_string_t<Policy>, rng::iterator_t<T>, rng::sentinel_t<T> >
-void assign_to_bvalue_default_string_impl(customization_point_type<T>,
+void assign_to_bvalue_string_impl(customization_point_type<T>,
                                            basic_bvalue<Policy>& b,
                                            const T& value,
                                            priority_tag<1>)
@@ -128,7 +128,7 @@ void assign_to_bvalue_default_string_impl(customization_point_type<T>,
 template <typename T, typename Policy>
     requires rng::contiguous_range<T> &&
              std::same_as<rng::range_value_t<T>, std::byte>
-void assign_to_bvalue_default_string_impl(customization_point_type<T>,
+void assign_to_bvalue_string_impl(customization_point_type<T>,
         basic_bvalue<Policy>& b,
         const T& value,
         priority_tag<0>)
@@ -149,7 +149,7 @@ void assign_to_bvalue_default_string_impl(customization_point_type<T>,
 
 template <typename T, typename Policy, typename U>
     requires std::assignable_from<policy_list_t<Policy>, U>
-constexpr void assign_to_bvalue_default_list_impl(
+constexpr void assign_to_bvalue_list_impl(
         customization_point_type<T>,
         basic_bvalue<Policy>& bvalue,
         U&& value,
@@ -161,7 +161,7 @@ constexpr void assign_to_bvalue_default_list_impl(
 template <typename T, typename U, typename Policy>
     requires rng::input_range<T> &&
              assignable_to_bvalue_for<rng::range_value_t<T>, Policy>
-constexpr void assign_to_bvalue_default_list_impl(customization_point_type<T>,
+constexpr void assign_to_bvalue_list_impl(customization_point_type<T>,
         basic_bvalue<Policy>& b,
         U&& value,
         priority_tag<1>)
@@ -184,7 +184,7 @@ constexpr void assign_to_bvalue_default_list_impl(customization_point_type<T>,
 template <typename U, typename Policy, typename T>
     requires has_tuple_like_structured_binding<T> &&
              tuple_elements_assignable_to_bvalue<T, Policy>
-inline void assign_to_bvalue_default_list_impl(customization_point_type<T>,
+constexpr void assign_to_bvalue_list_impl(customization_point_type<T>,
                                                basic_bvalue<Policy>& b,
                                                U&& value,
                                                priority_tag<0>)
@@ -204,7 +204,7 @@ template <typename T, typename Policy, typename U>
 requires key_value_associative_container<T> &&
         std::constructible_from<policy_string_t<Policy>, typename T::key_type> &&
         assignable_to_bvalue_for<typename T::mapped_type, Policy>
-inline void assign_to_bvalue_default_dict_impl(customization_point_type<T>,
+void assign_to_bvalue_dict_impl(customization_point_type<T>,
                                                basic_bvalue<Policy>& b,
                                                U&& value,
                                                priority_tag<0>)
@@ -232,13 +232,64 @@ inline void assign_to_bvalue_default_dict_impl(customization_point_type<T>,
     }
 }
 
+template <typename Policy, typename U, typename T = std::remove_cvref<U>>
+void assign_to_bvalue_impl_dispatcher(
+        customization_point_type<T>, basic_bvalue<Policy>& bvalue, U&& value)
+{
+    // Use bencode::serialisation_traits to split the overload set per bencode_type bvalue.
+    // This makes build errors easier to debug since we have to check less candidates.
+    if constexpr (bencode::serialization_traits<T>::type == bencode_type::integer) {
+        assign_to_bvalue_integer_impl(
+                customization_for<T>, bvalue, std::forward<U>(value));
+    }
+    else if constexpr (bencode::serialization_traits<T>::type == bencode_type::string) {
+        assign_to_bvalue_string_impl(
+                customization_for<T>, bvalue, std::forward<U>(value), priority_tag<5>{});
+    }
+    else if constexpr (bencode::serialization_traits<T>::type == bencode_type::list) {
+        assign_to_bvalue_list_impl(
+                customization_for<T>, bvalue, std::forward<U>(value), priority_tag<1>{});
+    }
+    else if constexpr (bencode::serialization_traits<T>::type == bencode_type::dict) {
+        assign_to_bvalue_dict_impl(
+                customization_for<T>, bvalue, std::forward<U>(value), priority_tag<5>{});
+    }
+    else if constexpr (serialization_traits<T>::type == bencode_type::uninitialized && std::same_as<T, bview>) {
+        assign_bview_to_bvalue(customization_for<T>, bvalue, std::forward<U>(value));
+    }
+    else {
+        static_assert(detail::always_false<T>::value, "no serializer for T found, check includes!");
+    }
+}
 
 
+template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
+void assign_to_bvalue_pointer_impl(
+        customization_point_type<T>, basic_bvalue<Policy>& bvalue, U&& value)
+{
+    using E = typename std::pointer_traits<T>::element_type;
+
+    if constexpr (std::same_as<T, std::weak_ptr<E>>) {
+        // weak_ptr cannot be compared to nullptr
+        if (value.expired()) {
+            assign_to_bvalue(bvalue, E{});
+        } else {
+            assign_to_bvalue(bvalue, *(value.lock()));
+        }
+    }
+    else {
+        if (value == nullptr) {
+            assign_to_bvalue(bvalue, E{});
+            return;
+        }
+        assign_to_bvalue(bvalue, *value);
+    }
+}
 
 
 template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
     requires serializable<T>
-inline auto assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value) -> basic_bvalue<Policy>&
+inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value)
 {
 //    // Check if there is a user-provided specialization found by ADL.
     if constexpr (assignment_to_bvalue_is_adl_overloaded<T, Policy>) {
@@ -250,34 +301,14 @@ inline auto assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value) -> basic_b
         bencode_connect(customization_for<T>, consumer, value);
         bvalue = std::move(consumer.value());
     }
-
-    else {
-        // Use bencode::serialisation_traits to split the overload set per bencode_type bvalue.
-        // This makes build errors easier to debug since we have to check less candidates.
-        if constexpr (bencode::serialization_traits<T>::type == bencode_type::integer) {
-            assign_to_bvalue_default_integer_impl(
-                    customization_for<T>, bvalue, std::forward<U>(value));
-        }
-        else if constexpr (bencode::serialization_traits<T>::type == bencode_type::string) {
-            assign_to_bvalue_default_string_impl(
-                    customization_for<T>, bvalue, std::forward<U>(value), priority_tag<5>{});
-        }
-        else if constexpr (bencode::serialization_traits<T>::type == bencode_type::list) {
-            assign_to_bvalue_default_list_impl(
-                    customization_for<T>, bvalue, std::forward<U>(value), priority_tag<1>{});
-        }
-        else if constexpr (bencode::serialization_traits<T>::type == bencode_type::dict) {
-            assign_to_bvalue_default_dict_impl(
-                    customization_for<T>, bvalue, std::forward<U>(value), priority_tag<5>{});
-        }
-        else if constexpr (serialization_traits<T>::type == bencode_type::uninitialized && std::same_as<T, bview>) {
-            assign_bview_to_bvalue(customization_for<T>, bvalue, std::forward<U>(value));
-        }
-        else {
-            static_assert(detail::always_false<T>::value, "no serializer for T found, check includes!");
-        }
+    else if constexpr (serialization_traits<T>::is_pointer) {
+        detail::assign_to_bvalue_pointer_impl(
+                customization_for<T>, bvalue, std::forward<U>(value));
     }
-    return bvalue;
+    else {
+        detail::assign_to_bvalue_impl_dispatcher(
+                customization_for<T>, bvalue, std::forward<U>(value));
+    }
 }
 
 } // namespace bencode::detail

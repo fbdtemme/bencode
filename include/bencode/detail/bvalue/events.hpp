@@ -11,7 +11,7 @@
 namespace bencode::detail {
 
 template <typename Policy, typename U, event_consumer EC>
-constexpr void connect_events_default_runtime_impl(
+constexpr void connect_events_runtime_impl(
         customization_point_type<basic_bvalue<Policy>>,
         EC& consumer,
         U&& value,

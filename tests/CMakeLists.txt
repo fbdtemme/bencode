@@ -29,6 +29,7 @@ target_sources(bencode-tests
         test_bencode_type.cpp
         test_connect.cpp
         test_bpointer.cpp
+        traits/memory.cpp
 )
 
 #include_directories("../include/")
@@ -48,7 +49,7 @@ target_compile_options(bencode-tests PRIVATE -fconcepts-diagnostics-depth=4)
 
 target_compile_definitions(bencode-tests PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources\")
 
-target_compile_options(bencode-tests PRIVATE)
+#target_compile_options(bencode-tests PRIVATE -Wfatal-errors)
 
 include(Catch)
 catch_discover_tests(bencode-tests)

@@ -5,7 +5,8 @@
 #include <bencode/detail/serialization_traits.hpp>
 
 namespace bencode {
-template <> struct serialization_traits<bool>               : bencode::serializes_to_integer {};
+
+template <> struct serialization_traits<bool>      : bencode::serializes_to_integer {};
 template <> struct serialization_traits<short>              : bencode::serializes_to_integer {};
 template <> struct serialization_traits<int>                : bencode::serializes_to_integer {};
 template <> struct serialization_traits<long>               : bencode::serializes_to_integer {};
@@ -43,4 +44,12 @@ template <std::size_t N> struct serialization_traits<const char32_t[N]> : bencod
 template <> struct serialization_traits<std::byte>                       : serializes_to_integer {};
 template <std::size_t N> struct serialization_traits<std::byte[N]>       : serializes_to_string  {};
 template <std::size_t N> struct serialization_traits<const std::byte[N]> : serializes_to_string  {};
+
+
+template <bencode::serializable T>
+struct serialization_traits<T*> : serialization_traits<T>
+{
+    static constexpr auto is_pointer = true;
+};
+
 } // namespace bencode

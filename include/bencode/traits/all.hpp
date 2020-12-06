@@ -1,11 +1,11 @@
 #pragma once
 
+#include "fundamentals.hpp"
 #include "array.hpp"
 #include "deque.hpp"
 #include "enum.hpp"
 #include "filesystem.hpp"
 #include "forward_list.hpp"
-#include "fundamentals.hpp"
 #include "list.hpp"
 #include "map.hpp"
 #include "pair.hpp"
@@ -18,3 +18,4 @@
 #include "unordered_set.hpp"
 #include "valarray.hpp"
 #include "vector.hpp"
+#include "memory.hpp"

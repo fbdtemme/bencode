@@ -237,35 +237,71 @@ convert_from_bview_default_dict_impl(
 }
 
 template <typename T>
-constexpr nonstd::expected<T, conversion_errc>
-convert_from_bview_to(const bview& ref)
+    requires requires () { typename std::pointer_traits<T>::element_type; }
+inline nonstd::expected<T, conversion_errc>
+convert_from_bview_to_pointer_impl(customization_point_type<T>, const bview& b) noexcept
 {
-    // Check if there is a user-provided specialization found by ADL.
-    if constexpr (conversion_from_bview_is_adl_overloaded<T>) {
-        return bencode_convert_from_bview(customization_for<T>, std::forward<T>(ref));
+    using E = typename std::pointer_traits<T>::element_type;
+
+    // default construct pointer type
+    auto result = convert_from_bview_to<E>(b);
+    if (!result.has_value()) {
+        return nonstd::make_unexpected(result.error());
     }
+
+    using E = typename std::pointer_traits<T>::element_type;
+
+    if constexpr (std::same_as<T, std::unique_ptr<E>>) {
+        return std::make_unique<E>(std::move(*result));
+    }
+    else if constexpr (std::same_as<T, std::shared_ptr<E>>) {
+        return std::make_shared<E>(std::move(*result));
+    }
+    else {
+       return T(new E(std::move(*result)));
+    }
+}
+
+
+template <typename T>
+constexpr nonstd::expected<T, conversion_errc>
+convert_from_bview_to_impl_dispatcher(customization_point_type<T>, const bview& b) noexcept
+{
     // Use bencode::serialisation_traits to split the overload set per bencode_type bvalue.
     // This makes build errors easier to debug since we have to check less candidates.
-    else if constexpr (serialization_traits<T>::type == bencode_type::integer) {
-        return convert_from_bview_default_integer_impl<T>(
-                customization_for<T>, ref);
+    if constexpr (serialization_traits<T>::type == bencode_type::integer) {
+        return convert_from_bview_default_integer_impl<T>(customization_for<T>, b);
     }
     else if constexpr (serialization_traits<T>::type == bencode_type::string) {
-        return convert_from_bview_default_string_impl(
-                customization_for<T>, ref, priority_tag<5>{});
+        return convert_from_bview_default_string_impl(customization_for<T>, b, priority_tag<5>{});
     }
     else if constexpr (serialization_traits<T>::type == bencode_type::list) {
-        return convert_from_bview_default_list_impl(
-                customization_for<T>, ref, priority_tag<5>{});
+        return convert_from_bview_default_list_impl(customization_for<T>, b, priority_tag<5>{});
     }
     else if constexpr (serialization_traits<T>::type == bencode_type::dict) {
-        return convert_from_bview_default_dict_impl(
-                customization_for<T>, ref, priority_tag<5>{});
+        return convert_from_bview_default_dict_impl(customization_for<T>, b, priority_tag<5>{});
     }
     else {
         static_assert(detail::always_false<T>::value,
                 "no serializer for T found, check if the correct trait class is included!");
     }
+}
+
+template <serializable T>
+constexpr nonstd::expected<T, conversion_errc>
+convert_from_bview_to(const bview& ref)
+{
+    // Check if there is a user-provided specialization found by ADL.
+    if constexpr (conversion_from_bview_is_adl_overloaded<T>) {
+        return bencode_convert_from_bview(customization_for<T>, ref);
+    }
+    else if constexpr (serialization_traits<T>::is_pointer) {
+        return convert_from_bview_to_pointer_impl(customization_for<T>, ref);
+    }
+    else {
+       return convert_from_bview_to_impl_dispatcher(customization_for<T>, ref);
+    }
+
     return nonstd::make_unexpected(conversion_errc::undefined_conversion);
 }
 

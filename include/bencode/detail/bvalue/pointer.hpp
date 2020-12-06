@@ -3,6 +3,8 @@
 #include <nonstd/expected.hpp>
 #include "bencode/detail/bvalue/concepts.hpp"
 #include "bencode/detail/bpointer.hpp"
+#include "bencode/detail/bencode_type.hpp"
+#include "bencode/detail/out_of_range.hpp"
 
 
 namespace bencode::detail {

@@ -21,7 +21,7 @@ namespace bencode::detail {
 namespace rng = std::ranges;
 
 template <event_consumer EC>
-constexpr void connect_events_default_integer_impl(
+constexpr void connect_events_integer_impl(
         customization_point_type<integer_bview>,
         EC& consumer,
         const integer_bview& desc,
@@ -31,7 +31,7 @@ constexpr void connect_events_default_integer_impl(
 }
 
 template <event_consumer EC>
-constexpr void connect_events_default_string_impl(
+constexpr void connect_events_string_impl(
         customization_point_type<string_bview>,
         EC& consumer,
         const string_bview& desc,
@@ -41,7 +41,7 @@ constexpr void connect_events_default_string_impl(
 }
 
 template <event_consumer EC>
-constexpr void connect_events_default_list_impl(
+constexpr void connect_events_list_impl(
         customization_point_type<list_bview>,
         EC& consumer,
         const list_bview& desc,
@@ -56,7 +56,7 @@ constexpr void connect_events_default_list_impl(
 }
 
 template <event_consumer EC>
-constexpr void connect_events_default_dict_impl(
+constexpr void connect_events_dict_impl(
         customization_point_type<dict_bview>,
         EC& consumer,
         const dict_bview& desc,
@@ -74,7 +74,7 @@ constexpr void connect_events_default_dict_impl(
 
 
 template <event_consumer EC>
-constexpr void connect_events_default_runtime_impl(
+constexpr void connect_events_runtime_impl(
         customization_point_type<bview>,
         EC& consumer,
         const bview& bref,

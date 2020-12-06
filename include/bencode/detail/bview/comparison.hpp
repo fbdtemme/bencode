@@ -19,11 +19,11 @@ namespace bencode::detail {
 
 template <std::integral T>
     requires std::equality_comparable_with<std::int64_t, T>
-constexpr auto compare_equality_with_bview_default_integer_impl(
+constexpr auto compare_equality_with_bview_integer_impl(
             customization_point_type<T>,
             const bview& bview,
             T value,
-            priority_tag<0>) -> bool
+            priority_tag<0>)
 {
     if (!holds_integer(bview)) return false;
     return (get_integer(bview) == value);
@@ -31,22 +31,22 @@ constexpr auto compare_equality_with_bview_default_integer_impl(
 
 template <typename T>
     requires std::equality_comparable_with<std::string_view, T>
-constexpr auto compare_equality_with_bview_default_string_impl(
+constexpr bool compare_equality_with_bview_string_impl(
         customization_point_type<T>,
         const bview& bview,
         const T& value,
-        priority_tag<1>) -> bool
+        priority_tag<1>)
 {
     if (!holds_string(bview)) return false;
     return (get_string(bview) == value);
 }
 
 template <typename T>
-constexpr auto compare_equality_with_bvalue_default_string_impl(
+constexpr bool compare_equality_with_bvalue_string_impl(
         customization_point_type<T>,
         const bview& bv,
         const T& value,
-        priority_tag<0>) -> bool
+        priority_tag<0>)
 {
     if (!holds_string(bv)) return false;
     const auto& s = get_string(bv);
@@ -56,11 +56,11 @@ constexpr auto compare_equality_with_bvalue_default_string_impl(
 }
 
 template <typename T>
-constexpr auto compare_equality_with_bview_default_list_impl(
+constexpr bool compare_equality_with_bview_list_impl(
         customization_point_type<T>,
         const bview& bv,
         const T& value,
-        priority_tag<0>) -> bool
+        priority_tag<0>)
 {
     if (!holds_list(bv)) return false;
     const auto& l = get_list(bv);
@@ -70,11 +70,11 @@ constexpr auto compare_equality_with_bview_default_list_impl(
 }
 
 template <typename T>
-constexpr auto compare_equality_with_bview_default_dict_impl(
+constexpr bool compare_equality_with_bview_dict_impl(
         customization_point_type<T>,
         const bview& bview,
         const T& value,
-        priority_tag<0>) -> bool
+        priority_tag<0>)
 {
     if (!holds_dict(bview)) return false;
 
@@ -96,11 +96,11 @@ constexpr auto compare_equality_with_bview_default_dict_impl(
 
 template <std::integral T>
     requires std::three_way_comparable_with<std::int64_t, T>
-constexpr auto compare_three_way_with_bview_default_integer_impl(
+constexpr std::weak_ordering compare_three_way_with_bview_integer_impl(
         customization_point_type<T>,
         const bview& bview,
         T value,
-        priority_tag<0>) -> std::weak_ordering
+        priority_tag<0>)
 {
     if (!holds_integer(bview)) return (bview.type() <=> bencode_type::integer);
     return (get_integer(bview) <=> value);
@@ -108,11 +108,11 @@ constexpr auto compare_three_way_with_bview_default_integer_impl(
 
 template <typename T>
     requires std::three_way_comparable_with<std::string_view, T>
-constexpr auto compare_three_way_with_bview_default_string_impl(
+constexpr std::weak_ordering compare_three_way_with_bview_string_impl(
         customization_point_type<T>,
         const bview& bview,
         const T& value,
-        priority_tag<1>) -> std::weak_ordering
+        priority_tag<1>)
 {
     if (!holds_string(bview)) return (bview.type() <=> bencode_type::string);
     return (get_string(bview) <=> value);
@@ -120,11 +120,12 @@ constexpr auto compare_three_way_with_bview_default_string_impl(
 
 
 template <typename T>
-constexpr auto compare_three_way_with_bview_default_string_impl(
+    requires std::three_way_comparable<rng::range_value_t<T>, string_bview::value_type>
+constexpr std::weak_ordering compare_three_way_with_bview_string_impl(
         customization_point_type<T>,
         const bview& b,
         const T& value,
-        priority_tag<0>) -> std::weak_ordering
+        priority_tag<0>)
 {
     if (!holds_string(b)) return (b.type() <=> bencode_type::string);
     const auto& bstring = get_string(b);
@@ -137,7 +138,7 @@ constexpr auto compare_three_way_with_bview_default_string_impl(
 
 
 template <typename T>
-constexpr auto compare_three_way_with_bview_default_list_impl(
+constexpr auto compare_three_way_with_bview_list_impl(
         customization_point_type<T>,
         const bview& b,
         const T& value,
@@ -152,7 +153,7 @@ constexpr auto compare_three_way_with_bview_default_list_impl(
 }
 
 template <typename T>
-constexpr auto compare_three_way_with_bview_default_dict_impl(
+constexpr auto compare_three_way_with_bview_dict_impl(
         customization_point_type<T>,
         const bview& b,
         const T& value,
@@ -212,19 +213,19 @@ constexpr bool compare_equality_with_bview(const bview& bv, const T& value)
         // Use bencode::serialisation_traits to split the overload set per bencode_type bview.
         // This makes build errors easier to debug since we have to check less candidates.
         if constexpr (bencode::serialization_traits<T>::type == bencode_type::integer) {
-            return compare_equality_with_bview_default_integer_impl(
+            return compare_equality_with_bview_integer_impl(
                     customization_for<T>, bv, value, priority_tag<0>{});
         }
         else if constexpr (bencode::serialization_traits<T>::type == bencode_type::string) {
-            return compare_equality_with_bview_default_string_impl(
-                    customization_for<T>, bv,value, priority_tag<0>{});
+            return compare_equality_with_bview_string_impl(
+                    customization_for<T>, bv,value, priority_tag<1>{});
         }
         else if constexpr (bencode::serialization_traits<T>::type == bencode_type::list) {
-            return compare_equality_with_bview_default_list_impl(
+            return compare_equality_with_bview_list_impl(
                     customization_for<T>, bv,value, priority_tag<0>{});
         }
         else if constexpr (bencode::serialization_traits<T>::type == bencode_type::dict) {
-            return compare_equality_with_bview_default_dict_impl(
+            return compare_equality_with_bview_dict_impl(
                     customization_for<T>, bv,value, priority_tag<0>{});
         }
         else {
@@ -245,19 +246,19 @@ constexpr std::weak_ordering compare_three_way_with_bview(const bview& bv, const
         // Use bencode::serialisation_traits to split the overload set per bencode_type bview.
         // This makes build errors easier to debug since we have to check less candidates.
         if constexpr (bencode::serialization_traits<T>::type == bencode_type::integer) {
-            return compare_three_way_with_bview_default_integer_impl(
+            return compare_three_way_with_bview_integer_impl(
                     customization_for<T>, bv, value, priority_tag<1>{});
         }
         else if constexpr (bencode::serialization_traits<T>::type == bencode_type::string) {
-            return compare_three_way_with_bview_default_string_impl(
+            return compare_three_way_with_bview_string_impl(
                     customization_for<T>, bv, value, priority_tag<1>{});
         }
         else if constexpr (bencode::serialization_traits<T>::type == bencode_type::list) {
-            return compare_three_way_with_bview_default_list_impl(
+            return compare_three_way_with_bview_list_impl(
                     customization_for<T>, bv, value, priority_tag<1>{});
         }
         else if constexpr (bencode::serialization_traits<T>::type == bencode_type::dict) {
-            return compare_three_way_with_bview_default_dict_impl(
+            return compare_three_way_with_bview_dict_impl(
                     customization_for<T>, bv, value, priority_tag<1>{});
         }
         else {

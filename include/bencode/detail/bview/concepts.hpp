@@ -20,7 +20,7 @@ namespace detail {
 
 
 // forward declaration
-template<typename T>
+template <serializable T>
 constexpr auto convert_from_bview_to(const bview& desc)
         -> nonstd::expected<T, conversion_errc>;
 }

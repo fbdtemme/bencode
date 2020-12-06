@@ -711,4 +711,3 @@ TEST_CASE("test initializer list constructor", "[constructor]")
         CHECK(b.type() == bencode::bencode_type::dict);
     }
 }
-

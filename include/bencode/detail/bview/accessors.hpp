@@ -302,7 +302,7 @@ constexpr T get_as(const bview& value)
 {
     auto v = try_get_as<T>(value);
     if (!v) throw bad_conversion(v.error());
-    return *v;
+    return std::move(*v);
 }
 
 } // namespace bencode
