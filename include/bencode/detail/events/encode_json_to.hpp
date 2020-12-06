@@ -39,7 +39,9 @@ public:
     {};
 
     encode_json_to(const encode_json_to&) = delete;
-    encode_json_to(encode_json_to&&) = delete;
+    encode_json_to(encode_json_to&&)  noexcept = default;
+    encode_json_to& operator=(const encode_json_to&) = delete;
+    encode_json_to& operator=(encode_json_to&&) noexcept = default;
 
     void integer(std::int64_t value)
     {

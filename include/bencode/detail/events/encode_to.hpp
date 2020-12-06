@@ -33,9 +33,9 @@ public:
             : out_(std::ostreambuf_iterator{os}) {}
 
     encode_to(const encode_to&) = delete;
-    encode_to(encode_to&&) = delete;
+    encode_to(encode_to&&) noexcept = default;
     encode_to& operator=(const encode_to&) = delete;
-    encode_to& operator=(encode_to&&) = delete;
+    encode_to& operator=(encode_to&&) noexcept= default;
 
     constexpr void integer(std::int64_t value) noexcept
     {
