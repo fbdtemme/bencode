@@ -23,7 +23,7 @@ Performance
 
 Parsing to :cpp:class:`bview` is about 5 times faster then parsing to :cpp:class:`bvalue`.
 
-.. image:: ../images/benchmark_barplot.svg
+.. image:: ../images/decoding_value_vs_view.svg
 
 Contents
 --------

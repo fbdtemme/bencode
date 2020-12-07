@@ -185,13 +185,14 @@
             
   <div class="section" id="trait-headers">
 <h1>Trait headers<a class="headerlink" href="#trait-headers" title="Permalink to this headline">¶</a></h1>
-<p>Trait headers contain predefined specialisations for <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serialization_traits</span></code>.
-This allows the library the serialize and deserialize to the specific type.</p>
-<p>Following headers can be included to enable support for standard library types.</p>
+<p>Trait headers contain specialisations for <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">serialization_traits</span></code>.
+Including a trait header enables library support for the types specialized in that header.</p>
+<p>Following headers can be included to enable support for standard library types.
+To include all trait headers, include <code class="file docutils literal notranslate"><span class="pre">bencode/traits/all.hpp</span></code>.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 55%" />
-<col style="width: 45%" />
+<col style="width: 58%" />
+<col style="width: 42%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Implementation for</p></th>
@@ -199,68 +200,74 @@ This allows the library the serialize and deserialize to the specific type.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>std::array</p></td>
+<tr class="row-even"><td><p>fundamental C++ types</p></td>
+<td><p>bencode/traits/fundamentals.hpp</p></td>
+</tr>
+<tr class="row-odd"><td><p>std::array</p></td>
 <td><p>bencode/traits/array.hpp</p></td>
 </tr>
-<tr class="row-odd"><td><p>std::deque</p></td>
+<tr class="row-even"><td><p>std::deque</p></td>
 <td><p>bencode/traits/deque.hpp</p></td>
 </tr>
-<tr class="row-even"><td><p>enum types</p></td>
+<tr class="row-odd"><td><p>enum types</p></td>
 <td><p>bencode/traits/enum.hpp</p></td>
 </tr>
-<tr class="row-odd"><td><p>std::filesystem::path</p></td>
+<tr class="row-even"><td><p>std::filesystem::path</p></td>
 <td><p>bencode/traits/filesystem.hpp</p></td>
 </tr>
-<tr class="row-even"><td><p>std::forward_list</p></td>
+<tr class="row-odd"><td><p>std::forward_list</p></td>
 <td><p>bencode/traits/forward_list.hpp</p></td>
 </tr>
-<tr class="row-odd"><td><p>std::list</p></td>
+<tr class="row-even"><td><p>std::list</p></td>
 <td><p>bencode/traits/list.hpp</p></td>
 </tr>
-<tr class="row-even"><td><p>std::map</p></td>
+<tr class="row-odd"><td><p>std::map</p></td>
 <td><p>bencode/traits/map.hpp</p></td>
 </tr>
-<tr class="row-odd"><td><p>std::multimap</p></td>
+<tr class="row-even"><td><p>std::multimap</p></td>
 <td><p>bencode/traits/map.hpp</p></td>
 </tr>
-<tr class="row-even"><td><p>std::pair</p></td>
+<tr class="row-odd"><td><p>std::pair</p></td>
 <td><p>bencode/traits/pair.hpp</p></td>
 </tr>
-<tr class="row-odd"><td><p>std::set</p></td>
+<tr class="row-even"><td><p>std::set</p></td>
 <td><p>bencode/traits/set_traits.hpp</p></td>
 </tr>
-<tr class="row-even"><td><p>std::multiset</p></td>
+<tr class="row-odd"><td><p>std::multiset</p></td>
 <td><p>bencode/traits/multiset.hpp</p></td>
 </tr>
-<tr class="row-odd"><td><p>std::string</p></td>
+<tr class="row-even"><td><p>std::string</p></td>
 <td><p>bencode/traits/string.hpp</p></td>
 </tr>
-<tr class="row-even"><td><p>std::string_view</p></td>
+<tr class="row-odd"><td><p>std::string_view</p></td>
 <td><p>bencode/traits/string_view.hpp</p></td>
 </tr>
-<tr class="row-odd"><td><p>std::stringstream</p></td>
+<tr class="row-even"><td><p>std::stringstream</p></td>
 <td><p>bencode/traits/stringstream.hpp</p></td>
 </tr>
-<tr class="row-even"><td><p>std::tuple</p></td>
+<tr class="row-odd"><td><p>std::tuple</p></td>
 <td><p>bencode/traits/tuple.hpp</p></td>
 </tr>
-<tr class="row-odd"><td><p>std::unordered_map</p></td>
+<tr class="row-even"><td><p>std::unordered_map</p></td>
 <td><p>bencode/traits/unordered_map.hpp</p></td>
 </tr>
-<tr class="row-even"><td><p>std::unordered_multimap</p></td>
+<tr class="row-odd"><td><p>std::unordered_multimap</p></td>
 <td><p>bencode/traits/unordered_map.hpp</p></td>
 </tr>
-<tr class="row-odd"><td><p>std::unordered_set</p></td>
+<tr class="row-even"><td><p>std::unordered_set</p></td>
 <td><p>bencode/traits/unordered_set.hpp</p></td>
 </tr>
-<tr class="row-even"><td><p>std::unordered_multiset</p></td>
+<tr class="row-odd"><td><p>std::unordered_multiset</p></td>
 <td><p>bencode/traits/unordered_set.hpp</p></td>
 </tr>
-<tr class="row-odd"><td><p>std::valarray</p></td>
+<tr class="row-even"><td><p>std::valarray</p></td>
 <td><p>bencode/traits/valarray.hpp</p></td>
 </tr>
-<tr class="row-even"><td><p>std::vector</p></td>
+<tr class="row-odd"><td><p>std::vector</p></td>
 <td><p>bencode/traits/vector.hpp</p></td>
+</tr>
+<tr class="row-even"><td><p>std::unique_ptr, std::shared_ptr, std::weak_ptr</p></td>
+<td><p>bencode/traits/memory.hpp</p></td>
 </tr>
 </tbody>
 </table>

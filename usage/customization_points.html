@@ -199,8 +199,8 @@
 <h2>Serialization traits<a class="headerlink" href="#serialization-traits" title="Permalink to this headline">¶</a></h2>
 <p>The first step to integrating a custom type is by providing which bencode data type it encodes
 to by specializing <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">serialization_traits</span></code> for your type.</p>
-<p>Serialization traits has a single member of <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">bencode_type</span></code> that defines
-what bencode data type this type serializes to.</p>
+<p>Serialization traits has a single member <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">type</span></code> of type <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">bencode_type</span></code>
+that defines what bencode data type this type serializes to.</p>
 <p>To make specialization of <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serialization_traits</span></code> easy a few helpers are provided.</p>
 <dl class="simple">
 <dt>Helper classes:</dt><dd><ul class="simple">
@@ -224,11 +224,18 @@ what bencode data type this type serializes to.</p>
 </dl>
 <p>When the user-defined type can be converted to different bencode data types depending on the value
 <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serializes_to_runtime_type</span></code> or <code class="xref c c-macro docutils literal notranslate"><span class="pre">BENCODE_SERIALIZES_TO_RUNTIME_TYPE</span></code> should be used.</p>
-<p>After specializing <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serialization_traits</span></code> the user-defined type satisfies
-the <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">serializable</span></code> concept.</p>
-<p>When a type serializes to a dict bencode type we make a differentiation between sorted and
+<p>When a type serializes to a dict we make a differentiation between sorted and
 unsorted dicts. Since a bencode dict requires keys to be in sorted order we must mark
 map-like types with unsorted keys as such.</p>
+<p>To define a type that behaves like a pointer (eg. smart pointers), the static member variable
+<code class="xref cpp cpp-var docutils literal notranslate"><span class="pre">is_pointer</span></code> must be set to true.
+This will make sure that when serializing/deserializing that type the value is dereferenced when needed.</p>
+<p>For types that behave like standard library types, specializing
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">serialization_traits</span></code> can be enough to enable full support.
+The bencode library will try to find an implementation that works for given type.
+If no suitable build-in methods exist, additional customization points must be implemented.</p>
+<p>After specializing <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">serialization_traits</span></code> the user-defined type satisfies
+the <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">serializable</span></code> concept.</p>
 <p>Example:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">rgb_color</span>
 <span class="p">{</span>
@@ -243,6 +250,19 @@ map-like types with unsorted keys as such.</p>
 <span class="c1">// Equivalent specialization without macro use.</span>
 <span class="k">namespace</span> <span class="n">bencode</span> <span class="p">{</span>
 <span class="k">template</span> <span class="o">&lt;&gt;</span> <span class="k">struct</span> <span class="n">serialization_traits</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span> <span class="o">:</span> <span class="n">serializes_to_list</span> <span class="p">{};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">my_smart_pointer</span> <span class="o">:</span> <span class="p">{...}</span>
+
+<span class="k">namespace</span> <span class="n">bencode</span> <span class="p">{</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">serialization_traits</span><span class="o">&lt;</span><span class="n">my_smart_pointer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+        <span class="o">:</span> <span class="n">serializes_to</span><span class="o">&lt;</span><span class="n">serialization_traits</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">is_pointer</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">};</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -273,7 +293,7 @@ can be serialized with <code class="xref cpp cpp-class docutils literal notransl
 <p class="admonition-title">Important</p>
 <p>All customization points prefixed with <code class="code docutils literal notranslate"><span class="pre">bencode_</span></code> must be defined in the
 namespace of the type for which you want to enable a library feature.
-These functions use ADL to identify the correct overload.</p>
+These functions use Argument-dependent lookup (ADL) to identify the correct overload.</p>
 </div>
 </div>
 <div class="section" id="assignment-to-bvalue">

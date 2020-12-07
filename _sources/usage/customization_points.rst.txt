@@ -13,8 +13,8 @@ Serialization traits
 The first step to integrating a custom type is by providing which bencode data type it encodes
 to by specializing :cpp:class:`template <typename T> serialization_traits` for your type.
 
-Serialization traits has a single member of :cpp:enum:`bencode_type` that defines
-what bencode data type this type serializes to.
+Serialization traits has a single member :cpp:member:`type` of type :cpp:enum:`bencode_type`
+that defines what bencode data type this type serializes to.
 
 To make specialization of :cpp:class:`serialization_traits` easy a few helpers are provided.
 
@@ -38,12 +38,21 @@ Helper macros:
 When the user-defined type can be converted to different bencode data types depending on the value
 :cpp:class:`serializes_to_runtime_type` or :c:macro:`BENCODE_SERIALIZES_TO_RUNTIME_TYPE` should be used.
 
-After specializing :cpp:class:`serialization_traits` the user-defined type satisfies
-the :cpp:concept:`serializable` concept.
-
-When a type serializes to a dict bencode type we make a differentiation between sorted and
+When a type serializes to a dict we make a differentiation between sorted and
 unsorted dicts. Since a bencode dict requires keys to be in sorted order we must mark
 map-like types with unsorted keys as such.
+
+To define a type that behaves like a pointer (eg. smart pointers), the static member variable
+:cpp:var:`is_pointer` must be set to true.
+This will make sure that when serializing/deserializing that type the value is dereferenced when needed.
+
+For types that behave like standard library types, specializing
+:cpp:class:`template <typename T> serialization_traits` can be enough to enable full support.
+The bencode library will try to find an implementation that works for given type.
+If no suitable build-in methods exist, additional customization points must be implemented.
+
+After specializing :cpp:class:`serialization_traits` the user-defined type satisfies
+the :cpp:concept:`serializable` concept.
 
 Example:
 
@@ -65,7 +74,19 @@ Example:
     }
 
 
+.. code-block:: cpp
 
+    template <typename T>
+    class my_smart_pointer : {...}
+
+    namespace bencode {
+    template <typename T>
+    struct serialization_traits<my_smart_pointer<T>>
+            : serializes_to<serialization_traits<T>::type>
+    {
+        static constexpr bool is_pointer = true;
+    };
+    }
 
 Event producer
 --------------
@@ -98,7 +119,7 @@ can be serialized with :cpp:class:`encoder` and assigned to :cpp:class:`bvalue`.
 
     All customization points prefixed with :code:`bencode_` must be defined in the
     namespace of the type for which you want to enable a library feature.
-    These functions use ADL to identify the correct overload.
+    These functions use Argument-dependent lookup (ADL) to identify the correct overload.
 
 Assignment to bvalue
 --------------------
