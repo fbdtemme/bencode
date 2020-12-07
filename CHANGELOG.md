@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.0
+
+* Add support for std::shared_ptr, std::unique_ptr, std::weak_ptr and raw pointers.
+* Add event_connector.
+* Add comparison to jimporter/bencode benchmark.
+
 ## v0.2.0
 
 *   make `descriptor_table::get_root` not being const qualified.

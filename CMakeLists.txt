@@ -3,7 +3,7 @@ project(bencode
         DESCRIPTION "A modern C++ Bencode library"
         HOMEPAGE_URL https://github.com/fbdtemme/bencode
         LANGUAGES CXX
-        VERSION 0.2.0)
+        VERSION 0.3.0)
 
 set(PROJECT_AUTHOR "fbdtemme")
 # Make Find modules in cmake dir available
