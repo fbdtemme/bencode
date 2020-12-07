@@ -62,8 +62,7 @@ class descriptor_parser
 
 public:
     explicit descriptor_parser(const parser_options& options = {})
-            : descriptors_()
-            , options_(options)
+            :  options_(options)
     {}
 
     std::optional<descriptor_table> parse(std::string_view s) noexcept
@@ -78,6 +77,7 @@ public:
         it_ = rng::data(range);
         end_ = std::next(rng::data(range), rng::size(range));
         descriptors_.clear();
+        descriptors_.reserve(32);
         error_ = std::nullopt;
 
         auto success = parse_loop();
