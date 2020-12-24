@@ -3,7 +3,8 @@
 #include <algorithm>
 #include <iterator>
 #include <utility>
-#include <gsl/gsl_assert>
+#include <gsl-lite/gsl-lite.hpp>
+
 #include <compare>
 
 #include "bencode/detail/symbol.hpp"

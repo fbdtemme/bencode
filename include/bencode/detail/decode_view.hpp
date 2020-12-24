@@ -1,7 +1,8 @@
 #pragma once
 
 #include <string>
-#include <gsl/gsl>
+#include <gsl-lite/gsl-lite.hpp>
+
 #include <ranges>
 
 #include <bencode/bencode.hpp>

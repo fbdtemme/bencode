@@ -3,14 +3,14 @@
 #include <concepts>
 #include <ranges>
 
-#include <gsl/gsl_assert>
+#include <gsl-lite/gsl-lite.hpp>
 
-#include "bview.hpp"
-#include "integer_bview.hpp"
-#include "string_bview.hpp"
-#include "list_bview.hpp"
-#include "dict_bview.hpp"
 
+#include "bencode/detail/bview/bview.hpp"
+#include "bencode/detail/bview/integer_bview.hpp"
+#include "bencode/detail/bview/string_bview.hpp"
+#include "bencode/detail/bview/list_bview.hpp"
+#include "bencode/detail/bview/dict_bview.hpp"
 #include "bencode/detail/concepts.hpp"
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/bencode_type.hpp"

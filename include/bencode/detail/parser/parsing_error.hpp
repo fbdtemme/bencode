@@ -4,7 +4,7 @@
 #include <system_error>
 #include <string>
 
-#include <gsl/gsl>
+#include <gsl-lite/gsl-lite.hpp>
 #include <fmt/format.h>
 
 #include "bencode/detail/symbol.hpp"
@@ -27,7 +27,7 @@ enum class parsing_errc {
     negative_string_length,
     unexpected_end,
     unexpected_eof,
-    integer_overflow,
+    result_out_of_range,
     leading_zero,
     negative_zero,
     recursion_depth_exceeded,
@@ -58,16 +58,16 @@ constexpr std::string_view to_string(parsing_errc ec) {
         return "mismatched end token";
     case parsing_errc::unexpected_eof:
         return "unexpected end of input";
-    case parsing_errc::integer_overflow:
-        return "integer overflow";
+    case parsing_errc::result_out_of_range:
+        return "result out of range of destination type";
     case parsing_errc::leading_zero:
         return "leading zero(s) is forbidden";
     case parsing_errc::negative_zero:
         return "negative zero is forbidden";
     case parsing_errc::recursion_depth_exceeded:
-        return "nested list/dict depth exceeded";
+        return "nested object depth exceeded";
     case parsing_errc::value_limit_exceeded:
-        return "bvalue limit exceeded";
+        return "value limit exceeded";
     case parsing_errc::negative_string_length:
         return "invalid string length";
     case parsing_errc::internal_error:

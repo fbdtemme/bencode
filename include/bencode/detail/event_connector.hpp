@@ -3,15 +3,16 @@
 #include <optional>
 #include <string_view>
 #include <type_traits>
-#include <gsl/gsl>
 #include <iostream>
 
-#include <bencode/detail/utils.hpp>
-#include <bencode/detail/concepts.hpp>
-#include <bencode/detail/encoding_error.hpp>
-#include <bencode/detail/events/encode_to.hpp>
-#include <bencode/detail/events/events.hpp>
-#include "encoding_error.hpp"
+#include <gsl-lite/gsl-lite.hpp>
+
+#include "bencode/detail/utils.hpp"
+#include "bencode/detail/concepts.hpp"
+#include "bencode/detail/encoding_error.hpp"
+#include "bencode/detail/events/encode_to.hpp"
+#include "bencode/detail/events/events.hpp"
+#include "bencode/detail/encoding_error.hpp"
 
 namespace bencode {
 

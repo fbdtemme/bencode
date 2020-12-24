@@ -1,10 +1,11 @@
 #pragma once
 
-#include <gsl/gsl>
 #include <compare>
 
+#include <gsl-lite/gsl-lite.hpp>
+
 #include "bencode/detail/serialization_traits.hpp"
-#include "bview.hpp"
+#include "bencode/detail/bview/bview.hpp"
 
 namespace bencode {
 

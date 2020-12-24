@@ -4,17 +4,20 @@
 #include <stack>
 #include <istream>
 
-#include <nonstd/expected.hpp>
-
 #include "bencode/detail/events/concepts.hpp"
-
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/bencode_type.hpp"
-#include "bencode/detail/parser/common.hpp"
+#include "bencode/detail/parser/parser_options.hpp"
+#include "bencode/detail/parser/parser_state.hpp"
+#include "bencode/detail/parser/parsing_error.hpp"
+#include <bencode/detail/parser/from_iters.hpp>
 
-
-#include "parsing_error.hpp"
+#if defined(BENCODE_ENABLE_SWAR)
+#define BENCODE_FROM_CHARS_IMPL swar
+#else
+#define BENCODE_FROM_CHARS_IMPL serial
+#endif
 
 namespace bencode {
 
@@ -105,10 +108,6 @@ private:
                 }
                 case state::expect_dict_value:
                 {
-//                    if (c == symbol::end) [[unlikely]] {
-//                        set_error(parsing_errc::expected_dict_value, btype::dict);
-//                        continue;
-//                    }
                     handle_value<dict_t>(consumer);
                     continue;
                 }
@@ -160,14 +159,24 @@ private:
     {
         Expects(*it_ == symbol::begin_integer);
 
-        auto value = detail::bdecode_integer<std::int64_t>(it_, end_);
+        std::int64_t value;
+        detail::from_iters_result<Iterator> result;
 
-        if (!value) [[unlikely]] {
-            set_error(value.error(), btype::integer);
+        if constexpr (std::convertible_to<Iterator, const char*>) {
+            result = detail::binteger_from_iters(it_, end_, value,
+                                                 detail::implementation::BENCODE_FROM_CHARS_IMPL);
+        } else {
+            result = detail::binteger_from_iters(it_, end_, value);
+        }
+
+        it_ = result.iter;
+
+        if (result.ec != parsing_errc{}) [[unlikely]] {
+            set_error(result.ec, btype::integer);
             return false;
         }
 
-        consumer.integer(*value);
+        consumer.integer(value);
         ++value_count_;
         return true;
     }
@@ -177,12 +186,17 @@ private:
     {
         Expects(*it_ == symbol::digit);
 
-        auto value = detail::bdecode_string(it_, end_);
-        if (!value) [[unlikely]] {
-            set_error(value.error(), btype::string);
+        std::string value;
+        const auto result = detail::bstring_from_iters(it_, end_, value);
+
+        it_ = result.iter;
+
+        if (result.ec != parsing_errc{}) [[unlikely]] {
+            set_error(result.ec, btype::string);
             return false;
         }
-        consumer.string(*value);
+
+        consumer.string(std::move(value));
         ++value_count_;
         return true;
     }
@@ -298,14 +312,18 @@ private:
         Expects(stack_.top() == state::expect_dict_key);
         Expects(*it_ == symbol::digit);
 
-        auto value = detail::bdecode_string<std::string>(it_, end_);
+        std::string value;
+        auto result = detail::bstring_from_iters(it_, end_, value);
 
-        if (!value) [[unlikely]] {
-            set_error(value.error(), btype::string);
+        it_ = result.iter;
+
+        if (result.ec != parsing_errc{}) [[unlikely]] {
+            set_error(result.ec, btype::string);
             return false;
         }
+
         stack_.top() = state::expect_dict_value;
-        consumer.string(std::move(*value));
+        consumer.string(std::move(value));
         consumer.dict_key();
         return true;
     }

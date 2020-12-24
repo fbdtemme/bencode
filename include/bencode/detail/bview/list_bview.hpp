@@ -3,7 +3,8 @@
 #include <iterator>
 #include <concepts>
 #include <ranges>
-#include <gsl/gsl_assert>
+
+#include <gsl-lite/gsl-lite.hpp>
 
 #include "bencode/detail/bview/concepts.hpp"
 #include "bencode/detail/symbol.hpp"

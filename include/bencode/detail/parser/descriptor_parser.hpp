@@ -12,11 +12,19 @@
 #include "bencode/detail/bitmask_operators.hpp"
 #include "bencode/detail/utils.hpp"
 
-#include "bencode/detail/parser/common.hpp"
+#include "bencode/detail/parser/from_chars.hpp"
+#include "bencode/detail/parser/parser_options.hpp"
+#include "bencode/detail/parser/parser_state.hpp"
 #include "bencode/detail/parser/parsing_error.hpp"
 
 #include "bencode/detail/descriptor.hpp"
 #include "bencode/detail/descriptor_table.hpp"
+
+#if defined(BENCODE_ENABLE_SWAR)
+#define BENCODE_FROM_CHARS_IMPL swar
+#else
+#define BENCODE_FROM_CHARS_IMPL serial
+#endif
 
 namespace bencode {
 
@@ -50,15 +58,14 @@ constexpr descriptor_type descriptor_type_modifier(parser_state s) noexcept
 }
 
 /// Parse bencoded data into a descriptor_table.
-template <typename Iterator = const char*, typename Sentinel = Iterator>
 class descriptor_parser
 {
     using state = detail::parser_state;
     using options = parser_options;
     using stack_frame = detail::descriptor_parser_stack_frame;
 
-    using iterator_t = Iterator;
-    using sentinel_t = Sentinel;
+    using iterator_t = const char*;
+    using sentinel_t = const char*;
 
 public:
     explicit descriptor_parser(const parser_options& options = {})
@@ -70,14 +77,22 @@ public:
 
     template <typename R>
     requires rng::contiguous_range<R> && rng::sized_range<R> &&
-             std::convertible_to<rng::range_value_t<R>, char>
+            (std::convertible_to<rng::range_value_t<R>, char> ||
+             std::same_as<rng::range_value_t<R>, std::byte>)
     std::optional<descriptor_table> parse(const R& range) noexcept
     {
-        begin_ = rng::data(range);
-        it_ = rng::data(range);
-        end_ = std::next(rng::data(range), rng::size(range));
+        if constexpr ( std::same_as<rng::range_value_t<R>, std::byte>) {
+            begin_ = reinterpret_cast<const char*>(rng::data(range));
+            it_ = reinterpret_cast<const char*>(rng::data(range));
+            end_ = reinterpret_cast<const char*>(std::next(rng::data(range), rng::size(range)));
+        }
+        else {
+            begin_ = rng::data(range);
+            it_ = rng::data(range);
+            end_ = std::next(rng::data(range), rng::size(range));
+        }
         descriptors_.clear();
-        descriptors_.reserve(32);
+//        descriptors_.reserve(32);
         error_ = std::nullopt;
 
         auto success = parse_loop();
@@ -137,10 +152,6 @@ private:
                     }
                 }
                 case state::expect_dict_value: {
-//                    if (c == symbol::end) [[unlikely]] {
-//                        set_error(parsing_errc::expected_dict_value, btype::dict);
-//                        continue;
-//                    }
                     handle_value<dict_t>();
                     continue;
                 }
@@ -193,13 +204,16 @@ private:
         const auto type = (descriptor_type::integer | modifier);
         auto& t = descriptors_.emplace_back(type, current_position());
 
-        auto result = detail::bdecode_integer(it_, end_);
+        std::int64_t value;
+        auto result = detail::binteger_from_chars(it_, end_, value,
+                detail::implementation::BENCODE_FROM_CHARS_IMPL);
+        it_ = result.ptr;
 
-        if (!result) [[unlikely]] {
-            set_error(result.error(), btype::integer);
+        if (result.ec != parsing_errc{}) [[unlikely]] {
+            set_error(result.ec, btype::integer);
             return false;
         }
-        t.set_value(*result);
+        t.set_value(value);
         return true;
     }
 
@@ -210,15 +224,21 @@ private:
         const auto type = (descriptor_type::string | modifier);
         const auto position = static_cast<std::size_t>(std::distance(begin_, it_));
 
-        auto result = detail::bdecode_string_token(it_, end_);
+        std::size_t offset;
+        std::size_t size;
+        auto result = detail::bstring_from_chars(
+                it_, end_, offset, size,
+                detail::implementation::serial);
 
-        if (!result) [[unlikely]] {
-            set_error(result.error(), btype::string);
+        it_ = result.ptr;
+
+        if (result.ec != parsing_errc{}) [[unlikely]] {
+            set_error(result.ec, btype::string);
             return false;
         }
         auto& t = descriptors_.emplace_back(type, position);
-        t.set_offset(result->offset);
-        t.set_size(result->size);
+        t.set_offset(offset);
+        t.set_size(size);
         return true;
     }
 
@@ -294,7 +314,7 @@ private:
         return true;
     }
 
-    inline auto handle_dict_begin(descriptor_type modifier)
+    inline bool handle_dict_begin(descriptor_type modifier)
     {
         Expects(*it_ == symbol::begin_dict);
 
@@ -373,18 +393,22 @@ private:
                 descriptor_type::string | descriptor_type::dict_key );
         auto position = current_position();
 
-        auto result = detail::bdecode_string_token(it_, end_);
+        std::size_t offset;
+        std::size_t size;
+        auto result = detail::bstring_from_chars(it_, end_, offset, size,
+                detail::implementation::serial);
 
-        if (!result) [[unlikely]] {
-            set_error(result.error(), btype::string);
+        if (result.ec != parsing_errc{}) [[unlikely]] {
+            set_error(result.ec, btype::string);
             return false;
         }
 
         stack_.top().state = state::expect_dict_value;
 
         auto& t = descriptors_.emplace_back(type, position);
-        t.set_offset(result->offset);
-        t.set_size(result->size);
+        t.set_offset(offset);
+        t.set_size(size);
+        it_ = result.ptr;
         return true;
     }
 
@@ -411,12 +435,12 @@ private:
         error_.emplace(ec, current_position(), context);
     }
 
-    iterator_t begin_;
-    iterator_t it_;
-    sentinel_t end_;
-    std::vector<descriptor> descriptors_;
+    iterator_t begin_{};
+    iterator_t it_{};
+    sentinel_t end_{};
+    std::vector<descriptor> descriptors_ {};
     std::stack<stack_frame> stack_{};
-    std::optional<parsing_error> error_;
+    std::optional<parsing_error> error_ = std::nullopt;
     options options_;
 };
 

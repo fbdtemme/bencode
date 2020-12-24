@@ -5,13 +5,13 @@
 #include <stack>
 #include <algorithm>
 #include <compare>
-#include <gsl/gsl_assert>
+#include <gsl-lite/gsl-lite.hpp>
+
 
 #include "bencode/detail/bencode_type.hpp"
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/utils.hpp"
 
-#include "bencode/detail/parser/common.hpp"
 #include "bencode/detail/parser/parsing_error.hpp"
 #include "bencode/detail/bitmask_operators.hpp"
 

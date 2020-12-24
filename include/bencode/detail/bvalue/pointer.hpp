@@ -1,10 +1,10 @@
 #pragma once
 
-#include <nonstd/expected.hpp>
 #include "bencode/detail/bvalue/concepts.hpp"
 #include "bencode/detail/bpointer.hpp"
 #include "bencode/detail/bencode_type.hpp"
 #include "bencode/detail/out_of_range.hpp"
+#include "bencode/detail/parser/from_chars.hpp"
 
 
 namespace bencode::detail {
@@ -24,12 +24,15 @@ inline decltype(auto) evaluate(const bpointer& pointer, BV&& bv)
             if (token == "-") [[unlikely]]
                 throw out_of_range("unresolved token '-': list index '-' is not supported");
 
-            auto res = detail::parse_integer<std::uint64_t>(token.begin(), token.end());
-            if (!res) [[unlikely]]
+            std::uint64_t value;
+            auto res = detail::from_chars(
+                    token.data(), token.data()+token.size(), value, implementation::serial);
+
+            if (res.ec != parsing_errc{}) [[unlikely]]
                 throw out_of_range(
                         fmt::format("unresolved token '{}': expected list index", token));
 
-            ptr = &(get_list(*ptr).at(res.value()));
+            ptr = &(get_list(*ptr).at(value));
             break;
         }
         default:
@@ -62,15 +65,18 @@ inline bool contains(const bpointer& pointer, const BV& bv)
             if (token == "-") [[unlikely]]
                 return false;
 
-            auto res = detail::parse_integer<std::uint64_t>(token.begin(), token.end());
-            if (!res) [[unlikely]]
+            std::uint64_t value;
+            auto res = detail::from_chars(
+                    token.data(), token.data()+token.size(), value, implementation::serial);
+
+            if (res.ec != parsing_errc{}) [[unlikely]]
                 return false;
 
             auto& l = get_list(*ptr);
-            if (l.size() <= res.value())
+            if (l.size() <= value)
                 return false;
 
-            ptr = &(l[res.value()]);
+            ptr = &(l[value]);
             break;
         }
         default:

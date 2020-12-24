@@ -5,10 +5,11 @@
 #include <stdexcept>
 #include <algorithm>
 #include <compare>
-#include <gsl/gsl_assert>
+#include <gsl-lite/gsl-lite.hpp>
+
 #include <fmt/format.h>
 
-#include "bencode/detail/parser/common.hpp"
+#include "bencode/detail/parser/from_chars.hpp"
 #include "bencode/detail/concepts.hpp"
 #include "bencode/detail/exception.hpp"
 
@@ -124,10 +125,7 @@ public:
     /// @returns a reference to the bpointer
     bpointer& append(const bpointer& ptr)
     {
-        tokens_.insert(
-                tokens_.end(),
-                ptr.tokens_.begin(),
-                ptr.tokens_.end());
+        tokens_.insert(tokens_.end(), ptr.tokens_.begin(), ptr.tokens_.end());
         return *this;
     }
 
@@ -258,9 +256,6 @@ public:
     {
         return tokens_.back();
     }
-
-    /// Return a reference to the value pointed to by the bpointer in a bvalue or bview.
-    /// @param bv a bvalue or bview type to access
 
 private:
     template <rng::input_range Rng, std::output_iterator<char> OutputIt>

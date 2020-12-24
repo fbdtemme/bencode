@@ -1,6 +1,5 @@
 #pragma once
 
-#include <gsl/gsl>
 #include <compare>
 #include <concepts>
 #include <ranges>
@@ -8,6 +7,8 @@
 #include <iterator>
 #include <numeric>
 #include <algorithm>
+
+#include <gsl-lite/gsl-lite.hpp>
 
 #include "bencode/detail/bview/bview.hpp"
 

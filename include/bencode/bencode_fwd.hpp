@@ -37,7 +37,6 @@ class encoding_error;
 class descriptor;
 class descriptor_table;
 
-template <typename Iterator, typename Sentinel>
 class descriptor_parser;
 
 template <typename Iterator, typename Sentinel>

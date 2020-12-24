@@ -6,7 +6,8 @@
 #include <string_view>
 #include <compare>
 #include <array>
-#include <gsl/gsl_assert>
+#include <gsl-lite/gsl-lite.hpp>
+
 
 
 namespace bencode {

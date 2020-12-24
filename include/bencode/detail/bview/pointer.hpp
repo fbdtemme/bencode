@@ -22,13 +22,16 @@ inline bview evaluate(const bpointer& pointer, const bview& bv)
                 throw out_of_range("unresolved token '-': list index '-' is not supported");
             }
 
-            auto res = detail::parse_integer<std::uint64_t>(token.begin(), token.end());
-            if (!res) [[unlikely]] {
+            std::size_t value;
+            auto res = detail::from_chars(
+                    token.data(), token.data() + token.size(), value, implementation::serial);
+
+            if (res.ec != parsing_errc{}) [[unlikely]] {
                 throw out_of_range(
                         fmt::format("unresolved token '{}': expected list index", token));
             }
 
-            v = get_list(v).at(res.value());
+            v = get_list(v).at(value);
             break;
         }
         default:
@@ -56,15 +59,17 @@ inline bool contains(const bpointer& pointer, const bview& bv)
             if (token=="-") [[unlikely]]
                 return false;
 
-            auto res = detail::parse_integer<std::uint64_t>(token.begin(), token.end());
-            if (!res) [[unlikely]] {
-                return false;
-            }
+            std::uint64_t value;
+            auto res = detail::from_chars(
+                    token.data(), token.data()+token.size(), value, implementation::serial);
 
-            if (res.value() >= get_list(v).size())
+            if (res.ec != parsing_errc{}) [[unlikely]]
                 return false;
 
-            v = get_list(v).at(res.value());
+            if (value >= get_list(v).size())
+                return false;
+
+            v = get_list(v).at(value);
             break;
         }
         default:

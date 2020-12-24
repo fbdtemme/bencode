@@ -1,7 +1,8 @@
 #pragma once
 
 #include <compare>
-#include <gsl/gsl_assert>
+#include <gsl-lite/gsl-lite.hpp>
+
 
 
 #include "bencode/detail/concepts.hpp"
