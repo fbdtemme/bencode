@@ -30,7 +30,9 @@ target_include_directories(bencode INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         )
 
-include(external/external.cmake)
+include(external/fmt.cmake)
+include(external/gsl-lite.cmake)
+include(external/expected-lite.cmake)
 
 
 option(BENCODE_BUILD_TESTS    "Build tests."  ON)
@@ -38,16 +40,24 @@ cmake_dependent_option(BENCODE_BUILD_TESTS_COVERAGE
                        "Build with coverage enabled"
                        OFF "BENCODE_BUILD_TESTS" OFF)
 
-option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"    OFF)
-option(BENCODE_BUILD_DOCS        "Build documentation" OFF)
+option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"           OFF)
+option(BENCODE_BUILD_DOCS        "Build documentation"        OFF)
+set(BENCODE_FROM_CHARS_IMPL "SERIAL" CACHE STRING
+        "The implementation to use. Options: serial or swar")
+
+
+string(TOLOWER ${BENCODE_FROM_CHARS_IMPL} BENCODE_IMPLEMENTATION)
+
+#option(BENCODE_ENABLE_SWAR       "Enable SWAR implementation" OFF)
+#option(BENCODE_ENABLE_AVX2       "Enable AVX2 implementation" OFF)
 
 # Concepts compile flags
 
 target_link_libraries(bencode
     INTERFACE
         fmt::fmt-header-only
-        Microsoft.GSL::GSL
-        nonstd::expected-lite)
+        nonstd::expected-lite
+        gsl::gsl-lite-v1)
 
 add_library(bencode::bencode ALIAS bencode)
 
@@ -68,6 +78,12 @@ if (BENCODE_BUILD_DOCS)
     message(STATUS "Building docs enabled")
     add_subdirectory(docs)
 endif()
+
+if (BENCODE_IMPLEMENTATION STREQUAL swar)
+    message(STATUS "Enabling SWAR integer parsing.")
+    target_compile_definitions(bencode INTERFACE BENCODE_ENABLE_SWAR)
+endif()
+
 
 set(bencode_cmake_install_dir   ${CMAKE_INSTALL_LIBDIR}/cmake/bencode)
 set(bencode_version_config      ${PROJECT_BINARY_DIR}/bencode-config-version.cmake)
@@ -113,16 +129,10 @@ if (NOT fmt_FOUND)
             INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endif()
 
-if (NOT expected-lite_FOUND)
-    message(STATUS "Adding expected-lite to install set")
-    install(TARGETS expected-lite
-            EXPORT ${bencode_targets_export_name}
-            INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-endif()
 
-if (NOT Microsoft.GSL_FOUND)
-    message(STATUS "Adding Microsoft.GSL to install set")
-    install(TARGETS GSL
+if (NOT gsl-lite_FOUND)
+    message(STATUS "Adding gsl-lite to install set")
+    install(TARGETS gsl::gsl-lite-v1
             EXPORT ${bencode_targets_export_name}
             INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endif()

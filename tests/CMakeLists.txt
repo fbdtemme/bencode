@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.14)
 
+include(${CMAKE_SOURCE_DIR}/external/catch2.cmake)
+include(${CMAKE_SOURCE_DIR}/external/expected-lite.cmake)
+
 add_executable(bencode-tests)
 target_sources(bencode-tests
     PUBLIC
@@ -19,9 +22,11 @@ target_sources(bencode-tests
         bview/test_dict_bview.cpp
         bview/test_bview.cpp
 
-        parser/test_common.cpp
+        parser/test_from_chars.cpp
+        parser/test_from_iters.cpp
         parser/push_parser.cpp
         parser/descriptor_parser.cpp
+
 
         test_concepts.cpp
         test_encoder.cpp
@@ -49,7 +54,9 @@ target_compile_options(bencode-tests PRIVATE -fconcepts-diagnostics-depth=4)
 
 target_compile_definitions(bencode-tests PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources\")
 
-#target_compile_options(bencode-tests PRIVATE -Wfatal-errors)
+#if (BENCODE_ENABLE_AVX2)
+#    target_compile_options(bencode-tests PRIVATE -mavx2)
+#endif()
 
 include(Catch)
 catch_discover_tests(bencode-tests)
