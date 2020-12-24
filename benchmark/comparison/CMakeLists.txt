@@ -1,25 +1,29 @@
 cmake_minimum_required(VERSION 3.15)
 
-
 project("bencode-comparision-benchmark")
 
-include(CTest)
-include(Catch)
+find_package(benchmark REQUIRED)
+find_package(Boost REQUIRED)
 
-add_executable(${PROJECT_NAME})
-target_sources(${PROJECT_NAME}
-        PRIVATE
-        main.cpp
-        fbdtemme_bencode.cpp
-        jimporter_bencode.cpp
-)
+include(${CMAKE_SOURCE_DIR}/external/libtorrent.cmake)
 
-target_include_directories(${PROJECT_NAME} PRIVATE external)
+add_executable(benchmark-fbdtemme-bencode fbdtemme_bencode.cpp)
+add_executable(benchmark-jimporter-bencode jimporter_bencode.cpp)
+add_executable(benchmark-arvidn-libtorrent arvidn_libtorrent.cpp)
 
+target_link_libraries(benchmark-jimporter-bencode PRIVATE Boost::headers)
 
+foreach(target "benchmark-fbdtemme-bencode"
+               "benchmark-jimporter-bencode"
+               "benchmark-arvidn-libtorrent")
+    target_link_libraries(${target} PRIVATE
+            bencode::bencode
+            benchmark::benchmark
+            benchmark::benchmark_main
+    )
+    target_compile_definitions(${target} PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/../resources\")
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/../resources\")
-target_link_libraries(${PROJECT_NAME} bencode::bencode Catch2::Catch2)
-target_compile_options(${PROJECT_NAME}  PUBLIC)
+endforeach(target)
 
-catch_discover_tests(${PROJECT_NAME})
+target_link_libraries(benchmark-arvidn-libtorrent PRIVATE LibtorrentRasterbar::torrent-rasterbar)
+

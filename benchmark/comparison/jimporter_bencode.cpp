@@ -1,49 +1,52 @@
-#define CATCH_CONFIG_ENABLE_BENCHMARKING
-#include <catch2/catch.hpp>
 #include <chrono>
 
 #include <ranges>
 #include <string_view>
 #include <fstream>
+#include <filesystem>
 
-#include "jimporter_bencode.hpp"
+#include <benchmark/benchmark.h>
+#include "external/jimporter_bencode.hpp"
 
-using namespace std::string_view_literals;
+#include "resources.hpp"
 
-namespace fs = std::filesystem;
-
-inline void benchmark_helper(std::istream& ifs)
-{
+static void BM_decode_value(benchmark::State& state, const std::filesystem::path& path) {
+    auto ifs = std::ifstream(path);
     std::string torrent(
             std::istreambuf_iterator<char>{ifs},
             std::istreambuf_iterator<char>{});
 
-    BENCHMARK("decode_value") {
-        auto d = bencode::decode(torrent);
-        return d;
-    };
-
-    BENCHMARK("decode_view") {
-         auto d = bencode::decode_view(torrent);
-         return d;
-    };
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(bencode::decode(torrent));
+        benchmark::ClobberMemory();
+    }
+    state.SetBytesProcessed(state.iterations() * torrent.size());
 }
 
-TEST_CASE("benchmark parsing - jimporter/bencode")
-{
-    SECTION("fedora workstation") {
-        std::ifstream ifs(RESOURCES_DIR"/Fedora-Workstation-Live-x86_64-30.torrent");
+static void BM_decode_view(benchmark::State& state, const std::filesystem::path& path) {
+    auto ifs = std::ifstream(path);
+    std::string torrent(
+            std::istreambuf_iterator<char>{ifs},
+            std::istreambuf_iterator<char>{});
 
-        benchmark_helper(ifs);
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(bencode::decode_view(torrent));
+        benchmark::ClobberMemory();
     }
-
-    SECTION("NASA mdim_color") {
-        std::ifstream ifs(RESOURCES_DIR"/NASA-Viking-Merged-Color-Mosaic.torrent");
-        benchmark_helper(ifs);
-    }
-
-    SECTION("COVID-19 image dataset") {
-        std::ifstream ifs(RESOURCES_DIR"/COVID-19-image-dataset-collection.torrent");
-        benchmark_helper(ifs);
-    }
+    state.SetBytesProcessed(state.iterations() * torrent.size());
 }
+
+
+BENCHMARK_CAPTURE(BM_decode_value, "ubuntu",     resource::ubuntu);
+BENCHMARK_CAPTURE(BM_decode_value, "covid",      resource::covid);
+BENCHMARK_CAPTURE(BM_decode_value, "camelyon17", resource::camelyon17);
+BENCHMARK_CAPTURE(BM_decode_value, "pneumonia",  resource::pneumonia);
+BENCHMARK_CAPTURE(BM_decode_value, "integers",   resource::integers);
+
+BENCHMARK_CAPTURE(BM_decode_view, "ubuntu",     resource::ubuntu);
+BENCHMARK_CAPTURE(BM_decode_view, "covid",      resource::covid);
+BENCHMARK_CAPTURE(BM_decode_view, "camelyon17", resource::camelyon17);
+BENCHMARK_CAPTURE(BM_decode_view, "pneumonia",  resource::pneumonia);
+BENCHMARK_CAPTURE(BM_decode_view, "integers",   resource::integers);
+
+BENCHMARK_MAIN();
