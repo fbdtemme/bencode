@@ -27,7 +27,7 @@ A header-only C++20 bencode serialization/deserialization library.
 *   Parse directly to custom types by satisfying the `EventConsumer` concept.
 *   Throwing and non throwing variants of common functions.
 *   Iterative parsing to protect against stack overflow attacks.
-*   bencode pointer similar to json pointer.   
+*   Bencode pointer similar to json pointer.   
 
 ## Status
 
@@ -37,6 +37,27 @@ The API may change at any release prior to 1.0.0.
 ## Documentation
 
 Documentation is available on the [bencode GitHub pages](https://fbdtemme.github.io/bencode/)
+
+## Performance
+
+### Parsing to value types
+
+This benchmarks compares parsing speed when decoding to an owning data type that involves
+copying data from the buffer.
+
+Note: libtorrent does not have an owning bencode data type and is thus excluded.
+
+![benchmark-decoding-value](docs/images/benchmark-comparison-value.svg)
+
+### Parsing to view types
+
+This benchmarks compares parsing speed when decoding to a view type that tries to minimize copies 
+from the buffer and instead points to data inside the buffer.
+
+Note: libtorrent does not decode integers until they are actually accessed. 
+Both this project en jimporter/bencode parse integers at decode time.
+
+![benchmark-decoding-view](docs/images/benchmark-comparison-view.svg)
 
 ## Examples
 
@@ -48,7 +69,7 @@ namespace bc = bencode;
 ```
 
 ```cpp
-#include <bencode/bvalue.hpp> 
+//#include <bencode/bvalue.hpp> 
 
 using namespace bc::literals;
 
@@ -63,7 +84,7 @@ auto v2 = get_integer(b[1]);
 Decode a value to a `bview`.
 
 ```cpp
-#include <bencode/bview.hpp> 
+//#include <bencode/bview.hpp> 
 
 namespace bc = bencode;
 
@@ -79,9 +100,9 @@ auto v2 = get_integer(b[1]);
 
 Serialize to bencode using `bvalue`.
 ```cpp
-#include <iostream>
-#include <bencode/bvalue.hpp>
-#include <bencode/encode.hpp>
+//#include <iostream>
+//#include <bencode/bvalue.hpp>
+//#include <bencode/encode.hpp>
 
 bc::bvalue b {
   {"foo", 1},
@@ -96,10 +117,8 @@ bc::encode_to(std::cout, b);
 Serialize to bencode using `encoder`
 
 ```cpp
-#include <iostream>
-#include <vector>
-#include <bencode/encode.hpp>           // bc::encoder
-#include <bencode/traits/vector.hpp>    // support for serializating std::vector
+//#include <bencode/encode.hpp>
+//#include <bencode/traits/vector.hpp>
 
 bc::encoder es(std::cout);
 
@@ -111,19 +130,39 @@ es << bc::begin_dict
 
 // prints "d3:bari2e3:bazli1ei2ei3ee3:fooi1ee";
 ```
+```cpp
+// #include <bencode/bencode.hpp>
 
-For more examples see the [documentation](https://fbdtemme.github.io/bencode/) 
+static const auto b_value = bc::bvalue{
+        {"foo", bc::bvalue(bc::btype::list, {"bar", "baz"})},
+        {"", 0},
+        {"a/b", 1},
+        {"c%d", 2},
+        {"e^f", 3},
+        {"g|h", 4},
+        {"i\\j", 5},
+        {"k\"l", 6},
+        {" ", 7},
+        {"m~n", 8}
+};
+
+b_value.at("foo/0"_bpointer);    // returns bvalue("bar")
+```
+
+See the [documentation](https://fbdtemme.github.io/bencode/) for more examples. 
 
 ## Building
 
 This project requires C++20. 
-Currently only GCC 10 is supported.
+Currently only GCC 10 and later is supported.
 
 This library depends on following projects:
 *  [Catch2](https://github.com/catchorg/Catch2)
 *  [fmt](https://github.com/fmtlib/fmt)
-*  [Microsoft GSL](https://github.com/microsoft/GSL)
+*  [gsl-lite](https://github.com/gsl-lite/gsl-lite)
 *  [expected-lite](https://github.com/martinmoene/expected-lite)
+*  [google-benchmark](https://github.com/google/benchmark)
+
 
 All dependencies can be fetched from github during configure time or can be installed manually.
 
@@ -165,7 +204,7 @@ add_library(foo ...)
 target_link_libraries(foo INTERFACE bencode::bencode)
 ```
 
-You can also use `FetchContent` to download the code from github.
+You can also use `FetchContent` to download the source code from github.
     
 ```cmake
 # CMakeLists.txt
