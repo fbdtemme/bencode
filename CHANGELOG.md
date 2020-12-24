@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.0
+
+* Reworked parser internals for increased decoding speed.
+* SWAR optimizations for fast integer decoding.
+* Switch benchmarks to google/benchmark for more consistent results.
+* Add benchmark with arvidn/libtorrent.
+* Change gsl-lite to the gsl-lite-v1 version.
+
 ## v0.3.0
 
 * Add support for std::shared_ptr, std::unique_ptr, std::weak_ptr and raw pointers.

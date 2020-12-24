@@ -19,6 +19,7 @@ Features
 *  Support for serializing/deserializing to/from user-defined types.
 *  Parse directly to custom types by satisfying the `EventConsumer` concept.
 *  Throwing and non throwing variants of common functions.
+*   Bencode pointer similar to json pointer.
 
 
 Requirements
@@ -36,9 +37,10 @@ Dependencies
 This library depends on following external projects.
 
 * `fmt <https://github.com/fmtlib/fmt>`_
-* `Microsoft GSL <https://github.com/microsoft/GSL>`_
+* `gsl-lite` <https://github.com/gsl-lite/gsl-lite>`_
 * `expected-lite <https://github.com/martinmoene/expected-lite>`_
 * `Catch2 <https://github.com/catchorg/Catch2>`_, when building tests.
+* `google-benchmark <https://github.com/google/benchmark>`_, when building benchmarks
 
 All dependencies are fetched from github using cmake during configuration if
 no local installation is found.

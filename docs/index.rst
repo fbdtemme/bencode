@@ -19,6 +19,8 @@ Content
     getting_started/introduction
     getting_started/bencode_format
     getting_started/integration
+    getting_started/performance
+
 
 .. toctree::
     :maxdepth: 2
