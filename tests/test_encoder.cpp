@@ -60,7 +60,6 @@ TEST_CASE("test encoder", "[encoder]")
                     << 1 << 2 << 3
                     << bc::end_list
                 << bc::end_dict;
-        std::cout << os.str() << std::endl;
 
         CHECK(os.str() == "d4:key1i1e4:key23:two4:key3li1ei2ei3eee");
     }

@@ -25,6 +25,7 @@ static const auto b_value = bvalue{
         {"m~n", 8}
 };
 
+
 static const auto b_encoded = bencode::encode(b_value);
 static const auto b_desc_table = bencode::decode_view(b_encoded);
 static const auto b_view = b_desc_table.get_root();

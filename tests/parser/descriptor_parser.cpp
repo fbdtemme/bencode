@@ -14,7 +14,7 @@ using namespace std::string_view_literals;
 using namespace bencode;
 
 
-TEST_CASE("test descriptor parser", "[parser]")
+TEST_CASE("test descriptor parser - simd", "[parser]")
 {
     using namespace bencode;
 
