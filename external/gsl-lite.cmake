@@ -9,6 +9,8 @@ else()
             gsl-lite
             GIT_REPOSITORY https://github.com/gsl-lite/gsl-lite.git
             GIT_TAG        master
+            EXCLUDE_FROM_ALL TRUE
     )
     FetchContent_MakeAvailable(gsl-lite)
+    target_compile_options(gsl::gsl-lite-v1 gsl_CONFIG_DEFAULTS_VERSION 1)
 endif()

@@ -9,6 +9,7 @@ else()
             fmt
             GIT_REPOSITORY https://github.com/fmtlib/fmt.git
             GIT_TAG        master
+            EXCLUDE_FROM_ALL TRUE
     )
     set(FMT_INSTALL ON)
     set(BUILD_SHARED_LIBS ON)
