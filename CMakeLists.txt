@@ -127,15 +127,15 @@ if (BENCODE_ENABLE_INSTALL)
 
 
     if (NOT expected-lite_FOUND)
-        message(STATUS "Adding fmt to install set")
-        install(TARGETS expected
+        message(STATUS "Adding expected-lite to install set")
+        install(TARGETS expected-lite
                 EXPORT ${bencode_targets_export_name}
                 INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
     endif()
 
     if (NOT gsl-lite_FOUND)
         message(STATUS "Adding gsl-lite to install set")
-        install(TARGETS gsl::gsl-lite gsl::gsl-lite-v1
+        install(TARGETS gsl-lite-v1
                 EXPORT ${bencode_targets_export_name}
                 INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
     endif()

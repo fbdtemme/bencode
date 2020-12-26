@@ -9,7 +9,6 @@ else()
             expected-lite
             GIT_REPOSITORY https://github.com/martinmoene/expected-lite.git
             GIT_TAG        master
-            EXCLUDE_FROM_ALL TRUE
     )
     FetchContent_MakeAvailable(expected-lite)
 endif()

@@ -8,8 +8,7 @@ else()
             Catch2
             GIT_REPOSITORY https://github.com/catchorg/Catch2.git
             GIT_TAG        v2.x
-            EXCLUDE_FROM_ALL TRUE
     )
     FetchContent_MakeAvailable(Catch2)
-    set(CMAKE_MODULE_PATH "${Catch2_SOURCE_DIR}/contrib" ${CMAKE_MODULE_PATH})
+    list(APPEND CMAKE_MODULE_PATH "${Catch2_SOURCE_DIR}/contrib")
 endif()

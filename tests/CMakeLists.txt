@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
 include(../external/catch2.cmake)
-include(../external/expected-lite.cmake)
 
 include(Catch)
 

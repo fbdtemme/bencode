@@ -25,5 +25,5 @@ foreach(target "benchmark-fbdtemme-bencode"
 
 endforeach(target)
 
-target_link_libraries(benchmark-arvidn-libtorrent PRIVATE LibtorrentRasterbar::torrent-rasterbar)
+target_link_libraries(benchmark-arvidn-libtorrent PRIVATE torrent-rasterbar)
 
