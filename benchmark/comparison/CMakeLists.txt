@@ -5,7 +5,7 @@ project("bencode-comparision-benchmark")
 find_package(benchmark REQUIRED)
 find_package(Boost REQUIRED)
 
-include(${CMAKE_SOURCE_DIR}/external/libtorrent.cmake)
+include(../../external/libtorrent.cmake)
 
 add_executable(benchmark-fbdtemme-bencode fbdtemme_bencode.cpp)
 add_executable(benchmark-jimporter-bencode jimporter_bencode.cpp)

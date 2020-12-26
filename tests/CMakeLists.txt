@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.14)
 
-include(${CMAKE_SOURCE_DIR}/external/catch2.cmake)
-include(${CMAKE_SOURCE_DIR}/external/expected-lite.cmake)
+include(../external/catch2.cmake)
+include(../external/expected-lite.cmake)
+
+include(Catch)
 
 add_executable(bencode-tests)
 target_sources(bencode-tests
@@ -37,15 +39,13 @@ target_sources(bencode-tests
         traits/memory.cpp
 )
 
-#include_directories("../include/")
-#include(../external/CMakeLists.txt)
-target_link_libraries(bencode-tests
-        Catch2::Catch2
+target_link_libraries(bencode-tests PRIVATE
         bencode
+        Catch2::Catch2
 )
 
-if (BENCODE_BUILD_TESTS_COVERAGE)
-    message(STATUS "Building with coverage enabled")
+if (BENCODE_ENABLE_COVERAGE)
+    message(STATUS "Building with coverage flags enabled")
     set(CMAKE_CXX_FLAGS --coverage)
     set(CMAKE_C_FLAGS --coverage)
 endif()
@@ -54,9 +54,12 @@ target_compile_options(bencode-tests PRIVATE -fconcepts-diagnostics-depth=4)
 
 target_compile_definitions(bencode-tests PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources\")
 
-#if (BENCODE_ENABLE_AVX2)
-#    target_compile_options(bencode-tests PRIVATE -mavx2)
-#endif()
+#############################################################################
+# Test the generated build configs
+#############################################################################
 
-include(Catch)
 catch_discover_tests(bencode-tests)
+
+add_subdirectory(cmake_import)
+add_subdirectory(cmake_add_subdirectory)
+add_subdirectory(cmake_fetch_content)
