@@ -48,11 +48,6 @@ set(BENCODE_FROM_CHARS_IMPL "SERIAL" CACHE STRING
 
 string(TOLOWER ${BENCODE_FROM_CHARS_IMPL} BENCODE_IMPLEMENTATION)
 
-#option(BENCODE_ENABLE_SWAR       "Enable SWAR implementation" OFF)
-#option(BENCODE_ENABLE_AVX2       "Enable AVX2 implementation" OFF)
-
-# Concepts compile flags
-target_compile_definitions(bencode INTERFACE gsl_CONFIG_DEFAULTS_VERSION=1)
 target_link_libraries(bencode
     INTERFACE
         fmt::fmt-header-only
