@@ -81,6 +81,7 @@ endif()
 
 
 if (BENCODE_ENABLE_INSTALL)
+    set(bencode_package_name        ${PROJECT_NAME})
     set(bencode_cmake_install_dir   ${CMAKE_INSTALL_LIBDIR}/cmake/bencode)
     set(bencode_version_config      ${PROJECT_BINARY_DIR}/bencode-config-version.cmake)
     set(bencode_project_config      ${PROJECT_BINARY_DIR}/bencode-config.cmake)

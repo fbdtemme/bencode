@@ -7,7 +7,7 @@ else()
     message(STATUS "Fetching dependency expected-lite...")
     FetchContent_Declare(
             expected-lite
-            GIT_REPOSITORY https://github.com/martinmoene/expected-lite.git
+            GIT_REPOSITORY https://github.com/fbdtemme/expected-lite.git
             GIT_TAG        master
     )
     FetchContent_MakeAvailable(expected-lite)
