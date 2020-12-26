@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 project(bencode
-        DESCRIPTION "A modern C++ Bencode library"
+        DESCRIPTION "A C++20 header-only bencode library."
         HOMEPAGE_URL https://github.com/fbdtemme/bencode
         LANGUAGES CXX
         VERSION 0.4.0)
