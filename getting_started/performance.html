@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Introduction &mdash; bencode 0.4.0 documentation</title>
+  <title>Performance &mdash; bencode 0.4.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Bencode format" href="bencode_format.html" />
-    <link rel="prev" title="bencode" href="../index.html" /> 
+    <link rel="next" title="Value and view types" href="../usage/value_and_view.html" />
+    <link rel="prev" title="Integration" href="integration.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,19 +91,18 @@
             
               <p class="caption"><span class="caption-text">Getting started</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#design-goals">Design goals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#compiler-support">Compiler support</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bencode_format.html">Bencode format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#benchmarks">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#results">Results</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#value">Value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view">View</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Usage</span></p>
 <ul>
@@ -174,13 +173,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Introduction</li>
+      <li>Performance</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/getting_started/introduction.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/getting_started/performance.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -193,47 +192,61 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="design-goals">
-<h2>Design goals<a class="headerlink" href="#design-goals" title="Permalink to this headline">¶</a></h2>
-<p>There are multiple bencode projects available online,
-but many are quite limited in scope or have lacking documentation.
-The goal of this library is to provide first class support for bencode and to provide all
-features expected of a modern serialization/deserialization library.</p>
-</div>
-<div class="section" id="features">
-<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="performance">
+<h1>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h1>
+<p>The decoding performance was benchmarked against following libraries:</p>
 <ul class="simple">
-<li><p>Convenient owning representation of bencoded data with <cite>bvalue</cite>.</p></li>
-<li><p>Fast and memory efficient read-only, non-owning representation into stable buffers
-of bencoded data with <cite>bview</cite>.</p></li>
-<li><p>Build-in serialization/deserializaton for most standard containers.</p></li>
-<li><p>Support for serializing/deserializing to/from user-defined types.</p></li>
-<li><p>Parse directly to custom types by satisfying the <cite>EventConsumer</cite> concept.</p></li>
-<li><p>Throwing and non throwing variants of common functions.</p></li>
-<li><p>Bencode pointer similar to json pointer.</p></li>
+<li><p><a class="reference external" href="https://github.com/arvidn/libtorrent">arvidn/libtorrent</a></p></li>
+<li><p><a class="reference external" href="https://github.com/jimporter/bencode">jimporter/bencode</a></p></li>
+</ul>
+<div class="section" id="benchmarks">
+<h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt>integers:</dt><dd><p>A list of integer values with a uniform distribution over the full 64-bit signed integer range.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>pneumonia:</dt><dd><p>A bittorrent file with 29686 jpeg images of the kaggle RSNA Pneumonia Detection Challenge.
+The jpeg images are around 100 KiB each.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>camelyon17:</dt><dd><p>A bittorrent file with data of the CAMELYON17 challenge.
+It contains 1156 xml files and images. The images are a few GiB large.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>covid:</dt><dd><p>A bittorrent file of COVID-19 related images with 20 files of around 100 MiB.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>ubuntu:</dt><dd><p>A small bittorent file of the ubuntu 20.04 LTS server distribution.</p>
+</dd>
+</dl>
+</li>
 </ul>
 </div>
-<div class="section" id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="compiler-support">
-<h3>Compiler support<a class="headerlink" href="#compiler-support" title="Permalink to this headline">¶</a></h3>
-<p>This library requires C++20.
-Compiler support is limited to GCC10 for the moment.</p>
-</div>
-<div class="section" id="dependencies">
-<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
-<p>This library depends on following external projects.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/fmtlib/fmt">fmt</a></p></li>
-<li><p><cite>gsl-lite</cite> &lt;<a class="reference external" href="https://github.com/gsl-lite/gsl-lite">https://github.com/gsl-lite/gsl-lite</a>&gt;`_</p></li>
-<li><p><a class="reference external" href="https://github.com/martinmoene/expected-lite">expected-lite</a></p></li>
-<li><p><a class="reference external" href="https://github.com/catchorg/Catch2">Catch2</a>, when building tests.</p></li>
-<li><p><a class="reference external" href="https://github.com/google/benchmark">google-benchmark</a>, when building benchmarks</p></li>
-</ul>
-<p>All dependencies are fetched from github using cmake during configuration if
-no local installation is found.</p>
+<div class="section" id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="value">
+<h3>Value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
+<p>libtorrent is not included since it does not have a bencode parser which decodes to a
+owning data representation.</p>
+<img alt="../_images/benchmark-comparison-value.svg" src="../_images/benchmark-comparison-value.svg" /></div>
+<div class="section" id="view">
+<h3>View<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h3>
+<p>Note that libtorrent does not actually decode integers when parsing, but defers to when
+the value is accessed.
+Both fbdtemme/bencode and jimporter/bencode do parse the integers directly when decoding.</p>
+<img alt="../_images/benchmark-comparison-view.svg" src="../_images/benchmark-comparison-view.svg" /><p>The more extensive view model of libtorrent and fbdtemme/bencode clearly provides a large
+performance benefit for in-situ parsing by requiring less dynamic-memory allocations.
+Parsing large integer values such as those in the “integers” benchmark is significantly
+faster in fbdtemme/bencode due to SWAR optimisations.</p>
 </div>
 </div>
 </div>
@@ -246,10 +259,10 @@ no local installation is found.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="bencode_format.html" class="btn btn-neutral float-right" title="Bencode format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../usage/value_and_view.html" class="btn btn-neutral float-right" title="Value and view types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral float-left" title="bencode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="integration.html" class="btn btn-neutral float-left" title="Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
