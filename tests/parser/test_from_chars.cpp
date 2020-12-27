@@ -92,7 +92,7 @@ TEMPLATE_TEST_CASE("test from_chars - serial", "[integer]", std::int32_t, std::i
 
 inline std::string operator""_padded(const char* s, std::size_t len)
 {
-    auto str = std::string(s, strlen(s));
+    auto str = std::string(s, len);
     str.resize(32, '\0');
     return str;
 }

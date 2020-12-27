@@ -147,13 +147,12 @@ constexpr from_chars_result from_chars(
         const char* first, const char* last, bool& value, implementation_tag<0>)
 {
     std::uint8_t v = (*first - '0');
-    bool is_digit = v <= 9;
 
     if (v <= 1) [[likely]] {
         value = v;
         return {++first, parsing_errc{}};
     }
-    else if (v == is_digit) {
+    else if (v <= 9) {
         return {++first, parsing_errc::result_out_of_range};
     }
     else {
