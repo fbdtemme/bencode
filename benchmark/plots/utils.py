@@ -1,8 +1,9 @@
 import pandas as pd
 import numpy as np
-from pathlib  import Path
+from pathlib import Path
 import json
 import matplotlib.pyplot as plt
+
 
 def load_json_benchmarks(file_path: Path) -> pd.DataFrame:
     """Load the benchmark results from a google benchmark json file."""
@@ -12,8 +13,8 @@ def load_json_benchmarks(file_path: Path) -> pd.DataFrame:
     return pd.DataFrame(data["benchmarks"])
 
 
-def filter_results(df : pd.DataFrame, library: str) -> pd.DataFrame:
-    """"Remove mean, median and stddev from the results"""
+def filter_results(df: pd.DataFrame, library: str) -> pd.DataFrame:
+    """Remove mean, median and stddev from the results"""
     df_means = df.name.str.contains("mean")
     df_medians = df.name.str.contains("median") 
     df_stddev = df.name.str.contains("stddev") 

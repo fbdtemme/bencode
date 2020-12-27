@@ -95,6 +95,7 @@ private:
     {
         if (!stack_.empty() && stack_.top() == connector_state::expect_dict_key) [[unlikely]] {
             error_ = encoding_errc::invalid_dict_key;
+            return;
         }
         stack_.push(connector_state::expect_list_value);
         consumer_.begin_list();
@@ -104,6 +105,7 @@ private:
     {
         if (!stack_.empty() && stack_.top() == connector_state::expect_dict_key) [[unlikely]] {
             error_ = encoding_errc::invalid_dict_key;
+            return;
         }
         stack_.push(connector_state::expect_dict_key);
         consumer_.begin_dict();
@@ -113,6 +115,7 @@ private:
     {
         if (stack_.empty() || stack_.top() != connector_state::expect_list_value) [[unlikely]] {
             error_ = encoding_errc::unexpected_end_list;
+            return;
         }
 
         stack_.pop();
@@ -127,6 +130,7 @@ private:
     {
         if (stack_.empty() || stack_.top() != connector_state::expect_dict_key) [[unlikely]] {
             error_ = encoding_errc::unexpected_end_dict;
+            return;
         }
 
         stack_.pop();
@@ -139,20 +143,19 @@ private:
 
     template <typename U, typename T = std::remove_cvref_t<U>>
     requires event_producer<T>
-    inline bool handle_dict_key(U&& key)
+    inline void handle_dict_key(U&& key)
     {
         Expects(!stack_.empty());
         Expects(stack_.top() == connector_state::expect_dict_key);
 
         if constexpr (!serializable_to<T, bencode_type::string>) [[unlikely]] {
             error_ = encoding_errc::invalid_dict_key;
-            return false;
+            return;
         }
 
         stack_.top() = connector_state::expect_dict_value;
         connect(consumer_, std::forward<U>(key));
         consumer_.dict_key();
-        return true;
     }
 
     template <typename U, typename T = std::remove_cvref_t<U>>
