@@ -15,8 +15,10 @@ include(CMakeDependentOption)
 include(GNUInstallDirs)
 include(SanitizersConfig)
 
+# Determine if bencode is built as a subproject (using add_subdirectory)
+set(BENCODE_MASTER_PROJECT FALSE)
 if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-    set(BENCODE_STANDALONE TRUE)
+    set(BENCODE_MASTER_PROJECT TRUE)
 endif()
 
 
@@ -34,19 +36,17 @@ include(external/fmt.cmake)
 include(external/gsl-lite.cmake)
 include(external/expected-lite.cmake)
 
-
-option(BENCODE_BUILD_TESTS       "Build tests."               ON)
-option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"           OFF)
-option(BENCODE_BUILD_DOCS        "Build documentation"        OFF)
-
-option(BENCODE_ENABLE_COVERAGE   "Build tests with coverage flags enabled"  OFF)
-option(BENCODE_ENABLE_INSTALL    "Generate an install target."  ON)
+option(BENCODE_BUILD_TESTS       "Build tests."          ${BENCODE_MASTER_PROJECT})
+option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"      ${BENCODE_MASTER_PROJECT})
+option(BENCODE_BUILD_DOCS        "Build documentation"   ${BENCODE_MASTER_PROJECT})
+option(BENCODE_ENABLE_COVERAGE   "Build tests with coverage flags enabled"     OFF)
+option(BENCODE_ENABLE_INSTALL    "Generate an install target."                  ON)
 
 set(BENCODE_FROM_CHARS_IMPL "SERIAL" CACHE STRING
         "The implementation to use. Options: serial or swar")
 
 
-string(TOLOWER ${BENCODE_FROM_CHARS_IMPL} BENCODE_IMPLEMENTATION)
+string(TOLOWER ${BENCODE_FROM_CHARS_IMPL} BENCODE_FROM_CHARS_IMPL)
 
 target_link_libraries(bencode
     INTERFACE
@@ -54,15 +54,11 @@ target_link_libraries(bencode
         nonstd::expected-lite
         gsl::gsl-lite-v1)
 
-add_library(bencode::bencode ALIAS bencode)
-
-
-if ((BUILD_TESTING AND BENCODE_BUILD_TESTS) OR BENCODE_BUILD_TESTS)
+if (BENCODE_BUILD_TESTS)
     enable_testing()
     message(STATUS "Building tests enabled")
     add_subdirectory(tests)
 endif()
-
 
 if (BENCODE_BUILD_BENCHMARKS)
     message(STATUS "Building benchmark enabled")
@@ -74,7 +70,8 @@ if (BENCODE_BUILD_DOCS)
     add_subdirectory(docs)
 endif()
 
-if (BENCODE_IMPLEMENTATION STREQUAL swar)
+
+if (BENCODE_FROM_CHARS_IMPL STREQUAL swar)
     message(STATUS "Enabling SWAR integer parsing.")
     target_compile_definitions(bencode INTERFACE BENCODE_ENABLE_SWAR)
 endif()
@@ -112,35 +109,10 @@ if (BENCODE_ENABLE_INSTALL)
             DESTINATION ${bencode_cmake_install_dir}
     )
 
-
     # install targets to an export set
     install(TARGETS bencode
             EXPORT ${bencode_targets_export_name}
             INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-
-    if (NOT fmt_FOUND)
-        message(STATUS "Adding fmt to install set")
-        install(TARGETS fmt fmt-header-only
-                EXPORT ${bencode_targets_export_name}
-                INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-    endif()
-
-
-    if (NOT expected-lite_FOUND)
-        message(STATUS "Adding expected-lite to install set")
-        install(TARGETS expected-lite
-                EXPORT ${bencode_targets_export_name}
-                INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-    endif()
-
-    if (NOT gsl-lite_FOUND)
-        message(STATUS "Adding gsl-lite to install set")
-        install(TARGETS gsl-lite-v1
-                EXPORT ${bencode_targets_export_name}
-                INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-    endif()
-
 
     # Install the export set to enable importing targets from the build tree
     export(EXPORT ${bencode_targets_export_name}
