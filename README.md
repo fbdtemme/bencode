@@ -201,7 +201,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Debug -DBENCODE_BUILD_TESTS=ON -DBENCODE_BUILD_BENCH
 make bencode-tests
 ```
 
-The library can be installed a CMake package.
+The library can be installed as a CMake package.
 ```bash
 cmake -DBENCODE_BUILD_TESTS=OFF \
       -DBENCODE_BUILD_BENCHMARKS=OFF \
