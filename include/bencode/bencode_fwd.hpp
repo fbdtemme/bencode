@@ -6,7 +6,6 @@ namespace bencode {
 
 template<
         typename IntegralType,
-        typename StringViewType,
         typename StringType,
         template <typename T> typename ListType,
         template <typename K, typename V> typename DictType

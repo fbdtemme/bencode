@@ -161,7 +161,7 @@ public:
     /// If the current active alternative is not a dict, and exception of type
     /// bad_bview_access is thrown.
     /// If no such element exists, an exception of type std::out_of_range is thrown.
-    /// @param pos  	the key of the element to find
+    /// @param key the key of the element to find
     /// @returns View to the mapped value of the requested element.
     /// @throws out_of_range if the container does not have an element with the specified key,
     /// @throws bad_bview_access if the current active alternative is not dict.

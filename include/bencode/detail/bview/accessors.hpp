@@ -86,7 +86,10 @@ constexpr const bview_alternative_t<E>& get(const bview& v)
 /// @tparam E type to look up
 /// @param v reference to a bview
 /// @returns reference to the value described in the view.
-template <bview_alternative_type T>
+template <typename T>
+/// \cond CONCEPTS
+    requires bview_alternative_type<T>
+/// \endcond
 constexpr T& get(bview& v)
 { return get<serialization_traits<T>::type>(v); }
 
@@ -96,7 +99,10 @@ constexpr T& get(bview& v)
 /// @tparam E type to look up
 /// @param v const reference to a bview
 /// @returns const reference to the value described in the view.
-template <bview_alternative_type T>
+template <typename T>
+/// \cond CONCEPTS
+requires bview_alternative_type<T>
+/// \endcond
 constexpr const T& get(const bview& v)
 { return get<serialization_traits<T>::type>(v); }
 
@@ -132,7 +138,10 @@ constexpr const bview_alternative_t<E>* get_if(const bview* desc) noexcept
 /// Otherwise, returns a null pointer.
 /// @param pv pointer to a bview
 /// @returns a pointer to T
-template <bview_alternative_type  T>
+template <typename T>
+/// \cond CONCEPTS
+requires bview_alternative_type<T>
+/// \endcond
 constexpr T* get_if(bview* pv) noexcept
 {
     if (pv == nullptr || pv->type() != serialization_traits<T>::type) [[unlikely]] return nullptr;
@@ -144,7 +153,10 @@ constexpr T* get_if(bview* pv) noexcept
 /// Otherwise, returns a null pointer.
 /// @param pv pointer to a bview
 /// @returns a const pointer to T
-template <bview_alternative_type T>
+template <typename T>
+/// \cond CONCEPTS
+requires bview_alternative_type<T>
+/// \endcond
 constexpr const T* get_if(const bview* pv) noexcept
 {
     if (pv == nullptr || pv->type() != serialization_traits<T>::type) [[unlikely]] return nullptr;
@@ -236,7 +248,10 @@ constexpr bool holds_alternative(const bview& v) noexcept
 /// @tparam E the bencode data type to check for
 /// @param v the bview to check
 /// @return true if the bview described the given bencode data type E, false otherwise.
-template <bview_alternative_type T>
+template <typename T>
+/// \cond CONCEPTS
+requires bview_alternative_type<T>
+/// \endcond
 constexpr bool holds_alternative(const bview& v) noexcept
 {
     auto s = detail::get_storage(v);
@@ -279,7 +294,10 @@ constexpr bool holds_dict(const bview& v) noexcept
 /// @tparam the type to convert to
 /// @param v reference to bview
 /// @returns an expected instance with the returned value or an error code.
-template <retrievable_from_bview T>
+template <typename T>
+/// \cond CONCEPTS
+requires retrievable_from_bview<T>
+/// \endcond
 constexpr nonstd::expected<T, conversion_errc> try_get_as(const bview& v)
 {
     static_assert(!std::is_reference_v<T>, "T cannot have cv-qualifiers");
@@ -297,7 +315,10 @@ constexpr nonstd::expected<T, conversion_errc> try_get_as(const bview& v)
 /// Try to convert a basic_bvalue instantiation to T.
 /// @returns the converted value
 /// @throws bad_conversion when the value could not be converted to the requested type.
-template <retrievable_from_bview T>
+template <typename T>
+/// \cond CONCEPTS
+requires retrievable_from_bview<T>
+/// \endcond
 constexpr T get_as(const bview& value)
 {
     auto v = try_get_as<T>(value);

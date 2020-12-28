@@ -41,7 +41,7 @@ inline basic_bvalue<Policy> decode_value(std::istream& is)
 /// Reads bencoded data from a std::string_view and decodes it to a it to a basic_bvalue.
 /// @tparam Policy the policy template argument for basic_bvalue,
 ///     defaults to default_bvalue_policy.
-/// @param is the input stream to read from
+/// @param sv the string_view to read from
 /// @return the decoded data as a basic_bvalue instantiation.
 /// @throws parse_error when the bencoded data is malformed.
 template <typename Policy = default_bvalue_policy>
@@ -57,7 +57,7 @@ inline basic_bvalue<Policy> decode_value(std::string_view sv)
 /// Reads bencoded data from a range and decodes it to a it basic_bvalue.
 /// @tparam Policy the policy template argument for basic_bvalue,
 ///     defaults to default_bvalue_policy.
-/// @param is the input range to read from
+/// @param range the input range to read from
 /// @return the decoded data as a basic_bvalue instantiation.
 /// @throws parse_error when the bencoded data is malformed.
 template <typename Policy = default_bvalue_policy, rng::input_range Rng>
@@ -95,6 +95,8 @@ inline basic_bvalue<Policy> decode_value(InputIterator first, InputIterator last
 }
 
 /// Read a basic_bvalue from an input stream.
+/// @param is the input stream to read data from
+/// @returns A basic_bvalue instance with data from is.
 template <typename Policy>
 inline std::istream& operator>>(std::istream& is, basic_bvalue<Policy>& value)
 {
@@ -107,8 +109,10 @@ inline std::istream& operator>>(std::istream& is, basic_bvalue<Policy>& value)
 namespace bencode::literals {
 
 /// Construct a bvalue from a bencoded string.
-inline bencode::bvalue operator""_bvalue(const char* str)
-{ return bencode::decode_value(str); }
+inline bencode::bvalue operator""_bvalue(const char* str, std::size_t len)
+{
+    return bencode::decode_value(std::string_view(str, len));
+}
 
 }
 

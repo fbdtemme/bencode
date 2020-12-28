@@ -17,7 +17,6 @@ template <typename Policy> class basic_bvalue;
 /// Policy class defining the behavior of the basic_bvalue container and default serialisation traits_old.
 template<
         typename IntegralType,
-        typename StringViewType,
         typename StringType,
         template <typename T> typename ListType,
         template <typename K, typename V> typename DictType
@@ -139,7 +138,6 @@ struct default_policy_helper
 struct default_bvalue_policy
         : bvalue_policy<
             std::int64_t,
-            std::string_view,
             std::string,
             detail::default_policy_helper::template list_type,
             detail::default_policy_helper::template dict_type

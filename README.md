@@ -31,7 +31,7 @@ A header-only C++20 bencode serialization/deserialization library.
 
 ## Status
 
-This library is still under development, but should be fairly stable. 
+This library is under active development, but should be fairly stable. 
 The API may change at any release prior to 1.0.0.
 
 ## Documentation
@@ -40,45 +40,86 @@ Documentation is available on the [bencode GitHub pages](https://fbdtemme.github
 
 ## Performance
 
-### Parsing to value types
+Decoding performance was benchmarked for both value and view types.
+Value types own the data they refer to and thus need to copy data from the buffer with bencoded data.
+View types try to minimize copies from the buffer with bencoded data and instead point
+to data directly inside the buffer. 
 
-This benchmarks compares parsing speed when decoding to an owning data type that involves
-copying data from the buffer.
+#### Parsing to value types
 
 ![benchmark-decoding-value](docs/images/benchmark-decoding-value.svg)
 
-![benchmark-decoding-value](docs/images/benchmark-comparison-value.svg)
+#### Parsing to view types
 
 ![benchmark-decoding-view](docs/images/benchmark-decoding-view.svg)
 
-Note: libtorrent does not decode integers until they are actually accessed. 
-Both this project en jimporter/bencode parse integers at decode time.
-
-![benchmark-decoding-view](docs/images/benchmark-comparison-view.svg)
+Note: libtorrent does not decode integers until they are actually accessed.
 
 ## Examples
-
-Decode a value to a `bvalue`.
 
 ```cpp
 // All examples use namespace bc for brevity
 namespace bc = bencode;
 ```
 
+Decode bencoded data to `bvalue`.
+
 ```cpp
-//#include <bencode/bvalue.hpp> 
+//#include <bencode/bencode.hpp> 
 
-using namespace bc::literals;
+namespace bc = bencode;
 
-// create a bvalue from a string literal.
-bc::bvalue b = "l3:fooi2ee"_bvalue;
-// get a std::string reference to the first value in the lsit
-auto& v1 = get_string(b[0]);
-// get the integer value of the second value in the list
-auto v2 = get_integer(b[1]);
+// decode the data to a descriptor_table
+bc::bvalue b = bc::decode_value("l3:fooi2ee");
+
+// check if the first list element is a string
+if (holds_list(b) && holds_string(b[0])) {
+    std::cout << "success";
+}
+
+// type tag based type check, return false
+bc::holds_alternative<bc::type::dict>(b); 
+
+// access the first element of the list "foo" and move it 
+// out of the bvalue into v1
+std::string v1 = bc::get_string(std::move(b[0]));
+
+// access the second element
+std::size_t v2 = bc::get_integer(b[1]);
 ```
 
-Decode a value to a `bview`.
+Serialize a `bvalue` to an output stream.
+
+```cpp
+bc::bvalue b{
+  {"foo", 1},
+  {"bar", 2},
+  {"baz", bc::bvalue(bc::btype::list, {1, 2, 3})},
+};
+
+bc::encode_to(std::cout, b);
+```
+
+Retrieve data from a bvalue.
+
+``` cpp
+auto b = bc::bvalue(bv::type::list, {1, 2, 3, 4, 5, 6, 7, 8, 9});
+
+// return a list of integers as a byte vector, throws on error
+auto bytes = get_as<std::vector<std::byte>>(b);
+
+// non throwing version with a std::expected type
+auto res = try_get_as<std::vector<std::byte>>(b);
+
+if (res.has_value()) {
+    std::cout << res.value(); 
+} else {
+    std::cout << "error" << to_string(res.error());
+}
+
+```
+
+Decode bencoded data to `bview`.
 
 ```cpp
 //#include <bencode/bview.hpp> 
@@ -87,63 +128,46 @@ namespace bc = bencode;
 
 // decode the data to a descriptor_table
 bc::descriptor_table t = bc::decode_view("l3:fooi2ee");
+
 // get the bview to the root element (ie the list) 
 bc::bview b = t.get_root();
-// get a std::string reference to the first value in the lsit
-auto& v1 = get_string(b[0]);
-// get the integer value of the second value in the list
-auto v2 = get_integer(b[1]);
+
+// access data and convert to std::size_t and std::string_view
+std::string_view v1 = bc::get_string(b[0]);
+std::size_t v2 = bc::get_integer(b[1]);
 ```
 
-Serialize to bencode using `bvalue`.
-```cpp
-//#include <iostream>
-//#include <bencode/bvalue.hpp>
-//#include <bencode/encode.hpp>
 
-bc::bvalue b {
-  {"foo", 1},
-  {"bar", 2},
-  {"baz", bc::bvalue(bc::btype::list, {1, 2, 3})},
-};
 
-// prints "d3:bari2e3:bazli1ei2ei3ee3:fooi1ee";
-bc::encode_to(std::cout, b);
-```
-
-Serialize to bencode using `encoder`
+Serialize to bencode using `encoder`.
 
 ```cpp
-//#include <bencode/encode.hpp>
-//#include <bencode/traits/vector.hpp>
+#include <bencode/encode.hpp>
+#include <bencode/traits/vector.hpp>    
 
 bc::encoder es(std::cout);
 
 es << bc::begin_dict
-   << "foo" << 1
-   << "bar" << 2
-   << "baz" << std::vector{1, 2, 3}
-   << end_dict;
-
-// prints "d3:bari2e3:bazli1ei2ei3ee3:fooi1ee";
+       << "foo" << 1UL
+       << "bar" << bc::begin_list 
+                    << bc::bvalue(1)
+                    << "two" 
+                    << 3
+                << bc::end_list
+       << "baz" << std::vector{1, 2, 3}
+   << bc::end_dict;
 ```
-```cpp
-// #include <bencode/bencode.hpp>
 
-static const auto b_value = bc::bvalue{
-        {"foo", bc::bvalue(bc::btype::list, {"bar", "baz"})},
-        {"", 0},
-        {"a/b", 1},
-        {"c%d", 2},
-        {"e^f", 3},
-        {"g|h", 4},
-        {"i\\j", 5},
-        {"k\"l", 6},
-        {" ", 7},
-        {"m~n", 8}
+Use bpointer to access values in a nested datastructure.
+
+```cpp
+bc::bvalue b {
+    {"foo", 1},
+    {"bar", 2},
+    {"baz", bc::bvalue(bc::btype::list, {1, 2, 3})},
 };
 
-b_value.at("foo/0"_bpointer);    // returns bvalue("bar")
+b.at("baz/2"_bpointer);
 ```
 
 See the [documentation](https://fbdtemme.github.io/bencode/) for more examples. 
@@ -154,22 +178,35 @@ This project requires C++20.
 Currently only GCC 10 and later is supported.
 
 This library depends on following projects:
-*  [Catch2](https://github.com/catchorg/Catch2)
-*  [fmt](https://github.com/fmtlib/fmt)
-*  [gsl-lite](https://github.com/gsl-lite/gsl-lite)
-*  [expected-lite](https://github.com/martinmoene/expected-lite)
-*  [google-benchmark](https://github.com/google/benchmark)
+*   [fmt](https://github.com/fmtlib/fmt)
+*   [gsl-lite](https://github.com/gsl-lite/gsl-lite)
+*   [expected-lite](https://github.com/martinmoene/expected-lite)
 
+When building tests:
+*   [Catch2](https://github.com/catchorg/Catch2)
 
-All dependencies can be fetched from github during configure time or can be installed manually.
+When building benchmarks:
+*   [google-benchmark](https://github.com/google/benchmark)
+*   [libtorrent](https://github.com/arvidn/libtorrent)
+*   [jimporter/bencode](https://github.com/jimporter/bencode)
+*   [s3rvac/cpp-bencoding](https://github.com/s3rvac/cpp-bencoding)
+
+All dependencies can be fetched from github during configure time if not installed on the system.
 
 The tests can be built as every other project which makes use of the CMake build system.
 
 ```{bash}
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make 
+mkdir build; cd build;
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DBENCODE_BUILD_TESTS=ON -DBENCODE_BUILD_BENCHMARKS=OFF =DBENCODE_BUILD_DOCS=OFF
+make bencode-tests
+```
+
+The library can be installed a CMake package.
+```bash
+cmake -DBENCODE_BUILD_TESTS=OFF \
+      -DBENCODE_BUILD_BENCHMARKS=OFF \
+      -DBENCODE_BUILD_DOCS=OFF --build . --target ..
+sudo make install
 ```
 
 ## Integration
@@ -190,10 +227,6 @@ The source tree can be included in your project and added to your build with `ad
 
 ```cmake
 # CMakeLists.txt
-# Disable building tests and benchmarks.
-set(BENCODE_BUILD_TESTS OFF)
-set(BENCODE_BUILD_BENCHMARKS OFF)
-
 add_subdirectory(bencode)
 ...
 add_library(foo ...)

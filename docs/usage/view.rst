@@ -181,10 +181,10 @@ the necessary :ref:`customization point <customization-compare-to-bview>`.
 
 .. code-block:: cpp
 
-    bview b;    // b points to a bencoded string with text "foo";
-    b == "foo"  // return true
-    b > "aa"    // returns true
-    b > 3       // return true (integer < string)
+    bview b;        // b points to a bencoded string with text "foo";
+    b == "foo";     // return true
+    b > "aa";       // returns true
+    b > 3;          // return true (integer < string)
     b > std::map<std::string, int> {{"foo", 1}}; // return false (string < dict)
 
 

@@ -4,7 +4,7 @@ Performance
 The decoding performance was benchmarked against following libraries:
 
 * `arvidn/libtorrent <https://github.com/arvidn/libtorrent>`_
-* `jimporter/bencode <https://github.com/jimporter/bencode>`_
+* `jimporter/bencode <https://github.com/jimporter/bencode.hpp>`_
 * `s3rvac/cpp-bencoding <https://github.com/s3rvac/cpp-bencoding>`_
 
 Benchmarks

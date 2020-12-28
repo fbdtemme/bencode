@@ -62,10 +62,10 @@ underlying type.
 
 The type can be passed explicitly using one of the following type tags:
 
-*   bc::btype::integer
-*   bc::btype::string
-*   bc::btype::list
-*   bc::btype::dict
+*   :cpp:var:`bc::btype::integer`
+*   :cpp:var:`bc::btype::string`
+*   :cpp:var:`bc::btype::list`
+*   :cpp:var:`bc::btype::dict`
 
 This is necessary to distinguish between initializer-lists for string, list and dict bencode types.
 The constructor taking an initializer-list without a type tag will construct a dict.
@@ -83,6 +83,7 @@ The converting constructor allow any type that has the required customization po
 to be passed to the bvalue constructor.
 
 .. code-block:: cpp
+
     #include <bencode/traits/list.hpp>
 
     auto l = std::list{1, 2, 4, 5};

@@ -50,6 +50,8 @@ template <event_consumer Consumer>
 class event_connector
 {
 public:
+    /// Construct an event_connector that forwards events to consumer.
+    /// @param consumer An instance of a type satisfying the event_consumer concept.
     explicit event_connector(Consumer& consumer)
             : consumer_(consumer)
     {}
@@ -187,6 +189,6 @@ private:
 };
 
 template <event_consumer Consumer>
-event_connector(Consumer& os) -> event_connector<Consumer>;
+event_connector(Consumer&) -> event_connector<Consumer>;
 
 } // namespace bencode

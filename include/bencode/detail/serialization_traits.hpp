@@ -11,6 +11,9 @@ namespace bencode {
 template<typename T> struct serialization_traits {};
 
 
+/// Enum that indicates if the type that is being described in a serialization_traits
+/// contains sorted or unsorted keys.
+/// This enables the library to sort keys before serializing when needed.
 enum class dict_key_order {
     sorted,
     unsorted
@@ -18,32 +21,39 @@ enum class dict_key_order {
 
 /// Helper classes to create specializations of `serialisation_traits`.
 /// @example:
-///     template<> struct serialisation_traits<MyType> : serializes_to_integer {};
+///     template<> struct serialisation_traits<MyType> : serializes_to_runtime_type {};
 struct serializes_to_runtime_type
 {
     static constexpr auto type = bencode_type::uninitialized;
     static constexpr auto is_pointer = false;
 };
 
+/// Helper class to create specializations of `serialisation_traits`.
 struct serializes_to_integer
 {
     static constexpr auto type = bencode_type::integer;
     static constexpr auto is_pointer = false;
 };
 
+/// Helper class to create specializations of `serialisation_traits`.
 struct serializes_to_string
 {
     static constexpr auto type = bencode_type::string;
     static constexpr auto is_pointer = false;
 };
 
+/// Helper class to create specializations of `serialisation_traits`.
 struct serializes_to_list
 {
     static constexpr auto type = bencode_type::list;
     static constexpr auto is_pointer = false;
 };
 
-template <dict_key_order Order = dict_key_order::sorted, bool IsPointer = false>
+/// Helper class to create specializations of `serialisation_traits`.
+/// @tparam Order Specifies if iterating over the keys happens in alphanumerical order.
+/// @warning Passing dict_key_order::sorted when iterating over the key, value pairs is
+///          an unspecified order will silently generate invalid bencoded data.
+template <dict_key_order Order = dict_key_order::sorted>
 struct serializes_to_dict
 {
     static constexpr auto type = bencode_type::dict;
@@ -53,11 +63,6 @@ struct serializes_to_dict
 
 
 /// A type T satisfied the serialisable concept if it has a valid specialization of `serialisation_traits`.
-//template <typename T>
-//concept serializable =
-//    requires() {
-//        { serialization_traits<T>::type } -> std::convertible_to<bencode_type>;
-//    };
 template <typename T>
 concept serializable =
     requires() {

@@ -4,6 +4,7 @@
 
 namespace bencode {
 
+/// Base class for all exceptions.
 class exception : public std::exception
 {
 public:
