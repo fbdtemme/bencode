@@ -197,7 +197,8 @@
 <p>The decoding performance was benchmarked against following libraries:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/arvidn/libtorrent">arvidn/libtorrent</a></p></li>
-<li><p><a class="reference external" href="https://github.com/jimporter/bencode">jimporter/bencode</a></p></li>
+<li><p><a class="reference external" href="https://github.com/jimporter/bencode.hpp">jimporter/bencode</a></p></li>
+<li><p><a class="reference external" href="https://github.com/s3rvac/cpp-bencoding">s3rvac/cpp-bencoding</a></p></li>
 </ul>
 <div class="section" id="benchmarks">
 <h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h2>
@@ -237,13 +238,13 @@ It contains 1156 xml files and images. The images are a few GiB large.</p>
 <h3>Value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
 <p>libtorrent is not included since it does not have a bencode parser which decodes to a
 owning data representation.</p>
-<img alt="../_images/benchmark-comparison-value.svg" src="../_images/benchmark-comparison-value.svg" /></div>
+<img alt="../_images/benchmark-decoding-value.svg" src="../_images/benchmark-decoding-value.svg" /></div>
 <div class="section" id="view">
 <h3>View<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h3>
 <p>Note that libtorrent does not actually decode integers when parsing, but defers to when
-the value is accessed.
-Both fbdtemme/bencode and jimporter/bencode do parse the integers directly when decoding.</p>
-<img alt="../_images/benchmark-comparison-view.svg" src="../_images/benchmark-comparison-view.svg" /><p>The more extensive view model of libtorrent and fbdtemme/bencode clearly provides a large
+the value is accessed. All other projects do parse the integers directly when decoding.
+s3rvac/cpp-bencoding does not have a view type.</p>
+<img alt="../_images/benchmark-decoding-view.svg" src="../_images/benchmark-decoding-view.svg" /><p>The more extensive view model of libtorrent and fbdtemme/bencode clearly provides a large
 performance benefit for in-situ parsing by requiring less dynamic-memory allocations.
 Parsing large integer values such as those in the “integers” benchmark is significantly
 faster in fbdtemme/bencode due to SWAR optimisations.</p>

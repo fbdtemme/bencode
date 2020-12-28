@@ -5,10 +5,9 @@ Introduction
 Design goals
 ------------
 
-There are multiple bencode projects available online,
-but many are quite limited in scope or have lacking documentation.
+There are a few C++ bencode projects available online but many are limited in scope.
 The goal of this library is to provide first class support for bencode and to provide all
-features expected of a modern serialization/deserialization library.
+features expected of a modern C++ serialization/deserialization library.
 
 Features
 --------
@@ -29,18 +28,28 @@ Compiler support
 ++++++++++++++++
 
 This library requires C++20.
-Compiler support is limited to GCC10 for the moment.
+Compiler support is limited to GCC10 at the moment.
 
 Dependencies
 ++++++++++++
 
-This library depends on following external projects.
+This library depends on following projects:
 
 * `fmt <https://github.com/fmtlib/fmt>`_
-* `gsl-lite` <https://github.com/gsl-lite/gsl-lite>`_
+* `gsl-lite <https://github.com/gsl-lite/gsl-lite>`_
 * `expected-lite <https://github.com/martinmoene/expected-lite>`_
-* `Catch2 <https://github.com/catchorg/Catch2>`_, when building tests.
+
+When building tests:
+
+* `Catch2 <https://github.com/catchorg/Catch2>`_
 * `google-benchmark <https://github.com/google/benchmark>`_, when building benchmarks
 
-All dependencies are fetched from github using cmake during configuration if
-no local installation is found.
+When building benchmarks:
+
+* `google-benchmark <https://github.com/google/benchmark>`_
+* `libtorrent <https://github.com/arvidn/libtorrent>`_
+* `jimporter/bencode <https://github.com/jimporter/bencode>`_
+* `s3rvac/cpp-bencoding <https://github.com/s3rvac/cpp-bencoding>`_
+
+All dependencies can be fetched from github using cmake FetchContent during configuration if
+no local cmake package is found.

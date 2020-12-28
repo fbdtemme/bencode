@@ -251,10 +251,10 @@ underlying type.</p>
 </div>
 <p>The type can be passed explicitly using one of the following type tags:</p>
 <ul class="simple">
-<li><p>bc::btype::integer</p></li>
-<li><p>bc::btype::string</p></li>
-<li><p>bc::btype::list</p></li>
-<li><p>bc::btype::dict</p></li>
+<li><p><code class="xref cpp cpp-var docutils literal notranslate"><span class="pre">bc::btype::integer</span></code></p></li>
+<li><p><code class="xref cpp cpp-var docutils literal notranslate"><span class="pre">bc::btype::string</span></code></p></li>
+<li><p><code class="xref cpp cpp-var docutils literal notranslate"><span class="pre">bc::btype::list</span></code></p></li>
+<li><p><code class="xref cpp cpp-var docutils literal notranslate"><span class="pre">bc::btype::dict</span></code></p></li>
 </ul>
 <p>This is necessary to distinguish between initializer-lists for string, list and dict bencode types.
 The constructor taking an initializer-list without a type tag will construct a dict.</p>
@@ -267,6 +267,12 @@ The constructor taking an initializer-list without a type tag will construct a d
 </div>
 <p>The converting constructor allow any type that has the required customization points implemented
 to be passed to the bvalue constructor.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;bencode/traits/list.hpp&gt;</span><span class="cp"></span>
+
+<span class="k">auto</span> <span class="n">l</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bencode</span><span class="o">::</span><span class="n">bvalue</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="type-checking">
 <h2>Type checking<a class="headerlink" href="#type-checking" title="Permalink to this headline">¶</a></h2>

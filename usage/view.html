@@ -304,12 +304,12 @@ a bview to a bview alternative type that does not match the bencode data type.</
 <p>To copy the content of a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> value to a specific type, generic converters are used.
 The throwing converter will throw <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode14bad_conversionE" title="bencode::bad_conversion"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_conversion</span></code></a> when an error occurs.</p>
 <ul class="simple">
-<li><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">T</span> <span class="pre">get_as(const</span> <span class="pre">bview&amp;)()</span></code></p></li>
+<li><p><a class="reference internal" href="../reference/bview.html#_CPPv4I0EN7bencode6get_asE1TRK5bview" title="template&lt;typename T&gt; T get_as(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">T</span> <span class="pre">get_as(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
 </ul>
 <p>The non throwing converter will return a instance of <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">nonstd::expected</span></code>
 with the converted value or a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode15conversion_errcE" title="bencode::conversion_errc"><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">conversion_errc</span></code></a>.</p>
 <ul class="simple">
-<li><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">nonstd::expected&lt;T,</span> <span class="pre">conversion_errc&gt;</span> <span class="pre">try_get_as(const</span> <span class="pre">bview&amp;)()</span></code></p></li>
+<li><p><a class="reference internal" href="../reference/bview.html#_CPPv4I0EN7bencode10try_get_asEN6nonstd8expectedI1T15conversion_errcEERK5bview" title="template&lt;typename T&gt; nonstd::expected&lt;T, conversion_errc&gt; try_get_as(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">nonstd::expected&lt;T,</span> <span class="pre">conversion_errc&gt;</span> <span class="pre">try_get_as(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
 </ul>
 <p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> values can be converted to any type that satisfies <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">retrievable_from_bview</span></code>.
 Conversion to standard library types can be enabled by including the corresponding trait header.
@@ -341,10 +341,10 @@ the fallback order is <cite>integer &lt; string &lt; list &lt; dict</cite></p>
 <p>Conversion to standard library types can be enabled by including the corresponding trait header.
 Comparison to user-defined types can be enabled by implementing
 the necessary <a class="reference internal" href="customization_points.html#customization-compare-to-bview"><span class="std std-ref">customization point</span></a>.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">bview</span> <span class="n">b</span><span class="p">;</span>    <span class="c1">// b points to a bencoded string with text &quot;foo&quot;;</span>
-<span class="n">b</span> <span class="o">==</span> <span class="s">&quot;foo&quot;</span>  <span class="c1">// return true</span>
-<span class="n">b</span> <span class="o">&gt;</span> <span class="s">&quot;aa&quot;</span>    <span class="c1">// returns true</span>
-<span class="n">b</span> <span class="o">&gt;</span> <span class="mi">3</span>       <span class="c1">// return true (integer &lt; string)</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">bview</span> <span class="n">b</span><span class="p">;</span>        <span class="c1">// b points to a bencoded string with text &quot;foo&quot;;</span>
+<span class="n">b</span> <span class="o">==</span> <span class="s">&quot;foo&quot;</span><span class="p">;</span>     <span class="c1">// return true</span>
+<span class="n">b</span> <span class="o">&gt;</span> <span class="s">&quot;aa&quot;</span><span class="p">;</span>       <span class="c1">// returns true</span>
+<span class="n">b</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">;</span>          <span class="c1">// return true (integer &lt; string)</span>
 <span class="n">b</span> <span class="o">&gt;</span> <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="p">{{</span><span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">}};</span> <span class="c1">// return false (string &lt; dict)</span>
 </pre></div>
 </div>
