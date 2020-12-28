@@ -45,14 +45,11 @@ Documentation is available on the [bencode GitHub pages](https://fbdtemme.github
 This benchmarks compares parsing speed when decoding to an owning data type that involves
 copying data from the buffer.
 
-Note: libtorrent does not have an owning bencode data type and is thus excluded.
+![benchmark-decoding-value](docs/images/benchmark-decoding-value.svg)
 
 ![benchmark-decoding-value](docs/images/benchmark-comparison-value.svg)
 
-### Parsing to view types
-
-This benchmarks compares parsing speed when decoding to a view type that tries to minimize copies 
-from the buffer and instead points to data inside the buffer.
+![benchmark-decoding-view](docs/images/benchmark-decoding-view.svg)
 
 Note: libtorrent does not decode integers until they are actually accessed. 
 Both this project en jimporter/bencode parse integers at decode time.

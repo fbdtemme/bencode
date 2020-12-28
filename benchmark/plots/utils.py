@@ -41,7 +41,7 @@ def filter_results(df: pd.DataFrame, library: str) -> pd.DataFrame:
     return out
 
 
-def plot_comparison(df):
+def plot_comparison(df, **figure_options):
     libraries = df.index.get_level_values("library").unique()
     n_libraries = len(np.unique(libraries))
 
@@ -65,7 +65,8 @@ def plot_comparison(df):
     means = means / scale_factor
     stddevs = stddevs / scale_factor
 
-    fig, ax = plt.subplots()
+    fig = plt.figure(**figure_options)
+    ax = fig.gca()
 
     x = np.arange(n_test_files)
     width = 0.2  # the width of the bars

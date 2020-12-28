@@ -5,6 +5,7 @@ The decoding performance was benchmarked against following libraries:
 
 * `arvidn/libtorrent <https://github.com/arvidn/libtorrent>`_
 * `jimporter/bencode <https://github.com/jimporter/bencode>`_
+* `s3rvac/cpp-bencoding <https://github.com/s3rvac/cpp-bencoding>`_
 
 Benchmarks
 ----------
@@ -32,16 +33,16 @@ Value
 libtorrent is not included since it does not have a bencode parser which decodes to a
 owning data representation.
 
-.. image:: ../images/benchmark-comparison-value.svg
+.. image:: ../images/benchmark-decoding-value.svg
 
 View
 *****
 
 Note that libtorrent does not actually decode integers when parsing, but defers to when
-the value is accessed.
-Both fbdtemme/bencode and jimporter/bencode do parse the integers directly when decoding.
+the value is accessed. All other projects do parse the integers directly when decoding.
+s3rvac/cpp-bencoding does not have a view type.
 
-.. image:: ../images/benchmark-comparison-view.svg
+.. image:: ../images/benchmark-decoding-view.svg
 
 The more extensive view model of libtorrent and fbdtemme/bencode clearly provides a large
 performance benefit for in-situ parsing by requiring less dynamic-memory allocations.
