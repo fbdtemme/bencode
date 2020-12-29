@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 
-find_package(benchmark REQUIRED)
-
+include(../../external/benchmark.cmake)
 add_executable(benchmark-from-chars benchmark.cpp)
 
 target_compile_options(benchmark-from-chars PRIVATE)

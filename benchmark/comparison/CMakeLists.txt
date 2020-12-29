@@ -2,10 +2,11 @@ cmake_minimum_required(VERSION 3.15)
 
 project("bencode-comparision-benchmark")
 
-find_package(benchmark REQUIRED)
 find_package(Boost REQUIRED)
 
 include(../../external/libtorrent.cmake)
+include(../../external/benchmark.cmake)
+
 add_subdirectory(external/s3rvac-cpp-bencoding/cpp-bencoding)
 
 add_executable(benchmark-fbdtemme-bencode fbdtemme_bencode.cpp)
