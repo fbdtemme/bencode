@@ -51,5 +51,11 @@ When building benchmarks:
 * `jimporter/bencode <https://github.com/jimporter/bencode>`_
 * `s3rvac/cpp-bencoding <https://github.com/s3rvac/cpp-bencoding>`_
 
-All dependencies can be fetched from github using cmake FetchContent during configuration if
-no local cmake package is found.
+When building documentation:
+
+* `doxygen <https://github.com/doxygen/doxygen>`_
+* `sphinx <https://github.com/sphinx-doc/sphinx>`_
+* `breathe <https://github.com/michaeljones/breathe>`_
+
+All dependencies for building tests and benchmarks can be fetched from github using
+cmake FetchContent during configuration if no local installation is found.

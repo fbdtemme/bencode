@@ -186,12 +186,18 @@ When building tests:
 *   [Catch2](https://github.com/catchorg/Catch2)
 
 When building benchmarks:
-*   [google-benchmark](https://github.com/google/benchmark)
+*   [google/benchmark](https://github.com/google/benchmark)
 *   [libtorrent](https://github.com/arvidn/libtorrent)
 *   [jimporter/bencode](https://github.com/jimporter/bencode)
 *   [s3rvac/cpp-bencoding](https://github.com/s3rvac/cpp-bencoding)
 
-All dependencies can be fetched from github during configure time if not installed on the system.
+When building documentation:
+* [doxygen](https://github.com/doxygen/doxygen>)
+* [sphinx](https://github.com/sphinx-doc/sphinx>)
+* [breathe](https://github.com/michaeljones/breathe>)
+
+All dependencies for building tests and benchmarks can be fetched from github using
+cmake FetchContent during configuration if no local installation is found.
 
 The tests can be built as every other project which makes use of the CMake build system.
 
