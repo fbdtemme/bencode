@@ -83,7 +83,7 @@ public:
         keys_.pop();
     };
 
-    void error(bencode::parsing_error& e)
+    void error(const bencode::parsing_error& e)
     {
         throw e;
     }

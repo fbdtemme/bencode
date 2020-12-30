@@ -27,6 +27,7 @@ concept event_consumer =
         t.end_dict(std::size_t{});
         t.dict_key();
         t.dict_value();
+        t.error(std::declval<const parsing_error&>());
     };
 
 namespace detail {
@@ -47,6 +48,7 @@ struct discard_consumer
     void end_dict(std::size_t size) {}
     void dict_key() {}
     void dict_value() {}
+    void error(const parsing_error& exception) {};
 };
 
 /// The concept `event_connecting_is_adl_overloaded` is satisfied when a user defined

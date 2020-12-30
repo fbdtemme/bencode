@@ -157,9 +157,9 @@ private:
     }
 
 private:
+    parsing_errc errc_;
     std::size_t position_;
     std::optional<bencode_type> context_;
-    parsing_errc errc_;
 };
 
 

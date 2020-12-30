@@ -85,6 +85,10 @@ public:
 
     constexpr void dict_value() noexcept { };
 
+    constexpr void error(const parsing_error& exc) {
+        throw exc;
+    }
+
     constexpr std::size_t count() noexcept
     { return size_; }
 
