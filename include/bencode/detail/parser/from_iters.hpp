@@ -211,6 +211,7 @@ binteger_from_iters(Iterator first, Iterator last, T& value)
 }
 
 template <typename StringT = std::string, std::size_t ImplementationIdx>
+    requires std::constructible_from<StringT, const char*, const char*>
 constexpr from_iters_result<const char*>
 bstring_from_iters(const char* first, const char* last, StringT& value,
                    implementation_tag<ImplementationIdx>)
