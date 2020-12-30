@@ -13,11 +13,6 @@
 #include "bencode/detail/parser/parsing_error.hpp"
 #include <bencode/detail/parser/from_iters.hpp>
 
-#if defined(BENCODE_ENABLE_SWAR)
-#define BENCODE_FROM_CHARS_IMPL swar
-#else
-#define BENCODE_FROM_CHARS_IMPL serial
-#endif
 
 namespace bencode {
 

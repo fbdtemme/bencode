@@ -20,11 +20,6 @@
 #include "bencode/detail/descriptor.hpp"
 #include "bencode/detail/descriptor_table.hpp"
 
-#if defined(BENCODE_ENABLE_SWAR)
-#define BENCODE_FROM_CHARS_IMPL swar
-#else
-#define BENCODE_FROM_CHARS_IMPL serial
-#endif
 
 namespace bencode {
 

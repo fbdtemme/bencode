@@ -73,8 +73,10 @@ endif()
 
 if (BENCODE_FROM_CHARS_IMPL STREQUAL swar)
     message(STATUS "Enabling SWAR integer parsing.")
-    target_compile_definitions(bencode INTERFACE BENCODE_ENABLE_SWAR)
+elseif()
+    message(STATUS "Disabling SWAR integer parsing.")
 endif()
+target_compile_definitions(bencode INTERFACE BENCODE_FROM_CHARS_IMPL=${BENCODE_FROM_CHARS_IMPL})
 
 
 if (BENCODE_ENABLE_INSTALL)
