@@ -22,23 +22,23 @@ static const bc::bvalue b{
 
 constexpr std::string_view b_events =
 R"(begin dict (size=5)
-string (size=1, value="a")
+string (const&) (size=1, value="a")
 dict key
 integer (1)
 dict value
-string (size=1, value="b")
+string (const&) (size=1, value="b")
 dict key
 integer (1)
 dict value
-string (size=1, value="d")
+string (const&) (size=1, value="d")
 dict key
 integer (0)
 dict value
-string (size=1, value="e")
+string (const&) (size=1, value="e")
 dict key
-string (size=6, value="string")
+string (const&) (size=6, value="string")
 dict value
-string (size=1, value="f")
+string (const&) (size=1, value="f")
 dict key
 begin list (size=4)
 integer (1)

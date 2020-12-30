@@ -39,7 +39,17 @@ public:
 
     constexpr void string(std::string_view value) noexcept
     {
-        fmt::format_to(out_, "string (size={}, value=\"{}\")\n", value.size(), value);
+        fmt::format_to(out_, "string (view) (size={}, value=\"{}\")\n", value.size(), value);
+    }
+
+    constexpr void string(const std::string& value) noexcept
+    {
+        fmt::format_to(out_, "string (const&) (size={}, value=\"{}\")\n", value.size(), value);
+    }
+
+    constexpr void string(std::string&& value) noexcept
+    {
+        fmt::format_to(out_, "string (&&) (size={}, value=\"{}\")\n", value.size(), value);
     }
 
     constexpr void begin_list([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
