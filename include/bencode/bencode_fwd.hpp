@@ -37,10 +37,6 @@ class descriptor;
 class descriptor_table;
 
 class descriptor_parser;
+enum class string_parsing_mode : bool;
 
-template <typename Iterator, typename Sentinel>
-class push_parser;
-
-template <typename Iterator, typename Sentinel>
-class pull_parser;
 }

@@ -12,4 +12,11 @@ struct parser_options
     std::size_t value_limit = 1UL << 32;
 };
 
+/// Wether to parse strings as a value type or a view type.
+enum class string_parsing_mode : bool
+{
+    value = false,
+    view = true
+};
+
 }

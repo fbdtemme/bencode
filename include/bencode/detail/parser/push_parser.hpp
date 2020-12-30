@@ -23,7 +23,24 @@ namespace bencode {
 
 namespace rng = std::ranges;
 
-template <typename Iterator = const char*, typename Sentinel = Iterator>
+
+
+
+/// Parse bencoded data using a push API.
+///
+/// @tparam Iterator The type of iterator associated with the input range.
+/// @tparam Sentinel The type of sentinel associated with the input range.
+/// @tparam StringParsingMode  The parsing mode for strings.
+///     * string_parsing_mode::value will pass a std::string with a copy of string data
+///       to the event consumer.
+///     * string_parsing_mode::view will pass a std::string_view pointing to
+///       data inside the input range buffer.
+///       This is only a valid mode for an input data range satisfying std::ranges::contiguous_range.
+template <
+        string_parsing_mode StringParsingMode = string_parsing_mode::value,
+        typename Iterator = const char*, typename Sentinel = Iterator>
+    requires (StringParsingMode != string_parsing_mode::view) ||
+             (StringParsingMode == string_parsing_mode::view && std::contiguous_iterator<Iterator>)
 class push_parser
 {
     using state      = detail::parser_state;
@@ -58,10 +75,14 @@ public:
     bool parse(EC& consumer, std::string_view s) noexcept
     { return parse<std::string_view>(consumer, s); }
 
+    /// Check if a previous parse() operation resulted in an error.
+    /// @returns true if an error ocurred, false otherwise
     bool has_error() noexcept
     { return error_.has_value(); }
 
-    parsing_error error() noexcept
+    /// Retrieve the parsing error that occured.
+    /// The behavior is undefined if the parser did not encounter an error.
+    const parsing_error& error() noexcept
     {
         Expects(error_.has_value());
         return *error_;
@@ -186,17 +207,32 @@ private:
     {
         Expects(*it_ == symbol::digit);
 
-        std::string value;
-        const auto result = detail::bstring_from_iters(it_, end_, value);
+        if constexpr (StringParsingMode == string_parsing_mode::value) {
+            std::string value;
+            const auto result = detail::bstring_from_iters(it_, end_, value);
 
-        it_ = result.iter;
+            it_ = result.iter;
 
-        if (result.ec != parsing_errc{}) [[unlikely]] {
-            set_error(result.ec, btype::string);
-            return false;
+            if (result.ec != parsing_errc{}) [[unlikely]] {
+                set_error(result.ec, btype::string);
+                return false;
+            }
+
+            consumer.string(std::move(value));
         }
+        else {
+            std::string_view value;
+            const auto result = detail::bstring_from_iters(it_, end_, value);
 
-        consumer.string(std::move(value));
+            it_ = result.iter;
+
+            if (result.ec != parsing_errc{}) [[unlikely]] {
+                set_error(result.ec, btype::string);
+                return false;
+            }
+            consumer.string(value);
+            ++value_count_;
+        }
         ++value_count_;
         return true;
     }
@@ -312,18 +348,34 @@ private:
         Expects(stack_.top() == state::expect_dict_key);
         Expects(*it_ == symbol::digit);
 
-        std::string value;
-        auto result = detail::bstring_from_iters(it_, end_, value);
+        if constexpr (StringParsingMode == string_parsing_mode::value) {
+            std::string value;
+            auto result = detail::bstring_from_iters(it_, end_, value);
 
-        it_ = result.iter;
+            it_ = result.iter;
 
-        if (result.ec != parsing_errc{}) [[unlikely]] {
-            set_error(result.ec, btype::string);
-            return false;
+            if (result.ec!=parsing_errc{}) [[unlikely]] {
+                set_error(result.ec, btype::string);
+                return false;
+            }
+
+            consumer.string(std::move(value));
+        }
+        else {
+            std::string_view value;
+            auto result = detail::bstring_from_iters(it_, end_, value);
+
+            it_ = result.iter;
+
+            if (result.ec!=parsing_errc{}) [[unlikely]] {
+                set_error(result.ec, btype::string);
+                return false;
+            }
+
+            consumer.string(value);
         }
 
         stack_.top() = state::expect_dict_value;
-        consumer.string(std::move(value));
         consumer.dict_key();
         return true;
     }

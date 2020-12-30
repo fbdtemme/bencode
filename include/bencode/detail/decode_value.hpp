@@ -27,7 +27,7 @@ template <typename Policy = default_bvalue_policy>
 inline basic_bvalue<Policy> decode_value(std::istream& is)
 {
     auto consumer = bencode::events::to_bvalue<Policy>{};
-    push_parser<std::istreambuf_iterator<char>> parser {};
+    push_parser<string_parsing_mode::value, std::istreambuf_iterator<char>> parser {};
 
     auto range = rng::subrange(std::istreambuf_iterator<char>{is},
                                std::istreambuf_iterator<char>{});
@@ -67,7 +67,8 @@ template <typename Policy = default_bvalue_policy, rng::input_range Rng>
 inline basic_bvalue<Policy> decode_value(const Rng& range)
 {
     auto consumer = bencode::events::to_bvalue<Policy>{};
-    bencode::push_parser<rng::iterator_t<const Rng&>,
+    bencode::push_parser<string_parsing_mode::value,
+                         rng::iterator_t<const Rng&>,
                          rng::sentinel_t<const Rng&>> parser{};
     if (!parser.parse(consumer, range))
         throw parser.error();
@@ -88,7 +89,7 @@ template <typename Policy = default_bvalue_policy, std::input_iterator InputIter
 inline basic_bvalue<Policy> decode_value(InputIterator first, InputIterator last)
 {
     auto consumer = bencode::events::to_bvalue<Policy>{};
-    bencode::push_parser<InputIterator, InputIterator> parser{};
+    bencode::push_parser<string_parsing_mode::value, InputIterator, InputIterator> parser{};
     if (!parser.parse(rng::subrange(first, last), consumer))
         throw parser.error();
     return consumer.value();
