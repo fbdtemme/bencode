@@ -343,15 +343,17 @@ private:
         Expects(stack_.top().state == state::expect_list_value);
 
         auto type = (descriptor_type::list | descriptor_type::end);
-        const auto[state, start_pos, size] = stack_.top();
+        const auto [state, start_pos, size] = stack_.top();
         const auto offset = descriptors_.size() - start_pos;
         const auto position = current_position();
 
         stack_.pop();
         ++it_;
+        handle_nested_structures();
+        type |= detail::descriptor_type_modifier(state);
 
-        if (auto s = handle_nested_structures(); s)
-            type |= detail::descriptor_type_modifier(*s);
+//        if (auto s = handle_nested_structures(); s)
+//            type |= detail::descriptor_type_modifier(*s);
 
         auto& t = descriptors_.emplace_back(type, position);
         descriptors_[start_pos].set_offset(offset);
@@ -367,14 +369,14 @@ private:
         Expects(stack_.top().state == state::expect_dict_key);
 
         auto type = (descriptor_type::dict | descriptor_type::end);
-        const auto& [state, start_pos, size] = stack_.top();
+        const auto [state, start_pos, size] = stack_.top();
         const auto offset = descriptors_.size() - start_pos;
         const auto position = current_position();
 
         stack_.pop();
         ++it_;
-        if (auto s = handle_nested_structures(); s)
-            type |= detail::descriptor_type_modifier(*s);
+        handle_nested_structures();
+        type |= detail::descriptor_type_modifier(state);
 
         auto& t = descriptors_.emplace_back(type, position);
         descriptors_[start_pos].set_offset(offset);
@@ -412,18 +414,16 @@ private:
         return true;
     }
 
-    inline std::optional<state> handle_nested_structures() noexcept
+    inline void handle_nested_structures() noexcept
     {
-        if (stack_.empty()) return std::nullopt;
+        if (stack_.empty()) return;
 
         auto&[state, position, size] = stack_.top();
-        const auto old_state = state;
         ++size;
 
         if (state == state::expect_dict_value) {
             state = state::expect_dict_key;
         }
-        return old_state;
     }
 
     inline std::size_t current_position() noexcept
