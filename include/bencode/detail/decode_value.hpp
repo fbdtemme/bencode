@@ -62,17 +62,19 @@ inline basic_bvalue<Policy> decode_value(std::string_view sv)
 /// @throws parse_error when the bencoded data is malformed.
 template <typename Policy = default_bvalue_policy, rng::input_range Rng>
 /// \cond CONCEPTS
-    requires std::convertible_to<rng::range_value_t<Rng>, char>
+    requires std::convertible_to<rng::range_value_t<const Rng&>, char> &&
+            (!std::convertible_to<const Rng&, std::string_view>)
 /// \endcond
 inline basic_bvalue<Policy> decode_value(const Rng& range)
 {
     auto consumer = bencode::events::to_bvalue<Policy>{};
     bencode::push_parser<string_parsing_mode::value,
-                         rng::iterator_t<const Rng&>,
-                         rng::sentinel_t<const Rng&>> parser{};
-    if (!parser.parse(consumer, range))
-        throw parser.error();
-    return consumer.value();
+            rng::iterator_t<const Rng&>,
+            rng::sentinel_t<const Rng&>> parser{};
+        if (!parser.parse(consumer, range))
+            throw parser.error();
+        return consumer.value();
+//    }
 }
 
 /// Reads bencoded data from a pair of iterators to a basic_bvalue.
