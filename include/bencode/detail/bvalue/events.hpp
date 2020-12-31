@@ -31,25 +31,25 @@ constexpr void connect_events_runtime_impl(
         case vt::list: {
             const auto& list = get_list(value);
             std::size_t size = list.size();
-            consumer.begin_list(size);
+            consumer.list_begin(size);
             for (const auto& v : get_list(value)) {
                 connect(consumer, v);
                 consumer.list_item();
             }
-            consumer.end_list();
+            consumer.list_end();
             break;
         }
         case vt::dict: {
             const auto& dict = get_dict(value);
             std::size_t size = dict.size();
-            consumer.begin_dict(size);
+            consumer.dict_begin(size);
             for (const auto&[k, v] : dict) {
                 consumer.string(k);
                 consumer.dict_key();
                 connect(consumer, v);
                 consumer.dict_value();
             }
-            consumer.end_dict();
+            consumer.dict_end();
             break;
         }
     }

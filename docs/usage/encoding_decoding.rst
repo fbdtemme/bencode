@@ -80,10 +80,10 @@ and writes the encoded form to the wrapped storage which can be passed as an
 This allows to create complex bencoded objects without the need to create an intermediary
 :cpp:class:`bvalue`. Bencode container types can be created with the use of the following tags:
 
-* begin_list
-* end_list
-* begin_dict
-* end_dict
+* list_begin
+* list_end
+* dict_begin
+* dict_end
 
 Example:
 
@@ -92,16 +92,16 @@ Example:
     std::ostringstream os {};
     auto eos = bencode::encoder(os);
 
-    eos << bencode::begin_dict
+    eos << bencode::dict_begin
         << "key1" << 1
         << "key2" << "two"
         << "key3"
-        << bencode::begin_list
+        << bencode::list_begin
             << 1
             << 2
             << 3
-        << bencode::end_list
-      << bencode::end_dict;
+        << bencode::list_end
+      << bencode::dict_end;
 
     eos.str() // "d4:key1i1e4:key23:two4:key3li1ei2ei3eee"
 

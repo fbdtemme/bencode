@@ -20,17 +20,17 @@ namespace detail {
 
 struct event_connector_tag {};
 
-struct begin_list_tag : event_connector_tag {};
-struct end_list_tag   : event_connector_tag {};
-struct begin_dict_tag : event_connector_tag {};
-struct end_dict_tag   : event_connector_tag {};
+struct list_begin_tag : event_connector_tag {};
+struct list_end_tag   : event_connector_tag {};
+struct dict_begin_tag : event_connector_tag {};
+struct dict_end_tag   : event_connector_tag {};
 
 }
 
-inline constexpr auto begin_list = detail::begin_list_tag {};
-inline constexpr auto end_list   = detail::end_list_tag   {};
-inline constexpr auto begin_dict = detail::begin_dict_tag {};
-inline constexpr auto end_dict   = detail::end_dict_tag   {};
+inline constexpr auto list_begin = detail::list_begin_tag {};
+inline constexpr auto list_end   = detail::list_end_tag   {};
+inline constexpr auto dict_begin = detail::dict_begin_tag {};
+inline constexpr auto dict_end   = detail::dict_end_tag   {};
 
 
 template <typename T>
@@ -93,27 +93,27 @@ public:
     }
 
 private:
-    void update_state(detail::begin_list_tag)
+    void update_state(detail::list_begin_tag)
     {
         if (!stack_.empty() && stack_.top() == connector_state::expect_dict_key) [[unlikely]] {
             error_ = encoding_errc::invalid_dict_key;
             return;
         }
         stack_.push(connector_state::expect_list_value);
-        consumer_.begin_list();
+        consumer_.list_begin();
     }
 
-    void update_state(detail::begin_dict_tag)
+    void update_state(detail::dict_begin_tag)
     {
         if (!stack_.empty() && stack_.top() == connector_state::expect_dict_key) [[unlikely]] {
             error_ = encoding_errc::invalid_dict_key;
             return;
         }
         stack_.push(connector_state::expect_dict_key);
-        consumer_.begin_dict();
+        consumer_.dict_begin();
     }
 
-    void update_state(detail::end_list_tag)
+    void update_state(detail::list_end_tag)
     {
         if (stack_.empty() || stack_.top() != connector_state::expect_list_value) [[unlikely]] {
             error_ = encoding_errc::unexpected_end_list;
@@ -125,10 +125,10 @@ private:
         if (!stack_.empty() && stack_.top() == connector_state::expect_dict_value) {
             stack_.top() = connector_state::expect_dict_key;
         }
-        consumer_.end_list();
+        consumer_.list_end();
     }
 
-    void update_state(detail::end_dict_tag)
+    void update_state(detail::dict_end_tag)
     {
         if (stack_.empty() || stack_.top() != connector_state::expect_dict_key) [[unlikely]] {
             error_ = encoding_errc::unexpected_end_dict;
@@ -140,7 +140,7 @@ private:
         if (!stack_.empty() && stack_.top() == connector_state::expect_dict_value) {
             stack_.top() = connector_state::expect_dict_key;
         }
-        consumer_.end_dict();
+        consumer_.dict_end();
     }
 
     template <typename U, typename T = std::remove_cvref_t<U>>

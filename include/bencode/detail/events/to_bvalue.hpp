@@ -35,7 +35,7 @@ public:
     void string(std::string&& value)
     { value_.emplace_string(std::move(value)); }
 
-    void begin_list([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
+    void list_begin([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
     {
         auto& l = stack_.emplace(bencode::btype::list);
 
@@ -52,18 +52,18 @@ public:
         value_.discard();
     };
 
-    void end_list([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
+    void list_end([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
     {
         value_ = std::move(stack_.top());
         stack_.pop();
     };
 
-    void begin_dict([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
+    void dict_begin([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
     {
         stack_.push(basic_value_type(btype::dict));
     };
 
-    void end_dict([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
+    void dict_end([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
     {
         value_ = std::move(stack_.top());
         stack_.pop();

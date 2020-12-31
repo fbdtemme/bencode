@@ -194,7 +194,7 @@ private:
 
     inline bool handle_integer(descriptor_type modifier) noexcept
     {
-        Expects(*it_ == symbol::begin_integer);
+        Expects(*it_ == symbol::integer_begin);
 
         const auto type = (descriptor_type::integer | modifier);
         auto& t = descriptors_.emplace_back(type, current_position());
@@ -263,11 +263,11 @@ private:
         const char c = *it_;
 
         switch (c) {
-        case symbol::begin_integer:
+        case symbol::integer_begin:
             return dispatch(handle_integer(type_modifier));
-        case symbol::begin_list:
+        case symbol::list_begin:
             return handle_list_begin(type_modifier);
-        case symbol::begin_dict:
+        case symbol::dict_begin:
             return handle_dict_begin(type_modifier);
         default: {
             if (c == symbol::digit) [[likely]] {
@@ -288,7 +288,7 @@ private:
 
     inline bool handle_list_begin(descriptor_type modifier) noexcept
     {
-        Expects(*it_ == symbol::begin_list);
+        Expects(*it_ == symbol::list_begin);
 
         const auto type = (descriptor_type::list | modifier);
         const auto position = current_position();
@@ -311,7 +311,7 @@ private:
 
     inline bool handle_dict_begin(descriptor_type modifier)
     {
-        Expects(*it_ == symbol::begin_dict);
+        Expects(*it_ == symbol::dict_begin);
 
         const auto type = (descriptor_type::dict | modifier);
         const auto position = current_position();

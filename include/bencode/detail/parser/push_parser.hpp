@@ -173,7 +173,7 @@ private:
     template <bencode::event_consumer Consumer>
     bool handle_integer(Consumer& consumer)
     {
-        Expects(*it_ == symbol::begin_integer);
+        Expects(*it_ == symbol::integer_begin);
 
         std::int64_t value;
         detail::from_iters_result<Iterator> result;
@@ -255,11 +255,11 @@ private:
         const char c = *it_;
 
         switch (c) {
-        case symbol::begin_integer:
+        case symbol::integer_begin:
             return dispatch(handle_integer(consumer));
-        case symbol::begin_list:
+        case symbol::list_begin:
             return handle_list_begin(consumer);
-        case symbol::begin_dict:
+        case symbol::dict_begin:
             return handle_dict_begin(consumer);
         default: {
             if (c == symbol::digit) [[likely]] {
@@ -281,7 +281,7 @@ private:
     template <bencode::event_consumer Consumer>
     bool handle_list_begin(Consumer& consumer)
     {
-        Expects(*it_ == symbol::begin_list);
+        Expects(*it_ == symbol::list_begin);
 
         if (stack_.size() >= options_.recursion_limit) {
             set_error(parsing_errc::recursion_depth_exceeded);
@@ -289,7 +289,7 @@ private:
         }
         ++it_;
         stack_.push(state::expect_list_value);
-        consumer.begin_list();
+        consumer.list_begin();
         ++value_count_;
         return true;
     }
@@ -297,7 +297,7 @@ private:
     template <bencode::event_consumer Consumer>
     bool handle_dict_begin(Consumer& consumer)
     {
-        Expects(*it_ == symbol::begin_dict);
+        Expects(*it_ == symbol::dict_begin);
 
         if (stack_.size() >= options_.recursion_limit) {
             set_error(parsing_errc::recursion_depth_exceeded);
@@ -305,7 +305,7 @@ private:
         }
         ++it_;
         stack_.push(state::expect_dict_key);
-        consumer.begin_dict();
+        consumer.dict_begin();
         ++value_count_;
         return true;
     }
@@ -319,7 +319,7 @@ private:
 
         ++it_;
         stack_.pop();
-        consumer.end_list();
+        consumer.list_end();
         handle_nested_structures(consumer);
         return true;
     }
@@ -332,7 +332,7 @@ private:
 
         ++it_;
         stack_.pop();
-        consumer.end_dict();
+        consumer.dict_end();
         handle_nested_structures(consumer);
         return true;
     }

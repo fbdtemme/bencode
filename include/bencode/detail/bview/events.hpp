@@ -47,12 +47,12 @@ constexpr void connect_events_list_impl(
         const list_bview& desc,
         detail::priority_tag<0>)
 {
-    consumer.begin_list(rng::size(desc));
+    consumer.list_begin(rng::size(desc));
     for (const auto& e : desc) {
         connect(consumer, e);
         consumer.list_item();
     }
-    consumer.end_list(rng::size(desc));
+    consumer.list_end(rng::size(desc));
 }
 
 template <event_consumer EC>
@@ -62,14 +62,14 @@ constexpr void connect_events_dict_impl(
         const dict_bview& desc,
         detail::priority_tag<0>)
 {
-        consumer.begin_dict(rng::size(desc));
+        consumer.dict_begin(rng::size(desc));
         for (auto it = rng::begin(desc); it != rng::end(desc); ++it) {
             consumer.string(it.key());
             consumer.dict_key();
             connect(consumer, it.value());
             consumer.dict_value();
         }
-        consumer.end_dict(rng::size(desc));
+        consumer.dict_end(rng::size(desc));
 }
 
 

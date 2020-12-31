@@ -20,15 +20,15 @@ The most simple consumer which ignores all events would look as follows:
     {
         void integer(std::int64_t value) { }
         void string(std::string_view value) { }
-        void begin_list() {}
-        void begin_list(std::size_t size) {}
-        void end_list() {}
-        void end_list(std::size_t size) {}
+        void list_begin() {}
+        void list_begin(std::size_t size) {}
+        void list_end() {}
+        void list_end(std::size_t size) {}
         void list_item() {}
-        void begin_dict() {}
-        void begin_dict(std::size_t size) {}
-        void end_dict() {}
-        void end_dict(std::size_t size) {}
+        void dict_begin() {}
+        void dict_begin(std::size_t size) {}
+        void dict_end() {}
+        void dict_end(std::size_t size) {}
         void dict_key() {}
         void dict_value() {}
     };
@@ -43,19 +43,19 @@ Following bencode data structure (formatted as JSON) would generate these calls.
       "bar": {"one": 1, "two": 2}
     }
 
-    begin_dict(2)
+    dict_begin(2)
         string("foo")
         dict_key()
-        begin_list(2)
+        list_begin(2)
             begin_string("a")
             list_item()
             string("b")
             list_item()
-        end_list()
+        list_end()
         dict_value()
         string("bar")
         dict_key()
-        begin_dict(2)
+        dict_begin(2)
             string("one")
             dict_key()
             integer(1)
@@ -64,9 +64,9 @@ Following bencode data structure (formatted as JSON) would generate these calls.
             dict_key()
             integer(2)
             dict_value()
-        end_dict()
+        dict_end()
         dict_value()
-    end_dict()
+    dict_end()
 
 Note that list_item(), dict_key() and dict_value() are called after describing the value.
 

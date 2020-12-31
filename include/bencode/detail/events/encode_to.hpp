@@ -39,7 +39,7 @@ public:
 
     constexpr void integer(std::int64_t value) noexcept
     {
-        *out_++ = symbol::begin_integer;
+        *out_++ = symbol::integer_begin;
         const auto n = itoa::to_buffer(buffer_.data(), value);
         out_ = std::copy_n(buffer_.data(), n, out_);
         *out_++ = symbol::end;
@@ -55,27 +55,27 @@ public:
         size_ += (n + 1 + value.size());
     }
 
-    constexpr void begin_list([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
+    constexpr void list_begin([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
     {
-        *out_++ = symbol::begin_list;
+        *out_++ = symbol::list_begin;
         ++size_;
     }
 
     constexpr void list_item() noexcept { };
 
-    constexpr void end_list([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
+    constexpr void list_end([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
     {
         *out_++ = symbol::end;
         ++size_;
     }
 
-    constexpr void begin_dict([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
+    constexpr void dict_begin([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
     {
-        *out_++ = symbol::begin_dict;
+        *out_++ = symbol::dict_begin;
         ++size_;
     }
 
-    constexpr void end_dict([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
+    constexpr void dict_end([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
     {
         *out_++ = symbol::end;
         ++size_;

@@ -147,15 +147,15 @@ Serialize to bencode using `encoder`.
 
 bc::encoder es(std::cout);
 
-es << bc::begin_dict
+es << bc::dict_begin
        << "foo" << 1UL
-       << "bar" << bc::begin_list 
+       << "bar" << bc::list_begin 
                     << bc::bvalue(1)
                     << "two" 
                     << 3
-                << bc::end_list
+                << bc::list_end
        << "baz" << std::vector{1, 2, 3}
-   << bc::end_dict;
+   << bc::dict_end;
 ```
 
 Use bpointer to access values in a nested datastructure.

@@ -52,7 +52,7 @@ public:
         fmt::format_to(out_, "string (&&) (size={}, value=\"{}\")\n", value.size(), value);
     }
 
-    constexpr void begin_list([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
+    constexpr void list_begin([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
     {
         if (size) {
             fmt::format_to(out_, "begin list (size={})\n", *size);
@@ -66,7 +66,7 @@ public:
         fmt::format_to(out_, "list item\n");
     }
 
-    constexpr void end_list([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
+    constexpr void list_end([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
     {
         if (size) {
             fmt::format_to(out_, "end list (size={})\n", *size);
@@ -75,7 +75,7 @@ public:
         }
     }
 
-    constexpr void begin_dict([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
+    constexpr void dict_begin([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
     {
         if (size) {
             fmt::format_to(out_, "begin dict (size={})\n", *size);
@@ -84,7 +84,7 @@ public:
         }
     }
 
-    constexpr void end_dict([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
+    constexpr void dict_end([[maybe_unused]] std::optional<std::size_t> size = std::nullopt) noexcept
     {
         if (size) {
             fmt::format_to(out_, "end dict (size={})\n", *size);

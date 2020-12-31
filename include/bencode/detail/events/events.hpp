@@ -110,14 +110,14 @@ constexpr void connect_events_list_impl(customization_point_type<T>,
         U&& value,
         priority_tag<0>)
 {
-    consumer.begin_list(std::tuple_size_v<T>);
+    consumer.list_begin(std::tuple_size_v<T>);
     std::apply([&](auto&& ... v) {
         (
             (connect(consumer, detail::forward_like<T>(v)),
                      consumer.list_item())
             , ... );
     }, value);
-    consumer.end_list(std::tuple_size_v<T>);
+    consumer.list_end(std::tuple_size_v<T>);
 }
 
 template<typename T, typename U, event_consumer EC>
@@ -130,10 +130,10 @@ constexpr void connect_events_list_impl(customization_point_type<T>,
         priority_tag<1>)
 {
     if constexpr (rng::sized_range<T>) {
-        consumer.begin_list(std::size(value));
+        consumer.list_begin(std::size(value));
     }
     else {
-        consumer.begin_list();
+        consumer.list_begin();
     }
     for (auto&& v : value) {
         connect(consumer, detail::forward_like<U>(v));
@@ -141,10 +141,10 @@ constexpr void connect_events_list_impl(customization_point_type<T>,
     }
 
     if constexpr (rng::sized_range<T>) {
-        consumer.end_list(std::size(value));
+        consumer.list_end(std::size(value));
     }
     else {
-        consumer.end_list();
+        consumer.list_end();
     }
 }
 
@@ -160,7 +160,7 @@ constexpr void connect_events_dict_impl(customization_point_type<T>,
     using K = typename T::key_type;
     using V = typename T::mapped_type;
 
-    consumer.begin_dict(rng::size(value));
+    consumer.dict_begin(rng::size(value));
 
     if constexpr (serialization_traits<T>::key_order == dict_key_order::sorted) {
         for (auto&& [k, v] : value) {
@@ -190,7 +190,7 @@ constexpr void connect_events_dict_impl(customization_point_type<T>,
             consumer.dict_value();
         }
     }
-    consumer.end_dict(std::size(value));
+    consumer.dict_end(std::size(value));
 }
 
 template <typename T, event_consumer EC>

@@ -11,9 +11,9 @@ namespace symbol {
 
 // use non-scoped enum to allow implicit conversion to char
 enum symbol : char {
-    begin_integer = 'i',
-    begin_list    = 'l',
-    begin_dict    = 'd',
+    integer_begin = 'i',
+    list_begin    = 'l',
+    dict_begin    = 'd',
     end           = 'e',
     colon         = ':',
     minus         = '-',
@@ -45,10 +45,10 @@ struct value_symbol_type {
 
     constexpr bool operator==(char c) const noexcept
     {
-        return (c == symbol::begin_integer
+        return (c == symbol::integer_begin
                 || c == symbol::digit
-                || c == symbol::begin_list
-                || c == symbol::begin_dict);
+                || c == symbol::list_begin
+                || c == symbol::dict_begin);
     }
 };
 

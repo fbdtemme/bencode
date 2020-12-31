@@ -58,7 +58,7 @@ public:
         *out_++ = '"';
     }
 
-    void begin_list([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
+    void list_begin([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
     {
         next();
         *out_++ = '[';
@@ -71,14 +71,14 @@ public:
         first_ = false;
     };
 
-    void end_list([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
+    void list_end([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
     {
         current_indent_ -= indent_;
         if (!first_) next_line();
         *out_++ = ']';
     };
 
-    void begin_dict([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
+    void dict_begin([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
     {
         next();
         *out_++ = '{';
@@ -86,7 +86,7 @@ public:
         first_ = true;
     };
 
-    void end_dict([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
+    void dict_end([[maybe_unused]] std::optional<std::size_t> size = std::nullopt)
     {
         current_indent_ -= indent_;
         if (!first_) next_line();

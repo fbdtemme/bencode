@@ -16,15 +16,15 @@ concept event_consumer =
     requires(T& t) {
         t.integer(std::int64_t{});
         t.string(std::string_view{});
-        t.begin_list();
-        t.begin_list(std::size_t{});
-        t.end_list();
-        t.end_list(std::size_t{});
+        t.list_begin();
+        t.list_begin(std::size_t{});
+        t.list_end();
+        t.list_end(std::size_t{});
         t.list_item();
-        t.begin_dict();
-        t.begin_dict(std::size_t{});
-        t.end_dict();
-        t.end_dict(std::size_t{});
+        t.dict_begin();
+        t.dict_begin(std::size_t{});
+        t.dict_end();
+        t.dict_end(std::size_t{});
         t.dict_key();
         t.dict_value();
         t.error(std::declval<const parsing_error&>());
@@ -37,15 +37,15 @@ struct discard_consumer
 {
     void integer(std::int64_t value) { }
     void string(std::string_view value) { }
-    void begin_list() {}
-    void begin_list(std::size_t size) {}
-    void end_list() {}
-    void end_list(std::size_t size) {}
+    void list_begin() {}
+    void list_begin(std::size_t size) {}
+    void list_end() {}
+    void list_end(std::size_t size) {}
     void list_item() {}
-    void begin_dict() {}
-    void begin_dict(std::size_t size) {}
-    void end_dict() {}
-    void end_dict(std::size_t size) {}
+    void dict_begin() {}
+    void dict_begin(std::size_t size) {}
+    void dict_end() {}
+    void dict_end(std::size_t size) {}
     void dict_key() {}
     void dict_value() {}
     void error(const parsing_error& exception) {};
