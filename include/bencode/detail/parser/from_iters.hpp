@@ -32,10 +32,10 @@ struct from_iters_result
 
 template <std::integral T, std::size_t ImplementationIdx>
 constexpr from_iters_result<const char*>
-from_iters(const char* first, const char* last, T& value, implementation_tag<ImplementationIdx>)
+from_iters(const char* first, const char* last, T& value,
+           implementation_tag<ImplementationIdx> tag)
 {
-    from_chars_result res = from_chars(first, last, value,
-                                       implementation_tag<ImplementationIdx>{});
+    from_chars_result res = from_chars(first, last, value, tag);
     return {.iter=res.ptr, .ec=res.ec};
 }
 
@@ -145,10 +145,9 @@ constexpr from_iters_result<Iterator> from_iters(Iterator first, Iterator last, 
 template <std::integral T, std::size_t ImplementationIdx>
 constexpr from_iters_result<const char*>
 binteger_from_iters(const char* first, const char* last, T& value,
-        implementation_tag<ImplementationIdx>)
+        implementation_tag<ImplementationIdx> tag)
 {
-    from_chars_result res = binteger_from_chars(first, last, value,
-                                                implementation_tag<ImplementationIdx>{});
+    from_chars_result res = binteger_from_chars(first, last, value, tag);
     return {.iter=res.ptr, .ec=res.ec};
 }
 
@@ -214,11 +213,10 @@ template <typename StringT = std::string, std::size_t ImplementationIdx>
     requires std::constructible_from<StringT, const char*, const char*>
 constexpr from_iters_result<const char*>
 bstring_from_iters(const char* first, const char* last, StringT& value,
-                   implementation_tag<ImplementationIdx>)
+                   implementation_tag<ImplementationIdx> tag)
 {
     std::size_t offset, size;
-    auto res = bstring_from_chars(first, last, offset, size,
-                                  implementation_tag<ImplementationIdx>{});
+    auto res = bstring_from_chars(first, last, offset, size, tag);
     if (res.ec != parsing_errc{}) [[unlikely]] {
         return {.iter = res.ptr, .ec = res.ec};
     }

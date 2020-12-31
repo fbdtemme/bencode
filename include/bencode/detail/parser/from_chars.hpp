@@ -426,7 +426,7 @@ constexpr from_chars_result from_chars(
 
 template <std::integral T, std::size_t ImplementationIdx>
 constexpr from_chars_result binteger_from_chars(
-        const char* first, const char* last, T& value, implementation_tag<ImplementationIdx>)
+        const char* first, const char* last, T& value, implementation_tag<ImplementationIdx> tag)
 {
     const char* start = first;
     from_chars_result res {.ptr = first, .ec = parsing_errc{}};
@@ -444,8 +444,7 @@ constexpr from_chars_result binteger_from_chars(
     // skip 'i'
     ++first;
     T val;
-    from_chars_result from_chars_res = from_chars(first, last, val,
-                                                  implementation_tag<ImplementationIdx>{});
+    from_chars_result from_chars_res = from_chars(first, last, val, tag);
 
     first = from_chars_res.ptr;
 
@@ -478,7 +477,7 @@ constexpr from_chars_result binteger_from_chars(
 template <std::size_t ImplementationIdx>
 constexpr from_chars_result bstring_from_chars(const char* first, const char* last,
                                                std::size_t& offset, std::size_t& size,
-                                               implementation_tag<ImplementationIdx>)
+                                               implementation_tag<ImplementationIdx> tag)
 {
     auto start = first;
     from_chars_result res {.ptr = first, .ec = parsing_errc{}};
@@ -495,8 +494,7 @@ constexpr from_chars_result bstring_from_chars(const char* first, const char* la
     }
 
     std::size_t size_val;
-    const from_chars_result from_chars_res = from_chars(first, last, size_val,
-                                                        implementation_tag<ImplementationIdx>{});
+    const from_chars_result from_chars_res = from_chars(first, last, size_val, tag);
 
     if (from_chars_res.ec != parsing_errc{}) [[unlikely]] {
         res = from_chars_res;
@@ -534,13 +532,12 @@ constexpr from_chars_result bstring_from_chars(const char* first, const char* la
 template <std::size_t ImplementationIdx>
 constexpr from_chars_result bstring_from_chars(const char* first, const char* last,
         std::string_view& sv,
-        implementation_tag<ImplementationIdx>)
+        implementation_tag<ImplementationIdx> tag)
 {
     std::size_t offset;
     std::size_t size;
 
-    auto res = bstring_from_chars(first, last, offset, size,
-                                  implementation_tag<ImplementationIdx>{});
+    auto res = bstring_from_chars(first, last, offset, size, tag);
     if (res.ec != parsing_errc{}) [[unlikely]] {
         return res;
     }
