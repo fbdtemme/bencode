@@ -42,7 +42,7 @@ option(BENCODE_BUILD_DOCS        "Build documentation"   ${BENCODE_MASTER_PROJEC
 option(BENCODE_ENABLE_COVERAGE   "Build tests with coverage flags enabled"     OFF)
 option(BENCODE_ENABLE_INSTALL    "Generate an install target."                  ON)
 
-set(BENCODE_FROM_CHARS_IMPL "SERIAL" CACHE STRING
+set(BENCODE_FROM_CHARS_IMPL "swar" CACHE STRING
         "The implementation to use. Options: serial or swar")
 
 
