@@ -32,3 +32,11 @@ foreach(target "benchmark-fbdtemme-bencode"
 endforeach(target)
 
 
+add_custom_target(all-benchmarks)
+add_dependencies(all-benchmarks
+        "benchmark-fbdtemme-bencode"
+        "benchmark-jimporter-bencode"
+        "benchmark-arvidn-libtorrent"
+        "benchmark-s3rvac-cpp-bencoding")
+
+
