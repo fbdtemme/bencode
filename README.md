@@ -16,7 +16,16 @@
 [**Integration**](#Integration) |
 [**License**](#License)
 
-A header-only C++20 bencode serialization/deserialization library.
+A header-only C++20 bencode serialization/deserialization library. Inspired by toa
+
+## Design goals
+* **Feature-rich**. The main goal of this library is to provide a complete bencode library that 
+  provides solutions for all common use cases.
+* **Security**. Parsing arbitrary user data can be dangerous and you do not want your bittorrent tracker 
+  to crash when a user sends malformed data. All parsers are recursion-free to protect against 
+  stack-based buffer overflow attacks.
+* **Speed**. While not the primary goal of this project we have optimized integer parsing with 
+  SWAR operations for fast integer decoding, the most performance critical part of bencode decoding.
 
 ## Features
 
