@@ -1,0 +1,30 @@
+name: sanitizers
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  sanitizer:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitizer: [asan, ubsan, lsan]
+        compiler : [ g++-10 ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: configure
+        run: mkdir build && cd build &&
+             cmake -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+                   -DBENCODE_BUILD_TESTS=ON
+                   -DBENCODE_BUILD_DOCS=OFF
+                   -DBENCODE_BUILD_BENCHMARKS=OFF
+                   -DBENCODE_ENABLE_COVERAGE=OFF
+                   -DCMAKE_BUILD_TYPE="${{ matrix.sanitizer }}" ..
+      - working-directory: build/
+        run: make
+      - working-directory: build/tests
+        run: ./bencode-tests
