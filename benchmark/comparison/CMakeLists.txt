@@ -7,6 +7,7 @@ find_package(Boost REQUIRED)
 include(../../external/libtorrent.cmake)
 include(../../external/benchmark.cmake)
 include(../../external/cpp-bencoding.cmake)
+include(../../external/jimporter-bencode.cmake)
 
 add_executable(benchmark-fbdtemme-bencode fbdtemme_bencode.cpp)
 add_executable(benchmark-jimporter-bencode jimporter_bencode.cpp)
@@ -16,6 +17,7 @@ add_executable(benchmark-s3rvac-cpp-bencoding s3rvac_cpp_bencoding.cpp)
 target_link_libraries(benchmark-jimporter-bencode PRIVATE Boost::headers)
 target_link_libraries(benchmark-arvidn-libtorrent PRIVATE torrent-rasterbar)
 target_link_libraries(benchmark-s3rvac-cpp-bencoding PRIVATE cpp-bencoding)
+target_link_libraries(benchmark-jimporter-bencode PRIVATE jimporter-bencode)
 
 foreach(target "benchmark-fbdtemme-bencode"
                "benchmark-jimporter-bencode"

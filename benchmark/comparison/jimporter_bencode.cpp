@@ -6,7 +6,7 @@
 #include <filesystem>
 
 #include <benchmark/benchmark.h>
-#include "external/jimporter_bencode.hpp"
+#include "jimporter/bencode.hpp"
 
 #include "resources.hpp"
 
