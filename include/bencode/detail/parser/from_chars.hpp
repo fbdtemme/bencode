@@ -35,6 +35,7 @@ inline constexpr auto power_of_10_lookup = std::array {
 
 constexpr std::uint64_t byteswap(std::uint64_t data, std::size_t n_digits = 8)
 {
+    if (n_digits == 0) [[unlikely]] return 0;
     std::uint64_t swapped = __builtin_bswap64(data);
     std::uint64_t n_shifts = (8 * (8-n_digits));
     std::uint64_t out = swapped >> n_shifts;
@@ -43,6 +44,7 @@ constexpr std::uint64_t byteswap(std::uint64_t data, std::size_t n_digits = 8)
 
 constexpr std::uint32_t byteswap(std::uint32_t data, std::size_t n_digits = 4)
 {
+    if (n_digits == 0) [[unlikely]] return 0;
     std::uint32_t swapped = __builtin_bswap32(data);
     std::uint32_t n_shifts = (8 * (4-n_digits));
     std::uint32_t out = swapped >> n_shifts;
@@ -51,6 +53,7 @@ constexpr std::uint32_t byteswap(std::uint32_t data, std::size_t n_digits = 4)
 
 constexpr std::uint16_t byteswap(std::uint16_t data, std::size_t n_digits = 2)
 {
+    if (n_digits == 0) [[unlikely]] return 0;
     std::uint16_t swapped = __builtin_bswap16(data);
     std::uint16_t n_shifts = (8 * (2-n_digits));
     std::uint16_t out = swapped >> n_shifts;
