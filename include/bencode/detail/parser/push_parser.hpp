@@ -69,6 +69,12 @@ public:
     bool parse(EC& consumer, std::string_view s) noexcept
     { return parse<std::string_view>(consumer, s); }
 
+    /// Parse the input given by two iterators and pass generated events to the event consumer.
+    /// @returns true if successful, false if an error occured.
+    template <event_consumer EC>
+    bool parse(EC& consumer, iterator_t first, sentinel_t last) noexcept
+    { return parse(consumer, rng::subrange(first, last)); }
+
     /// Check if a previous parse() operation resulted in an error.
     /// @returns true if an error ocurred, false otherwise
     bool has_error() noexcept
