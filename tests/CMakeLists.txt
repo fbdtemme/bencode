@@ -27,7 +27,7 @@ target_sources(bencode-tests
         parser/test_from_iters.cpp
         parser/push_parser.cpp
         parser/descriptor_parser.cpp
-
+        parser/pull_parser.cpp
 
         test_concepts.cpp
         test_encoder.cpp
