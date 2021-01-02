@@ -108,7 +108,10 @@ namespace bencode {
 /// Exception class for parser errors.
 class parsing_error : public exception {
 public:
-     parsing_error(parsing_errc ec, std::size_t pos, std::optional<bencode_type> context = std::nullopt)
+    /// Construct a parsing_error from an error code.
+     explicit parsing_error(parsing_errc ec,
+                   std::optional<std::size_t> pos = std::nullopt,
+                   std::optional<bencode_type> context = std::nullopt)
             : exception(make_what_msg(ec, pos, context))
             , position_(pos)
             , context_(context)
@@ -119,15 +122,20 @@ public:
     parsing_error& operator=(const parsing_error&) noexcept = default;
 
     /// The byte index of the last valid character in the input file.
+    /// When the parser was invoked with iterators satisfying only std::input_iterator,
+    /// no position information is available and an empty std::optional is returned.
     ///
     /// @note For an input with n bytes, 1 is the index of the first character and
     ///       n+1 is the index of the terminating null byte or the end of file.
     ///
-    std::size_t position() const noexcept { return position_; }
+    /// @returns An optional value containing the position of the last valid byte
+    ///          or an empty optional if no position information is available.
+    std::optional<std::size_t> position() const noexcept { return position_; }
 
-    /// Retu
+    /// Returns the current parsing context if available.
     std::optional<bencode_type> context() const { return context_; }
 
+    /// Return the error code of the exception.
     parsing_errc errc() const noexcept
     { return errc_; }
 
@@ -139,7 +147,7 @@ private:
             , errc_(ec)
     { };
 
-    static std::string make_what_msg(parsing_errc ec, std::size_t pos, std::optional<bencode_type> context)
+    static std::string make_what_msg(parsing_errc ec, std::optional<std::size_t> pos, std::optional<bencode_type> context)
     {
         using namespace std::string_literals;
         std::string what = fmt::format("parse error: {}", position_string(pos));
@@ -151,14 +159,17 @@ private:
         return what;
     }
 
-    static std::string position_string(std::size_t pos)
+    static std::string position_string(std::optional<std::size_t> pos)
     {
-        return fmt::format("invalid character at position {}", pos);
+        if (pos.has_value())
+            return fmt::format("invalid character read at position {}", *pos);
+        else
+            return "invalid character read";
     }
 
 private:
     parsing_errc errc_;
-    std::size_t position_;
+    std::optional<std::size_t> position_;
     std::optional<bencode_type> context_;
 };
 
