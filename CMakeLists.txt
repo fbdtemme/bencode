@@ -54,6 +54,14 @@ target_link_libraries(bencode
         nonstd::expected-lite
         gsl::gsl-lite-v1)
 
+string(TOLOWER ${CMAKE_BUILD_TYPE} BENCODE_BUILD_TYPE)
+
+if (BENCODE_BUILD_TYPE STREQUAL release)
+    message(STATUS "Disabling all runtime checking of contracts")
+    target_compile_definitions(bencode INTERFACE gsl_CONFIG_CONTRACT_CHECKING_OFF)
+endif()
+
+
 if (BENCODE_BUILD_TESTS)
     enable_testing()
     message(STATUS "Building tests enabled")
