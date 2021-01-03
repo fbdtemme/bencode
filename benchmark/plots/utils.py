@@ -72,8 +72,10 @@ def plot_comparison(df, **figure_options):
     width = 1 / (n_libraries+1)  # the width of the bars
 
     rects = []
-    for i, (mean, stddev, test_f) in enumerate(zip(means, stddevs, test_files)):
-        rects.append(ax.bar(x + i*width, mean, width=width, yerr=stddev, label=test_f))
+    for i in range(n_libraries):
+        mean = means[i, :]
+        std = stddevs[i, :]
+        rects.append(ax.bar(x + i*width, mean, width=width, yerr=std, label=test_files))
 
     ax.set_ylabel("Relative parsing speed")
 
@@ -83,5 +85,6 @@ def plot_comparison(df, **figure_options):
     ax.set_xticklabels(test_files)
 
     ax.legend(libraries, bbox_to_anchor=(1.05, 1), loc='upper left')
+    print(libraries)
 
     return ax
