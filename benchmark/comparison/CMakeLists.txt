@@ -10,6 +10,8 @@ include(../../external/cpp-bencoding.cmake)
 include(../../external/jimporter-bencode.cmake)
 include(../../external/rakshasa-libtorrent.cmake)
 include(../../external/kriben-bencode.cmake)
+include(../../external/theanti9-cppbencode.cmake)
+include(../../external/outputenable-bencode.cmake)
 
 add_executable(benchmark-fbdtemme-bencode fbdtemme_bencode.cpp)
 add_executable(benchmark-jimporter-bencode jimporter_bencode.cpp)
@@ -17,38 +19,40 @@ add_executable(benchmark-arvidn-libtorrent arvidn_libtorrent.cpp)
 add_executable(benchmark-s3rvac-cpp-bencoding s3rvac_cpp_bencoding.cpp)
 add_executable(benchmark-rakshasa-libtorrent rakshasa_libtorrent.cpp)
 add_executable(benchmark-kriben-bencode kriben_bencode.cpp)
+add_executable(benchmark-theanti9-cppbencode theanti9_cppbencode.cpp)
+add_executable(benchmark-outputenable-bencode outputenable_bencode.cpp)
 
-target_link_libraries(benchmark-jimporter-bencode PRIVATE Boost::headers)
-target_link_libraries(benchmark-arvidn-libtorrent PRIVATE torrent-rasterbar)
-target_link_libraries(benchmark-s3rvac-cpp-bencoding PRIVATE cpp-bencoding)
-target_link_libraries(benchmark-jimporter-bencode PRIVATE jimporter-bencode)
-target_link_libraries(benchmark-rakshasa-libtorrent PRIVATE rakshasa-libtorrent)
-target_link_libraries(benchmark-kriben-bencode PRIVATE kriben-bencode Boost::headers Boost::regex)
+list(APPEND ALL_BENCHMARK_TARGETS benchmark-fbdtemme-bencode
+                                  benchmark-jimporter-bencode
+                                  benchmark-arvidn-libtorrent
+                                  benchmark-s3rvac-cpp-bencoding
+                                  benchmark-rakshasa-libtorrent
+                                  benchmark-kriben-bencode
+                                  benchmark-theanti9-cppbencode
+                                  benchmark-outputenable-bencode)
 
-foreach(target benchmark-fbdtemme-bencode
-               benchmark-jimporter-bencode
-               benchmark-arvidn-libtorrent
-               benchmark-s3rvac-cpp-bencoding
-               benchmark-rakshasa-libtorrent
-               benchmark-kriben-bencode)
-
+foreach(target IN LISTS ALL_BENCHMARK_TARGETS)
     target_link_libraries(${target} PRIVATE
-            bencode::bencode
             benchmark::benchmark
             benchmark::benchmark_main
     )
+    target_compile_features(${target} PUBLIC cxx_std_20)
     target_compile_definitions(${target} PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/../resources\")
 
 endforeach(target)
 
+target_link_libraries(benchmark-fbdtemme-bencode     PRIVATE bencode::bencode)
+#target_link_libraries(benchmark-jimporter-bencode)
+target_link_libraries(benchmark-arvidn-libtorrent    PRIVATE torrent-rasterbar)
+target_link_libraries(benchmark-s3rvac-cpp-bencoding PRIVATE cpp-bencoding)
+target_link_libraries(benchmark-jimporter-bencode    PRIVATE jimporter-bencode)
+target_link_libraries(benchmark-rakshasa-libtorrent  PRIVATE rakshasa-libtorrent)
+target_link_libraries(benchmark-kriben-bencode       PRIVATE kriben-bencode Boost::headers Boost::regex)
+target_link_libraries(benchmark-theanti9-cppbencode  PRIVATE theanti9-cppbencode)
+target_link_libraries(benchmark-outputenable-bencode PRIVATE outputenable-bencode)
+
 
 add_custom_target(all-benchmarks)
-add_dependencies(all-benchmarks
-        benchmark-fbdtemme-bencode
-        benchmark-jimporter-bencode
-        benchmark-arvidn-libtorrent
-        benchmark-s3rvac-cpp-bencoding
-        benchmark-rakshasa-libtorrent
-        benchmark-kriben-bencode)
+add_dependencies(all-benchmarks ${ALL_BENCHMARK_TARGETS})
 
 

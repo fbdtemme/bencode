@@ -86,6 +86,5 @@ def plot_comparison(df, **figure_options):
     ax.set_xticklabels(test_files)
 
     ax.legend(libraries, bbox_to_anchor=(1.05, 1), loc='upper left')
-    print(libraries)
 
     return ax

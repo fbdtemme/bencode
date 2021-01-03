@@ -8,12 +8,7 @@
 #include <benchmark/benchmark.h>
 #include <span>
 
-#include <torrent/common.h>
-#include <torrent/object.h>
-#include <torrent/exceptions.h>
-#include <torrent/object_raw_bencode.h>
-#include <torrent/object_stream.h>
-
+#include "bencode.h"
 #include "resources.hpp"
 
 static void BM_decode_value(benchmark::State& state, const std::filesystem::path& path) {
@@ -24,10 +19,8 @@ static void BM_decode_value(benchmark::State& state, const std::filesystem::path
 
     static std::size_t max_depth = 100;
     for (auto _ : state) {
-        torrent::Object value;
-        benchmark::DoNotOptimize(
-                torrent::object_read_bencode_c(
-                        torrent.data(), torrent.data()+torrent.size(), &value, max_depth));
+        ben::variant data;
+        benchmark::DoNotOptimize(ben::decoder::decode_all(&data, torrent));
         benchmark::ClobberMemory();
     }
     state.SetBytesProcessed(state.iterations() * torrent.size());

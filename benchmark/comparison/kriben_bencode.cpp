@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <benchmark/benchmark.h>
 #include <Decoder.h>
+
 #include "resources.hpp"
 
 static void BM_decode_value(benchmark::State& state, const std::filesystem::path& path) {
