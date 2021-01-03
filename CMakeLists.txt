@@ -42,9 +42,12 @@ option(BENCODE_BUILD_DOCS        "Build documentation"                         O
 option(BENCODE_ENABLE_COVERAGE   "Build tests with coverage flags enabled"     OFF)
 option(BENCODE_ENABLE_INSTALL    "Generate an install target."                  ON)
 
+# Changing these options from their defaults can lead to reduced performance.
+# Benchmark before changing these on your target system!
+
 set(BENCODE_FROM_CHARS_INTEGER_IMPL "swar" CACHE STRING
         "The implementation to use. Options: serial, swar or sse41, avx2")
-set(BENCODE_FROM_CHARS_STRING_IMPL "swar" CACHE STRING
+set(BENCODE_FROM_CHARS_STRING_IMPL "serial" CACHE STRING
         "The implementation to use. Options: serial, swar, sse41, avx2")
 
 
