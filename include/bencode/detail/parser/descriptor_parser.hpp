@@ -201,7 +201,7 @@ private:
 
         std::int64_t value;
         auto result = detail::binteger_from_chars(it_, end_, value,
-                detail::implementation::BENCODE_FROM_CHARS_IMPL);
+                detail::implementation::BENCODE_FROM_CHARS_INTEGER_IMPL);
         it_ = result.ptr;
 
         if (result.ec != parsing_errc{}) [[unlikely]] {
@@ -223,7 +223,7 @@ private:
         std::size_t size;
         auto result = detail::bstring_from_chars(
                 it_, end_, offset, size,
-                detail::implementation::serial);
+                detail::implementation::BENCODE_FROM_CHARS_STRING_IMPL);
 
         it_ = result.ptr;
 
@@ -393,7 +393,7 @@ private:
         std::size_t offset;
         std::size_t size;
         auto result = detail::bstring_from_chars(it_, end_, offset, size,
-                detail::implementation::serial);
+                detail::implementation::BENCODE_FROM_CHARS_STRING_IMPL);
 
         if (result.ec != parsing_errc{}) [[unlikely]] {
             set_error(result.ec, btype::string);

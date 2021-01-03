@@ -38,15 +38,45 @@ include(external/expected-lite.cmake)
 
 option(BENCODE_BUILD_TESTS       "Build tests."          ${BENCODE_MASTER_PROJECT})
 option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"      ${BENCODE_MASTER_PROJECT})
-option(BENCODE_BUILD_DOCS        "Build documentation"   ${BENCODE_MASTER_PROJECT})
+option(BENCODE_BUILD_DOCS        "Build documentation"                         OFF)
 option(BENCODE_ENABLE_COVERAGE   "Build tests with coverage flags enabled"     OFF)
 option(BENCODE_ENABLE_INSTALL    "Generate an install target."                  ON)
 
-set(BENCODE_FROM_CHARS_IMPL "swar" CACHE STRING
-        "The implementation to use. Options: serial or swar")
+set(BENCODE_FROM_CHARS_INTEGER_IMPL "swar" CACHE STRING
+        "The implementation to use. Options: serial, swar or sse41, avx2")
+set(BENCODE_FROM_CHARS_STRING_IMPL "swar" CACHE STRING
+        "The implementation to use. Options: serial, swar, sse41, avx2")
 
 
-string(TOLOWER ${BENCODE_FROM_CHARS_IMPL} BENCODE_FROM_CHARS_IMPL)
+string(TOLOWER ${BENCODE_FROM_CHARS_INTEGER_IMPL} BENCODE_FROM_CHARS_INTEGER_IMPL)
+string(TOLOWER ${BENCODE_FROM_CHARS_STRING_IMPL}  BENCODE_FROM_CHARS_STRING_IMPL)
+
+if (BENCODE_FROM_CHARS_INTEGER_IMPL STREQUAL swar)
+    message(STATUS "Enabling SWAR integer parsing.")
+elseif(BENCODE_FROM_CHARS_INTEGER_IMPL STREQUAL sse41)
+    message(STATUS "Enabling SSE4.1 integer parsing.")
+    target_compile_options(bencode INTERFACE -msse4)
+elseif(BENCODE_FROM_CHARS_INTEGER_IMPL STREQUAL avx2)
+    message(STATUS "Enabling AVX2 integer parsing.")
+    target_compile_options(bencode INTERFACE -mavx2)
+endif()
+
+if (BENCODE_FROM_CHARS_STRING_IMPL STREQUAL swar)
+    message(STATUS "Enabling SWAR string parsing.")
+elseif(BENCODE_FROM_CHARS_STRING_IMPL STREQUAL sse41)
+    message(STATUS "Enabling SSE4.1 string parsing.")
+    target_compile_options(bencode INTERFACE -msse4)
+elseif(BENCODE_FROM_CHARS_STRING_IMPL STREQUAL avx2)
+    message(STATUS "Enabling AVX2 string parsing.")
+    target_compile_options(bencode INTERFACE -mavx2)
+endif()
+
+
+    target_compile_definitions(
+        bencode INTERFACE
+        BENCODE_FROM_CHARS_INTEGER_IMPL=${BENCODE_FROM_CHARS_INTEGER_IMPL}
+        BENCODE_FROM_CHARS_STRING_IMPL=${BENCODE_FROM_CHARS_STRING_IMPL}
+)
 
 target_link_libraries(bencode
     INTERFACE
@@ -78,13 +108,6 @@ if (BENCODE_BUILD_DOCS)
     add_subdirectory(docs)
 endif()
 
-
-if (BENCODE_FROM_CHARS_IMPL STREQUAL swar)
-    message(STATUS "Enabling SWAR integer parsing.")
-elseif()
-    message(STATUS "Disabling SWAR integer parsing.")
-endif()
-target_compile_definitions(bencode INTERFACE BENCODE_FROM_CHARS_IMPL=${BENCODE_FROM_CHARS_IMPL})
 
 
 if (BENCODE_ENABLE_INSTALL)

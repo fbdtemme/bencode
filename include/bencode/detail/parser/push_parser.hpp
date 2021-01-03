@@ -184,8 +184,8 @@ private:
         detail::from_iters_result<Iterator> result;
 
         if constexpr (std::convertible_to<Iterator, const char*>) {
-            result = detail::binteger_from_iters(it_, end_, value,
-                                                 detail::implementation::BENCODE_FROM_CHARS_IMPL);
+            result = detail::binteger_from_iters(
+                    it_, end_, value, detail::implementation::BENCODE_FROM_CHARS_INTEGER_IMPL);
         } else {
             result = detail::binteger_from_iters(it_, end_, value);
         }
@@ -214,7 +214,7 @@ private:
 
             if constexpr (std::convertible_to<iterator_t, const char*>) {
                 result = detail::bstring_from_iters(it_, end_, value,
-                        detail::implementation::BENCODE_FROM_CHARS_IMPL);
+                        detail::implementation::BENCODE_FROM_CHARS_STRING_IMPL);
             } else {
                 result = detail::bstring_from_iters(it_, end_, value);
             }
@@ -233,7 +233,7 @@ private:
 
             if constexpr (std::convertible_to<Iterator, const char*>) {
                 result = detail::bstring_from_iters(it_, end_, value,
-                        detail::implementation::BENCODE_FROM_CHARS_IMPL);
+                        detail::implementation::BENCODE_FROM_CHARS_STRING_IMPL);
             } else {
                 result = detail::bstring_from_iters(it_, end_, value);
             }
