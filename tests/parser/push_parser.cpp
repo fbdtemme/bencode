@@ -5,6 +5,7 @@
 #include <bencode/detail/bvalue/events.hpp>
 #include <catch2/catch.hpp>
 #include <sstream>
+#include <fstream>
 
 #include "data.hpp"
 
@@ -187,4 +188,18 @@ TEST_CASE("test push parser to json - string_parsing_mode::view")
     }
 }
 
+
+TEST_CASE("test push parser with input_iterators")
+{
+    std::ifstream ifs(RESOURCES_DIR"/Fedora-Workstation-Live-x86_64-30.torrent");
+    auto begin = std::istreambuf_iterator<char>(ifs);
+    auto end = std::istreambuf_iterator<char>();
+
+    std::string out{};
+    auto json_consumer = bencode::events::encode_json_to(std::back_inserter(out));
+
+    push_parser<string_parsing_mode::value, decltype(begin), decltype(end)> parser {};
+    bool success = parser.parse(json_consumer, begin, end);
+    CHECK(success);
+}
 
