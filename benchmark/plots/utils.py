@@ -31,9 +31,10 @@ def filter_results(df: pd.DataFrame, library: str) -> pd.DataFrame:
 
     out.insert(0, "library", library)
 
-    out["cpu_time/iteration"] = out.cpu_time / out.iterations
-    out["real_time/iteration"] = out.real_time / out.iterations
 
+    out["cpu_time/iteration"] = np.nan_to_num(out.cpu_time / out.iterations, nan=0)
+    out["real_time/iteration"] = np.nan_to_num(out.real_time / out.iterations, nan=0)
+    
     out["library"] = out['library'].astype("category")
     out["test_type"] = out['test_type'].astype("category")
     out["test_file"] = out['test_file'].astype("category")
