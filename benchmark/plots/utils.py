@@ -69,7 +69,7 @@ def plot_comparison(df, **figure_options):
     ax = fig.gca()
 
     x = np.arange(n_test_files)
-    width = 0.2  # the width of the bars
+    width = 1 / (n_libraries+1)  # the width of the bars
 
     rects = []
     for i, (mean, stddev, test_f) in enumerate(zip(means, stddevs, test_files)):
