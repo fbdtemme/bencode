@@ -45,7 +45,7 @@ enum class connector_state
 };
 
 
-/// Connect events from multiple producer to an event consumer using a stream interface.
+/// Connect events from multiple producers to an event consumer using a stream interface.
 template <event_consumer Consumer>
 class event_connector
 {

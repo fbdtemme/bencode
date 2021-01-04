@@ -12,5 +12,6 @@ foreach(target "benchmark-from-chars")
             benchmark::benchmark_main
             )
     target_compile_definitions(${target} PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/../resources\")
+    target_compile_options(${target} PRIVATE -mavx2 -msse4)
 
 endforeach(target)

@@ -94,6 +94,7 @@ static void BM_std_from_chars_uint32_t(benchmark::State& state, const T& distrib
             benchmark::DoNotOptimize(std::from_chars(first.data(), first.data()+first.size(), v));
         }
     }
+    state.SetItemsProcessed(state.iterations() * 100);
 }
 
 
@@ -108,6 +109,7 @@ static void BM_std_from_chars_uint64_t(benchmark::State& state, const T& distrib
             benchmark::DoNotOptimize(std::from_chars(first.data(), first.data()+first.size(), v));
         }
     }
+    state.SetItemsProcessed(state.iterations() * 100);
 }
 
 template <typename T>
@@ -124,6 +126,7 @@ static void BM_serial_from_chars_uint32_t(benchmark::State& state, const T& dist
                             first.data(), first.data()+first.size(), v, implementation::serial));
         }
     }
+    state.SetItemsProcessed(state.iterations() * 100);
 }
 
 template <typename T>
@@ -140,6 +143,7 @@ static void BM_serial_from_chars_uint64_t(benchmark::State& state, const T& dist
                             first.data(), first.data()+first.size(), v, implementation::serial));
         }
     }
+    state.SetItemsProcessed(state.iterations() * 100);
 }
 
 template <typename T>
@@ -155,6 +159,7 @@ static void BM_swar_from_chars_uint32_t(benchmark::State& state, const T& distri
             benchmark::DoNotOptimize(from_chars(first.data(), first.data()+first.size(), v, implementation::swar));
         }
     }
+    state.SetItemsProcessed(state.iterations() * 100);
 }
 
 template <typename T>
@@ -170,8 +175,72 @@ static void BM_swar_from_chars_uint64_t(benchmark::State& state, const T& distri
             benchmark::DoNotOptimize(from_chars(first.data(), first.data()+first.size(), v, implementation::swar));
         }
     }
+    state.SetItemsProcessed(state.iterations() * 100);
 }
 
+template <typename T>
+static void BM_sse41_from_chars_uint32_t(benchmark::State& state, const T& distribution) {
+    using namespace bencode::detail;
+
+    for (auto _ : state) {
+        state.PauseTiming();
+        auto data = generate_test_data(distribution, 100);
+        state.ResumeTiming();
+        std::uint64_t v;
+        for (auto [first, second] : data) {
+            benchmark::DoNotOptimize(from_chars(first.data(), first.data()+first.size(), v, implementation::sse41));
+        }
+    }
+    state.SetItemsProcessed(state.iterations() * 100);
+}
+
+template <typename T>
+static void BM_sse41_from_chars_uint64_t(benchmark::State& state, const T& distribution) {
+    using namespace bencode::detail;
+
+    for (auto _ : state) {
+        state.PauseTiming();
+        auto data = generate_test_data(distribution, 100);
+        state.ResumeTiming();
+        std::uint64_t v;
+        for (auto [first, second] : data) {
+            benchmark::DoNotOptimize(from_chars(first.data(), first.data()+first.size(), v, implementation::sse41));
+        }
+    }
+    state.SetItemsProcessed(state.iterations() * 100);
+}
+
+template <typename T>
+static void BM_avx2_from_chars_uint32_t(benchmark::State& state, const T& distribution) {
+    using namespace bencode::detail;
+
+    for (auto _ : state) {
+        state.PauseTiming();
+        auto data = generate_test_data(distribution, 100);
+        state.ResumeTiming();
+        std::uint64_t v;
+        for (auto [first, second] : data) {
+            benchmark::DoNotOptimize(from_chars(first.data(), first.data()+first.size(), v, implementation::avx2));
+        }
+    }
+    state.SetItemsProcessed(state.iterations() * 100);
+}
+
+template <typename T>
+static void BM_avx2_from_chars_uint64_t(benchmark::State& state, const T& distribution) {
+    using namespace bencode::detail;
+
+    for (auto _ : state) {
+        state.PauseTiming();
+        auto data = generate_test_data(distribution, 100);
+        state.ResumeTiming();
+        std::uint64_t v;
+        for (auto [first, second] : data) {
+            benchmark::DoNotOptimize(from_chars(first.data(), first.data()+first.size(), v, implementation::avx2));
+        }
+    }
+    state.SetItemsProcessed(state.iterations() * 100);
+}
 
 BENCHMARK_CAPTURE(BM_std_from_chars_uint32_t, "uniform",          uint32_uniform);
 BENCHMARK_CAPTURE(BM_std_from_chars_uint32_t, "normal",           uint32_normal);
@@ -187,12 +256,25 @@ BENCHMARK_CAPTURE(BM_serial_from_chars_uint64_t, "uniform",          uint64_unif
 BENCHMARK_CAPTURE(BM_serial_from_chars_uint64_t, "normal",           uint64_normal);
 BENCHMARK_CAPTURE(BM_serial_from_chars_uint64_t, "exponential",      uint64_exponential);
 
-
 BENCHMARK_CAPTURE(BM_swar_from_chars_uint32_t, "uniform",          uint32_uniform);
 BENCHMARK_CAPTURE(BM_swar_from_chars_uint32_t, "normal",           uint32_normal);
 BENCHMARK_CAPTURE(BM_swar_from_chars_uint32_t, "exponential",      uint32_exponential);
 BENCHMARK_CAPTURE(BM_swar_from_chars_uint64_t, "uniform",          uint64_uniform);
 BENCHMARK_CAPTURE(BM_swar_from_chars_uint64_t, "normal",           uint64_normal);
 BENCHMARK_CAPTURE(BM_swar_from_chars_uint64_t, "exponential",      uint64_exponential);
+
+BENCHMARK_CAPTURE(BM_sse41_from_chars_uint32_t, "uniform",          uint32_uniform);
+BENCHMARK_CAPTURE(BM_sse41_from_chars_uint32_t, "normal",           uint32_normal);
+BENCHMARK_CAPTURE(BM_sse41_from_chars_uint32_t, "exponential",      uint32_exponential);
+BENCHMARK_CAPTURE(BM_sse41_from_chars_uint64_t, "uniform",          uint64_uniform);
+BENCHMARK_CAPTURE(BM_sse41_from_chars_uint64_t, "normal",           uint64_normal);
+BENCHMARK_CAPTURE(BM_sse41_from_chars_uint64_t, "exponential",      uint64_exponential);
+
+BENCHMARK_CAPTURE(BM_avx2_from_chars_uint32_t, "uniform",          uint32_uniform);
+BENCHMARK_CAPTURE(BM_avx2_from_chars_uint32_t, "normal",           uint32_normal);
+BENCHMARK_CAPTURE(BM_avx2_from_chars_uint32_t, "exponential",      uint32_exponential);
+BENCHMARK_CAPTURE(BM_avx2_from_chars_uint64_t, "uniform",          uint64_uniform);
+BENCHMARK_CAPTURE(BM_avx2_from_chars_uint64_t, "normal",           uint64_normal);
+BENCHMARK_CAPTURE(BM_avx2_from_chars_uint64_t, "exponential",      uint64_exponential);
 
 BENCHMARK_MAIN();

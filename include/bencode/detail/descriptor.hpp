@@ -40,7 +40,7 @@ enum class descriptor_type : std::uint8_t
 };
 
 /// class describing the value and metadata contained in bencode tokens.
-class descriptor
+class alignas(16) descriptor
 {
 private:
     /// the decoded bvalue of an bencoded integer
@@ -98,13 +98,16 @@ public:
     /// Returns the type of the bencode data.
     /// @returns the type of the bencode data
     [[nodiscard]]
-    constexpr auto type() const noexcept -> bencode_type
+    constexpr bencode_type type() const noexcept
     {
-        if (is_integer()) return bencode_type::integer;
-        if (is_string())  return bencode_type::string;
-        if (is_list())    return bencode_type::list;
-        if (is_dict())    return bencode_type::dict;
-        BENCODE_UNREACHABLE;
+        const std::uint8_t low_nibble = std::uint8_t(type_) & 0x0F;
+        switch (low_nibble) {
+        case std::uint8_t(descriptor_type::integer): return bencode_type::integer;
+        case std::uint8_t(descriptor_type::string):  return bencode_type::string;
+        case std::uint8_t(descriptor_type::list):    return bencode_type::list;
+        case std::uint8_t(descriptor_type::dict):    return bencode_type::dict;
+        default: BENCODE_UNREACHABLE;
+        };
     }
 
     /// Returns true if the descriptor describes an integer, false otherwise.
@@ -244,5 +247,4 @@ protected:
     std::uint32_t position_;
     descriptor_data data_;
 };
-
 }

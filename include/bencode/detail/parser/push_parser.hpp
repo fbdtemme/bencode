@@ -13,7 +13,6 @@
 #include "bencode/detail/parser/parsing_error.hpp"
 #include <bencode/detail/parser/from_iters.hpp>
 
-
 namespace bencode {
 
 namespace rng = std::ranges;
@@ -69,6 +68,12 @@ public:
     template <event_consumer EC>
     bool parse(EC& consumer, std::string_view s) noexcept
     { return parse<std::string_view>(consumer, s); }
+
+    /// Parse the input given by two iterators and pass generated events to the event consumer.
+    /// @returns true if successful, false if an error occured.
+    template <event_consumer EC>
+    bool parse(EC& consumer, iterator_t first, sentinel_t last) noexcept
+    { return parse(consumer, rng::subrange(first, last)); }
 
     /// Check if a previous parse() operation resulted in an error.
     /// @returns true if an error ocurred, false otherwise
@@ -179,8 +184,8 @@ private:
         detail::from_iters_result<Iterator> result;
 
         if constexpr (std::convertible_to<Iterator, const char*>) {
-            result = detail::binteger_from_iters(it_, end_, value,
-                                                 detail::implementation::BENCODE_FROM_CHARS_IMPL);
+            result = detail::binteger_from_iters(
+                    it_, end_, value, detail::implementation::BENCODE_FROM_CHARS_INTEGER_IMPL);
         } else {
             result = detail::binteger_from_iters(it_, end_, value);
         }
@@ -204,8 +209,15 @@ private:
 
         if constexpr (StringParsingMode == string_parsing_mode::value) {
             std::string value;
-            const auto result = detail::bstring_from_iters(it_, end_, value);
 
+            detail::from_iters_result<iterator_t> result;
+
+            if constexpr (std::convertible_to<iterator_t, const char*>) {
+                result = detail::bstring_from_iters(it_, end_, value,
+                        detail::implementation::BENCODE_FROM_CHARS_STRING_IMPL);
+            } else {
+                result = detail::bstring_from_iters(it_, end_, value);
+            }
             it_ = result.iter;
 
             if (result.ec != parsing_errc{}) [[unlikely]] {
@@ -217,7 +229,14 @@ private:
         }
         else {
             std::string_view value;
-            const auto result = detail::bstring_from_iters(it_, end_, value);
+            detail::from_iters_result<Iterator> result;
+
+            if constexpr (std::convertible_to<Iterator, const char*>) {
+                result = detail::bstring_from_iters(it_, end_, value,
+                        detail::implementation::BENCODE_FROM_CHARS_STRING_IMPL);
+            } else {
+                result = detail::bstring_from_iters(it_, end_, value);
+            }
 
             it_ = result.iter;
 
@@ -238,7 +257,6 @@ private:
         Expects(ParserState != state::expect_dict_key);
         Expects(stack_.empty() || stack_.top() == ParserState);
 
-        // TODO: merge this lambda with handle_nested_structures
         const auto dispatch = [&](bool success) {
             if (!success) [[unlikely]] return false;
 
@@ -283,7 +301,7 @@ private:
     {
         Expects(*it_ == symbol::list_begin);
 
-        if (stack_.size() >= options_.recursion_limit) {
+        if (stack_.size() >= options_.recursion_limit) [[unlikely]] {
             set_error(parsing_errc::recursion_depth_exceeded);
             return false;
         }
@@ -299,7 +317,7 @@ private:
     {
         Expects(*it_ == symbol::dict_begin);
 
-        if (stack_.size() >= options_.recursion_limit) {
+        if (stack_.size() >= options_.recursion_limit) [[unlikely]] {
             set_error(parsing_errc::recursion_depth_exceeded);
             return false;
         }
@@ -378,7 +396,7 @@ private:
     template <bencode::event_consumer Consumer>
     inline void handle_nested_structures(Consumer& consumer)
     {
-        if (stack_.empty()) return;
+        if (stack_.empty()) [[unlikely]] return;
         auto& state = stack_.top();
 
         if (state == state::expect_list_value) {
@@ -387,14 +405,23 @@ private:
         else if (state == state::expect_dict_value) {
             consumer.dict_value();
             state = state::expect_dict_key;
+        } else {
+            Ensures(false);
         }
+    }
+
+    std::optional<std::size_t> position()
+    {
+        if constexpr (std::forward_iterator<iterator_t>)
+           return std::distance(begin_, it_);
+        else
+            return std::nullopt;
     }
 
     inline void set_error(parsing_errc ec,
                           std::optional<bencode_type> context = std::nullopt) noexcept
     {
-        auto pos = std::distance(begin_, it_);
-        error_.emplace(ec, pos, context);
+        error_.emplace(ec, position(), context);
     }
 
 private:

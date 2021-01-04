@@ -31,9 +31,10 @@ def filter_results(df: pd.DataFrame, library: str) -> pd.DataFrame:
 
     out.insert(0, "library", library)
 
-    out["cpu_time/iteration"] = out.cpu_time / out.iterations
-    out["real_time/iteration"] = out.real_time / out.iterations
 
+    out["cpu_time/iteration"] = np.nan_to_num(out.cpu_time / out.iterations, nan=0)
+    out["real_time/iteration"] = np.nan_to_num(out.real_time / out.iterations, nan=0)
+    
     out["library"] = out['library'].astype("category")
     out["test_type"] = out['test_type'].astype("category")
     out["test_file"] = out['test_file'].astype("category")
@@ -69,16 +70,22 @@ def plot_comparison(df, **figure_options):
     ax = fig.gca()
 
     x = np.arange(n_test_files)
-    width = 0.2  # the width of the bars
+    extra_space = 3
+    per_group_width = n_libraries+extra_space
+    width = 1 / per_group_width  # the width of the bars
 
     rects = []
-    for i, (mean, stddev, test_f) in enumerate(zip(means, stddevs, test_files)):
-        rects.append(ax.bar(x + i*width, mean, width=width, yerr=stddev, label=test_f))
+    for i in range(n_libraries):
+        mean = means[i, :]
+        std = stddevs[i, :]
+        rects.append(
+            ax.bar(x + i*width, mean, width=width, yerr=std, label=test_files)
+        )
 
     ax.set_ylabel("Relative parsing speed")
 
     # Set the position of the x ticks
-    ax.set_xticks([p + 0.5 * width for p in x])
+    ax.set_xticks(x + (n_libraries-1) * width * 0.5)
     # Set the labels for the x ticks
     ax.set_xticklabels(test_files)
 

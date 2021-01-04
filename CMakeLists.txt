@@ -3,11 +3,15 @@ project(bencode
         DESCRIPTION "A C++20 header-only bencode library."
         HOMEPAGE_URL https://github.com/fbdtemme/bencode
         LANGUAGES CXX
-        VERSION 0.4.0)
+        VERSION 0.5.0)
 
 set(PROJECT_AUTHOR "fbdtemme")
 # Make Find modules in cmake dir available
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
+
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
 
 # includes
 include(CTest)
@@ -37,22 +41,63 @@ include(external/gsl-lite.cmake)
 include(external/expected-lite.cmake)
 
 option(BENCODE_BUILD_TESTS       "Build tests."          ${BENCODE_MASTER_PROJECT})
-option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"      ${BENCODE_MASTER_PROJECT})
-option(BENCODE_BUILD_DOCS        "Build documentation"   ${BENCODE_MASTER_PROJECT})
+    option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"                        OFF)
+option(BENCODE_BUILD_DOCS        "Build documentation"                         OFF)
 option(BENCODE_ENABLE_COVERAGE   "Build tests with coverage flags enabled"     OFF)
 option(BENCODE_ENABLE_INSTALL    "Generate an install target."                  ON)
 
-set(BENCODE_FROM_CHARS_IMPL "swar" CACHE STRING
-        "The implementation to use. Options: serial or swar")
+# Changing these options from their defaults can lead to reduced performance.
+# Benchmark before changing these on your target system!
+
+set(BENCODE_FROM_CHARS_INTEGER_IMPL "swar" CACHE STRING
+        "The implementation to use. Options: serial, swar or sse41, avx2")
+set(BENCODE_FROM_CHARS_STRING_IMPL "serial" CACHE STRING
+        "The implementation to use. Options: serial, swar, sse41, avx2")
 
 
-string(TOLOWER ${BENCODE_FROM_CHARS_IMPL} BENCODE_FROM_CHARS_IMPL)
+string(TOLOWER ${BENCODE_FROM_CHARS_INTEGER_IMPL} BENCODE_FROM_CHARS_INTEGER_IMPL)
+string(TOLOWER ${BENCODE_FROM_CHARS_STRING_IMPL}  BENCODE_FROM_CHARS_STRING_IMPL)
+
+if (BENCODE_FROM_CHARS_INTEGER_IMPL STREQUAL swar)
+    message(STATUS "Enabling SWAR integer parsing.")
+elseif(BENCODE_FROM_CHARS_INTEGER_IMPL STREQUAL sse41)
+    message(STATUS "Enabling SSE4.1 integer parsing.")
+    target_compile_options(bencode INTERFACE -msse4)
+elseif(BENCODE_FROM_CHARS_INTEGER_IMPL STREQUAL avx2)
+    message(STATUS "Enabling AVX2 integer parsing.")
+    target_compile_options(bencode INTERFACE -mavx2)
+endif()
+
+if (BENCODE_FROM_CHARS_STRING_IMPL STREQUAL swar)
+    message(STATUS "Enabling SWAR string parsing.")
+elseif(BENCODE_FROM_CHARS_STRING_IMPL STREQUAL sse41)
+    message(STATUS "Enabling SSE4.1 string parsing.")
+    target_compile_options(bencode INTERFACE -msse4)
+elseif(BENCODE_FROM_CHARS_STRING_IMPL STREQUAL avx2)
+    message(STATUS "Enabling AVX2 string parsing.")
+    target_compile_options(bencode INTERFACE -mavx2)
+endif()
+
+
+    target_compile_definitions(
+        bencode INTERFACE
+        BENCODE_FROM_CHARS_INTEGER_IMPL=${BENCODE_FROM_CHARS_INTEGER_IMPL}
+        BENCODE_FROM_CHARS_STRING_IMPL=${BENCODE_FROM_CHARS_STRING_IMPL}
+)
 
 target_link_libraries(bencode
     INTERFACE
         fmt::fmt-header-only
         nonstd::expected-lite
         gsl::gsl-lite-v1)
+
+string(TOLOWER ${CMAKE_BUILD_TYPE} BENCODE_BUILD_TYPE)
+
+if (BENCODE_BUILD_TYPE STREQUAL release)
+    message(STATUS "Disabling all runtime checking of contracts")
+    target_compile_definitions(bencode INTERFACE gsl_CONFIG_CONTRACT_CHECKING_OFF)
+endif()
+
 
 if (BENCODE_BUILD_TESTS)
     enable_testing()
@@ -70,13 +115,6 @@ if (BENCODE_BUILD_DOCS)
     add_subdirectory(docs)
 endif()
 
-
-if (BENCODE_FROM_CHARS_IMPL STREQUAL swar)
-    message(STATUS "Enabling SWAR integer parsing.")
-elseif()
-    message(STATUS "Disabling SWAR integer parsing.")
-endif()
-target_compile_definitions(bencode INTERFACE BENCODE_FROM_CHARS_IMPL=${BENCODE_FROM_CHARS_IMPL})
 
 
 if (BENCODE_ENABLE_INSTALL)

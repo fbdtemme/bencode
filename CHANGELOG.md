@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.5.0
+
+* Rename event_consumer methods from (begin|end)\_(list|dict) to (begin|end)\_(list|dict).
+  This makes naming more consistent.
+* Add more benchmarks
+* Disable contract checks in release build for improved performance.
+* Fix parsing from a pair of InputItererators.
+* Add string_parsing_mode options to push_parser to allow parsing strings to string_view. 
+* Add experimental SSE4.1 and AVX2 integer parsing backends. Enable SWAR integer parsing by default. 
+
 ## v0.4.0
 
 * Reworked parser internals for increased decoding speed.
