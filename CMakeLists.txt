@@ -37,7 +37,7 @@ include(external/gsl-lite.cmake)
 include(external/expected-lite.cmake)
 
 option(BENCODE_BUILD_TESTS       "Build tests."          ${BENCODE_MASTER_PROJECT})
-option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"      ${BENCODE_MASTER_PROJECT})
+    option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"                        OFF)
 option(BENCODE_BUILD_DOCS        "Build documentation"                         OFF)
 option(BENCODE_ENABLE_COVERAGE   "Build tests with coverage flags enabled"     OFF)
 option(BENCODE_ENABLE_INSTALL    "Generate an install target."                  ON)
