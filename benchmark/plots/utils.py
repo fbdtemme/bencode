@@ -70,18 +70,22 @@ def plot_comparison(df, **figure_options):
     ax = fig.gca()
 
     x = np.arange(n_test_files)
-    width = 1 / (n_libraries+1)  # the width of the bars
+    extra_space = 3
+    per_group_width = n_libraries+extra_space
+    width = 1 / per_group_width  # the width of the bars
 
     rects = []
     for i in range(n_libraries):
         mean = means[i, :]
         std = stddevs[i, :]
-        rects.append(ax.bar(x + i*width, mean, width=width, yerr=std, label=test_files))
+        rects.append(
+            ax.bar(x + i*width, mean, width=width, yerr=std, label=test_files)
+        )
 
     ax.set_ylabel("Relative parsing speed")
 
     # Set the position of the x ticks
-    ax.set_xticks([p + 0.5 * width for p in x])
+    ax.set_xticks(x + (n_libraries-1) * width * 0.5)
     # Set the labels for the x ticks
     ax.set_xticklabels(test_files)
 
