@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>User-defined type support &mdash; bencode 0.4.0 documentation</title>
+  <title>User-defined type support &mdash; bencode 0.5.0 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.4.0
+                0.5.0
               </div>
             
           
@@ -276,14 +276,14 @@ the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pr
 <span class="k">constexpr</span> <span class="kt">void</span> <span class="n">bencode_connect</span><span class="p">(</span>
         <span class="n">customization_point_type</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">EC</span><span class="o">&amp;</span> <span class="n">consumer</span><span class="p">,</span> <span class="k">const</span> <span class="n">rgb_color</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="n">consumer</span><span class="p">.</span><span class="n">begin_list</span><span class="p">();</span>
+    <span class="n">consumer</span><span class="p">.</span><span class="n">list_begin</span><span class="p">();</span>
     <span class="n">consumer</span><span class="p">.</span><span class="n">integer</span><span class="p">(</span><span class="n">value</span><span class="p">.</span><span class="n">r</span><span class="p">);</span>
     <span class="n">consumer</span><span class="p">.</span><span class="n">list_item</span><span class="p">();</span>
     <span class="n">consumer</span><span class="p">.</span><span class="n">integer</span><span class="p">(</span><span class="n">value</span><span class="p">.</span><span class="n">g</span><span class="p">);</span>
     <span class="n">consumer</span><span class="p">.</span><span class="n">list_item</span><span class="p">();</span>
     <span class="n">consumer</span><span class="p">.</span><span class="n">integer</span><span class="p">(</span><span class="n">value</span><span class="p">.</span><span class="n">b</span><span class="p">);</span>
     <span class="n">consumer</span><span class="p">.</span><span class="n">list_item</span><span class="p">();</span>
-    <span class="n">consumer</span><span class="p">.</span><span class="n">end_list</span><span class="p">()</span>
+    <span class="n">consumer</span><span class="p">.</span><span class="n">list_end</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>

@@ -100,14 +100,14 @@ the :cpp:func:`bencode_connect`.
     constexpr void bencode_connect(
             customization_point_type<rgb_color>, EC& consumer, const rgb_color& value)
     {
-        consumer.begin_list();
+        consumer.list_begin();
         consumer.integer(value.r);
         consumer.list_item();
         consumer.integer(value.g);
         consumer.list_item();
         consumer.integer(value.b);
         consumer.list_item();
-        consumer.end_list()
+        consumer.list_end()
     }
 
 After overriding this function the type satisfies the :cpp:concept:`event_producer` concept.

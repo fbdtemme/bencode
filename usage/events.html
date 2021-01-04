@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Events system &mdash; bencode 0.4.0 documentation</title>
+  <title>Events system &mdash; bencode 0.5.0 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.4.0
+                0.5.0
               </div>
             
           
@@ -203,15 +203,15 @@ The most simple consumer which ignores all events would look as follows:</p>
 <span class="p">{</span>
     <span class="kt">void</span> <span class="n">integer</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
     <span class="kt">void</span> <span class="n">string</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">begin_list</span><span class="p">()</span> <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">begin_list</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">end_list</span><span class="p">()</span> <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">end_list</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="kt">void</span> <span class="n">list_begin</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="kt">void</span> <span class="n">list_begin</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="kt">void</span> <span class="n">list_end</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="kt">void</span> <span class="n">list_end</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{}</span>
     <span class="kt">void</span> <span class="n">list_item</span><span class="p">()</span> <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">begin_dict</span><span class="p">()</span> <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">begin_dict</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">end_dict</span><span class="p">()</span> <span class="p">{}</span>
-    <span class="kt">void</span> <span class="n">end_dict</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="kt">void</span> <span class="n">dict_begin</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="kt">void</span> <span class="n">dict_begin</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="kt">void</span> <span class="n">dict_end</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="kt">void</span> <span class="n">dict_end</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{}</span>
     <span class="kt">void</span> <span class="n">dict_key</span><span class="p">()</span> <span class="p">{}</span>
     <span class="kt">void</span> <span class="n">dict_value</span><span class="p">()</span> <span class="p">{}</span>
 <span class="p">};</span>
@@ -224,19 +224,19 @@ Following bencode data structure (formatted as JSON) would generate these calls.
   <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;one&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="n">begin_dict</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">dict_begin</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">string</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
     <span class="n">dict_key</span><span class="p">()</span>
-    <span class="n">begin_list</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">list_begin</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">begin_string</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
         <span class="n">list_item</span><span class="p">()</span>
         <span class="n">string</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
         <span class="n">list_item</span><span class="p">()</span>
-    <span class="n">end_list</span><span class="p">()</span>
+    <span class="n">list_end</span><span class="p">()</span>
     <span class="n">dict_value</span><span class="p">()</span>
     <span class="n">string</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
     <span class="n">dict_key</span><span class="p">()</span>
-    <span class="n">begin_dict</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">dict_begin</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">string</span><span class="p">(</span><span class="s2">&quot;one&quot;</span><span class="p">)</span>
         <span class="n">dict_key</span><span class="p">()</span>
         <span class="n">integer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -245,9 +245,9 @@ Following bencode data structure (formatted as JSON) would generate these calls.
         <span class="n">dict_key</span><span class="p">()</span>
         <span class="n">integer</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">dict_value</span><span class="p">()</span>
-    <span class="n">end_dict</span><span class="p">()</span>
+    <span class="n">dict_end</span><span class="p">()</span>
     <span class="n">dict_value</span><span class="p">()</span>
-<span class="n">end_dict</span><span class="p">()</span>
+<span class="n">dict_end</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Note that list_item(), dict_key() and dict_value() are called after describing the value.</p>

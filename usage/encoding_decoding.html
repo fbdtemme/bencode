@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Encoding and decoding &mdash; bencode 0.4.0 documentation</title>
+  <title>Encoding and decoding &mdash; bencode 0.5.0 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.4.0
+                0.5.0
               </div>
             
           
@@ -257,25 +257,25 @@ and writes the encoded form to the wrapped storage which can be passed as an
 <p>This allows to create complex bencoded objects without the need to create an intermediary
 <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>. Bencode container types can be created with the use of the following tags:</p>
 <ul class="simple">
-<li><p>begin_list</p></li>
-<li><p>end_list</p></li>
-<li><p>begin_dict</p></li>
-<li><p>end_dict</p></li>
+<li><p>list_begin</p></li>
+<li><p>list_end</p></li>
+<li><p>dict_begin</p></li>
+<li><p>dict_end</p></li>
 </ul>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">ostringstream</span> <span class="n">os</span> <span class="p">{};</span>
 <span class="n">auto</span> <span class="n">eos</span> <span class="o">=</span> <span class="n">bencode</span><span class="p">::</span><span class="n">encoder</span><span class="p">(</span><span class="n">os</span><span class="p">);</span>
 
-<span class="n">eos</span> <span class="o">&lt;&lt;</span> <span class="n">bencode</span><span class="p">::</span><span class="n">begin_dict</span>
+<span class="n">eos</span> <span class="o">&lt;&lt;</span> <span class="n">bencode</span><span class="p">::</span><span class="n">dict_begin</span>
     <span class="o">&lt;&lt;</span> <span class="s2">&quot;key1&quot;</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
     <span class="o">&lt;&lt;</span> <span class="s2">&quot;key2&quot;</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;two&quot;</span>
     <span class="o">&lt;&lt;</span> <span class="s2">&quot;key3&quot;</span>
-    <span class="o">&lt;&lt;</span> <span class="n">bencode</span><span class="p">::</span><span class="n">begin_list</span>
+    <span class="o">&lt;&lt;</span> <span class="n">bencode</span><span class="p">::</span><span class="n">list_begin</span>
         <span class="o">&lt;&lt;</span> <span class="mi">1</span>
         <span class="o">&lt;&lt;</span> <span class="mi">2</span>
         <span class="o">&lt;&lt;</span> <span class="mi">3</span>
-    <span class="o">&lt;&lt;</span> <span class="n">bencode</span><span class="p">::</span><span class="n">end_list</span>
-  <span class="o">&lt;&lt;</span> <span class="n">bencode</span><span class="p">::</span><span class="n">end_dict</span><span class="p">;</span>
+    <span class="o">&lt;&lt;</span> <span class="n">bencode</span><span class="p">::</span><span class="n">list_end</span>
+  <span class="o">&lt;&lt;</span> <span class="n">bencode</span><span class="p">::</span><span class="n">dict_end</span><span class="p">;</span>
 
 <span class="n">eos</span><span class="o">.</span><span class="n">str</span><span class="p">()</span> <span class="o">//</span> <span class="s2">&quot;d4:key1i1e4:key23:two4:key3li1ei2ei3eee&quot;</span>
 </pre></div>
