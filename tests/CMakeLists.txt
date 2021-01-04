@@ -27,7 +27,8 @@ target_sources(bencode-tests
         parser/test_from_iters.cpp
         parser/push_parser.cpp
         parser/descriptor_parser.cpp
-        parser/pull_parser.cpp
+#        parser/pull_parser.cpp
+#        parser/test_from_chars_sse41.cpp
 
         test_concepts.cpp
         test_encoder.cpp
@@ -48,8 +49,6 @@ if (BENCODE_ENABLE_COVERAGE)
     set(CMAKE_CXX_FLAGS --coverage)
     set(CMAKE_C_FLAGS --coverage)
 endif()
-
-target_compile_options(bencode-tests PRIVATE -fconcepts-diagnostics-depth=4)
 
 target_compile_definitions(bencode-tests PRIVATE RESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources\")
 
