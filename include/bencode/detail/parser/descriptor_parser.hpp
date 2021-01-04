@@ -87,7 +87,6 @@ public:
             end_ = std::next(rng::data(range), rng::size(range));
         }
         descriptors_.clear();
-//        descriptors_.reserve(32);
         error_ = std::nullopt;
 
         auto success = parse_loop();
