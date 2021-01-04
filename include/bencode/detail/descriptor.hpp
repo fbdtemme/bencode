@@ -106,8 +106,8 @@ public:
         case std::uint8_t(descriptor_type::string):  return bencode_type::string;
         case std::uint8_t(descriptor_type::list):    return bencode_type::list;
         case std::uint8_t(descriptor_type::dict):    return bencode_type::dict;
-        default: BENCODE_UNREACHABLE
-        }
+        default: BENCODE_UNREACHABLE;
+        };
     }
 
     /// Returns true if the descriptor describes an integer, false otherwise.

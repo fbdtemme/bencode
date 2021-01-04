@@ -139,7 +139,6 @@ TEMPLATE_TEST_CASE("test from_chars - swar", "[integer]", std::int32_t, std::int
     SECTION("minus and invalid") {
         invalid_from_chars_helper<TestType, Impl>(minus_and_invalid, parsing_errc::expected_digit);
     }
-
     SECTION("leading zeros") {
         invalid_from_chars_helper<TestType, Impl>(leading_zero, parsing_errc::leading_zero);
     }
