@@ -65,6 +65,7 @@ Decoding speed was compared for these libraries in alphabetical order:
 * [kriben/bencode](https://github.com/kriben/bencode)
 * [outputenable/bencode](https://gitlab.com/outputenable/bencode)
 * [rakshasa/libtorrent](https://github.com/rakshasa/libtorrent)
+* [s3ponia/BencodeParser](https://github.com/s3ponia/BencodeParser)
 * [s3rvac/cpp-bencoding](https://github.com/s3rvac/cpp-bencoding)
 * [theanti9/cppbencode](https://github.com/theanti9/cppbencode)
 
