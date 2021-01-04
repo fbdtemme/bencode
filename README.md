@@ -11,7 +11,8 @@
 
 [**Features**](#Features) |
 [**Status**](#Status) |
-[**Documentation**](#Documentation) | 
+[**Documentation**](#Documentation) |
+[**Performance**](#Performance) |
 [**Examples**](#Examples) |
 [**Building**](#Building) | 
 [**Integration**](#Integration) |
@@ -19,30 +20,30 @@
 
 A header-only C++20 bencode serialization/deserialization library.
 
-## Design goals
-* **Feature-rich**. The main goal of this library is to provide a complete bencode library that 
-  provides solutions for all common use cases.
-* **Security**. Parsing arbitrary user data can be dangerous and you do not want your bittorrent tracker 
-  to crash when a user sends malformed data. All parsers are recursion-free to protect against 
-  stack-based buffer overflow attacks.
-* **Speed**. While not the primary goal of this project we have optimized integer parsing with 
-  SWAR operations for fast integer decoding, the most performance critical part of bencode decoding.
-
 ## Features
 
-*   Convenient owning representation of bencoded data with `bvalue`.
-*   Fast and memory efficient read-only, non-owning representation into stable buffers of bencoded data with `bview`.
-*   Build-in serialization/deserializaton for most standard containers.
-*   Support for serializing/deserializing to/from user-defined types. 
-*   Parse directly to custom types by satisfying the `EventConsumer` concept.
-*   Throwing and non throwing variants of common functions.
-*   Iterative parsing to protect against stack overflow attacks.
-*   Bencode pointer similar to json pointer.   
-
+* **Feature-rich**. The main goal of this library is to provide a complete bencode library that 
+  provides optimal solutions for all common use cases. `bvalue` is an owning representation of bencoded data
+  and is usefull for creating and modifying bencoded documents. 
+  `bview` is a fast and memory efficient, read-only, non-owning representation into a stable buffer of bencoded data.
+  `bpointer` can be used to access both `bvalue` and `bview` types.
+* **Extensibility**. This library provides built-in serialization and deserialization from/to most standard containers.
+  Support for user-defined types can be added by implementing the necessary extension points.
+  Users can parse directly to their data type of preference by implementing a class satisfying
+  the EventConsumer concept.
+* **Conformance**. This library is 100% conforming to the bencode specification.
+  All parsers validate the input and provide exact error messages.
+* **Security**. Parsing arbitrary user data can be dangerous and you do not want your bittorrent tracker 
+  to crash when a user sends malformed data. All parsers are recursion-free to protect against
+  stack-based buffer overflow attacks. Integer parsing throws when overflows are encountered.
+* **Speed**. While not the primary goal of this project this library provides optimized integer parsing with
+  SWAR techniques. Benchmarks show this library performs well in comparison with other libraries
+  
 ## Status
 
-This library is under active development, but should be fairly stable. 
-The API may change at any release prior to 1.0.0.
+This library is under active development. The API may change at any release prior to 1.0.0.
+Versioning follows the Semantic Versioning Specification.
+
 
 ## Documentation
 
@@ -55,6 +56,18 @@ Value types own the data they refer to and thus need to copy data from the buffe
 View types try to minimize copies from the buffer with bencoded data and instead point
 to data directly inside the buffer. 
 
+Decoding speed was compared for these libraries in alphabetical order:
+
+* [Aetf/QBencode](https://github.com/Aetf/QBencode)
+* [arvidn/libtorrent](https://github.com/arvidn/libtorrent)
+* [iRajul/bencode](https://github.com/iRajul/bencode)
+* [jimporter/bencode.hpp](https://github.com/jimporter/bencode.hpp)
+* [kriben/bencode](https://github.com/kriben/bencode)
+* [outputenable/bencode](https://gitlab.com/outputenable/bencode)
+* [rakshasa/libtorrent](https://github.com/rakshasa/libtorrent)
+* [s3rvac/cpp-bencoding](https://github.com/s3rvac/cpp-bencoding)
+* [theanti9/cppbencode](https://github.com/theanti9/cppbencode)
+
 #### Parsing to value types
 
 ![benchmark-decoding-value](docs/images/benchmark-decoding-value.svg)
@@ -63,9 +76,15 @@ to data directly inside the buffer.
 
 ![benchmark-decoding-view](docs/images/benchmark-decoding-view.svg)
 
-Note: libtorrent does not decode integers until they are actually accessed. 
-This gives performance benefit when decoding but results in slower 
-access times when retrieving the integer value.
+All benchmarks were build with GCC 10.2.1 with -O3 and run on an intel i7-7700hq.
+
+Notes:
+* arvidn/libtorrent does not decode integers until they are actually accessed. 
+  This gives a performance benefit when decoding but results in slower 
+  access times when retrieving integral values.
+* kriben/bencode support only 32-bit integers and fails on the
+  camelyon17, integers and pneumomia benchmarks
+* iRajul/bencode fails all benchmarks and was excluded from the results.
 
 ## Examples
 
@@ -189,7 +208,7 @@ See the [documentation](https://fbdtemme.github.io/bencode/) for more examples.
 This project requires C++20. 
 Currently only GCC 10 and later is supported.
 
-This library depends on following projects:
+This library uses following projects:
 *   [fmt](https://github.com/fmtlib/fmt)
 *   [gsl-lite](https://github.com/gsl-lite/gsl-lite)
 *   [expected-lite](https://github.com/martinmoene/expected-lite)
@@ -199,23 +218,29 @@ When building tests:
 
 When building benchmarks:
 *   [google/benchmark](https://github.com/google/benchmark)
-*   [libtorrent](https://github.com/arvidn/libtorrent)
-*   [jimporter/bencode](https://github.com/jimporter/bencode)
-*   [s3rvac/cpp-bencoding](https://github.com/s3rvac/cpp-bencoding)
+*   [Boost](https://www.boost.org/)
+*   [Qt5](https://www.qt.io/)
+
 
 When building documentation:
 * [doxygen](https://github.com/doxygen/doxygen>)
 * [sphinx](https://github.com/sphinx-doc/sphinx>)
 * [breathe](https://github.com/michaeljones/breathe>)
+* [shphinx-rtd-theme](https://github.com/readthedocs/sphinx_rtd_theme)
 
-All dependencies for building tests and benchmarks can be fetched from github using
+All dependencies except for boost, Qt5 and documentation dependencies can be fetched from github using
 cmake FetchContent during configuration if no local installation is found.
 
 The tests can be built as every other project which makes use of the CMake build system.
 
 ```{bash}
 mkdir build; cd build;
-cmake .. -DCMAKE_BUILD_TYPE=Debug -DBENCODE_BUILD_TESTS=ON -DBENCODE_BUILD_BENCHMARKS=OFF =DBENCODE_BUILD_DOCS=OFF
+cmake \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -DBENCODE_BUILD_TESTS=ON \
+  -DBENCODE_BUILD_BENCHMARKS=OFF \
+  -DBENCODE_BUILD_DOCS=OFF \
+   --build . --target .. 
 make bencode-tests
 ```
 
