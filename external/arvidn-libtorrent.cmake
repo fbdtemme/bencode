@@ -12,3 +12,4 @@ else()
     )
     FetchContent_MakeAvailable(libtorrent-rasterbar)
 endif()
+

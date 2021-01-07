@@ -31,7 +31,7 @@ constexpr auto compare_equality_with_bview_integer_impl(
 }
 
 template <typename T>
-    requires std::equality_comparable_with<std::string_view, T>
+    requires std::equality_comparable_with<T, std::string_view>
 constexpr bool compare_equality_with_bview_string_impl(
         customization_point_type<T>,
         const bview& bview,
@@ -39,21 +39,42 @@ constexpr bool compare_equality_with_bview_string_impl(
         priority_tag<1>)
 {
     if (!holds_string(bview)) return false;
-    return (get_string(bview) == value);
+    return (std::string_view(get_string(bview)) == value);
 }
 
 template <typename T>
-constexpr bool compare_equality_with_bvalue_string_impl(
+    requires std::equality_comparable_with<rng::range_value_t<T>, string_bview::value_type>
+constexpr bool compare_equality_with_bview_string_impl(
         customization_point_type<T>,
-        const bview& bv,
+        const bview& bview,
         const T& value,
         priority_tag<0>)
 {
-    if (!holds_string(bv)) return false;
-    const auto& s = get_string(bv);
-    return std::lexicographical_compare(
+    if (!holds_string(bview)) return false;
+    const auto s = get_string(bview);
+    return std::equal(
             rng::begin(s), rng::end(s),
             rng::begin(value), rng::end(value));
+}
+
+
+/// Comparison for byte strings
+template <typename T>
+    requires std::same_as<std::remove_cv_t<rng::range_value_t<T>>, std::byte>
+constexpr bool compare_equality_with_bview_string_impl(
+        customization_point_type<T>,
+        const bview& bview,
+        const T& value,
+        priority_tag<0>)
+{
+    if (!holds_string(bview)) return false;
+    const auto& s = get_string(bview);
+    return std::equal(
+            rng::begin(s), rng::end(s),
+            rng::begin(value), rng::end(value),
+            [] (char lhs, std::byte rhs) {
+                return short(lhs) == to_integer<short>(rhs);
+            });
 }
 
 template <typename T>
@@ -116,12 +137,12 @@ constexpr std::weak_ordering compare_three_way_with_bview_string_impl(
         priority_tag<1>)
 {
     if (!holds_string(bview)) return (bview.type() <=> bencode_type::string);
-    return (get_string(bview) <=> value);
+    return (std::string_view(get_string(bview)) <=> value);
 }
 
 
 template <typename T>
-    requires std::three_way_comparable<rng::range_value_t<T>, string_bview::value_type>
+    requires std::three_way_comparable_with<rng::range_value_t<T>, string_bview::value_type>
 constexpr std::weak_ordering compare_three_way_with_bview_string_impl(
         customization_point_type<T>,
         const bview& b,
@@ -134,6 +155,25 @@ constexpr std::weak_ordering compare_three_way_with_bview_string_impl(
     return std::lexicographical_compare_three_way(
             rng::begin(bstring), rng::end(bstring),
             rng::begin(value), rng::end(value));
+}
+
+template <typename T>
+    requires std::same_as<std::remove_cv_t<rng::range_value_t<T>>, std::byte>
+constexpr std::weak_ordering compare_three_way_with_bview_string_impl(
+        customization_point_type<T>,
+        const bview& b,
+        const T& value,
+        priority_tag<0>)
+{
+    if (!holds_string(b)) return (b.type() <=> bencode_type::string);
+    const auto& bstring = get_string(b);
+
+    return std::lexicographical_compare_three_way(
+            rng::begin(bstring), rng::end(bstring),
+            rng::begin(value), rng::end(value),
+            [] (char lhs, std::byte rhs) {
+                return short(lhs) <=> to_integer<short>(rhs);
+            });
 }
 
 
@@ -219,15 +259,15 @@ constexpr bool compare_equality_with_bview(const bview& bv, const T& value)
         }
         else if constexpr (bencode::serialization_traits<T>::type == bencode_type::string) {
             return compare_equality_with_bview_string_impl(
-                    customization_for<T>, bv,value, priority_tag<1>{});
+                    customization_for<T>, bv, value, priority_tag<2>{});
         }
         else if constexpr (bencode::serialization_traits<T>::type == bencode_type::list) {
             return compare_equality_with_bview_list_impl(
-                    customization_for<T>, bv,value, priority_tag<0>{});
+                    customization_for<T>, bv, value, priority_tag<0>{});
         }
         else if constexpr (bencode::serialization_traits<T>::type == bencode_type::dict) {
             return compare_equality_with_bview_dict_impl(
-                    customization_for<T>, bv,value, priority_tag<0>{});
+                    customization_for<T>, bv, value, priority_tag<0>{});
         }
         else {
             static_assert(detail::always_false<T>::value, "no serializer for T found, check includes!");

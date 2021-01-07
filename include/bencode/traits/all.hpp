@@ -13,6 +13,7 @@
 #include "string.hpp"
 #include "string_view.hpp"
 #include "stringstream.hpp"
+#include "span.hpp"
 #include "tuple.hpp"
 #include "unordered_map.hpp"
 #include "unordered_set.hpp"

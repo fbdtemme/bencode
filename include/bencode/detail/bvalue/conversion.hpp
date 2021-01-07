@@ -2,6 +2,7 @@
 #pragma once
 
 #include <nonstd/expected.hpp>
+#include <span>
 
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/utils.hpp"
@@ -40,35 +41,54 @@ convert_from_bvalue_string_impl(customization_point_type<const char*>,
     return s.c_str();
 }
 
-// Conversion via iterators pair constructor
+// Conversion to T via pair of iterators
 
-template <typename T, typename Policy>
+template <typename T, basic_bvalue_instantiation U, typename Policy = typename std::remove_cvref_t<U>::policy_type>
     requires
-        std::constructible_from<
-                typename policy_string_t<Policy>::value_type, rng::range_value_t<T>> &&
-        std::constructible_from<
-                policy_string_t<Policy>, rng::iterator_t<T>, rng::sentinel_t<T>>
+        std::constructible_from<typename policy_string_t<Policy>::value_type,
+                                 rng::range_value_t<T>> &&
+        std::constructible_from<T, rng::iterator_t<policy_string_t<Policy>>,
+                                   rng::sentinel_t<policy_string_t<Policy>>>
 constexpr nonstd::expected<T, conversion_errc>
 convert_from_bvalue_string_impl(customization_point_type<T>,
-                                const basic_bvalue<Policy>& b,
-                                priority_tag<1>) noexcept
+                                U&& b,
+                                priority_tag<2>) noexcept
 {
     if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
 
-    const auto& bstring = get_string(b);
+    auto& bstring = get_string(b);
     try { return T(rng::begin(bstring), rng::end(bstring)); }
+    catch (...) { return nonstd::make_unexpected(conversion_errc::construction_error); }
+}
+
+// Conversion to T via pointer and size
+
+template <typename T, basic_bvalue_instantiation U, typename Policy = typename std::remove_cvref_t<U>::policy_type>
+    requires rng::contiguous_range<policy_string_t<Policy>> &&
+             std::constructible_from<T, rng::range_value_t<policy_string_t<Policy>>*,
+                                         rng::range_size_t<policy_string_t<Policy>>>
+constexpr nonstd::expected<T, conversion_errc>
+convert_from_bvalue_string_impl(customization_point_type<T>,
+                                U&& b,
+                                priority_tag<3>) noexcept
+{
+    if (!holds_string(b)) [[unlikely]]
+        return nonstd::make_unexpected(conversion_errc::not_string_type);
+
+    auto& bstring = get_string(b);
+    try { return T(rng::data(bstring), rng::size(bstring)); }
     catch (...) { return nonstd::make_unexpected(conversion_errc::construction_error); }
 }
 
 // Conversion through std::string_view.
 
-template <typename T, typename Policy>
+template <typename T, basic_bvalue_instantiation U, typename Policy = typename std::remove_cvref_t<U>::policy_type>
     requires std::constructible_from<T, std::string_view> &&
              std::convertible_to<policy_string_t<Policy>, std::string_view>
 constexpr nonstd::expected<T, conversion_errc>
 convert_from_bvalue_string_impl(customization_point_type<T>,
-                                const basic_bvalue<Policy>& b,
+                                U&& b,
                                 priority_tag<0>) noexcept
 
 {
@@ -79,23 +99,23 @@ convert_from_bvalue_string_impl(customization_point_type<T>,
 }
 
 
-// Conversion of  byte stringsauto
+// Conversion of  byte strings auto
 
-template <typename T, typename Policy>
-    requires std::same_as<rng::range_value_t<T>, std::byte> &&
-             std::constructible_from<T, const std::byte*, const std::byte*> &&
+template <typename T, basic_bvalue_instantiation U, typename Policy = typename std::remove_cvref_t<U>::policy_type>
+    requires std::same_as<std::remove_cv_t<rng::range_value_t<T>>, std::byte> &&
+             std::constructible_from<T, rng::range_value_t<T>*, rng::range_value_t<T>*> &&
              rng::contiguous_range<policy_string_t<Policy>>
 constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_string_impl(
         customization_point_type<T>,
-        const basic_bvalue<Policy>& b,
+        U&& b,
         priority_tag<0>) noexcept
 {
     if (!holds_string(b)) [[unlikely]]
         return nonstd::make_unexpected(conversion_errc::not_string_type);
 
-    const auto& bstring = get_string(b);
-    try { return T(reinterpret_cast<const std::byte*>(rng::data(bstring)),
-                   reinterpret_cast<const std::byte*>(rng::data(bstring)+rng::size(bstring))); }
+    auto& bstring = get_string(b);
+    try { return T(reinterpret_cast<std::byte*>(rng::data(bstring)),
+                   reinterpret_cast<std::byte*>(rng::data(bstring)+rng::size(bstring))); }
     catch (...) { return nonstd::make_unexpected(conversion_errc::construction_error); }
 }
 
@@ -167,7 +187,6 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_list_impl(
         std::apply(
             [&]<std::size_t... IS>(std::index_sequence<IS...>&&) constexpr {
                 using std::get;
-
                 ( (get<IS>(out) = get_as<std::tuple_element_t<IS, T>>(
                                             detail::forward_like<BV>(blist[IS]))) , ... );
             },
@@ -179,6 +198,27 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_list_impl(
         return nonstd::make_unexpected(conversion_errc::construction_error);
     }
     return out;
+}
+
+// conversion to std::span<const char> or std::span<const std::byte>
+
+template <typename Tp, basic_bvalue_instantiation BV, typename U = std::remove_cvref_t<BV>>
+    requires (std::same_as<Tp, const char> || std::same_as<Tp, const std::byte>)
+             && std::same_as<typename detail::policy_string_t<BV>::value_type, char>
+constexpr nonstd::expected<std::span<const Tp>, conversion_errc> convert_from_bvalue_list_impl(
+        customization_point_type<std::span<const Tp>>,
+        BV&& b,
+        priority_tag<0>) noexcept
+{
+    if (!holds_string(b)) [[unlikely]]
+        return nonstd::make_unexpected(conversion_errc::not_list_type);
+
+    const auto& s = get_string(b);
+    if constexpr (std::same_as<Tp, std::byte>) {
+        return std::span(reinterpret_cast<const std::byte*>(s.data()), s.size());
+    } else {
+        return std::span(s.data(), s.size());
+    }
 }
 
 // Dict conversion

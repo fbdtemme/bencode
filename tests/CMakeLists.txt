@@ -36,7 +36,9 @@ target_sources(bencode-tests
         test_bencode_type.cpp
         test_connect.cpp
         test_bpointer.cpp
+
         traits/memory.cpp
+        traits/span.cpp
 )
 
 target_link_libraries(bencode-tests PRIVATE

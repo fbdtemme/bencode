@@ -18,7 +18,7 @@
 [**Integration**](#Integration) |
 [**License**](#License)
 
-A header-only C++20 bencode serialization/deserialization library. Inspired by toa
+A header-only C++20 bencode serialization/deserialization library.
 
 ## Features
 
@@ -38,9 +38,11 @@ A header-only C++20 bencode serialization/deserialization library. Inspired by t
   stack-based buffer overflow attacks. Integer parsing throws when overflows are encountered.
 * **Speed**. While not the primary goal of this project this library provides optimized integer parsing with
   SWAR techniques. Benchmarks show this library performs well in comparison with other libraries
-  
-## Status
+* **Well-tested**. This project achieves 95% testing coverage. 
+  We also run Sanitizers in a CI pipeline to check for leaks and undefined-behavior.
 
+## Status
+ 
 This library is under active development. The API may change at any release prior to 1.0.0.
 Versioning follows the Semantic Versioning Specification.
 
