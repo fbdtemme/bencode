@@ -103,7 +103,6 @@ Decode bencoded data to `bvalue`.
 
 namespace bc = bencode;
 
-// decode the data to a descriptor_table
 bc::bvalue b = bc::decode_value("l3:fooi2ee");
 
 // check if the first list element is a string
@@ -137,7 +136,7 @@ bc::encode_to(std::cout, b);
 Retrieve data from a bvalue.
 
 ``` cpp
-auto b = bc::bvalue(bv::type::list, {1, 2, 3, 4, 5, 6, 7, 8, 9});
+auto b = bc::bvalue(bc::type::list, {1, 2, 3, 4, 5, 6, 7, 8, 9});
 
 // return a list of integers as a byte vector, throws on error
 auto bytes = get_as<std::vector<std::byte>>(b);
