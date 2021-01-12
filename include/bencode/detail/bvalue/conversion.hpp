@@ -114,11 +114,10 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_string_impl(
         return nonstd::make_unexpected(conversion_errc::not_string_type);
 
     auto& bstring = get_string(b);
-    try { return T(reinterpret_cast<std::byte*>(rng::data(bstring)),
-                   reinterpret_cast<std::byte*>(rng::data(bstring)+rng::size(bstring))); }
+    try { return T(reinterpret_cast<rng::range_value_t<T>*>(rng::data(bstring)),
+                   reinterpret_cast<rng::range_value_t<T>*>(rng::data(bstring)+rng::size(bstring))); }
     catch (...) { return nonstd::make_unexpected(conversion_errc::construction_error); }
 }
-
 
 // Conversion to list like types supporting front_inserter/back_inserter/inserter.
 
@@ -200,26 +199,6 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_list_impl(
     return out;
 }
 
-// conversion to std::span<const char> or std::span<const std::byte>
-
-template <typename Tp, basic_bvalue_instantiation BV, typename U = std::remove_cvref_t<BV>>
-    requires (std::same_as<Tp, const char> || std::same_as<Tp, const std::byte>)
-             && std::same_as<typename detail::policy_string_t<BV>::value_type, char>
-constexpr nonstd::expected<std::span<const Tp>, conversion_errc> convert_from_bvalue_list_impl(
-        customization_point_type<std::span<const Tp>>,
-        BV&& b,
-        priority_tag<0>) noexcept
-{
-    if (!holds_string(b)) [[unlikely]]
-        return nonstd::make_unexpected(conversion_errc::not_list_type);
-
-    const auto& s = get_string(b);
-    if constexpr (std::same_as<Tp, std::byte>) {
-        return std::span(reinterpret_cast<const std::byte*>(s.data()), s.size());
-    } else {
-        return std::span(s.data(), s.size());
-    }
-}
 
 // Dict conversion
 
