@@ -11,4 +11,7 @@ else()
             GIT_TAG        master
     )
     FetchContent_MakeAvailable(expected-lite)
+    if(IS_DIRECTORY "${expected-lite_SOURCE_DIR}")
+        set_property(DIRECTORY ${expected-lite_SOURCE_DIR} PROPERTY EXCLUDE_FROM_ALL YES)
+    endif()
 endif()

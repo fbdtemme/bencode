@@ -12,5 +12,9 @@ else()
     set(BENCHMARK_ENABLE_TESTING OFF)
     set(BENCHMARK_ENABLE_INSTALL OFF)
     FetchContent_MakeAvailable(benchmark)
+
+    if(IS_DIRECTORY "${benchmark_SOURCE_DIR}")
+        set_property(DIRECTORY ${benchmark_SOURCE_DIR} PROPERTY EXCLUDE_FROM_ALL YES)
+    endif()
 endif()
 

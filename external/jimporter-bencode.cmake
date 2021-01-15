@@ -7,7 +7,6 @@ FetchContent_Declare(
         GIT_TAG        master
 )
 FetchContent_MakeAvailable(jimporter-bencode)
-
 add_library(jimporter-bencode INTERFACE)
 file(COPY "${jimporter-bencode_SOURCE_DIR}/include/bencode.hpp"
      DESTINATION "${jimporter-bencode_SOURCE_DIR}/include/jimporter")

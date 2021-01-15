@@ -79,7 +79,7 @@ elseif(BENCODE_FROM_CHARS_STRING_IMPL STREQUAL avx2)
 endif()
 
 
-    target_compile_definitions(
+target_compile_definitions(
         bencode INTERFACE
         BENCODE_FROM_CHARS_INTEGER_IMPL=${BENCODE_FROM_CHARS_INTEGER_IMPL}
         BENCODE_FROM_CHARS_STRING_IMPL=${BENCODE_FROM_CHARS_STRING_IMPL}

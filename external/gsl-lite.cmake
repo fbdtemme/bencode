@@ -11,4 +11,7 @@ else()
             GIT_TAG        master
     )
     FetchContent_MakeAvailable(gsl-lite)
+    if(IS_DIRECTORY "${gsl-lite_SOURCE_DIR}")
+        set_property(DIRECTORY ${gsl-lite_SOURCE_DIR} PROPERTY EXCLUDE_FROM_ALL YES)
+    endif()
 endif()

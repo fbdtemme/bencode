@@ -11,4 +11,8 @@ else()
     )
     FetchContent_MakeAvailable(Catch2)
     list(APPEND CMAKE_MODULE_PATH "${Catch2_SOURCE_DIR}/contrib")
+
+    if(IS_DIRECTORY "${Catch2_SOURCE_DIR}")
+        set_property(DIRECTORY ${Catch2_SOURCE_DIR} PROPERTY EXCLUDE_FROM_ALL YES)
+    endif()
 endif()
