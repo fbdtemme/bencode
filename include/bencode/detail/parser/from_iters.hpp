@@ -5,7 +5,6 @@
 #include <concepts>
 #include <gsl-lite/gsl-lite.hpp>
 
-#include <immintrin.h>
 #include <ranges>
 
 #include "bencode/detail/concepts.hpp"
