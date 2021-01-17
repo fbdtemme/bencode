@@ -421,7 +421,8 @@ private:
     inline void set_error(parsing_errc ec,
                           std::optional<bencode_type> context = std::nullopt) noexcept
     {
-        error_.emplace(ec, position(), context);
+        // Do not use emplace to try to avoid build error on fedora rawhide
+        error_ = parsing_error(ec, position(), context);
     }
 
 private:
