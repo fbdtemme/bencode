@@ -3,7 +3,7 @@
 #include <exception>
 #include <system_error>
 #include <string>
-
+#include <optional>
 #include <gsl-lite/gsl-lite.hpp>
 #include <fmt/format.h>
 
