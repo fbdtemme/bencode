@@ -2,7 +2,7 @@
 
 ## v0.5.0
 
-* More consisten naming by changing event_consumer methods from (begin|end)\_(list|dict)
+* More consistent naming by changing event_consumer methods from (begin|end)\_(list|dict)
   to (begin|end)\_(list|dict).
 * Add more benchmarks.
 * Disable contract checks in release build for improved performance.
