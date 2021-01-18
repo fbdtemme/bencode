@@ -1,7 +1,7 @@
 include(FetchContent)
 
 find_package(expected-lite QUIET)
-if (expected-lite_FOUND )
+if (expected-lite_FOUND OR TARGET expected-lite)
     message(STATUS "Local installation of expected-lite found.")
 else()
     message(STATUS "Fetching dependency expected-lite...")

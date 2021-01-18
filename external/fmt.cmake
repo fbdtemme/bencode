@@ -1,7 +1,7 @@
 include(FetchContent)
 
 find_package(fmt QUIET)
-if (fmt_FOUND)
+if (fmt_FOUND OR TARGET fmt::fmt-header-only)
     message(STATUS "Local installation of fmt found.")
 else()
     message(STATUS "Fetching dependency fmt...")

@@ -1,7 +1,7 @@
 include(FetchContent)
 
 find_package(gsl-lite QUIET)
-if (gsl-lite_FOUND)
+if (gsl-lite_FOUND OR TARGET gsl::gsl-lite-v1)
     message(STATUS "Local installation of gsl-lite found.")
 else()
     message(STATUS "Fetching dependency gsl-lite...")
