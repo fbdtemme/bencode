@@ -40,7 +40,7 @@ public:
     constexpr void integer(std::int64_t value) noexcept
     {
         *out_++ = symbol::integer_begin;
-        const auto n = itoa::to_buffer(buffer_.data(), value);
+        const auto n = inttostr::to_buffer(buffer_.data(), value);
         out_ = std::copy_n(buffer_.data(), n, out_);
         *out_++ = symbol::end;
         size_ += (2 + n);
@@ -48,7 +48,7 @@ public:
 
     constexpr void string(std::string_view value) noexcept
     {
-        std::size_t n = itoa::to_buffer(buffer_.data(), value.size());
+        std::size_t n = inttostr::to_buffer(buffer_.data(), value.size());
         out_ = std::copy_n(buffer_.data(), n, out_);
         *out_++ = symbol::colon;
         out_ = std::copy_n(value.data(), value.size(), out_);

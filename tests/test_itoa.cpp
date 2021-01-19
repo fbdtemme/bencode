@@ -14,7 +14,7 @@ TEST_CASE("test integer to char") {
     SECTION("uint32_t") {
         auto i = GENERATE(values<uint32_t>({0, 5, 10, 10, 9999, 123231}));
 
-        char* end = itoa::u32toa(i, buf);
+        char* end = inttostr::u32toa(i, buf);
         *end = '\0';
         CHECK(buf == std::to_string(i));
     }
@@ -25,7 +25,7 @@ TEST_CASE("test integer to char") {
             -94, -24, -1, 0, 1, 10, 123231, 999999990
         }));
 
-        char* end = itoa::i32toa(i, buf);
+        char* end = inttostr::i32toa(i, buf);
         *end = '\0';
         CHECK(buf == std::to_string(i));
     }

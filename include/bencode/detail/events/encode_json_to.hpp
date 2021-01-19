@@ -46,7 +46,7 @@ public:
     void integer(std::int64_t value)
     {
         next();
-        auto size = itoa::to_buffer(int_buffer_.data(), value);
+        auto size = inttostr::to_buffer(int_buffer_.data(), value);
         std::copy_n(int_buffer_.data(), size, out_);
     }
 

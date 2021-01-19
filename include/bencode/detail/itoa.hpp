@@ -104,7 +104,7 @@
 #pragma GCC diagnostic ignored "-Wattributes"
 #endif
 
-namespace itoa {
+namespace inttostr {
 
 namespace detail {
 
@@ -296,7 +296,7 @@ std::string to_string(T v)
 }
 
 
-} // namespace itoa
+} // namespace inttostr
 
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
