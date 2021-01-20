@@ -8,7 +8,7 @@ namespace bencode::detail
 {
 namespace swar {
 
-inline constexpr auto power_of_10_lookup = std::array {
+inline constexpr auto power_of_10_lookup = std::array<std::size_t, 20> {
         1UL,                     // 0
         10UL,                    // 1
         100UL,                   // 2
