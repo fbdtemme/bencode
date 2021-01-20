@@ -42,19 +42,27 @@ void connect_events_string_impl(customization_point_type<T>,
     consumer.string(forward_like<U>(value));
 }
 
-// str() member function
+// str() or string() member function
 
-template<typename T, typename U, event_consumer EC>
+template <typename T, typename U, event_consumer EC>
 requires std::same_as<T, std::remove_cvref_t<U>> &&
-        has_str_member<T> &&
-        std::constructible_from<std::string_view, decltype(std::declval<U>().str())>
+         (has_str_member<T> &&
+                 std::constructible_from<std::string_view, decltype(std::declval<U>().str())>) ||
+         (has_string_member<T> &&
+                 std::constructible_from<std::string_view, decltype(std::declval<U>().string())>)
 void connect_events_string_impl(customization_point_type<T>,
-        EC& consumer,
-        U&& value,
-        priority_tag<3>)
+                                  EC& consumer,
+                                  U&& value,
+                                  priority_tag<2>)
 {
-    consumer.string(value.str());
+    if constexpr (has_str_member<T>) {
+        consumer.string(value.str());
+    } else if constexpr (has_string_member<T>) {
+        consumer.string(value.string());
+    }
 }
+
+
 
 
 // c_str() member function

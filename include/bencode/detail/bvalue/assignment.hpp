@@ -78,19 +78,26 @@ void assign_to_bvalue_string_impl(customization_point_type<T>,
     b.emplace_string(static_cast<std::string_view>(value));
 }
 
-// str() member function
+// str() or string() member function
 
 template <typename T, typename U, typename Policy>
     requires std::same_as<T, std::remove_cvref_t<U>> &&
-             has_str_member<T> &&
+            (has_str_member<T> &&
              std::constructible_from<
-                     policy_string_t<Policy>, decltype(std::declval<U>().str())>
+                    policy_string_t<Policy>, decltype(std::declval<U>().str())>) ||
+            (has_string_member<T> &&
+              std::constructible_from<
+                    policy_string_t<Policy>, decltype(std::declval<U>().string())>)
 void assign_to_bvalue_string_impl(customization_point_type<T>,
                                    basic_bvalue<Policy>& b,
                                    U&& value,
                                    priority_tag<2>)
 {
-    b.emplace_string(value.str());
+    if constexpr ( has_str_member<T> ) {
+        b.emplace_string(value.str());
+    } else if constexpr ( has_string_member<T> ) {
+        b.emplace_string(value.string());
+    }
 }
 
 
@@ -98,7 +105,7 @@ void assign_to_bvalue_string_impl(customization_point_type<T>,
 
 template <typename T, std::common_with<T> U, typename Policy>
     requires std::same_as<T, std::remove_cvref_t<U>> &&
-             std::assignable_from<policy_string_t<Policy>, const char*> &&
+             std::assignable_from<policy_string_t<Policy>, decltype(std::declval<T>().c_str())> &&
              has_c_str_member<T>
 void assign_to_bvalue_string_impl(customization_point_type<T>,
                                    basic_bvalue<Policy>& b,
