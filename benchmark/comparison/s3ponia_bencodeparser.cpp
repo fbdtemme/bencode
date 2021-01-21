@@ -12,7 +12,7 @@
 
 
 static void BM_decode_value(benchmark::State& state, const std::filesystem::path& path) {
-    auto ifs = std::ifstream(path);
+    auto ifs = std::ifstream(path, std::ifstream::binary);
     std::string torrent(
             std::istreambuf_iterator<char>{ifs},
             std::istreambuf_iterator<char>{});
