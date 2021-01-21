@@ -191,7 +191,7 @@ TEST_CASE("test push parser to json - string_parsing_mode::view")
 
 TEST_CASE("test push parser with input_iterators")
 {
-    std::ifstream ifs(RESOURCES_DIR"/Fedora-Workstation-Live-x86_64-30.torrent");
+    std::ifstream ifs(RESOURCES_DIR"/Fedora-Workstation-Live-x86_64-30.torrent", std::ifstream::binary);
     auto begin = std::istreambuf_iterator<char>(ifs);
     auto end = std::istreambuf_iterator<char>();
 
