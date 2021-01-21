@@ -53,7 +53,7 @@ requires std::same_as<T, std::remove_cvref_t<U>> &&
 void connect_events_string_impl(customization_point_type<T>,
                                   EC& consumer,
                                   U&& value,
-                                  priority_tag<2>)
+                                  priority_tag<3>)
 {
     if constexpr (has_str_member<T>) {
         consumer.string(value.str());
