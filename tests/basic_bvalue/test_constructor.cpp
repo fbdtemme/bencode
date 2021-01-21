@@ -345,11 +345,12 @@ TEST_CASE("test integer creation", "[construction]")
     }
 
     SECTION("create an integer number from unsigned - overflow") {
+#ifndef _WIN32
         SECTION("unsigned long ") {
             unsigned long n = std::numeric_limits<unsigned long>::max();
             CHECK_THROWS_AS(bencode::bvalue(n), std::overflow_error);
         }
-
+#endif
         SECTION("unsigned long long") {
             unsigned long long n = std::numeric_limits<unsigned long long>::max();
             CHECK_THROWS_AS(bencode::bvalue(n), std::overflow_error);

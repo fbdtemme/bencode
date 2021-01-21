@@ -68,17 +68,18 @@ TEST_CASE("descriptor parser", "[descriptor_parser]")
     SECTION("valid torrents") {
         auto resource = GENERATE_COPY(values({
                 RESOURCES_DIR"/COVID-19-image-dataset-collection.torrent",
-                RESOURCES_DIR"/Fedora-Workstation-Live-x86_64-30",
-                RESOURCES_DIR"/NASA-Viking-Merged-Color-Mosaic",
+                RESOURCES_DIR"/Fedora-Workstation-Live-x86_64-30.torrent",
+                RESOURCES_DIR"/NASA-Viking-Merged-Color-Mosaic.torrent",
         }));
 
-        std::ifstream ifs(resource);
+        std::ifstream ifs(resource, std::ifstream::binary);
         std::string torrent(
                 std::istreambuf_iterator<char>{ifs},
                 std::istreambuf_iterator<char>{});
 
         auto r = parser.parse(torrent);
-        CHECK(r);
+        CHECK_FALSE(parser.has_error());
+        CHECK(r.has_value());
     }
 
     SECTION("invalid dict value") {
