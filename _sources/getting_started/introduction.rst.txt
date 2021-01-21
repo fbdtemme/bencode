@@ -28,7 +28,7 @@ Compiler support
 ++++++++++++++++
 
 This library requires C++20.
-Compiler support is limited to GCC10 at the moment.
+Compiler support is limited to GCC 10 and MinGW-w64 10 at the moment.
 
 Dependencies
 ++++++++++++
