@@ -86,10 +86,10 @@ TEST_CASE("test list_bview") {
             --first;
             --first; // point to list begin
             CHECK(first == list.begin());
-            CHECK(std::distance(list.begin(), list.end()) == list.size());
-            CHECK(std::distance(list.rbegin(), list.rend()) == list.size());
-            CHECK(std::distance(list.cbegin(), list.cend()) == list.size());
-            CHECK(std::distance(list.crbegin(), list.crend()) == list.size());
+            CHECK(std::distance(list.begin(), list.end()) == std::ssize(list));
+            CHECK(std::distance(list.rbegin(), list.rend()) == std::ssize(list));
+            CHECK(std::distance(list.cbegin(), list.cend()) == std::ssize(list));
+            CHECK(std::distance(list.crbegin(), list.crend()) == std::ssize(list));
         }
 
         SECTION("nested") {
@@ -100,8 +100,8 @@ TEST_CASE("test list_bview") {
             --first;
             --first;
             CHECK(first == nested_list.begin());
-            CHECK(std::distance(nested_list.begin(), nested_list.end()) == nested_list.size());
-            CHECK(std::distance(nested_list.crbegin(), nested_list.crend()) == nested_list.size());
+            CHECK(std::distance(nested_list.begin(), nested_list.end()) == std::ssize(nested_list));
+            CHECK(std::distance(nested_list.crbegin(), nested_list.crend()) == std::ssize(nested_list));
 
         }
         SECTION("iterators when descriptor is end descriptor") {

@@ -75,8 +75,7 @@ inline std::uint64_t load_bytes64(const char * data)
 
 constexpr std::size_t digit_count(std::uint32_t v)
 {
-    // pseudocode
-    std::uint32_t m, len;
+    std::uint32_t m;
     m = v + 0x46464646;               // roll '9' to 0x7F
     v -= 0x30303030;                  // unpacked binary coded decimal
     m = (m | v) & 0x80808080;         // detect first non-digit
@@ -86,7 +85,7 @@ constexpr std::size_t digit_count(std::uint32_t v)
 
 constexpr std::size_t digit_count(std::uint64_t v)
 {
-    std::uint64_t m, len;
+    std::uint64_t m;
     m = v + 0x4646464646464646;       // roll '9' to 0x7F
     v -= 0x3030303030303030;          // unpacked binary coded decimal
     m = (m | v) & 0x8080808080808080; // detect first non-digit
@@ -262,7 +261,6 @@ constexpr from_chars_result from_chars(
         const char* first, const char* last, T& value, implementation_tag<1> tag)
 {
     int sign = 1;
-    const char* start = first;
 
     if (*first == '-') {
         sign = -1;

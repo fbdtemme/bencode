@@ -113,9 +113,9 @@ public:
                    std::optional<std::size_t> pos = std::nullopt,
                    std::optional<bencode_type> context = std::nullopt)
             : exception(make_what_msg(ec, pos, context))
+            , errc_(ec)
             , position_(pos)
             , context_(context)
-            , errc_(ec)
     {}
 
     parsing_error(const parsing_error&) noexcept = default;
@@ -142,9 +142,9 @@ public:
 private:
     parsing_error(const char* what, parsing_errc ec, std::size_t position, std::optional<bencode_type> context)
             : exception(what)
+            , errc_(ec)
             , position_(position)
             , context_(context)
-            , errc_(ec)
     { };
 
     static std::string make_what_msg(parsing_errc ec, std::optional<std::size_t> pos, std::optional<bencode_type> context)

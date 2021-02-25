@@ -23,7 +23,6 @@ template <std::integral T, std::size_t ImplementationIdx>
 constexpr from_chars_result binteger_from_chars(
         const char* first, const char* last, T& value, implementation_tag<ImplementationIdx> tag)
 {
-    const char* start = first;
     from_chars_result res {.ptr = first, .ec = parsing_errc{}};
 
     if (first == last) [[unlikely]] {

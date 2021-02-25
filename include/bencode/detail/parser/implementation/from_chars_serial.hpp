@@ -28,7 +28,6 @@ constexpr from_chars_result from_chars(
         const char* first, const char* last, T& value, implementation_tag<0>)
 {
     int sign = 1;
-    const char* start = first;
     from_chars_result res{.ptr = first, .ec = parsing_errc{}};
 
     if (first==last) [[unlikely]] {
