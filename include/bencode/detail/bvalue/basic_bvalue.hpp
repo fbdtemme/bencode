@@ -8,7 +8,6 @@
 
 
 #include <fmt/format.h>
-#include <fmt/ostream.h>
 
 #include "bencode/detail/concepts.hpp"
 #include "bencode/detail/utils.hpp"

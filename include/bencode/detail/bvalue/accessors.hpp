@@ -7,7 +7,6 @@
 #include <compare>
 
 #include <fmt/format.h>
-#include <fmt/ostream.h>
 
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/bvalue/concepts.hpp"

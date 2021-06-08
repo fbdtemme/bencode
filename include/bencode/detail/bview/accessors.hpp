@@ -2,7 +2,6 @@
 
 #include <type_traits>
 #include <fmt/format.h>
-#include <fmt/ostream.h>
 
 #include "bencode/detail/bencode_type.hpp"
 #include "bencode/detail/bad_conversion.hpp"
