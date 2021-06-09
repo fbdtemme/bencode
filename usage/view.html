@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -256,7 +259,7 @@ a bencoded string with <a class="reference internal" href="../reference/encoding
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode10holds_listERK5bview" title="bool holds_list(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">holds_list(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode10holds_dictERK5bview" title="bool holds_dict(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">holds_dict(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4I_12bencode_typeEN7bencode17holds_alternativeEbRK5bview" title="template&lt;enum bencode_type E&gt; bool holds_alternative(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;enum</span> <span class="pre">bencode_type</span> <span class="pre">E&gt;</span> <span class="pre">bool</span> <span class="pre">holds_alternative(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
-<li><p><code class="xref cpp cpp-expr docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;bview_alternative_type</span> <span class="pre">T&gt;</span> <span class="pre">bool</span> <span class="pre">holds_alternative(const</span> <span class="pre">bview&amp;)</span></code></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp">template &lt;bview_alternative_type T&gt; bool holds_alternative(const bview&amp;)</span></p></li>
 </ul>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">holds_integer</span><span class="p">(</span><span class="n">root_element</span><span class="p">)</span>    <span class="c1">// returns false</span>
 <span class="n">holds_dict</span><span class="p">(</span><span class="n">root_element</span><span class="p">)</span>       <span class="c1">// returns true</span>
@@ -280,9 +283,9 @@ convert a <a class="reference internal" href="../reference/bview.html#_CPPv4N7be
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode8get_listERK5bview" title="const list_bview &amp;get_list(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">const</span> <span class="pre">list_bview&amp;</span> <span class="pre">get_list(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode8get_dictERK5bview" title="const dict_bview &amp;get_dict(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">const</span> <span class="pre">dict_bview&amp;</span> <span class="pre">get_dict(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4I_12bencode_typeEN7bencode3getERK19bview_alternative_tI1EERK5bview" title="template&lt;enum bencode_type E&gt; const bview_alternative_t&lt;E&gt; &amp;get(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;enum</span> <span class="pre">bencode_type</span> <span class="pre">E&gt;</span> <span class="pre">const</span> <span class="pre">bview_alternative_t&lt;E&gt;&amp;</span> <span class="pre">get(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
-<li><p><code class="xref cpp cpp-expr docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;bview_alternative_type</span> <span class="pre">T&gt;</span> <span class="pre">const</span> <span class="pre">T&amp;</span> <span class="pre">get(const</span> <span class="pre">bview&amp;)</span></code></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp">template &lt;bview_alternative_type T&gt; const T&amp; get(const bview&amp;)</span></p></li>
 </ul>
-<p>Non throwing accessor function will return a <code class="xref cpp cpp-expr docutils literal notranslate"><span class="pre">nullptr</span></code> when trying to convert
+<p>Non throwing accessor function will return a <span class="cpp-expr sig sig-inline cpp"><span class="k">nullptr</span></span> when trying to convert
 a bview to a bview alternative type that does not match the bencode data type.</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode14get_if_integerEPK5bview" title="bool get_if_integer(const bview*)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">get_if_integer(const</span> <span class="pre">bview*)</span></code></a></p></li>
@@ -290,7 +293,7 @@ a bview to a bview alternative type that does not match the bencode data type.</
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode11get_if_listEPK5bview" title="bool get_if_list(const bview*)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">get_if_list(const</span> <span class="pre">bview*)</span></code></a></p></li>
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode11get_if_dictEPK5bview" title="bool get_if_dict(const bview*)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">get_if_dict(const</span> <span class="pre">bview*)</span></code></a></p></li>
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4I_12bencode_typeEN7bencode6get_ifEPK19bview_alternative_tI1EEPK5bview" title="template&lt;enum bencode_type E&gt; const bview_alternative_t&lt;E&gt; *get_if(const bview*)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;enum</span> <span class="pre">bencode_type</span> <span class="pre">E&gt;</span> <span class="pre">const</span> <span class="pre">bview_alternative_t&lt;E&gt;*</span> <span class="pre">get_if(const</span> <span class="pre">bview*)</span></code></a></p></li>
-<li><p><code class="xref cpp cpp-expr docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;bview_alternative_type</span> <span class="pre">T&gt;</span> <span class="pre">const</span> <span class="pre">T*</span> <span class="pre">get_if(const</span> <span class="pre">bview&amp;)</span></code></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp">template &lt;bview_alternative_type T&gt; const T* get_if(const bview&amp;)</span></p></li>
 </ul>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">dict_view</span> <span class="o">=</span> <span class="n">get_dict</span><span class="p">(</span><span class="n">root_element</span><span class="p">);</span>    <span class="c1">// return dict_bview instance</span>
 <span class="k">auto</span> <span class="n">list_view</span> <span class="o">=</span> <span class="n">get_list</span><span class="p">(</span><span class="n">root_element</span><span class="p">)</span>     <span class="c1">// throws bad_bview_access</span>

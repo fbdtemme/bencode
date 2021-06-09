@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -288,7 +291,7 @@ can be done using the following functions:</p>
 <li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode10holds_listEbRK12basic_bvalueI6PolicyE" title="template&lt;typename Policy&gt; bool holds_list(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">holds_list(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
 <li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I0EN7bencode10holds_dictEbRK12basic_bvalueI6PolicyE" title="template&lt;typename Policy&gt; bool holds_dict(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">holds_dict(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
 <li><p><a class="reference internal" href="../reference/bvalue.html#_CPPv4I_12bencode_type0EN7bencode17holds_alternativeEbRK12basic_bvalueI6PolicyE" title="template&lt;enum bencode_type E, typename Policy&gt; bool holds_alternative(const basic_bvalue&lt;Policy&gt;&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;enum</span> <span class="pre">bencode_type</span> <span class="pre">E,</span> <span class="pre">typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">holds_alternative(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></a></p></li>
-<li><p><code class="xref cpp cpp-expr docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;bview_alternative_type</span> <span class="pre">T,</span> <span class="pre">typename</span> <span class="pre">Policy&gt;</span> <span class="pre">bool</span> <span class="pre">holds_alternative(const</span> <span class="pre">basic_bvalue&lt;Policy&gt;&amp;)</span></code></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp">template &lt;bview_alternative_type T, typename Policy&gt; bool holds_alternative(const basic_bvalue&lt;Policy&gt;&amp;)</span></p></li>
 </ul>
 <p>The <code class="code docutils literal notranslate"><span class="pre">holds_&lt;type&gt;</span></code> (where <code class="code docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> is one of the bencode data types)
 functions are convenience functions that wrap the templated <code class="code docutils literal notranslate"><span class="pre">holds_alternative</span></code> function.</p>
@@ -311,7 +314,7 @@ functions are convenience functions that wrap the templated <code class="code do
 <p>Accessor functions are used to get access to the alternative types stored in a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>.
 Throwing accessor function will throw <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_bvalue_access</span></code> when the current
 activate alternative type does not match the access type.</p>
-<p>Non throwing accessor functions will return a pointer to the alternative type or a <code class="xref cpp cpp-expr docutils literal notranslate"><span class="pre">nullptr</span></code>.</p>
+<p>Non throwing accessor functions will return a pointer to the alternative type or a <span class="cpp-expr sig sig-inline cpp"><span class="k">nullptr</span></span>.</p>
 <p>The interface is similar to that of <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::variant</span></code>.
 Except that there are aliases (eg. <code class="code docutils literal notranslate"><span class="pre">get_integer</span></code>, <code class="code docutils literal notranslate"><span class="pre">get_if_integer</span></code>) for all possible
 alternative types.</p>
