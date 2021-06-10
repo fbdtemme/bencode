@@ -36,9 +36,9 @@ target_include_directories(bencode INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         )
 
-include(external/fmt.cmake)
-include(external/gsl-lite.cmake)
-include(external/expected-lite.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/external/fmt.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/external/gsl-lite.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/external/expected-lite.cmake)
 
 option(BENCODE_BUILD_TESTS       "Build tests."          ${BENCODE_MASTER_PROJECT})
 option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"                        OFF)

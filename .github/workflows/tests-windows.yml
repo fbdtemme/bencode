@@ -17,7 +17,6 @@ jobs:
         with:
           update: true
           install: >-
-            git
             mingw-w64-x86_64-cmake
             mingw-w64-x86_64-toolchain
       - uses: actions/checkout@v2
