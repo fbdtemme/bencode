@@ -234,6 +234,14 @@ constexpr char* to_dec(char* out, uint64_t u)
     }
 }
 
+// Fix ambiguous overloads for unsigned long since uint64_t is defined as long long
+#if defined(__APPLE__)
+constexpr char* to_dec(char* out, unsigned long int v)
+{
+    return to_dec(out, static_cast<uint64_t>(v));
+}
+#endif
+
 template<std::signed_integral T>
 static constexpr char* to_dec(char* out, T v)
 {
