@@ -301,7 +301,11 @@ private:
             // copy all characters up until the next escape character
             rng::copy(prev, cur, out);
 
-            auto next_char = *++cur;
+            ++cur;
+            if (cur == rng::end(token)) {
+                throw bpointer_error("escape character '~' must be followed with '0' or '1'");
+            }
+            auto next_char = *cur;
             if (next_char == '0')
                 *out++= '~';
             else if (next_char == '1')

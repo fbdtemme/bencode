@@ -26,7 +26,7 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 endif()
 
 
-add_library(bencode INTERFACE)
+add_library(bencode INTERFACE include/bencode/detail/safe_int.hpp)
 add_library(bencode::bencode ALIAS bencode)
 
 target_compile_features(bencode INTERFACE cxx_std_20)

@@ -12,10 +12,29 @@
 
 #include "bencode/detail/parser/parsing_error.hpp"
 
-#ifdef NDEBUG
-#define BENCODE_UNREACHABLE std::is_constant_evaluated() ? __builtin_unreachable() : std::abort();
-#else
-#define BENCODE_UNREACHABLE __builtin_unreachable()
+#if defined(__GNUC__) || defined(__CLANG__)
+    #ifdef NDEBUG
+        #define BENCODE_UNREACHABLE std::is_constant_evaluated() ? __builtin_unreachable() : std::abort();
+    #else
+        #define BENCODE_UNREACHABLE __builtin_unreachable()
+    #endif
+#elif defined(_MSC_VER)
+    #ifdef NDEBUG
+        #define BENCODE_UNREACHABLE std::is_constant_evaluated() ? __assume(false) : std::abort();
+    #else
+        #define BENCODE_UNREACHABLE __assume(false)
+    #endif
+#endif
+
+#if defined(__GNUC__) || defined(__CLANG__)
+    #define bswap64  __builtin_bswap64
+    #define bswap32  __builtin_bswap32
+    #define bswap16  __builtin_bswap16
+#elif defined(_MSC_VER)
+    #include <stdlib.h>
+    #define bswap64 _byteswap_uint64
+    #define bswap32 _byteswap_ulong
+    #define bswap16 _byteswap_ushort
 #endif
 
 

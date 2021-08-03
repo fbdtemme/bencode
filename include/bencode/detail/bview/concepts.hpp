@@ -10,11 +10,11 @@
 
 namespace bencode {
 
-struct bview;
-struct integer_bview;
-struct string_bview;
-struct list_bview;
-struct dict_bview;
+class bview;
+class integer_bview;
+class string_bview;
+class list_bview;
+class dict_bview;
 
 namespace detail {
 

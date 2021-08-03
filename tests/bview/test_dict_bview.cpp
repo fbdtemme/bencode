@@ -13,8 +13,8 @@ namespace bc = bencode;
 
 
 TEST_CASE("test dict_bview") {
-    bc::dict_bview dict(begin(descriptors_dict), data_dict.data());
-    bc::dict_bview nested_dict(begin(descriptors_nested_dict), data_nested_dict.data());
+    bc::dict_bview dict(data(descriptors_dict), data_dict.data());
+    bc::dict_bview nested_dict(data(descriptors_nested_dict), data_nested_dict.data());
 
     SECTION("construction") {
         SECTION("default construction") {
@@ -22,7 +22,7 @@ TEST_CASE("test dict_bview") {
             CHECK(holds_uninitialized(bv));
         }
         SECTION("construction from pointers") {
-            bc::dict_bview bv(begin(descriptors_dict), data_dict.data());
+            bc::dict_bview bv(data(descriptors_dict), data_dict.data());
             CHECK(holds_dict(bv));
         }
         SECTION("converting constructor") {

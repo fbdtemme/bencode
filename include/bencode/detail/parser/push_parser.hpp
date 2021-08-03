@@ -67,7 +67,7 @@ public:
     /// @returns true if successful, false if an error occured.
     template <event_consumer EC>
     bool parse(EC& consumer, std::string_view s) noexcept
-    { return parse<std::string_view>(consumer, s); }
+    { return parse(consumer, rng::subrange(s.data(), s.data() + s.size())); }
 
     /// Parse the input given by two iterators and pass generated events to the event consumer.
     /// @returns true if successful, false if an error occured.

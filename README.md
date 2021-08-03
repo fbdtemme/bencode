@@ -208,7 +208,10 @@ See the [documentation](https://fbdtemme.github.io/bencode/) for more examples.
 ## Building
 
 This project requires C++20.
-Currently only GCC 10 or MinGW-w64 10 or later are supported.
+Supported compilers are:
+ * GCC >= 10  
+ * MinGW >= 10
+ * MSVC >= 19.30
 
 This library uses following projects:
 *   [fmt](https://github.com/fmtlib/fmt)

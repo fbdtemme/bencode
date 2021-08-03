@@ -14,7 +14,7 @@ using namespace bencode;
 
 TEST_CASE("test push parser to json - string_parsing_mode::value")
 {
-    auto parser = push_parser();
+    auto parser = bencode::push_parser<string_parsing_mode::value>();
     std::string out{};
     auto json_consumer = bencode::events::encode_json_to(std::back_inserter(out));
     auto debug_consumer = bencode::events::debug_to(std::back_inserter(out));

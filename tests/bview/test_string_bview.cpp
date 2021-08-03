@@ -11,7 +11,7 @@ namespace bc = bencode;
 
 
 TEST_CASE("test string_bview") {
-    bc::string_bview string(begin(descriptors_string), data_string.data());
+    bc::string_bview string(data(descriptors_string), data_string.data());
 
     SECTION("construction") {
         SECTION("default construction") {
@@ -19,7 +19,7 @@ TEST_CASE("test string_bview") {
             CHECK(holds_uninitialized(bv));
         }
         SECTION("construction from pointers") {
-            bc::string_bview bv(begin(descriptors_string), data_string.data());
+            bc::string_bview bv(data(descriptors_string), data_string.data());
             CHECK(holds_string(bv));
         }
         SECTION("converting constructor") {

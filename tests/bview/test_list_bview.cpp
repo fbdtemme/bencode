@@ -13,8 +13,8 @@ namespace bc = bencode;
 
 
 TEST_CASE("test list_bview") {
-    bc::list_bview list(begin(descriptors_list), data_list.data());
-    bc::list_bview nested_list(begin(descriptors_nested_list), data_nested_list.data());
+    bc::list_bview list(data(descriptors_list), data_list.data());
+    bc::list_bview nested_list(data(descriptors_nested_list), data_nested_list.data());
     bc::list_bview list_reverse = bc::list_bview(&descriptors_list[3], data_list.data());
 
     SECTION("construction") {
@@ -23,7 +23,7 @@ TEST_CASE("test list_bview") {
             CHECK(holds_uninitialized(bv));
         }
         SECTION("construction from pointers") {
-            bc::list_bview bv(begin(descriptors_list), data_list.data());
+            bc::list_bview bv(data(descriptors_list), data_list.data());
             CHECK(holds_list(bv));
         }
         SECTION("converting constructor") {

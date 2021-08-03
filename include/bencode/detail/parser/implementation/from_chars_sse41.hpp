@@ -270,13 +270,26 @@ constexpr from_chars_result from_chars(
         return res;
     }
 
-    T tmp;
+#if defined (__GNUC__) || defined(__CLANG__)
     if (__builtin_mul_overflow(val, sign, &tmp)) {
-        res.ec = parsing_errc::result_out_of_range;
+            res.ec = parsing_errc::result_out_of_range;
+        }
+        else {
+            value = tmp;
+        }
+#else
+    if (sign == 1) {
+        if (val > std::numeric_limits<T>::max()) {
+            res.ec = parsing_errc::result_out_of_range;
+        }
+        value = static_cast<T>(val);
+    } else {
+        if (val > static_cast<UT>(std::numeric_limits<T>::max()) + 1) {
+            res.ec = parsing_errc::result_out_of_range;
+        }
+        value = -static_cast<T>(val);
     }
-    else {
-        value = tmp;
-    }
+#endif
 
     return res;
 }

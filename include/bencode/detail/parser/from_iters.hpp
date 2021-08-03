@@ -122,10 +122,26 @@ constexpr from_iters_result<Iterator> from_iters(Iterator first, Iterator last, 
         }
 
         T tmp;
-        if (__builtin_mul_overflow(val, sign, &tmp))
+#if defined (__GNUC__) || defined(__CLANG__)
+        if (__builtin_mul_overflow(val, sign, &tmp)) {
             res.ec = parsing_errc::result_out_of_range;
-        else
+        }
+        else {
             value = tmp;
+        }
+#else
+        if (sign == 1) {
+            if (val > std::numeric_limits<T>::max()) {
+                res.ec = parsing_errc::result_out_of_range;
+            }
+            value = static_cast<T>(val);
+        } else {
+            if (val > static_cast<UT>(std::numeric_limits<T>::max()) + 1) {
+                res.ec = parsing_errc::result_out_of_range;
+            }
+            value = -static_cast<T>(val);
+        }
+#endif
     }
     else if constexpr (std::numeric_limits<UT>::max() > std::numeric_limits<T>::max())
     {
@@ -275,14 +291,15 @@ constexpr from_iters_result<Iterator> bstring_from_iters(Iterator first, Iterato
         s.reserve(size);
     }
     if constexpr (std::random_access_iterator<Iterator>) {
-        auto str_end = std::next(first, size);
+        auto max_offset = std::distance(first, last);
 
-        if (str_end > last) [[unlikely]] {
+        if (size > max_offset) [[unlikely]] {
             res.ec = parsing_errc::unexpected_eof;
             res.iter = first;
             return res;
         }
 
+        auto str_end = std::next(first, size);
         s = StringT(first, str_end);
         first = str_end;
     }

@@ -3,6 +3,8 @@
 #include <cstdint>
 #include "bencode/detail/parser/parsing_error.hpp"
 #include "bencode/detail/parser/helpers.hpp"
+#include "bencode/detail/utils.hpp"
+
 
 namespace bencode::detail
 {
@@ -35,7 +37,7 @@ inline constexpr auto power_of_10_lookup = std::array<std::size_t, 20> {
 constexpr std::uint64_t byteswap(std::uint64_t data, std::size_t n_digits = 8)
 {
     if (n_digits == 0) [[unlikely]] return 0;
-    std::uint64_t swapped = __builtin_bswap64(data);
+    std::uint64_t swapped = bswap64(data);
     std::uint64_t n_shifts = (8 * (8-n_digits));
     std::uint64_t out = swapped >> n_shifts;
     return out;
@@ -44,7 +46,7 @@ constexpr std::uint64_t byteswap(std::uint64_t data, std::size_t n_digits = 8)
 constexpr std::uint32_t byteswap(std::uint32_t data, std::size_t n_digits = 4)
 {
     if (n_digits == 0) [[unlikely]] return 0;
-    std::uint32_t swapped = __builtin_bswap32(data);
+    std::uint32_t swapped = bswap32(data);
     std::uint32_t n_shifts = (8 * (4-n_digits));
     std::uint32_t out = swapped >> n_shifts;
     return out;
@@ -53,7 +55,7 @@ constexpr std::uint32_t byteswap(std::uint32_t data, std::size_t n_digits = 4)
 constexpr std::uint16_t byteswap(std::uint16_t data, std::size_t n_digits = 2)
 {
     if (n_digits == 0) [[unlikely]] return 0;
-    std::uint16_t swapped = __builtin_bswap16(data);
+    std::uint16_t swapped = bswap16(data);
     std::uint16_t n_shifts = (8 * (2-n_digits));
     std::uint16_t out = swapped >> n_shifts;
     return out;
@@ -284,6 +286,7 @@ constexpr from_chars_result from_chars(
         return res;
     }
 
+#if defined (__GNUC__) || defined(__CLANG__)
     T tmp;
     if (__builtin_mul_overflow(val, sign, &tmp)) {
         res.ec = parsing_errc::result_out_of_range;
@@ -291,6 +294,19 @@ constexpr from_chars_result from_chars(
     else {
         value = tmp;
     }
+#else
+    if (sign == 1) {
+        if (val > std::numeric_limits<T>::max()) {
+            res.ec = parsing_errc::result_out_of_range;
+        }
+        value = static_cast<T>(val);
+    } else {
+        if (val > static_cast<UT>(std::numeric_limits<T>::max()) + 1) {
+            res.ec = parsing_errc::result_out_of_range;
+        }
+        value = -static_cast<T>(val);
+    }
+#endif
 
     return res;
 }

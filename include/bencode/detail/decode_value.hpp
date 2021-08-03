@@ -48,7 +48,7 @@ template <typename Policy = default_bvalue_policy>
 inline basic_bvalue<Policy> decode_value(std::string_view sv)
 {
     auto consumer = bencode::events::to_bvalue<Policy>{};
-    bencode::push_parser parser{};
+    bencode::push_parser<string_parsing_mode::value> parser{};
     if (!parser.parse(consumer, sv))
         throw parser.error();
     return consumer.value();

@@ -93,11 +93,27 @@ constexpr from_chars_result from_chars(
             return res;
         }
 
+#if defined (__GNUC__) || defined(__CLANG__)
         T tmp;
-        if (__builtin_mul_overflow(val, sign, &tmp))
+        if (__builtin_mul_overflow(val, sign, &tmp)) {
             res.ec = parsing_errc::result_out_of_range;
-        else
+        }
+        else {
             value = tmp;
+        }
+#else
+        if (sign == 1) {
+            if (val > std::numeric_limits<T>::max()) {
+                res.ec = parsing_errc::result_out_of_range;
+            }
+            value = static_cast<T>(val);
+        } else {
+            if (val > static_cast<UT>(std::numeric_limits<T>::max()) + 1) {
+                res.ec = parsing_errc::result_out_of_range;
+            }
+            value = -static_cast<T>(val);
+        }
+#endif
     }
     else if constexpr (std::numeric_limits<UT>::max()>std::numeric_limits<T>::max()) {
         if (val>std::numeric_limits<T>::max())

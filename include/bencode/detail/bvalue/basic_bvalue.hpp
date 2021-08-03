@@ -35,10 +35,17 @@ constexpr const auto* get_storage(const basic_bvalue<Policy>* value) noexcept;
 template <typename Policy>
 constexpr auto* get_storage(basic_bvalue<Policy>* value) noexcept;
 
-// forward declarations
-template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
-    requires serializable<T>
-inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
+#if defined(_MSC_VER)
+    // forward declarations
+    template <typename U, typename Policy, typename T>
+        requires serializable<T>
+    inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
+#else
+    // forward declarations
+    template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
+        requires serializable<T>
+    inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
+#endif
 
 template <basic_bvalue_instantiation BV>
 decltype(auto) evaluate(const bpointer& pointer, BV&& bv);
@@ -589,7 +596,7 @@ public:
     template <typename K>
     /// \cond CONCEPTS
         requires std::totally_ordered_with<K, dict_key_type> &&
-                detail::policy_dict_key_compare<Policy>::is_transparent
+        requires() { typename detail::policy_dict_key_compare<Policy>::is_transparent; }
     /// \endcond
     bool contains(const K& key) const
     {
