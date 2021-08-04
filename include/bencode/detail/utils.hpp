@@ -37,6 +37,10 @@
     #define bswap16 _byteswap_ushort
 #endif
 
+#if defined(_MSC_VER)
+    #undef min
+    #undef max
+#endif
 
 namespace bencode {
 
