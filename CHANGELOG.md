@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.0
+
+* First stable release
+
 ## v0.5.0
 
 * More consistent naming by changing event_consumer methods from (begin|end)\_(list|dict)
