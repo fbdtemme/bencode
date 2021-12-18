@@ -60,7 +60,7 @@ constexpr bview_alternative_t<E>& get(bview& v)
 {
     using D = typename bview_alternative<E>::type;
     if (v.type() != E) [[unlikely]]
-        throw bad_bview_access(fmt::format("bvalue is not of type: {}\"", E));
+        throw bad_bview_access(fmt::format("bvalue is not of type: {}\"", to_string(E)));
     return static_cast<D&>(v);
 }
 
@@ -75,7 +75,7 @@ constexpr const bview_alternative_t<E>& get(const bview& v)
 {
     using D = typename bview_alternative<E>::type;
     if (v.type() != E) [[unlikely]]
-        throw bad_bview_access(fmt::format("bvalue is not of type: {}\"", E));
+        throw bad_bview_access(fmt::format("bvalue is not of type: {}\"", to_string(E)));
     return static_cast<const D&>(v);
 }
 

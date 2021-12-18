@@ -37,7 +37,7 @@ inline bview evaluate(const bpointer& pointer, const bview& bv)
         default:
             throw out_of_range(
                     fmt::format("unresolved token '{}': expected list or dict but got {}",
-                            token, v.type()));
+                            token, to_string(v.type())));
         }
     }
     return v;

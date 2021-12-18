@@ -38,7 +38,7 @@ inline decltype(auto) evaluate(const bpointer& pointer, BV&& bv)
         default:
             throw out_of_range(
                     fmt::format("unresolved token '{}': expected list or dict but got {}",
-                                token, ptr->type()));
+                                token, to_string(ptr->type())));
         }
     }
     return detail::forward_like<BV>(*ptr);
