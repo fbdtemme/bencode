@@ -1,80 +1,38 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>User-defined type support &mdash; bencode 0.5.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Trait headers" href="trait_headers.html" />
     <link rel="prev" title="Descriptor" href="descriptor.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> bencode
-          
-
-          
-            
             <img src="../_static/bencode.svg" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 0.5.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -82,26 +40,15 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/bencode_format.html">Bencode format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/integration.html">Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/performance.html">Performance</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Usage</span></p>
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="value_and_view.html">Value and view types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="value.html">Value interface</a></li>
@@ -121,7 +68,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="trait_headers.html">Trait headers</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
@@ -129,82 +76,41 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/consumers.html">Event consumers</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Other</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../other/license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../other/references.html">References</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">bencode</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>User-defined type support</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/usage/customization_points.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="user-defined-type-support">
-<span id="customization-points"></span><h1>User-defined type support<a class="headerlink" href="#user-defined-type-support" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="user-defined-type-support">
+<span id="customization-points"></span><h1>User-defined type support<a class="headerlink" href="#user-defined-type-support" title="Permalink to this headline"></a></h1>
 <p>There are various customization points to integrate user-defined types in this library.</p>
-<div class="section" id="serialization-traits">
-<h2>Serialization traits<a class="headerlink" href="#serialization-traits" title="Permalink to this headline">¶</a></h2>
+<section id="serialization-traits">
+<h2>Serialization traits<a class="headerlink" href="#serialization-traits" title="Permalink to this headline"></a></h2>
 <p>The first step to integrating a custom type is by providing which bencode data type it encodes
 to by specializing <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">serialization_traits</span></code> for your type.</p>
 <p>Serialization traits has a single member <code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">type</span></code> of type <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">bencode_type</span></code>
@@ -274,9 +180,9 @@ the <code class="xref cpp cpp-concept docutils literal notranslate"><span class=
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="event-producer">
-<h2>Event producer<a class="headerlink" href="#event-producer" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="event-producer">
+<h2>Event producer<a class="headerlink" href="#event-producer" title="Permalink to this headline"></a></h2>
 <p>The second required customization point to enable support for a user-defined type is
 the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_connect()</span></code>.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="n">event_consumer</span> <span class="n">EC</span><span class="o">&gt;</span>
@@ -303,9 +209,9 @@ can be serialized with <code class="xref cpp cpp-class docutils literal notransl
 namespace of the type for which you want to enable a library feature.
 These functions use Argument-dependent lookup (ADL) to identify the correct overload.</p>
 </div>
-</div>
-<div class="section" id="assignment-to-bvalue">
-<h2>Assignment to bvalue<a class="headerlink" href="#assignment-to-bvalue" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="assignment-to-bvalue">
+<h2>Assignment to bvalue<a class="headerlink" href="#assignment-to-bvalue" title="Permalink to this headline"></a></h2>
 <p>Types that satisfy <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code> have a default implementation
 that allows the type to be assigned to <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>, but is not always the most efficient.
 The default can be overriden by overriding <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_assign_to_bvalue()</span></code></p>
@@ -320,9 +226,9 @@ The default can be overriden by overriding <code class="xref cpp cpp-func docuti
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="direct-comparison-to-bvalue">
-<h2>Direct comparison to bvalue<a class="headerlink" href="#direct-comparison-to-bvalue" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="direct-comparison-to-bvalue">
+<h2>Direct comparison to bvalue<a class="headerlink" href="#direct-comparison-to-bvalue" title="Permalink to this headline"></a></h2>
 <p>The content of a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> can be compared with that of a custom type without
 creating a temporary <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> object.
 This is done be overriding <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_compare_equality_with_bvalue()</span></code></p>
@@ -358,9 +264,9 @@ This is done be overriding <code class="xref cpp cpp-func docutils literal notra
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="conversion-from-bvalue-to-custom-type">
-<h2>Conversion from bvalue to custom type<a class="headerlink" href="#conversion-from-bvalue-to-custom-type" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="conversion-from-bvalue-to-custom-type">
+<h2>Conversion from bvalue to custom type<a class="headerlink" href="#conversion-from-bvalue-to-custom-type" title="Permalink to this headline"></a></h2>
 <p>You can retrieve your custom type directly from a :cpp:clas::<cite>bvalue</cite>
 by implementing the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_convert_from_bvalue()</span></code> customization point.
 This will allow the use of <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_as</span></code> with your type.
@@ -381,9 +287,9 @@ Errors are reported with <code class="xref cpp cpp-class docutils literal notran
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="direct-comparison-to-bview">
-<span id="customization-compare-to-bview"></span><h2>Direct comparison to bview<a class="headerlink" href="#direct-comparison-to-bview" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="direct-comparison-to-bview">
+<span id="customization-compare-to-bview"></span><h2>Direct comparison to bview<a class="headerlink" href="#direct-comparison-to-bview" title="Permalink to this headline"></a></h2>
 <p>Analogue with comparison with <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> there are two comparison customization points
 for <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a>:</p>
 <ul class="simple">
@@ -399,9 +305,9 @@ the implementation for <a class="reference internal" href="../reference/bvalue.h
     <span class="n">customization_point_type</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">const</span> <span class="n">bview</span><span class="o">&amp;</span> <span class="n">bv</span><span class="p">,</span> <span class="n">rgb_color</span> <span class="n">value</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="conversion-from-bview-to-custom-type">
-<span id="customization-convert-from-bview"></span><h2>Conversion from bview to custom type<a class="headerlink" href="#conversion-from-bview-to-custom-type" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="conversion-from-bview-to-custom-type">
+<span id="customization-convert-from-bview"></span><h2>Conversion from bview to custom type<a class="headerlink" href="#conversion-from-bview-to-custom-type" title="Permalink to this headline"></a></h2>
 <p>Similar to conversion from <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> there is a conversion from <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a>
 by implementing the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bencode_convert_from_bview()</span></code> customization point.</p>
 <p>The implementation for our example user-defined class is exactly the same as for
@@ -410,55 +316,38 @@ the implementation for <a class="reference internal" href="../reference/bvalue.h
 <span class="n">bencode_convert_from_bview</span><span class="p">(</span><span class="n">customization_for</span><span class="o">&lt;</span><span class="n">rgb_color</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">const</span> <span class="n">bview</span><span class="o">&amp;</span> <span class="n">bv</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="trait_headers.html" class="btn btn-neutral float-right" title="Trait headers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="descriptor.html" class="btn btn-neutral float-left" title="Descriptor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="trait_headers.html" class="btn btn-neutral float-right" title="Trait headers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright .
-
-    </p>
+    <p>&#169; Copyright .</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

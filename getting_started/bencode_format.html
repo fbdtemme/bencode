@@ -1,80 +1,38 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Bencode format &mdash; bencode 0.5.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Integration" href="integration.html" />
     <link rel="prev" title="Introduction" href="introduction.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> bencode
-          
-
-          
-            
             <img src="../_static/bencode.svg" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 0.5.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -82,19 +40,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Bencode format</a><ul>
@@ -111,7 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Usage</span></p>
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../usage/value_and_view.html">Value and view types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/value.html">Value interface</a></li>
@@ -122,7 +69,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/customization_points.html">User-defined type support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/trait_headers.html">Trait headers</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/bview.html">View interface</a></li>
@@ -130,81 +77,40 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/descriptor_and_descriptor_table.html">Descriptors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/consumers.html">Event consumers</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Other</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../other/license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../other/references.html">References</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">bencode</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Bencode format</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/getting_started/bencode_format.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="bencode-format">
-<h1>Bencode format<a class="headerlink" href="#bencode-format" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+             
+  <section id="bencode-format">
+<h1>Bencode format<a class="headerlink" href="#bencode-format" title="Permalink to this headline"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>Bencode is a simple encoding developed for BitTorrent.
 It support 4 basic data types:</p>
 <ul class="simple">
@@ -217,34 +123,34 @@ It support 4 basic data types:</p>
 which is important for cross-platform applications.
 Another advantage is that their exists a bijection between values and their encoded form.
 As a consequence values can be compared in encoded form.</p>
-</div>
-<div class="section" id="encoding">
-<h2>Encoding<a class="headerlink" href="#encoding" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="integers">
-<h3>Integers<a class="headerlink" href="#integers" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="encoding">
+<h2>Encoding<a class="headerlink" href="#encoding" title="Permalink to this headline"></a></h2>
+<section id="integers">
+<h3>Integers<a class="headerlink" href="#integers" title="Permalink to this headline"></a></h3>
 <p>Integers are encoded as: <code class="code docutils literal notranslate"><span class="pre">i&lt;base</span> <span class="pre">ten</span> <span class="pre">ASCII</span> <span class="pre">representation&gt;e</span></code>.
 Leading zeros are not allowed except for the number zero.
 Negative values are encoded by prefixing the number with a hyphen-minus.
 Negative zero is not permitted.
 The number 42 would thus be encoded as <code class="code docutils literal notranslate"><span class="pre">i42e</span></code>, 0 as <code class="code docutils literal notranslate"><span class="pre">i0e</span></code>, and -42 as <code class="code docutils literal notranslate"><span class="pre">i-42e</span></code>.</p>
-</div>
-<div class="section" id="strings">
-<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="strings">
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline"></a></h3>
 <p>Strings are length-prefixed base ten followed by a colon and the string: <code class="code docutils literal notranslate"><span class="pre">&lt;length&gt;:&lt;contents&gt;</span></code>.
 The length is encoded in base 10, like integers and must be positive (zero is allowed).
 The contents are the bytes that make up the string.
 If the content represents text the encoding must be UTF-8,
 but the string datatype can also be used for a sequence of raw bytes.
 For example ‘spam’ is encoded as <code class="code docutils literal notranslate"><span class="pre">4:spam</span></code>.</p>
-</div>
-<div class="section" id="lists">
-<h3>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="lists">
+<h3>Lists<a class="headerlink" href="#lists" title="Permalink to this headline"></a></h3>
 <p>A list of values is encoded as an ‘l’ followed by their encoded elements followed by an ‘e’: <code class="code docutils literal notranslate"><span class="pre">l&lt;contents&gt;e</span></code>.
 Elements are in order and concatenated.
 A list consisting of the string “spam” and the number 42 would be encoded as: <code class="code docutils literal notranslate"><span class="pre">l4:spami42ee</span></code>.</p>
-</div>
-<div class="section" id="dictonaries">
-<h3>Dictonaries<a class="headerlink" href="#dictonaries" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="dictonaries">
+<h3>Dictonaries<a class="headerlink" href="#dictonaries" title="Permalink to this headline"></a></h3>
 <p>Dictionaries are encoded as a ‘d’ followed by a list of alternating keys and their
 corresponding values followed by an ‘e’: <code class="code docutils literal notranslate"><span class="pre">d&lt;bencoded</span> <span class="pre">key&gt;&lt;bencoded</span> <span class="pre">value&gt;&gt;e</span></code>.
 Keys must be strings and appear in lexicographicly sorted order.
@@ -257,56 +163,39 @@ and <code class="code docutils literal notranslate"><span class="pre">{'spam':</
 </ul>
 </dd>
 </dl>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="integration.html" class="btn btn-neutral float-right" title="Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integration.html" class="btn btn-neutral float-right" title="Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright .
-
-    </p>
+    <p>&#169; Copyright .</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

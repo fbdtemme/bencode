@@ -1,80 +1,38 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Encoding and decoding &mdash; bencode 0.5.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Descriptors" href="descriptor_and_descriptor_table.html" />
     <link rel="prev" title="View interface" href="bview.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> bencode
-          
-
-          
-            
             <img src="../_static/bencode.svg" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 0.5.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -82,26 +40,15 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting started</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/bencode_format.html">Bencode format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/integration.html">Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/performance.html">Performance</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Usage</span></p>
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../usage/value_and_view.html">Value and view types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/value.html">Value interface</a></li>
@@ -112,7 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/customization_points.html">User-defined type support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../usage/trait_headers.html">Trait headers</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="bvalue.html">Value interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bview.html">View interface</a></li>
@@ -120,79 +67,38 @@
 <li class="toctree-l1"><a class="reference internal" href="descriptor_and_descriptor_table.html">Descriptors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="consumers.html">Event consumers</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Other</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../other/license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../other/references.html">References</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">bencode</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Encoding and decoding</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/reference/encoding_and_decoding.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="encoding-and-decoding">
-<h1>Encoding and decoding<a class="headerlink" href="#encoding-and-decoding" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="encoding-and-decoding">
+<h1>Encoding and decoding<a class="headerlink" href="#encoding-and-decoding" title="Permalink to this headline"></a></h1>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv47bencode">
 <span id="_CPPv37bencode"></span><span id="_CPPv27bencode"></span><span id="bencode"></span><span class="target" id="namespacebencode"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bencode</span></span></span><br /></dt>
@@ -200,7 +106,7 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I_14event_producerEN7bencode6encodeENSt6stringERK1T">
-<span id="_CPPv3I_14event_producerEN7bencode6encodeERK1T"></span><span id="_CPPv2I_14event_producerEN7bencode6encodeERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">event_producer</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="detail_2encode_8hpp_1a54b4b66c9ce62137363a7ed962e67505"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">encode</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_14event_producerEN7bencode6encodeENSt6stringERK1T" title="bencode::encode::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_14event_producerEN7bencode6encodeENSt6stringERK1T" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I_14event_producerEN7bencode6encodeERK1T"></span><span id="_CPPv2I_14event_producerEN7bencode6encodeERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">event_producer</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="detail_2encode_8hpp_1a54b4b66c9ce62137363a7ed962e67505"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">encode</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_14event_producerEN7bencode6encodeENSt6stringERK1T" title="bencode::encode::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_14event_producerEN7bencode6encodeENSt6stringERK1T" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Write bencoded representation of value to a string. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -214,7 +120,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I_14event_producerEN7bencode9encode_toEvRNSt7ostreamERK1T">
-<span id="_CPPv3I_14event_producerEN7bencode9encode_toERNSt7ostreamERK1T"></span><span id="_CPPv2I_14event_producerEN7bencode9encode_toERNSt7ostreamERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">event_producer</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="detail_2encode_8hpp_1a78136b6a0dc9b1ef3ad49f583d20a913"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">encode_to</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">os</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_14event_producerEN7bencode9encode_toEvRNSt7ostreamERK1T" title="bencode::encode_to::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_14event_producerEN7bencode9encode_toEvRNSt7ostreamERK1T" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I_14event_producerEN7bencode9encode_toERNSt7ostreamERK1T"></span><span id="_CPPv2I_14event_producerEN7bencode9encode_toERNSt7ostreamERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">event_producer</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="detail_2encode_8hpp_1a78136b6a0dc9b1ef3ad49f583d20a913"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">encode_to</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">os</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_14event_producerEN7bencode9encode_toEvRNSt7ostreamERK1T" title="bencode::encode_to::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_14event_producerEN7bencode9encode_toEvRNSt7ostreamERK1T" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Writes the bencoded representation of value to os. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -228,7 +134,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toEv8OutputItRK1T">
-<span id="_CPPv3I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toE8OutputItRK1T"></span><span id="_CPPv2I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toE8OutputItRK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">output_iterator</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OutputIt</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">event_producer</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="detail_2encode_8hpp_1ad92862690800aacd41470af357ae6614"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">encode_to</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toEv8OutputItRK1T" title="bencode::encode_to::OutputIt"><span class="n"><span class="pre">OutputIt</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">it</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toEv8OutputItRK1T" title="bencode::encode_to::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toEv8OutputItRK1T" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toE8OutputItRK1T"></span><span id="_CPPv2I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toE8OutputItRK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">output_iterator</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OutputIt</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">event_producer</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="detail_2encode_8hpp_1ad92862690800aacd41470af357ae6614"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">encode_to</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toEv8OutputItRK1T" title="bencode::encode_to::OutputIt"><span class="n"><span class="pre">OutputIt</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">it</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toEv8OutputItRK1T" title="bencode::encode_to::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_NSt15output_iteratorIcEE_14event_producerEN7bencode9encode_toEv8OutputItRK1T" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Writes the bencoded representation of value to it. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -250,7 +156,7 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyERNSt7istreamE">
-<span id="_CPPv3I0EN7bencode12decode_valueERNSt7istreamE"></span><span id="_CPPv2I0EN7bencode12decode_valueERNSt7istreamE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4N7bencode21default_bvalue_policyE" title="bencode::default_bvalue_policy"><span class="n"><span class="pre">default_bvalue_policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__value_8hpp_1adeb61b17f48183d86e4458495be941ea"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyERNSt7istreamE" title="bencode::decode_value::Policy"><span class="n"><span class="pre">Policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_value</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">istream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">is</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyERNSt7istreamE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0EN7bencode12decode_valueERNSt7istreamE"></span><span id="_CPPv2I0EN7bencode12decode_valueERNSt7istreamE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4N7bencode21default_bvalue_policyE" title="bencode::default_bvalue_policy"><span class="n"><span class="pre">default_bvalue_policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__value_8hpp_1adeb61b17f48183d86e4458495be941ea"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyERNSt7istreamE" title="bencode::decode_value::Policy"><span class="n"><span class="pre">Policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_value</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">istream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">is</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyERNSt7istreamE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Reads bencoded data from the input stream and decodes it to a basic_bvalue. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Template Parameters</dt>
@@ -260,7 +166,7 @@
 <dd class="field-even"><p><strong>is</strong> – the input stream to read from </p>
 </dd>
 <dt class="field-odd">Throws</dt>
-<dd class="field-odd"><p><strong>parse_error</strong> – when the bencoded data is malformed. </p>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">parse_error</span></span></span> – when the bencoded data is malformed. </p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>the decoded data as a basic_bvalue instantiation. </p>
@@ -270,7 +176,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyENSt11string_viewE">
-<span id="_CPPv3I0EN7bencode12decode_valueENSt11string_viewE"></span><span id="_CPPv2I0EN7bencode12decode_valueENSt11string_viewE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4N7bencode21default_bvalue_policyE" title="bencode::default_bvalue_policy"><span class="n"><span class="pre">default_bvalue_policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__value_8hpp_1a0224bfece8db969ab7313194c558ab27"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyENSt11string_viewE" title="bencode::decode_value::Policy"><span class="n"><span class="pre">Policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_value</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sv</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0EN7bencode12decode_valueENSt11string_viewE"></span><span id="_CPPv2I0EN7bencode12decode_valueENSt11string_viewE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4N7bencode21default_bvalue_policyE" title="bencode::default_bvalue_policy"><span class="n"><span class="pre">default_bvalue_policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__value_8hpp_1a0224bfece8db969ab7313194c558ab27"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyENSt11string_viewE" title="bencode::decode_value::Policy"><span class="n"><span class="pre">Policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_value</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sv</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyENSt11string_viewE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Reads bencoded data from a std::string_view and decodes it to a it to a basic_bvalue. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Template Parameters</dt>
@@ -280,7 +186,7 @@
 <dd class="field-even"><p><strong>sv</strong> – the string_view to read from </p>
 </dd>
 <dt class="field-odd">Throws</dt>
-<dd class="field-odd"><p><strong>parse_error</strong> – when the bencoded data is malformed. </p>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">parse_error</span></span></span> – when the bencoded data is malformed. </p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>the decoded data as a basic_bvalue instantiation. </p>
@@ -290,7 +196,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0_N3rng11input_rangeEEN7bencode12decode_valueE12basic_bvalueI6PolicyERK3Rng">
-<span id="_CPPv3I0_N3rng11input_rangeEEN7bencode12decode_valueERK3Rng"></span><span id="_CPPv2I0_N3rng11input_rangeEEN7bencode12decode_valueERK3Rng"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4N7bencode21default_bvalue_policyE" title="bencode::default_bvalue_policy"><span class="n"><span class="pre">default_bvalue_policy</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">rng</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">input_range</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Rng</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__value_8hpp_1a7ffa2b821c9031acce118809e60c1c54"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_N3rng11input_rangeEEN7bencode12decode_valueE12basic_bvalueI6PolicyERK3Rng" title="bencode::decode_value::Policy"><span class="n"><span class="pre">Policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_value</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_N3rng11input_rangeEEN7bencode12decode_valueE12basic_bvalueI6PolicyERK3Rng" title="bencode::decode_value::Rng"><span class="n"><span class="pre">Rng</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">range</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0_N3rng11input_rangeEEN7bencode12decode_valueE12basic_bvalueI6PolicyERK3Rng" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0_N3rng11input_rangeEEN7bencode12decode_valueERK3Rng"></span><span id="_CPPv2I0_N3rng11input_rangeEEN7bencode12decode_valueERK3Rng"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4N7bencode21default_bvalue_policyE" title="bencode::default_bvalue_policy"><span class="n"><span class="pre">default_bvalue_policy</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">rng</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">input_range</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Rng</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__value_8hpp_1a7ffa2b821c9031acce118809e60c1c54"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_N3rng11input_rangeEEN7bencode12decode_valueE12basic_bvalueI6PolicyERK3Rng" title="bencode::decode_value::Policy"><span class="n"><span class="pre">Policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_value</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_N3rng11input_rangeEEN7bencode12decode_valueE12basic_bvalueI6PolicyERK3Rng" title="bencode::decode_value::Rng"><span class="n"><span class="pre">Rng</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">range</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0_N3rng11input_rangeEEN7bencode12decode_valueE12basic_bvalueI6PolicyERK3Rng" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Reads bencoded data from a range and decodes it to a it basic_bvalue. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Template Parameters</dt>
@@ -300,7 +206,7 @@
 <dd class="field-even"><p><strong>range</strong> – the input range to read from </p>
 </dd>
 <dt class="field-odd">Throws</dt>
-<dd class="field-odd"><p><strong>parse_error</strong> – when the bencoded data is malformed. </p>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">parse_error</span></span></span> – when the bencoded data is malformed. </p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>the decoded data as a basic_bvalue instantiation. </p>
@@ -310,7 +216,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0_NSt14input_iteratorEEN7bencode12decode_valueE12basic_bvalueI6PolicyE13InputIterator13InputIterator">
-<span id="_CPPv3I0_NSt14input_iteratorEEN7bencode12decode_valueE13InputIterator13InputIterator"></span><span id="_CPPv2I0_NSt14input_iteratorEEN7bencode12decode_valueE13InputIterator13InputIterator"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4N7bencode21default_bvalue_policyE" title="bencode::default_bvalue_policy"><span class="n"><span class="pre">default_bvalue_policy</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">input_iterator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputIterator</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__value_8hpp_1a5931ebf4386fc7fe1286d4077be95ee2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt14input_iteratorEEN7bencode12decode_valueE12basic_bvalueI6PolicyE13InputIterator13InputIterator" title="bencode::decode_value::Policy"><span class="n"><span class="pre">Policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_value</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0_NSt14input_iteratorEEN7bencode12decode_valueE12basic_bvalueI6PolicyE13InputIterator13InputIterator" title="bencode::decode_value::InputIterator"><span class="n"><span class="pre">InputIterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">first</span></span>, <a class="reference internal" href="#_CPPv4I0_NSt14input_iteratorEEN7bencode12decode_valueE12basic_bvalueI6PolicyE13InputIterator13InputIterator" title="bencode::decode_value::InputIterator"><span class="n"><span class="pre">InputIterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">last</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0_NSt14input_iteratorEEN7bencode12decode_valueE12basic_bvalueI6PolicyE13InputIterator13InputIterator" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0_NSt14input_iteratorEEN7bencode12decode_valueE13InputIterator13InputIterator"></span><span id="_CPPv2I0_NSt14input_iteratorEEN7bencode12decode_valueE13InputIterator13InputIterator"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4N7bencode21default_bvalue_policyE" title="bencode::default_bvalue_policy"><span class="n"><span class="pre">default_bvalue_policy</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">input_iterator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputIterator</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__value_8hpp_1a5931ebf4386fc7fe1286d4077be95ee2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt14input_iteratorEEN7bencode12decode_valueE12basic_bvalueI6PolicyE13InputIterator13InputIterator" title="bencode::decode_value::Policy"><span class="n"><span class="pre">Policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_value</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0_NSt14input_iteratorEEN7bencode12decode_valueE12basic_bvalueI6PolicyE13InputIterator13InputIterator" title="bencode::decode_value::InputIterator"><span class="n"><span class="pre">InputIterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">first</span></span>, <a class="reference internal" href="#_CPPv4I0_NSt14input_iteratorEEN7bencode12decode_valueE12basic_bvalueI6PolicyE13InputIterator13InputIterator" title="bencode::decode_value::InputIterator"><span class="n"><span class="pre">InputIterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">last</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0_NSt14input_iteratorEEN7bencode12decode_valueE12basic_bvalueI6PolicyE13InputIterator13InputIterator" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Reads bencoded data from a pair of iterators to a basic_bvalue. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Template Parameters</dt>
@@ -323,7 +229,7 @@
 </ul>
 </dd>
 <dt class="field-odd">Throws</dt>
-<dd class="field-odd"><p><strong>parse_error</strong> – when the bencoded data is malformed. </p>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">parse_error</span></span></span> – when the bencoded data is malformed. </p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>the decoded data as a basic_bvalue instantiation. </p>
@@ -333,7 +239,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN7bencodersERNSt7istreamERNSt7istreamER12basic_bvalueI6PolicyE">
-<span id="_CPPv3I0EN7bencodersERNSt7istreamER12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencodersERNSt7istreamER12basic_bvalueI6PolicyE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__value_8hpp_1a6d9f0c55cd130583ffd025f62183caa5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">istream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&gt;&gt;</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">istream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">is</span></span>, <a class="reference internal" href="bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7bencodersERNSt7istreamERNSt7istreamER12basic_bvalueI6PolicyE" title="bencode::operator&gt;&gt;::Policy"><span class="n"><span class="pre">Policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7bencodersERNSt7istreamERNSt7istreamER12basic_bvalueI6PolicyE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0EN7bencodersERNSt7istreamER12basic_bvalueI6PolicyE"></span><span id="_CPPv2I0EN7bencodersERNSt7istreamER12basic_bvalueI6PolicyE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__value_8hpp_1a6d9f0c55cd130583ffd025f62183caa5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">istream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&gt;&gt;</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">istream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">is</span></span>, <a class="reference internal" href="bvalue.html#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7bencodersERNSt7istreamERNSt7istreamER12basic_bvalueI6PolicyE" title="bencode::operator&gt;&gt;::Policy"><span class="n"><span class="pre">Policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7bencodersERNSt7istreamERNSt7istreamER12basic_bvalueI6PolicyE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Read a basic_bvalue from an input stream. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -348,12 +254,12 @@
 </div>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode8literalsE">
-<span id="_CPPv3N7bencode8literalsE"></span><span id="_CPPv2N7bencode8literalsE"></span><span id="bencode::literals"></span><span class="target" id="namespacebencode_1_1literals"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">literals</span></span></span><a class="headerlink" href="#_CPPv4N7bencode8literalsE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N7bencode8literalsE"></span><span id="_CPPv2N7bencode8literalsE"></span><span id="bencode::literals"></span><span class="target" id="namespacebencode_1_1literals"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">literals</span></span></span><a class="headerlink" href="#_CPPv4N7bencode8literalsE" title="Permalink to this definition"></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode8literalsli7_bvalueEPKcNSt6size_tE">
-<span id="_CPPv3N7bencode8literalsli7_bvalueEPKcNSt6size_tE"></span><span id="_CPPv2N7bencode8literalsli7_bvalueEPKcNSt6size_tE"></span><span class="target" id="decode__value_8hpp_1a2c20d3fa13fcb31c4464c3634cba834f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><span class="n"><span class="pre">bvalue</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="s"><span class="pre">&quot;&quot;</span></span><span class="n"><span class="pre">_bvalue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">str</span></span>, <a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">len</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7bencode8literalsli7_bvalueEPKcNSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N7bencode8literalsli7_bvalueEPKcNSt6size_tE"></span><span id="_CPPv2N7bencode8literalsli7_bvalueEPKcNSt6size_tE"></span><span class="target" id="decode__value_8hpp_1a2c20d3fa13fcb31c4464c3634cba834f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><span class="n"><span class="pre">bvalue</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="s"><span class="pre">&quot;&quot;</span></span><span class="n"><span class="pre">_bvalue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">str</span></span>, <a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">len</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7bencode8literalsli7_bvalueEPKcNSt6size_tE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Construct a bvalue from a bencoded string. </p>
 </dd></dl>
 
@@ -369,14 +275,14 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode11decode_viewENSt11string_viewE">
-<span id="_CPPv3N7bencode11decode_viewENSt11string_viewE"></span><span id="_CPPv2N7bencode11decode_viewENSt11string_viewE"></span><span id="bencode::decode_view__std::string_view"></span><span class="target" id="decode__view_8hpp_1ab873dff197756761fe51c95345ada71b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_tableE" title="bencode::descriptor_table"><span class="n"><span class="pre">descriptor_table</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_view</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">view</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7bencode11decode_viewENSt11string_viewE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N7bencode11decode_viewENSt11string_viewE"></span><span id="_CPPv2N7bencode11decode_viewENSt11string_viewE"></span><span id="bencode::decode_view__std::string_view"></span><span class="target" id="decode__view_8hpp_1ab873dff197756761fe51c95345ada71b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_tableE" title="bencode::descriptor_table"><span class="n"><span class="pre">descriptor_table</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_view</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">view</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7bencode11decode_viewENSt11string_viewE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Reads bencoded data from a std::string_view and decodes it to a it to a <a class="reference internal" href="descriptor_and_descriptor_table.html#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a>. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>view</strong> – the bencoded data </p>
 </dd>
 <dt class="field-even">Throws</dt>
-<dd class="field-even"><p><strong>parse_error</strong> – when the bencoded data is malformed. </p>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">parse_error</span></span></span> – when the bencoded data is malformed. </p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the decoded data as a descriptor table. </p>
@@ -386,14 +292,14 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I_N3rng16contiguous_rangeEEN7bencode11decode_viewE16descriptor_tableRR3Rng">
-<span id="_CPPv3I_N3rng16contiguous_rangeEEN7bencode11decode_viewERR3Rng"></span><span id="_CPPv2I_N3rng16contiguous_rangeEEN7bencode11decode_viewERR3Rng"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">rng</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">contiguous_range</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Rng</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__view_8hpp_1a32b9d0d4a9d2c2a082dabde01fc29efd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_tableE" title="bencode::descriptor_table"><span class="n"><span class="pre">descriptor_table</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_view</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_N3rng16contiguous_rangeEEN7bencode11decode_viewE16descriptor_tableRR3Rng" title="bencode::decode_view::Rng"><span class="n"><span class="pre">Rng</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">range</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_N3rng16contiguous_rangeEEN7bencode11decode_viewE16descriptor_tableRR3Rng" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I_N3rng16contiguous_rangeEEN7bencode11decode_viewERR3Rng"></span><span id="_CPPv2I_N3rng16contiguous_rangeEEN7bencode11decode_viewERR3Rng"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">rng</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">contiguous_range</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Rng</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__view_8hpp_1a32b9d0d4a9d2c2a082dabde01fc29efd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_tableE" title="bencode::descriptor_table"><span class="n"><span class="pre">descriptor_table</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_view</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_N3rng16contiguous_rangeEEN7bencode11decode_viewE16descriptor_tableRR3Rng" title="bencode::decode_view::Rng"><span class="n"><span class="pre">Rng</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">range</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_N3rng16contiguous_rangeEEN7bencode11decode_viewE16descriptor_tableRR3Rng" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Reads bencoded data from a contiguous range and decodes it to a it to a <a class="reference internal" href="descriptor_and_descriptor_table.html#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a>. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>range</strong> – the range of bencoded data </p>
 </dd>
 <dt class="field-even">Throws</dt>
-<dd class="field-even"><p><strong>parse_error</strong> – when the bencoded data is malformed. </p>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">parse_error</span></span></span> – when the bencoded data is malformed. </p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the decoded data as a <a class="reference internal" href="descriptor_and_descriptor_table.html#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a>. </p>
@@ -403,14 +309,14 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I_NSt14input_iteratorEEN7bencode11decode_viewE16descriptor_table13InputIterator13InputIterator">
-<span id="_CPPv3I_NSt14input_iteratorEEN7bencode11decode_viewE13InputIterator13InputIterator"></span><span id="_CPPv2I_NSt14input_iteratorEEN7bencode11decode_viewE13InputIterator13InputIterator"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">input_iterator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputIterator</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__view_8hpp_1a66f2f9de1395af620d1e016964dffdaa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_tableE" title="bencode::descriptor_table"><span class="n"><span class="pre">descriptor_table</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_view</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_NSt14input_iteratorEEN7bencode11decode_viewE16descriptor_table13InputIterator13InputIterator" title="bencode::decode_view::InputIterator"><span class="n"><span class="pre">InputIterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">first</span></span>, <a class="reference internal" href="#_CPPv4I_NSt14input_iteratorEEN7bencode11decode_viewE16descriptor_table13InputIterator13InputIterator" title="bencode::decode_view::InputIterator"><span class="n"><span class="pre">InputIterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">last</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_NSt14input_iteratorEEN7bencode11decode_viewE16descriptor_table13InputIterator13InputIterator" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I_NSt14input_iteratorEEN7bencode11decode_viewE13InputIterator13InputIterator"></span><span id="_CPPv2I_NSt14input_iteratorEEN7bencode11decode_viewE13InputIterator13InputIterator"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">input_iterator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InputIterator</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="decode__view_8hpp_1a66f2f9de1395af620d1e016964dffdaa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_tableE" title="bencode::descriptor_table"><span class="n"><span class="pre">descriptor_table</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">decode_view</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_NSt14input_iteratorEEN7bencode11decode_viewE16descriptor_table13InputIterator13InputIterator" title="bencode::decode_view::InputIterator"><span class="n"><span class="pre">InputIterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">first</span></span>, <a class="reference internal" href="#_CPPv4I_NSt14input_iteratorEEN7bencode11decode_viewE16descriptor_table13InputIterator13InputIterator" title="bencode::decode_view::InputIterator"><span class="n"><span class="pre">InputIterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">last</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_NSt14input_iteratorEEN7bencode11decode_viewE16descriptor_table13InputIterator13InputIterator" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Reads bencoded data from a pair of iterators and decodes it to a <a class="reference internal" href="descriptor_and_descriptor_table.html#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a>. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>first, last</strong> – the range of characters to decode </p>
 </dd>
 <dt class="field-even">Throws</dt>
-<dd class="field-even"><p><strong>parse_error</strong> – when the bencoded data is malformed. </p>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">parse_error</span></span></span> – when the bencoded data is malformed. </p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the decoded data as a descriptor table. </p>
@@ -421,54 +327,37 @@
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="descriptor_and_descriptor_table.html" class="btn btn-neutral float-right" title="Descriptors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="bview.html" class="btn btn-neutral float-left" title="View interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="descriptor_and_descriptor_table.html" class="btn btn-neutral float-right" title="Descriptors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright .
-
-    </p>
+    <p>&#169; Copyright .</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
