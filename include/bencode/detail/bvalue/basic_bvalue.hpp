@@ -35,12 +35,6 @@ constexpr const auto* get_storage(const basic_bvalue<Policy>* value) noexcept;
 template <typename Policy>
 constexpr auto* get_storage(basic_bvalue<Policy>* value) noexcept;
 
-// forward declarations
-template <typename U, typename Policy, typename T>
-    requires serializable<T>
-inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
-
-
 template <basic_bvalue_instantiation BV>
 decltype(auto) evaluate(const bpointer& pointer, BV&& bv);
 

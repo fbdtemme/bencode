@@ -37,10 +37,17 @@ concept bvalue_alternative_type =
 
 namespace detail {
 
-// forward declaration.
-template <typename U, typename Policy, typename T>
+#if defined(__GNUC__) && __GNUC__ < 12
+    // forward declaration.
+    template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
+        requires serializable<T>
+    inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
+#else
+    // forward declaration.
+    template <typename U, typename Policy, typename T>
     requires serializable<T>
-inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
+    inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
+#endif
 
 // forward declaration.
 template <serializable T, basic_bvalue_instantiation U>

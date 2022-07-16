@@ -61,10 +61,17 @@ concept event_connecting_is_adl_overloaded =
 } // namespace detail
 
 
-// forward declaration
-template <typename EC, typename U, typename T>
-    requires serializable<T> && event_consumer<EC>
-constexpr void connect(EC& consumer, U&& producer);
+#if defined(__GNUC__) && __GNUC__ < 12
+    // forward declaration
+    template <typename EC, typename U, typename T = std::remove_cvref_t<U>>
+        requires serializable<T> && event_consumer<EC>
+    constexpr void connect(EC& consumer, U&& producer);
+#else
+    // forward declaration
+    template <typename EC, typename U, typename T>
+        requires serializable<T> && event_consumer<EC>
+    constexpr void connect(EC& consumer, U&& producer);
+#endif
 
 
 
