@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -101,7 +102,7 @@
            <div itemprop="articleBody">
              
   <section id="descriptor">
-<h1>Descriptor<a class="headerlink" href="#descriptor" title="Permalink to this headline"></a></h1>
+<h1>Descriptor<a class="headerlink" href="#descriptor" title="Permalink to this heading"></a></h1>
 <p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor</span></code> describes the type and content of the bencoded token the
 <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code> points to and where the data can be found in the bencoded buffer.
 This information allows <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code> to navigate through the bencoded buffer and
@@ -109,7 +110,7 @@ provide access to the values.</p>
 <p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor_table</span></code> holds a contiguous sequence of descriptors and a pointer to a bencoded string.
 it is the result of parsing data with <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor_parser</span></code>.</p>
 <section id="details">
-<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline"></a></h2>
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this heading"></a></h2>
 <p>A descriptor is a 16 byte structure that describes the structural elements of a bencoded value.
 Integers and string have one <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor</span></code>.
 Lists and dicts have one <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor</span></code> at the start and one <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor</span></code>

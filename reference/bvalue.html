@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -105,7 +106,7 @@
            <div itemprop="articleBody">
              
   <section id="value-interface">
-<h1><a class="toc-backref" href="#id1">Value interface</a><a class="headerlink" href="#value-interface" title="Permalink to this headline"></a></h1>
+<h1><a class="toc-backref" href="#id1">Value interface</a><a class="headerlink" href="#value-interface" title="Permalink to this heading"></a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -121,7 +122,7 @@
 </ul>
 </div>
 <section id="bvalue">
-<h2><a class="toc-backref" href="#id2">Bvalue</a><a class="headerlink" href="#bvalue" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id2">Bvalue</a><a class="headerlink" href="#bvalue" title="Permalink to this heading"></a></h2>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode6bvalueE">
 <span id="_CPPv3N7bencode6bvalueE"></span><span id="_CPPv2N7bencode6bvalueE"></span><span class="target" id="basic__bvalue_8hpp_1aec7d3db664e9f6d2a3ae014becbe8d92"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">bvalue</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="bencode::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N7bencode21default_bvalue_policyE" title="bencode::default_bvalue_policy"><span class="n"><span class="pre">default_bvalue_policy</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N7bencode6bvalueE" title="Permalink to this definition"></a><br /></dt>
@@ -130,15 +131,14 @@
 
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN7bencode12basic_bvalueE">
-<span id="_CPPv3I0EN7bencode12basic_bvalueE"></span><span id="_CPPv2I0EN7bencode12basic_bvalueE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classbencode_1_1basic__bvalue"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">basic_bvalue</span></span></span><a class="headerlink" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3I0EN7bencode12basic_bvalueE"></span><span id="_CPPv2I0EN7bencode12basic_bvalueE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classbencode_1_1basic__bvalue"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">basic_bvalue</span></span></span><a class="headerlink" href="#_CPPv4I0EN7bencode12basic_bvalueE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>A class template storing a bencoded bvalue.</p>
 <p>An instance of basic_bvalue at any given time either holds a bvalue of one of the bencode data types, or uninitialized_type in the case of error or no bvalue. A single bvalue can store large and complicated bencoded data structures consisting of arbitrarily nested lists and dicts with many sub-values, that are again bvalue instances.</p>
-<p><dl class="field-list simple">
-<dt class="field-odd">tparam Policy</dt>
-<dd class="field-odd"><p>instantation of <a class="reference internal" href="#structbencode_1_1bvalue__policy"><span class="std std-ref">bvalue_policy</span></a> to defining the storage types </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>Policy</strong> – instantation of <a class="reference internal" href="#structbencode_1_1bvalue__policy"><span class="std std-ref">bvalue_policy</span></a> to defining the storage types </p>
 </dd>
 </dl>
-</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -150,7 +150,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp">
 <span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">U</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">remove_cvref_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7bencode12basic_bvalue12basic_bvalueERR1U" title="bencode::basic_bvalue::basic_bvalue::U"><span class="n"><span class="pre">U</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classbencode_1_1basic__bvalue_1adc81915856c596e160219920341e2e84"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">basic_bvalue</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00EN7bencode12basic_bvalue12basic_bvalueERR1U" title="bencode::basic_bvalue::basic_bvalue::U"><span class="n"><span class="pre">U</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">v</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">noexcept</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">detail</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">assign_to_bvalue</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">declval</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7bencode12basic_bvalue12basic_bvalueERR1U" title="bencode::basic_bvalue::basic_bvalue"><span class="n"><span class="pre">basic_bvalue</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">forward</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7bencode12basic_bvalue12basic_bvalueERR1U" title="bencode::basic_bvalue::basic_bvalue::U"><span class="n"><span class="pre">U</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I00EN7bencode12basic_bvalue12basic_bvalueERR1U" title="bencode::basic_bvalue::basic_bvalue::v"><span class="n"><span class="pre">v</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">)</span></span><br /></dt>
-<dd><p>Copy/move constructor for types that can be converted to bvalue using built-in conversions or used defined types that implement are convertible to bvalue though bencode_assign_to_bvalue(). </p>
+<dd><p>Copy/move constructor for types that can be converted to bvalue using built-in conversions or used defined types that implement are convertible to bvalue through bencode_assign_to_bvalue(). </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -616,19 +616,23 @@
 
 </section>
 <section id="policy">
-<h2><a class="toc-backref" href="#id3">Policy</a><a class="headerlink" href="#policy" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id3">Policy</a><a class="headerlink" href="#policy" title="Permalink to this heading"></a></h2>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv47bencode">
 <span id="_CPPv37bencode"></span><span id="_CPPv27bencode"></span><span id="bencode"></span><span class="target" id="namespacebencode"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bencode</span></span></span><a class="headerlink" href="#_CPPv47bencode" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="cpp class">
 <dt class="sig sig-object cpp">
 <span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Policy</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classbencode_1_1basic__bvalue"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">basic_bvalue</span></span></span><br /></dt>
-<dd><em>#include &lt;basic_bvalue.hpp&gt;</em></dd></dl>
+<dd><div class="docutils container">
+<em>#include &lt;basic_bvalue.hpp&gt;</em></div>
+</dd></dl>
 
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I00I0E0I00E0EN7bencode13bvalue_policyE">
 <span id="_CPPv3I00I0E0I00E0EN7bencode13bvalue_policyE"></span><span id="_CPPv2I00I0E0I00E0EN7bencode13bvalue_policyE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IntegralType</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StringType</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ListType</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">V</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DictType</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structbencode_1_1bvalue__policy"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bvalue_policy</span></span></span><a class="headerlink" href="#_CPPv4I00I0E0I00E0EN7bencode13bvalue_policyE" title="Permalink to this definition"></a><br /></dt>
-<dd><em>#include &lt;bvalue_policy.hpp&gt;</em></dd></dl>
+<dd><div class="docutils container">
+<em>#include &lt;bvalue_policy.hpp&gt;</em></div>
+</dd></dl>
 
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode21default_bvalue_policyE">
@@ -639,7 +643,7 @@
 
 </section>
 <section id="accessors">
-<h2><a class="toc-backref" href="#id4">Accessors</a><a class="headerlink" href="#accessors" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id4">Accessors</a><a class="headerlink" href="#accessors" title="Permalink to this heading"></a></h2>
 <span class="target" id="bvalue-accessors"></span><dl class="cpp type">
 <dt class="sig sig-object cpp">
 <span class="target" id="namespacebencode"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bencode</span></span></span><br /></dt>
@@ -902,15 +906,17 @@ basic_bvalue instance. Otherwise, throws bad_bvalue_access. </p>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I_12bencode_type_26basic_bvalue_instantiationEN7bencode18bvalue_alternativeE">
 <span id="_CPPv3I_12bencode_type_26basic_bvalue_instantiationEN7bencode18bvalue_alternativeE"></span><span id="_CPPv2I_12bencode_type_26basic_bvalue_instantiationEN7bencode18bvalue_alternativeE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">bencode_type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">E</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">basic_bvalue_instantiation</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structbencode_1_1bvalue__alternative"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bvalue_alternative</span></span></span><a class="headerlink" href="#_CPPv4I_12bencode_type_26basic_bvalue_instantiationEN7bencode18bvalue_alternativeE" title="Permalink to this definition"></a><br /></dt>
-<dd><em>#include &lt;accessors.hpp&gt;</em><p>Provides compile-time tag based access to the types of the of the alternatives of the possibly cv-qualified basic_bvalue, combining cv-qualifications of the basic_bvalue (if any) with the cv-qualifications of the alternative. <dl class="field-list simple">
-<dt class="field-odd">tparam E</dt>
-<dd class="field-odd"><p>bencode data type to check storage type for </p>
-</dd>
-<dt class="field-even">tparam T</dt>
-<dd class="field-even"><p>basic_bvalue template instantiation </p>
+<dd><div class="docutils container">
+<em>#include &lt;accessors.hpp&gt;</em></div>
+<p>Provides compile-time tag based access to the types of the of the alternatives of the possibly cv-qualified basic_bvalue, combining cv-qualifications of the basic_bvalue (if any) with the cv-qualifications of the alternative. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> – bencode data type to check storage type for </p></li>
+<li><p><strong>T</strong> – basic_bvalue template instantiation </p></li>
+</ul>
 </dd>
 </dl>
-</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp type">
@@ -964,7 +970,7 @@ basic_bvalue instance. Otherwise, throws bad_bvalue_access. </p>
 
 </section>
 <section id="concepts">
-<h2><a class="toc-backref" href="#id5">Concepts</a><a class="headerlink" href="#concepts" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id5">Concepts</a><a class="headerlink" href="#concepts" title="Permalink to this heading"></a></h2>
 <dl class="cpp type">
 <dt class="sig sig-object cpp">
 <span class="target" id="namespacebencode"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bencode</span></span></span><br /></dt>
@@ -973,7 +979,7 @@ basic_bvalue instance. Otherwise, throws bad_bvalue_access. </p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp">
 <span class="target" id="bvalue_2concepts_8hpp_1ada9f0e3859389be5d2b9c0ce53f2d34a"></span><span class="sig-name descname"><span class="pre">template&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">concept</span> <span class="pre">basic_bvalue_instantiation</span>&#160; <span class="pre">=detail::is_instantiation_of_v&lt;basic_bvalue,</span> <span class="pre">std::remove_cvref_t&lt;T&gt;</span> <span class="pre">&gt;</span></span></dt>
-<dd><p>The concept basic_bvalue_instantiation&lt;T&gt; is satisified if T is a template instantiation of the basic_bvalue template class. Ignores cv-qualifiers and reference types. </p>
+<dd><p>The concept basic_bvalue_instantiation&lt;T&gt; is satisfied if T is a template instantiation of the basic_bvalue template class. Ignores cv-qualifiers and reference types. </p>
 </dd></dl>
 
 <dl class="cpp var">
@@ -999,7 +1005,7 @@ basic_bvalue instance. Otherwise, throws bad_bvalue_access. </p>
 
 </section>
 <section id="exceptions">
-<h2><a class="toc-backref" href="#id6">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id6">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

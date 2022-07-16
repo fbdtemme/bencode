@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -102,7 +103,7 @@
            <div itemprop="articleBody">
              
   <section id="value-and-view-types">
-<h1>Value and view types<a class="headerlink" href="#value-and-view-types" title="Permalink to this headline"></a></h1>
+<h1>Value and view types<a class="headerlink" href="#value-and-view-types" title="Permalink to this heading"></a></h1>
 <p>This library contains two types to represent bencoded data,
 the value type <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> and the view type <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a>.</p>
 <p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> owns the data it contains.
@@ -115,11 +116,11 @@ Based on this index <a class="reference internal" href="../reference/bview.html#
 <p>The interfaces of <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> and <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> are very similar.
 This enable the use of both types in a generic code.</p>
 <section id="performance">
-<h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline"></a></h2>
+<h2>Performance<a class="headerlink" href="#performance" title="Permalink to this heading"></a></h2>
 <p>Parsing to <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> is about 5 times faster then parsing to <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>.</p>
 <img alt="../_images/decoding_value_vs_view.svg" src="../_images/decoding_value_vs_view.svg" /></section>
 <section id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline"></a></h2>
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this heading"></a></h2>
 <p><a class="reference internal" href="value.html#bvalue"><span class="std std-ref">Value interface</span></a>
 <a class="reference internal" href="view.html#bview"><span class="std std-ref">View interface</span></a></p>
 </section>

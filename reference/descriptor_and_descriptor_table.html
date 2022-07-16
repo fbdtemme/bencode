@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -98,10 +99,10 @@
            <div itemprop="articleBody">
              
   <section id="descriptors">
-<h1>Descriptors<a class="headerlink" href="#descriptors" title="Permalink to this headline"></a></h1>
-<dl class="cpp enum">
+<h1>Descriptors<a class="headerlink" href="#descriptors" title="Permalink to this heading"></a></h1>
+<dl class="cpp enum-class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode15descriptor_typeE">
-<span id="_CPPv3N7bencode15descriptor_typeE"></span><span id="_CPPv2N7bencode15descriptor_typeE"></span><span class="target" id="descriptor_8hpp_1a32dd0363b9da5822af47936224cdb553"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">descriptor_type</span></span></span><a class="headerlink" href="#_CPPv4N7bencode15descriptor_typeE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N7bencode15descriptor_typeE"></span><span id="_CPPv2N7bencode15descriptor_typeE"></span><span class="target" id="descriptor_8hpp_1a32dd0363b9da5822af47936224cdb553"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">descriptor_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="bview.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uint8_t</span></span><a class="headerlink" href="#_CPPv4N7bencode15descriptor_typeE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Enumeration type specifying the data stored in a descriptor. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
@@ -168,7 +169,7 @@
 
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode10descriptorE">
-<span id="_CPPv3N7bencode10descriptorE"></span><span id="_CPPv2N7bencode10descriptorE"></span><span id="bencode::descriptor"></span><span class="target" id="classbencode_1_1descriptor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">descriptor</span></span></span><a class="headerlink" href="#_CPPv4N7bencode10descriptorE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N7bencode10descriptorE"></span><span id="_CPPv2N7bencode10descriptorE"></span><span id="bencode::descriptor"></span><span class="target" id="classbencode_1_1descriptor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">descriptor</span></span></span><a class="headerlink" href="#_CPPv4N7bencode10descriptorE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>class describing the value and metadata contained in bencode tokens. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
@@ -333,12 +334,12 @@
 
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode16descriptor_tableE">
-<span id="_CPPv3N7bencode16descriptor_tableE"></span><span id="_CPPv2N7bencode16descriptor_tableE"></span><span id="bencode::descriptor_table"></span><span class="target" id="classbencode_1_1descriptor__table"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">descriptor_table</span></span></span><a class="headerlink" href="#_CPPv4N7bencode16descriptor_tableE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N7bencode16descriptor_tableE"></span><span id="_CPPv2N7bencode16descriptor_tableE"></span><span id="bencode::descriptor_table"></span><span class="target" id="classbencode_1_1descriptor__table"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">descriptor_table</span></span></span><a class="headerlink" href="#_CPPv4N7bencode16descriptor_tableE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Data structure that hold a contiguous sequence of descriptors and a pointer to the bencoded data they describe.</p>
-<p>A <a class="reference internal" href="#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a> instance is the result parsing bencoded data with a descriptor_parser. The bencoded data can be accessed using a <code class="docutils literal notranslate"><span class="pre">bview</span></code> instance with get_bview(). <dl class="simple">
-<dt><strong>See</strong></dt><dd><p>descriptor_parser </p>
-</dd>
-</dl>
+<p>A <a class="reference internal" href="#classbencode_1_1descriptor__table"><span class="std std-ref">descriptor_table</span></a> instance is the result parsing bencoded data with a descriptor_parser. The bencoded data can be accessed using a <code class="docutils literal notranslate"><span class="pre">bview</span></code> instance with get_bview(). <div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>descriptor_parser </p>
+</div>
 </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>

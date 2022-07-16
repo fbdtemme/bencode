@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -106,7 +107,7 @@
            <div itemprop="articleBody">
              
   <section id="performance">
-<h1>Performance<a class="headerlink" href="#performance" title="Permalink to this headline"></a></h1>
+<h1>Performance<a class="headerlink" href="#performance" title="Permalink to this heading"></a></h1>
 <p>The decoding performance was benchmarked against following libraries:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/arvidn/libtorrent">arvidn/libtorrent</a></p></li>
@@ -114,7 +115,7 @@
 <li><p><a class="reference external" href="https://github.com/s3rvac/cpp-bencoding">s3rvac/cpp-bencoding</a></p></li>
 </ul>
 <section id="benchmarks">
-<h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline"></a></h2>
+<h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>integers:</dt><dd><p>A list of integer values with a uniform distribution over the full 64-bit signed integer range.</p>
@@ -146,14 +147,14 @@ It contains 1156 xml files and images. The images are a few GiB large.</p>
 </ul>
 </section>
 <section id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h2>
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading"></a></h2>
 <section id="value">
-<h3>Value<a class="headerlink" href="#value" title="Permalink to this headline"></a></h3>
+<h3>Value<a class="headerlink" href="#value" title="Permalink to this heading"></a></h3>
 <p>libtorrent is not included since it does not have a bencode parser which decodes to a
 owning data representation.</p>
 <img alt="../_images/benchmark-decoding-value.svg" src="../_images/benchmark-decoding-value.svg" /></section>
 <section id="view">
-<h3>View<a class="headerlink" href="#view" title="Permalink to this headline"></a></h3>
+<h3>View<a class="headerlink" href="#view" title="Permalink to this heading"></a></h3>
 <p>Note that libtorrent does not actually decode integers when parsing, but defers to when
 the value is accessed. All other projects do parse the integers directly when decoding.
 s3rvac/cpp-bencoding does not have a view type.</p>

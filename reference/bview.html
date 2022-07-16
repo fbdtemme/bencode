@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -108,7 +109,7 @@
            <div itemprop="articleBody">
              
   <section id="view-interface">
-<h1><a class="toc-backref" href="#id1">View interface</a><a class="headerlink" href="#view-interface" title="Permalink to this headline"></a></h1>
+<h1><a class="toc-backref" href="#id1">View interface</a><a class="headerlink" href="#view-interface" title="Permalink to this heading"></a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -127,10 +128,10 @@
 </ul>
 </div>
 <section id="bview">
-<span id="bview-reference"></span><h2><a class="toc-backref" href="#id2">bview</a><a class="headerlink" href="#bview" title="Permalink to this headline"></a></h2>
+<span id="bview-reference"></span><h2><a class="toc-backref" href="#id2">bview</a><a class="headerlink" href="#bview" title="Permalink to this heading"></a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode5bviewE">
-<span id="_CPPv3N7bencode5bviewE"></span><span id="_CPPv2N7bencode5bviewE"></span><span id="bencode::bview"></span><span class="target" id="classbencode_1_1bview"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">bview</span></span></span><a class="headerlink" href="#_CPPv4N7bencode5bviewE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N7bencode5bviewE"></span><span id="_CPPv2N7bencode5bviewE"></span><span id="bencode::bview"></span><span class="target" id="classbencode_1_1bview"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bview</span></span></span><a class="headerlink" href="#_CPPv4N7bencode5bviewE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>The class bview provides read-only access to a bencoded value. The implementation holds only two members: a pointer pointing into contiguous sequence of descriptors and pointer to the buffer containing the bencoded data. Descriptors provide the structural information necessary to navigate the bencoded data. The bview class and it’s subclasses provide a convenient interface to interact with the bencoded data.</p>
 <p>The bview class describes bencoded data of unknown type. The type can be queried by <a class="reference internal" href="#classbencode_1_1bview_1aaef80ee2799491c59a97239d026eb8e0"><span class="std std-ref">type()</span></a>. bview subclasses describe bencoded data with a known type and can thus provide a richer interface. </p>
 <p>Subclassed by <a class="reference internal" href="#classbencode_1_1dict__bview"><span class="std std-ref">bencode::dict_bview</span></a>, <a class="reference internal" href="#classbencode_1_1integer__bview"><span class="std std-ref">bencode::integer_bview</span></a>, <a class="reference internal" href="#classbencode_1_1list__bview"><span class="std std-ref">bencode::list_bview</span></a>, <a class="reference internal" href="#classbencode_1_1string__bview"><span class="std std-ref">bencode::string_bview</span></a></p>
@@ -328,10 +329,10 @@
 
 </section>
 <section id="integer-bview">
-<h2><a class="toc-backref" href="#id3">integer_bview</a><a class="headerlink" href="#integer-bview" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id3">integer_bview</a><a class="headerlink" href="#integer-bview" title="Permalink to this heading"></a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode13integer_bviewE">
-<span id="_CPPv3N7bencode13integer_bviewE"></span><span id="_CPPv2N7bencode13integer_bviewE"></span><span id="bencode::integer_bview"></span><span class="target" id="classbencode_1_1integer__bview"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">integer_bview</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview"><span class="n"><span class="pre">bview</span></span></a><a class="headerlink" href="#_CPPv4N7bencode13integer_bviewE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N7bencode13integer_bviewE"></span><span id="_CPPv2N7bencode13integer_bviewE"></span><span id="bencode::integer_bview"></span><span class="target" id="classbencode_1_1integer__bview"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">integer_bview</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview"><span class="n"><span class="pre">bview</span></span></a><a class="headerlink" href="#_CPPv4N7bencode13integer_bviewE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>The class <a class="reference internal" href="#classbencode_1_1integer__bview"><span class="std std-ref">integer_bview</span></a> is a bview of which the descriptor describes an integer value. <a class="reference internal" href="#classbencode_1_1integer__bview"><span class="std std-ref">integer_bview</span></a> does not holds any additional members over bview. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
@@ -396,10 +397,10 @@
 
 </section>
 <section id="string-bview">
-<h2><a class="toc-backref" href="#id4">string_bview</a><a class="headerlink" href="#string-bview" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id4">string_bview</a><a class="headerlink" href="#string-bview" title="Permalink to this heading"></a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode12string_bviewE">
-<span id="_CPPv3N7bencode12string_bviewE"></span><span id="_CPPv2N7bencode12string_bviewE"></span><span id="bencode::string_bview"></span><span class="target" id="classbencode_1_1string__bview"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">string_bview</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview"><span class="n"><span class="pre">bview</span></span></a><a class="headerlink" href="#_CPPv4N7bencode12string_bviewE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N7bencode12string_bviewE"></span><span id="_CPPv2N7bencode12string_bviewE"></span><span id="bencode::string_bview"></span><span class="target" id="classbencode_1_1string__bview"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">string_bview</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview"><span class="n"><span class="pre">bview</span></span></a><a class="headerlink" href="#_CPPv4N7bencode12string_bviewE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>A view into a bencoded list that provides access to the data similar to a std::string_view. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
@@ -785,10 +786,10 @@
 
 </section>
 <section id="list-bview">
-<h2><a class="toc-backref" href="#id5">list_bview</a><a class="headerlink" href="#list-bview" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id5">list_bview</a><a class="headerlink" href="#list-bview" title="Permalink to this heading"></a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode10list_bviewE">
-<span id="_CPPv3N7bencode10list_bviewE"></span><span id="_CPPv2N7bencode10list_bviewE"></span><span id="bencode::list_bview"></span><span class="target" id="classbencode_1_1list__bview"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">list_bview</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview"><span class="n"><span class="pre">bview</span></span></a><a class="headerlink" href="#_CPPv4N7bencode10list_bviewE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N7bencode10list_bviewE"></span><span id="_CPPv2N7bencode10list_bviewE"></span><span id="bencode::list_bview"></span><span class="target" id="classbencode_1_1list__bview"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">list_bview</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview"><span class="n"><span class="pre">bview</span></span></a><a class="headerlink" href="#_CPPv4N7bencode10list_bviewE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>The class <a class="reference internal" href="#classbencode_1_1list__bview"><span class="std std-ref">list_bview</span></a> is a bview of which the descriptor describes a list value. <a class="reference internal" href="#classbencode_1_1list__bview"><span class="std std-ref">list_bview</span></a> does not holds any additional members over bview. This class provides a similar interface to a read-only list. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
@@ -1029,15 +1030,15 @@
 
 </section>
 <section id="dict-bview">
-<h2><a class="toc-backref" href="#id6">dict_bview</a><a class="headerlink" href="#dict-bview" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id6">dict_bview</a><a class="headerlink" href="#dict-bview" title="Permalink to this heading"></a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode10dict_bviewE">
-<span id="_CPPv3N7bencode10dict_bviewE"></span><span id="_CPPv2N7bencode10dict_bviewE"></span><span id="bencode::dict_bview"></span><span class="target" id="classbencode_1_1dict__bview"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">dict_bview</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview"><span class="n"><span class="pre">bview</span></span></a><a class="headerlink" href="#_CPPv4N7bencode10dict_bviewE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>A view into a bencoded dict that provides access to the elements similar to a std::map. <div class="admonition note">
+<span id="_CPPv3N7bencode10dict_bviewE"></span><span id="_CPPv2N7bencode10dict_bviewE"></span><span id="bencode::dict_bview"></span><span class="target" id="classbencode_1_1dict__bview"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dict_bview</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7bencode5bviewE" title="bencode::bview"><span class="n"><span class="pre">bview</span></span></a><a class="headerlink" href="#_CPPv4N7bencode10dict_bviewE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A view into a bencoded dict that provides access to the elements similar to a std::map. </p>
+<div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>dereferencing an iterator return a reference to a std::pair&lt;string_bview, bview&gt; but this reference is invalidated upon the next dereference. </p>
 </div>
-</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -1218,10 +1219,10 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK7bencode10dict_bview11equal_rangeENSt11string_viewE">
 <span id="_CPPv3NK7bencode10dict_bview11equal_rangeENSt11string_viewE"></span><span id="_CPPv2NK7bencode10dict_bview11equal_rangeENSt11string_viewE"></span><span id="bencode::dict_bview::equal_range__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a94ed1c39b3ccadad866193452f7083bc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">const_iterator</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">const_iterator</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">equal_range</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK7bencode10dict_bview11equal_rangeENSt11string_viewE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Returns a range containing all elements with the given key in the container. The range is defined by two iterators, one pointing to the first element that is not less than key and another pointing to the first element greater than key. Alternatively, the first iterator may be obtained with <a class="reference internal" href="#classbencode_1_1dict__bview_1a303adae39ce644b67b69700fb80015aa"><span class="std std-ref">lower_bound()</span></a>, and the second with <a class="reference internal" href="#classbencode_1_1dict__bview_1a1b22139320efb98a1a3ccae80ef19b57"><span class="std std-ref">upper_bound()</span></a>. <dl class="simple">
-<dt><strong>See</strong></dt><dd><p><a class="reference internal" href="#classbencode_1_1dict__bview_1aa5f1065fb89312913fcf76df09087420"><span class="std std-ref">end()</span></a>) iterator is returned as the first element. Similarly if there are no elements greater than key, past-the-end iterator is returned as the second element. </p>
-</dd>
-</dl>
+<dd><p>Returns a range containing all elements with the given key in the container. The range is defined by two iterators, one pointing to the first element that is not less than key and another pointing to the first element greater than key. Alternatively, the first iterator may be obtained with <a class="reference internal" href="#classbencode_1_1dict__bview_1a303adae39ce644b67b69700fb80015aa"><span class="std std-ref">lower_bound()</span></a>, and the second with <a class="reference internal" href="#classbencode_1_1dict__bview_1a1b22139320efb98a1a3ccae80ef19b57"><span class="std std-ref">upper_bound()</span></a>. <div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classbencode_1_1dict__bview_1aa5f1065fb89312913fcf76df09087420"><span class="std std-ref">end()</span></a>) iterator is returned as the first element. Similarly if there are no elements greater than key, past-the-end iterator is returned as the second element. </p>
+</div>
 </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1236,10 +1237,10 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK7bencode10dict_bview11lower_boundENSt11string_viewE">
 <span id="_CPPv3NK7bencode10dict_bview11lower_boundENSt11string_viewE"></span><span id="_CPPv2NK7bencode10dict_bview11lower_boundENSt11string_viewE"></span><span id="bencode::dict_bview::lower_bound__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a303adae39ce644b67b69700fb80015aa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">const_iterator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lower_bound</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK7bencode10dict_bview11lower_boundENSt11string_viewE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Returns an iterator pointing to the first element that is not less than (i.e. greater or equal to) key. <dl class="simple">
-<dt><strong>See</strong></dt><dd><p><a class="reference internal" href="#classbencode_1_1dict__bview_1aa5f1065fb89312913fcf76df09087420"><span class="std std-ref">end()</span></a>) is returned. </p>
-</dd>
-</dl>
+<dd><p>Returns an iterator pointing to the first element that is not less than (i.e. greater or equal to) key. <div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classbencode_1_1dict__bview_1aa5f1065fb89312913fcf76df09087420"><span class="std std-ref">end()</span></a>) is returned. </p>
+</div>
 </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1254,10 +1255,10 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK7bencode10dict_bview11upper_boundENSt11string_viewE">
 <span id="_CPPv3NK7bencode10dict_bview11upper_boundENSt11string_viewE"></span><span id="_CPPv2NK7bencode10dict_bview11upper_boundENSt11string_viewE"></span><span id="bencode::dict_bview::upper_bound__std::string_viewCCE"></span><span class="target" id="classbencode_1_1dict__bview_1a1b22139320efb98a1a3ccae80ef19b57"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">const_iterator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">upper_bound</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK7bencode10dict_bview11upper_boundENSt11string_viewE" title="Permalink to this definition"></a><br /></dt>
-<dd><p>Returns an iterator pointing to the first element that is greater than key. <dl class="simple">
-<dt><strong>See</strong></dt><dd><p><a class="reference internal" href="#classbencode_1_1dict__bview_1aa5f1065fb89312913fcf76df09087420"><span class="std std-ref">end()</span></a>) iterator is returned. </p>
-</dd>
-</dl>
+<dd><p>Returns an iterator pointing to the first element that is greater than key. <div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classbencode_1_1dict__bview_1aa5f1065fb89312913fcf76df09087420"><span class="std std-ref">end()</span></a>) iterator is returned. </p>
+</div>
 </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1310,7 +1311,7 @@
 
 </section>
 <section id="accessor-functions">
-<h2><a class="toc-backref" href="#id7">Accessor functions</a><a class="headerlink" href="#accessor-functions" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id7">Accessor functions</a><a class="headerlink" href="#accessor-functions" title="Permalink to this heading"></a></h2>
 <p>Provide accessors for bview, integer_bview, string_bview, list_bview and dict_bview types. </p>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv47bencode">
@@ -1643,17 +1644,17 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I_12bencode_typeEN7bencode17bview_alternativeE">
 <span id="_CPPv3I_12bencode_typeEN7bencode17bview_alternativeE"></span><span id="_CPPv2I_12bencode_typeEN7bencode17bview_alternativeE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">bencode_type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">E</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structbencode_1_1bview__alternative"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bview_alternative</span></span></span><a class="headerlink" href="#_CPPv4I_12bencode_typeEN7bencode17bview_alternativeE" title="Permalink to this definition"></a><br /></dt>
-<dd><em>#include &lt;accessors.hpp&gt;</em><p>Provides compile-time tag based access to the alternative interfaces to bview. <dl class="field-list simple">
-<dt class="field-odd">tparam E</dt>
-<dd class="field-odd"><p>enum representing the bencode data type. </p>
-</dd>
-</dl>
+<dd><div class="docutils container">
+<em>#include &lt;accessors.hpp&gt;</em></div>
+<p>Provides compile-time tag based access to the alternative interfaces to bview. </p>
 <dl class="field-list simple">
-<dt class="field-odd">return</dt>
-<dd class="field-odd"><p>the matching bview class for a given bencode data type </p>
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>E</strong> – enum representing the bencode data type. </p>
+</dd>
+<dt class="field-even">Return</dt>
+<dd class="field-even"><p>the matching bview class for a given bencode data type </p>
 </dd>
 </dl>
-</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp type">
@@ -1676,14 +1677,16 @@
 
 </section>
 <section id="exceptions">
-<h2><a class="toc-backref" href="#id8">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id8">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this heading"></a></h2>
 <dl class="cpp type">
 <dt class="sig sig-object cpp">
 <span class="target" id="namespacebencode"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bencode</span></span></span><br /></dt>
 <dd><dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode16bad_bview_accessE">
 <span id="_CPPv3N7bencode16bad_bview_accessE"></span><span id="_CPPv2N7bencode16bad_bview_accessE"></span><span id="bencode::bad_bview_access"></span><span class="target" id="classbencode_1_1bad__bview__access"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bad_bview_access</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">bad_access</span></span><a class="headerlink" href="#_CPPv4N7bencode16bad_bview_accessE" title="Permalink to this definition"></a><br /></dt>
-<dd><em>#include &lt;bad_bview_access.hpp&gt;</em><p>Exception thrown when trying to access a bview with a type that does not match the currently active alternative. </p>
+<dd><div class="docutils container">
+<em>#include &lt;bad_bview_access.hpp&gt;</em></div>
+<p>Exception thrown when trying to access a bview with a type that does not match the currently active alternative. </p>
 </dd></dl>
 
 </dd></dl>
@@ -1698,9 +1701,9 @@
 <span class="target" id="namespacebencode"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bencode</span></span></span><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
-<dl class="cpp enum">
+<dl class="cpp enum-class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode15conversion_errcE">
-<span id="_CPPv3N7bencode15conversion_errcE"></span><span id="_CPPv2N7bencode15conversion_errcE"></span><span class="target" id="bad__conversion_8hpp_1aeafa051e9d4b31310a7dd0f7a40f2175"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">conversion_errc</span></span></span><a class="headerlink" href="#_CPPv4N7bencode15conversion_errcE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N7bencode15conversion_errcE"></span><span id="_CPPv2N7bencode15conversion_errcE"></span><span class="target" id="bad__conversion_8hpp_1aeafa051e9d4b31310a7dd0f7a40f2175"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">conversion_errc</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uint8_t</span></span><a class="headerlink" href="#_CPPv4N7bencode15conversion_errcE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Error code enumeration for type conversion errors. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
@@ -1777,7 +1780,9 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N7bencode14bad_conversionE">
 <span id="_CPPv3N7bencode14bad_conversionE"></span><span id="_CPPv2N7bencode14bad_conversionE"></span><span id="bencode::bad_conversion"></span><span class="target" id="classbencode_1_1bad__conversion"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bad_conversion</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="bvalue.html#_CPPv47bencode" title="bencode"><span class="n"><span class="pre">bencode</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">exception</span></span><a class="headerlink" href="#_CPPv4N7bencode14bad_conversionE" title="Permalink to this definition"></a><br /></dt>
-<dd><em>#include &lt;bad_conversion.hpp&gt;</em><p>Error thrown when trying to convert a bvalue or bview to a type that does not match the type of the current alternative. </p>
+<dd><div class="docutils container">
+<em>#include &lt;bad_conversion.hpp&gt;</em></div>
+<p>Error thrown when trying to convert a bvalue or bview to a type that does not match the type of the current alternative. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -1840,7 +1845,7 @@
 
 </section>
 <section id="concepts">
-<h2><a class="toc-backref" href="#id9">Concepts</a><a class="headerlink" href="#concepts" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id9">Concepts</a><a class="headerlink" href="#concepts" title="Permalink to this heading"></a></h2>
 <dl class="cpp type">
 <dt class="sig sig-object cpp">
 <span class="target" id="namespacebencode"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bencode</span></span></span><br /></dt>

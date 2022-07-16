@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -104,12 +105,12 @@
            <div itemprop="articleBody">
              
   <section id="events-system">
-<h1>Events system<a class="headerlink" href="#events-system" title="Permalink to this headline"></a></h1>
+<h1>Events system<a class="headerlink" href="#events-system" title="Permalink to this heading"></a></h1>
 <p>The events interface allows different parts of the library to communicate and to efficiently
 convert between data representations.
 It consists of two concepts <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumer</span></code> and <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code>.</p>
 <section id="event-consumers">
-<h2>Event consumers<a class="headerlink" href="#event-consumers" title="Permalink to this headline"></a></h2>
+<h2>Event consumers<a class="headerlink" href="#event-consumers" title="Permalink to this heading"></a></h2>
 <p>The <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumer</span></code> concepts is modeled after the SAX-interface for XML.
 The most simple consumer which ignores all events would look as follows:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">discard_consumer</span>
@@ -166,20 +167,20 @@ Following bencode data structure (formatted as JSON) would generate these calls.
 <p>Note that list_item(), dict_key() and dict_value() are called after describing the value.</p>
 </section>
 <section id="event-producers">
-<h2>Event producers<a class="headerlink" href="#event-producers" title="Permalink to this headline"></a></h2>
+<h2>Event producers<a class="headerlink" href="#event-producers" title="Permalink to this heading"></a></h2>
 <p>The <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code> concept is defined as any object that can generate calls to a
 class satisfying the <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumer</span></code> concept through the
 <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">connect()</span></code> method.</p>
 </section>
 <section id="connecting-consumer-and-producers">
-<h2>Connecting consumer and producers<a class="headerlink" href="#connecting-consumer-and-producers" title="Permalink to this headline"></a></h2>
+<h2>Connecting consumer and producers<a class="headerlink" href="#connecting-consumer-and-producers" title="Permalink to this heading"></a></h2>
 <p><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producers</span></code> are connected to <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_consumers</span></code>
 with the connect function.
 Connecting a producer and consumer will generate calls from the producer to the consumers interface.</p>
 <p><code class="code docutils literal notranslate"><span class="pre">connect(EC&amp;</span> <span class="pre">consumer,</span> <span class="pre">U&amp;&amp;</span> <span class="pre">producer)</span></code></p>
 </section>
 <section id="available-consumers">
-<h2>Available consumers<a class="headerlink" href="#available-consumers" title="Permalink to this headline"></a></h2>
+<h2>Available consumers<a class="headerlink" href="#available-consumers" title="Permalink to this heading"></a></h2>
 <p><a class="reference internal" href="../reference/consumers.html#_CPPv4I0EN7bencode6events8debug_toE" title="bencode::events::debug_to"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bencode::events::debug_to</span></code></a> will print events to an output stream or output iterator.
 It is defined in <code class="docutils literal notranslate"><span class="pre">&lt;bencode/events/debug_to.hpp&gt;</span></code>.</p>
 <p><a class="reference internal" href="../reference/consumers.html#_CPPv4I0EN7bencode6events9encode_toE" title="bencode::events::encode_to"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bencode::events::encode_to</span></code></a> will convert events into bencode.

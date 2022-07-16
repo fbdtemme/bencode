@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -103,9 +104,9 @@
            <div itemprop="articleBody">
              
   <section id="encoding-and-decoding">
-<h1>Encoding and decoding<a class="headerlink" href="#encoding-and-decoding" title="Permalink to this headline"></a></h1>
+<h1>Encoding and decoding<a class="headerlink" href="#encoding-and-decoding" title="Permalink to this heading"></a></h1>
 <section id="decoding">
-<h2>Decoding<a class="headerlink" href="#decoding" title="Permalink to this headline"></a></h2>
+<h2>Decoding<a class="headerlink" href="#decoding" title="Permalink to this heading"></a></h2>
 <p>Decoding bencoded data can be done with <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv4I0EN7bencode12decode_valueE12basic_bvalueI6PolicyERNSt7istreamE" title="bencode::decode_value"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">decode_value()</span></code></a> and <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv4N7bencode11decode_viewENSt11string_viewE" title="bencode::decode_view"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">decode_view()</span></code></a>.
 <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">decode()</span></code> will return a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> instance and <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv4N7bencode11decode_viewENSt11string_viewE" title="bencode::decode_view"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">decode_view()</span></code></a>
 will return a descriptor table from which a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> to the root element can be obtained.</p>
@@ -122,7 +123,7 @@ will return a descriptor table from which a <a class="reference internal" href="
 </div>
 </section>
 <section id="encoding">
-<h2>Encoding<a class="headerlink" href="#encoding" title="Permalink to this headline"></a></h2>
+<h2>Encoding<a class="headerlink" href="#encoding" title="Permalink to this heading"></a></h2>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// encode a bvalue</span>
 <span class="k">auto</span> <span class="n">bv</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span><span class="p">(</span><span class="n">bc</span><span class="o">::</span><span class="n">type</span><span class="o">::</span><span class="n">dict</span><span class="p">,</span> <span class="p">{{</span><span class="s">&quot;cow&quot;</span><span class="p">,</span> <span class="s">&quot;moo&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s">&quot;spam&quot;</span><span class="p">,</span> <span class="s">&quot;eggs&quot;</span><span class="p">}});</span>
 <span class="k">auto</span> <span class="n">bv_enc</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">encode</span><span class="p">(</span><span class="n">bv</span><span class="p">);</span>
@@ -157,7 +158,7 @@ will return a descriptor table from which a <a class="reference internal" href="
 </div>
 </section>
 <section id="encoder">
-<h2>Encoder<a class="headerlink" href="#encoder" title="Permalink to this headline"></a></h2>
+<h2>Encoder<a class="headerlink" href="#encoder" title="Permalink to this heading"></a></h2>
 <p>Encoding <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> instances or object satisfying <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">event_producer</span></code>
 can be encoded with <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv4I_14event_producerEN7bencode6encodeENSt6stringERK1T" title="bencode::encode"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">encode()</span></code></a> which will return a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::string</span></code>
 or <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv4I_14event_producerEN7bencode9encode_toEvRNSt7ostreamERK1T" title="bencode::encode_to"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">encode_to()</span></code></a> which accept a cpp:class:<cite>std::ostream</cite>

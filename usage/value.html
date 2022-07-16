@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -108,9 +109,9 @@
            <div itemprop="articleBody">
              
   <section id="value-interface">
-<span id="bvalue"></span><h1>Value interface<a class="headerlink" href="#value-interface" title="Permalink to this headline"></a></h1>
+<span id="bvalue"></span><h1>Value interface<a class="headerlink" href="#value-interface" title="Permalink to this heading"></a></h1>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> is class that represents a bencoded value.
 <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> can be used to create and edit bencode values.</p>
 <p>It is a sum-type implemented with a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">std::variant</span></code>.</p>
@@ -147,7 +148,7 @@ the different bencode data types can be customized through the Policy template a
 </div>
 </section>
 <section id="construction">
-<h2>Construction<a class="headerlink" href="#construction" title="Permalink to this headline"></a></h2>
+<h2>Construction<a class="headerlink" href="#construction" title="Permalink to this heading"></a></h2>
 <p><a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> provides similar constructors and assignment operators as <code class="code docutils literal notranslate"><span class="pre">std::variant</span></code>.</p>
 <p>Construct an empty bvalue.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span> <span class="p">{};</span>
@@ -188,7 +189,7 @@ to be passed to the bvalue constructor.</p>
 </div>
 </section>
 <section id="type-checking">
-<h2>Type checking<a class="headerlink" href="#type-checking" title="Permalink to this headline"></a></h2>
+<h2>Type checking<a class="headerlink" href="#type-checking" title="Permalink to this heading"></a></h2>
 <p>Checking the alternative of a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>
 can be done using the following functions:</p>
 <ul class="simple">
@@ -216,7 +217,7 @@ functions are convenience functions that wrap the templated <code class="code do
 </div>
 </section>
 <section id="accessors">
-<h2>Accessors<a class="headerlink" href="#accessors" title="Permalink to this headline"></a></h2>
+<h2>Accessors<a class="headerlink" href="#accessors" title="Permalink to this heading"></a></h2>
 <p>Accessor functions are used to get access to the alternative types stored in a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a>.
 Throwing accessor function will throw <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_bvalue_access</span></code> when the current
 activate alternative type does not match the access type.</p>
@@ -263,7 +264,7 @@ alternative types.</p>
 </div>
 </section>
 <section id="conversion">
-<h2>Conversion<a class="headerlink" href="#conversion" title="Permalink to this headline"></a></h2>
+<h2>Conversion<a class="headerlink" href="#conversion" title="Permalink to this heading"></a></h2>
 <p>Retrieving the value contained in a <a class="reference internal" href="../reference/bvalue.html#_CPPv4N7bencode6bvalueE" title="bencode::bvalue"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bvalue</span></code></a> as another type can be done using the
 converting accessor functions.</p>
 <p><code class="code docutils literal notranslate"><span class="pre">get_as&lt;T&gt;(const</span> <span class="pre">bvalue&amp;)</span></code> is a throwing converter which will throw
@@ -285,7 +286,7 @@ requested type.</p>
 </div>
 </section>
 <section id="modifying-operations">
-<h2>Modifying operations<a class="headerlink" href="#modifying-operations" title="Permalink to this headline"></a></h2>
+<h2>Modifying operations<a class="headerlink" href="#modifying-operations" title="Permalink to this heading"></a></h2>
 <p>The emplace family of functions will discard the current value and construct
 a new value in place forwarding the arguments to the constructor of the underlying type.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">bc</span><span class="o">::</span><span class="n">bvalue</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
@@ -326,7 +327,7 @@ the underlying type without first obtaining a reference with accessor functions.
 </div>
 </section>
 <section id="comparison">
-<h2>Comparison<a class="headerlink" href="#comparison" title="Permalink to this headline"></a></h2>
+<h2>Comparison<a class="headerlink" href="#comparison" title="Permalink to this heading"></a></h2>
 <p>Comparison operators will look through the bvalue and compare with the underling type.
 If the type you compare with does not match the type of the value contained in bvalue
 the fallback ordering is defined by the ordering of the types:
@@ -350,7 +351,7 @@ the fallback ordering is defined by the ordering of the types:
 </div>
 </section>
 <section id="policies">
-<h2>Policies<a class="headerlink" href="#policies" title="Permalink to this headline"></a></h2>
+<h2>Policies<a class="headerlink" href="#policies" title="Permalink to this heading"></a></h2>
 <p>The types used to store the different alternatives can be modified with the Policy template
 argument.</p>
 </section>

@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -106,9 +107,9 @@
            <div itemprop="articleBody">
              
   <section id="view-interface">
-<span id="bview"></span><h1>View interface<a class="headerlink" href="#view-interface" title="Permalink to this headline"></a></h1>
+<span id="bview"></span><h1>View interface<a class="headerlink" href="#view-interface" title="Permalink to this heading"></a></h1>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> is a sum type that provides access to the values stored in a bencoded buffer.
 It holds two pointers, one to a <a class="reference internal" href="../reference/descriptor_and_descriptor_table.html#_CPPv4N7bencode10descriptorE" title="bencode::descriptor"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor</span></code></a>, and one to the buffer contained the
 bencoded data.</p>
@@ -146,7 +147,7 @@ is only valid until the next dereference.</p>
 </div>
 </section>
 <section id="construction">
-<h2>Construction<a class="headerlink" href="#construction" title="Permalink to this headline"></a></h2>
+<h2>Construction<a class="headerlink" href="#construction" title="Permalink to this heading"></a></h2>
 <p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> should rarely be constructed directly. <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> is the result of calling
 <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">get_root()</span></code> on a <a class="reference internal" href="../reference/descriptor_and_descriptor_table.html#_CPPv4N7bencode16descriptor_tableE" title="bencode::descriptor_table"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">descriptor_table</span></code></a> instance which is the result of parsing
 a bencoded string with <a class="reference internal" href="../reference/encoding_and_decoding.html#_CPPv4N7bencode11decode_viewENSt11string_viewE" title="bencode::decode_view"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">decode_view()</span></code></a>.</p>
@@ -157,7 +158,7 @@ a bencoded string with <a class="reference internal" href="../reference/encoding
 </div>
 </section>
 <section id="type-checking">
-<h2>Type checking<a class="headerlink" href="#type-checking" title="Permalink to this headline"></a></h2>
+<h2>Type checking<a class="headerlink" href="#type-checking" title="Permalink to this heading"></a></h2>
 <p>Checking the alternative type of a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> can be done using the following functions:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode13holds_integerERK5bview" title="bool holds_integer(const bview&amp;)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">holds_integer(const</span> <span class="pre">bview&amp;)</span></code></a></p></li>
@@ -179,7 +180,7 @@ a bencoded string with <a class="reference internal" href="../reference/encoding
 </div>
 </section>
 <section id="accessors">
-<h2>Accessors<a class="headerlink" href="#accessors" title="Permalink to this headline"></a></h2>
+<h2>Accessors<a class="headerlink" href="#accessors" title="Permalink to this heading"></a></h2>
 <p>Retrieving the alternative type from the <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> instance is done using accessor functions.</p>
 <p>Throwing accessor function will throw <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode16bad_bview_accessE" title="bencode::bad_bview_access"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_bview_access</span></code></a> when trying to
 convert a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> to an alternative type that does not match the bencode data type.</p>
@@ -213,7 +214,7 @@ a bview to a bview alternative type that does not match the bencode data type.</
 </div>
 </section>
 <section id="conversion">
-<h2>Conversion<a class="headerlink" href="#conversion" title="Permalink to this headline"></a></h2>
+<h2>Conversion<a class="headerlink" href="#conversion" title="Permalink to this heading"></a></h2>
 <p>To copy the content of a <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> value to a specific type, generic converters are used.
 The throwing converter will throw <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode14bad_conversionE" title="bencode::bad_conversion"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bad_conversion</span></code></a> when an error occurs.</p>
 <ul class="simple">
@@ -245,7 +246,7 @@ the necessary <a class="reference internal" href="customization_points.html#cust
 </div>
 </section>
 <section id="comparison">
-<h2>Comparison<a class="headerlink" href="#comparison" title="Permalink to this headline"></a></h2>
+<h2>Comparison<a class="headerlink" href="#comparison" title="Permalink to this heading"></a></h2>
 <p>Most types can be compared with <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> instances.
 Comparison is deep and will compare the content of the bencode data type.
 When the bencode type of <a class="reference internal" href="../reference/bview.html#_CPPv4N7bencode5bviewE" title="bencode::bview"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">bview</span></code></a> is not

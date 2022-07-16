@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -106,11 +107,11 @@
            <div itemprop="articleBody">
              
   <section id="integration">
-<h1>Integration<a class="headerlink" href="#integration" title="Permalink to this headline"></a></h1>
+<h1>Integration<a class="headerlink" href="#integration" title="Permalink to this heading"></a></h1>
 <section id="cmake">
-<h2>CMake<a class="headerlink" href="#cmake" title="Permalink to this headline"></a></h2>
+<h2>CMake<a class="headerlink" href="#cmake" title="Permalink to this heading"></a></h2>
 <section id="external">
-<h3>External<a class="headerlink" href="#external" title="Permalink to this headline"></a></h3>
+<h3>External<a class="headerlink" href="#external" title="Permalink to this heading"></a></h3>
 <p>You can use the bencode::bencode interface target in CMake.
 The library can be located with find_package() and use the namespaced imported target.</p>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span># CMakeLists.txt
@@ -123,7 +124,7 @@ target_link_libraries(foo INTERFACE bencode::bencode)
 </div>
 </section>
 <section id="embedded">
-<h3>Embedded<a class="headerlink" href="#embedded" title="Permalink to this headline"></a></h3>
+<h3>Embedded<a class="headerlink" href="#embedded" title="Permalink to this heading"></a></h3>
 <p>The source tree can be included in your project and included with <code class="code docutils literal notranslate"><span class="pre">add_subdirectory</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CMakeLists.txt</span>
 <span class="c1"># Disable building tests and benchmarks.</span>
@@ -139,7 +140,7 @@ target_link_libraries(foo INTERFACE bencode::bencode)
 </div>
 </section>
 <section id="embedded-fetchcontent">
-<h3>Embedded (FetchContent)<a class="headerlink" href="#embedded-fetchcontent" title="Permalink to this headline"></a></h3>
+<h3>Embedded (FetchContent)<a class="headerlink" href="#embedded-fetchcontent" title="Permalink to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CMakeLists.txt</span>
 <span class="n">include</span><span class="p">(</span><span class="n">FetchContent</span><span class="p">)</span>
 
