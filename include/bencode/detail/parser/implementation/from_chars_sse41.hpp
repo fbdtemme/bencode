@@ -271,6 +271,7 @@ constexpr from_chars_result from_chars(
     }
 
 #if defined (__GNUC__) || defined(__CLANG__)
+    T tmp;
     if (__builtin_mul_overflow(val, sign, &tmp)) {
             res.ec = parsing_errc::result_out_of_range;
         }
