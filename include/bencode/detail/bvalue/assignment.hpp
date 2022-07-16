@@ -298,7 +298,7 @@ template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
     requires serializable<T>
 inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value)
 {
-//    // Check if there is a user-provided specialization found by ADL.
+    // Check if there is a user-provided specialization found by ADL.
     if constexpr (assignment_to_bvalue_is_adl_overloaded<T, Policy>) {
         bencode_assign_to_bvalue(customization_for<T>, bvalue, std::forward<U>(value));
     }

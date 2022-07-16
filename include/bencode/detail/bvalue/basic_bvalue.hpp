@@ -35,17 +35,11 @@ constexpr const auto* get_storage(const basic_bvalue<Policy>* value) noexcept;
 template <typename Policy>
 constexpr auto* get_storage(basic_bvalue<Policy>* value) noexcept;
 
-#if defined(_MSC_VER)
-    // forward declarations
-    template <typename U, typename Policy, typename T>
-        requires serializable<T>
-    inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
-#else
-    // forward declarations
-    template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
-        requires serializable<T>
-    inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
-#endif
+// forward declarations
+template <typename U, typename Policy, typename T>
+    requires serializable<T>
+inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
+
 
 template <basic_bvalue_instantiation BV>
 decltype(auto) evaluate(const bpointer& pointer, BV&& bv);
@@ -133,7 +127,7 @@ public:
     {}
 
     /// Copy/move constructor for types that can be converted to bvalue using built-in conversions
-    /// or used defined types that implement are convertible to bvalue though
+    /// or used defined types that implement are convertible to bvalue through
     /// bencode_assign_to_bvalue().
     template <typename U, typename T = std::remove_cvref_t<U>>
     /// \cond CONCEPTS

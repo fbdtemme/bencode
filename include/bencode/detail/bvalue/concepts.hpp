@@ -12,7 +12,7 @@
 
 namespace bencode {
 
-/// The concept basic_bvalue_instantiation<T> is satisified if T is a template instantiation of
+/// The concept basic_bvalue_instantiation<T> is satisfied if T is a template instantiation of
 /// the basic_bvalue template class.
 /// Ignores cv-qualifiers and reference types.
 template <typename T>
@@ -37,17 +37,10 @@ concept bvalue_alternative_type =
 
 namespace detail {
 
-#if defined(_MSC_VER)
-    // forward declaration.
-    template <typename U, typename Policy, typename T>
-        requires serializable<T>
-    inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
-#else
-    // forward declaration.
-    template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
-        requires serializable<T>
-    inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
-#endif
+// forward declaration.
+template <typename U, typename Policy, typename T>
+    requires serializable<T>
+inline void assign_to_bvalue(basic_bvalue<Policy>& bvalue, U&& value);
 
 // forward declaration.
 template <serializable T, basic_bvalue_instantiation U>

@@ -6,7 +6,7 @@
 
 namespace bencode {
 
-template <> struct serialization_traits<bool>      : bencode::serializes_to_integer {};
+template <> struct serialization_traits<bool>               : bencode::serializes_to_integer {};
 template <> struct serialization_traits<short>              : bencode::serializes_to_integer {};
 template <> struct serialization_traits<int>                : bencode::serializes_to_integer {};
 template <> struct serialization_traits<long>               : bencode::serializes_to_integer {};
