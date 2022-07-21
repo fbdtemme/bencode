@@ -9,7 +9,7 @@ struct parser_options
     /// Maximum number of nested bencode objects.
     std::size_t recursion_limit = 1024;
     /// Maximum number of values to parse.
-    std::size_t value_limit = 1UL << 20;
+    std::size_t value_limit = 1UL << 24;
 };
 
 /// Wether to parse strings as a value type or a view type.
