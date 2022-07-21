@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.1
+
+* Fix build issues with GCC 12.
+* Increase parser default safety limit.
+
 ## v1.0.0
 
 * First stable release
