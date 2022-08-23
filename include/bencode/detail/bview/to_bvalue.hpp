@@ -64,7 +64,7 @@ constexpr void assign_bview_to_bvalue(
             customization_for<dict_bview>, bvalue, get_dict(view));
     }
     case bencode_type::uninitialized: {
-        bvalue.emplace(btype::uninitialized);
+        bvalue.discard();
     }
     }
 }
