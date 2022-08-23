@@ -1,8 +1,10 @@
 
 #pragma once
 
+#include <ranges>
 #include <nonstd/expected.hpp>
 #include <span>
+#include <unordered_map>
 
 #include "bencode/detail/symbol.hpp"
 #include "bencode/detail/utils.hpp"
@@ -146,14 +148,14 @@ constexpr nonstd::expected<T, conversion_errc> convert_from_bvalue_list_impl(
     };
     try {
         if constexpr (supports_back_inserter<T>) {
-            std::transform(rng::begin(blist), rng::end(blist), std::back_inserter(value), func);
+            std::transform(std::begin(blist), std::end(blist), std::back_inserter(value), func);
         }
         else if constexpr (supports_front_inserter<T>) {
-            std::transform(rng::rbegin(blist), rng::rend(blist), std::front_inserter(value), func);
+            std::transform(std::rbegin(blist), std::rend(blist), std::front_inserter(value), func);
         }
         else if constexpr (supports_inserter<T>) {
-            std::transform(rng::begin(blist), rng::end(blist),
-                           std::inserter(value, rng::begin(value)), func);
+            std::transform(std::begin(blist), std::end(blist),
+                           std::inserter(value, std::begin(value)), func);
         }
     } catch (const bad_conversion& e) {
         return nonstd::make_unexpected(e.errc());

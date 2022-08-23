@@ -2,3 +2,6 @@ venv/*
 **/.idea/*
 **/.vscode/*
 **/cmake-build-*/*
+
+vcpkg
+vcpkg_installed

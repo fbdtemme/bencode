@@ -1,7 +1,7 @@
 #include <string_view>
 #include <vector>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <bencode/traits/all.hpp>
 #include <bencode/detail/concepts.hpp>
 

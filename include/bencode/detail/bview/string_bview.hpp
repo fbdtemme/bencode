@@ -1,12 +1,12 @@
 #pragma once
 
+#include <algorithm>
 #include <compare>
 #include <concepts>
 #include <ranges>
 #include <string_view>
 #include <iterator>
 #include <numeric>
-#include <algorithm>
 
 #include <gsl-lite/gsl-lite.hpp>
 

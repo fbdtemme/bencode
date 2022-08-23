@@ -2,7 +2,7 @@
 // Created by fbdtemme on 17/07/19.
 //
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include "bencode/traits/all.hpp"
 #include "bencode/bvalue.hpp"
@@ -92,7 +92,7 @@ TEST_CASE("conversion from integer (bvalue)", "[bvalue][conversion][accessors]")
     SECTION("error - not integer type") {
         bencode::bvalue b{};
         CHECK_THROWS_WITH(
-                get_as<unsigned long long>(b), Catch::Contains("integer"));
+                get_as<unsigned long long>(b), Catch::Matchers::ContainsSubstring("integer"));
     }
 }
 
@@ -120,7 +120,7 @@ TEST_CASE("conversion from string (bvalue)", "[bvalue][conversion][accessors]")
         }
         SECTION("error - not string type") {
             bvalue b = 4;
-            CHECK_THROWS_WITH(get_as<T>(b), Catch::Contains("string"));
+            CHECK_THROWS_WITH(get_as<T>(b), Catch::Matchers::ContainsSubstring("string"));
         }
     }
 
@@ -133,14 +133,14 @@ TEST_CASE("conversion from string (bvalue)", "[bvalue][conversion][accessors]")
         }
         SECTION("error - not string type") {
             bvalue b = 4;
-            CHECK_THROWS_WITH(get_as<T>(b), Catch::Contains("string"));
+            CHECK_THROWS_WITH(get_as<T>(b), Catch::Matchers::ContainsSubstring("string"));
         }
     }
 
     SECTION("error - not string type") {
         using T = std::string_view;
         bvalue b = 4;
-        CHECK_THROWS_WITH(get_as<T>(b), Catch::Contains("string"));
+        CHECK_THROWS_WITH(get_as<T>(b), Catch::Matchers::ContainsSubstring("string"));
     }
 }
 
@@ -216,20 +216,20 @@ TEST_CASE("conversion to tuple like list types (bvalue)", "[bvalue][conversion][
         using T = std::array<int, 2>;
         bencode::bvalue b{};
         CHECK_THROWS_WITH(
-                get_as<T>(b), Catch::Contains("list"));
+                get_as<T>(b), Catch::Matchers::ContainsSubstring("list"));
     }
 
     SECTION("error - size mismatch") {
         using T = std::array<int, 2>;
         bencode::bvalue b(btype::list, 1);
         CHECK_THROWS_WITH(
-                get_as<T>(b), Catch::Contains("mismatch"));
+                get_as<T>(b), Catch::Matchers::ContainsSubstring("mismatch"));
     }
 
     SECTION("error - list value type construction error") {
         using T = std::array<int, 2>;
         CHECK_THROWS_WITH(
-                get_as<T>(t_list_of_string), Catch::Contains("construction"));
+                get_as<T>(t_list_of_string), Catch::Matchers::ContainsSubstring("construction"));
     }
 }
 
@@ -247,12 +247,12 @@ TEST_CASE("conversions from list", "[conversion][accessors]")
 
         bencode::bvalue b{};
         CHECK_THROWS_WITH(
-                get_as<T>(b), Catch::Contains("list"));
+                get_as<T>(b), Catch::Matchers::ContainsSubstring("list"));
     }
     SECTION("error - value conversion error") {
         using U = std::vector<int>;
         CHECK_THROWS_WITH(
-                get_as<U>(t_list_of_string), Catch::Contains("integer"));
+                get_as<U>(t_list_of_string), Catch::Matchers::ContainsSubstring("integer"));
     }
     SECTION("std::vector") {
         using T = std::vector<std::string>;
@@ -370,12 +370,12 @@ TEST_CASE("conversions from list", "[conversion][accessors]")
     }
     SECTION("error - size_mismatch") {
         using T = std::array<std::string, 0>;
-        CHECK_THROWS_WITH(get_as<T>(t_list_of_string), Catch::Contains("size mismatch"));
+        CHECK_THROWS_WITH(get_as<T>(t_list_of_string), Catch::Matchers::ContainsSubstring("size mismatch"));
     }
     SECTION("error - not list type") {
         using T = std::map<std::string, int>;
         bvalue b = 4;
-        CHECK_THROWS_WITH(get_as<T>(b), Catch::Contains("not"));
+        CHECK_THROWS_WITH(get_as<T>(b), Catch::Matchers::ContainsSubstring("not"));
     }
 }
 
@@ -512,6 +512,6 @@ TEST_CASE("conversions from dict", "[conversion][accessors]")
     SECTION("error - not dict type") {
         using T = std::map<std::string, int>;
         bvalue b = 4;
-        CHECK_THROWS_WITH(get_as<T>(b), Catch::Contains("dict"));
+        CHECK_THROWS_WITH(get_as<T>(b), Catch::Matchers::ContainsSubstring("dict"));
     }
 }

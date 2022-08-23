@@ -1,4 +1,16 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.20)
+
+set(VCPKG_FEATURE_FLAGS versions)
+
+if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+            CACHE STRING "")
+endif()
+
+if(DEFINED ENV{VCPKG_DEFAULT_TRIPLET} AND NOT DEFINED VCPKG_TARGET_TRIPLET)
+    set(VCPKG_TARGET_TRIPLET "$ENV{VCPKG_DEFAULT_TRIPLET}" CACHE STRING "")
+endif()
+
 project(bencode
         DESCRIPTION "A C++20 header-only bencode library."
         HOMEPAGE_URL https://github.com/fbdtemme/bencode
@@ -7,17 +19,17 @@ project(bencode
 
 set(PROJECT_AUTHOR "fbdtemme")
 # Make Find modules in cmake dir available
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
-
-if (NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
-endif()
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 
 # includes
 include(CTest)
 include(CMakeDependentOption)
 include(GNUInstallDirs)
 include(SanitizersConfig)
+
+find_package(fmt CONFIG REQUIRED)
+find_package(gsl-lite CONFIG REQUIRED)
+find_package(expected-lite CONFIG REQUIRED)
 
 # Determine if bencode is built as a subproject (using add_subdirectory)
 set(BENCODE_MASTER_PROJECT FALSE)
@@ -36,12 +48,9 @@ target_include_directories(bencode INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         )
 
-include(${CMAKE_CURRENT_LIST_DIR}/external/fmt.cmake)
-include(${CMAKE_CURRENT_LIST_DIR}/external/gsl-lite.cmake)
-include(${CMAKE_CURRENT_LIST_DIR}/external/expected-lite.cmake)
 
 option(BENCODE_BUILD_TESTS       "Build tests."          ${BENCODE_MASTER_PROJECT})
-option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"                        OFF)
+option(BENCODE_BUILD_BENCHMARKS  "Build benchmarks"                            OFF)
 option(BENCODE_BUILD_DOCS        "Build documentation"                         OFF)
 option(BENCODE_ENABLE_COVERAGE   "Build tests with coverage flags enabled"     OFF)
 option(BENCODE_ENABLE_INSTALL    "Generate an install target."                  ON)

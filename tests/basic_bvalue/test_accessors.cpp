@@ -1,11 +1,10 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
-#include <type_traits>
 #include <string>
 #include <string_view>
 
 #include "bencode/traits/all.hpp"
-#include "bencode/bvalue.hpp"
+#include "bencode/bencode.hpp"
 
 using namespace std::string_literals;
 using namespace std::string_view_literals;

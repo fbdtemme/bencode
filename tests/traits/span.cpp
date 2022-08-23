@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <bencode/bencode.hpp>
 #include <bencode/detail/concepts.hpp>

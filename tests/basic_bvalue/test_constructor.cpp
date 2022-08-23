@@ -1,7 +1,7 @@
 //
 // Created by fbdtemme on 07/04/19.
 //
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <sstream>
 #include <numeric>

@@ -13,15 +13,16 @@ FetchContent_MakeAvailable(microsoft-gsl)
 FetchContent_Declare(
         outputenable-chopsuey
         GIT_REPOSITORY https://gitlab.com/outputenable/chopsuey.git
-        GIT_TAG        master
+        GIT_TAG        abandoned-cpp
 )
 set(GSUPPL_ROOT ${microsoft-gsl_SOURCE_DIR})
 set(BUILD_HEADER_ONLY ON)
 set(ENABLE_TESTING OFF)
 FetchContent_MakeAvailable(outputenable-chopsuey)
-if(IS_DIRECTORY "${outputenable-chopsuey_SOURCE_DIR}")
-    set_property(DIRECTORY ${outputenable-chopsuey_SOURCE_DIR} PROPERTY EXCLUDE_FROM_ALL YES)
-endif()
+
+message(STATUS ${outputenable-chopsuey_SOURCE_DIR})
+
+
 unset(HEADER_ONLY)
 unset(ENABLE_TESTING)
 
@@ -29,7 +30,6 @@ FetchContent_Declare(
         outputenable-bencode
         GIT_REPOSITORY https://gitlab.com/outputenable/bencode.git
         GIT_TAG        master
-        EXCLUDE_FROM_ALL TRUE
 )
 set(CHOPSUEY_ROOT ${outputenable-chopsuey_BINARY_DIR})
 
@@ -45,4 +45,7 @@ if(NOT ${outputenable-bencode}_POPULATED)
             chopsuey::header_only
             GSL)
 endif()
-
+#
+#if(IS_DIRECTORY "${outputenable-chopsuey_SOURCE_DIR}")
+#    set_property(DIRECTORY "${outputenable-chopsuey_SOURCE_DIR}" PROPERTY EXCLUDE_FROM_ALL YES)
+#endif()

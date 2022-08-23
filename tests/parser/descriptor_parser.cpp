@@ -1,7 +1,7 @@
 #include <bencode/bview.hpp>
 #include <bencode/detail/events/encode_json_to.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <iostream>
 #include <fstream>

@@ -6,7 +6,6 @@
 #include <type_traits>
 #include <variant>
 
-
 #include <fmt/format.h>
 
 #include "bencode/detail/concepts.hpp"

@@ -1,0 +1,70 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "debug",
+      "displayName": "Debug Config",
+      "description": "Default debug build using Ninja generator",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug",
+      "environment": {
+        "VCPKG_ROOT": "${sourceDir}/vcpkg"
+      },
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-linux",
+        "CMAKE_TOOLCHAIN_FILE": {
+          "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+          "type": "FILEPATH"
+        },
+        "VCPKG_MANIFEST_FEATURES": "tests",
+        "BENCODE_BUILD_TEST": true,
+        "BENCODE_BUILD_BENCHMARKS": false,
+        "BENCODE_BUILD_DOCS": true
+      }
+    },
+    {
+      "name": "release",
+      "displayName": "Release Config",
+      "description": "Default debug build using Ninja generator",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release",
+      "environment": {
+        "VCPKG_ROOT": "${sourceDir}/vcpkg"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "VCPKG_TARGET_TRIPLET": "x64-linux",
+        "CMAKE_TOOLCHAIN_FILE": {
+          "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+          "type": "FILEPATH"
+        },
+        "VCPKG_MANIFEST_FEATURES": "tests",
+        "BENCODE_BUILD_TEST": true,
+        "BENCODE_BUILD_BENCHMARKS": false,
+        "BENCODE_BUILD_DOCS": true
+      }
+    },
+    {
+      "name": "release-benchmarks",
+      "displayName": "Release Config",
+      "description": "Default debug build using Ninja generator",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release",
+      "environment": {
+        "VCPKG_ROOT": "${sourceDir}/vcpkg"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "VCPKG_TARGET_TRIPLET": "x64-linux",
+        "CMAKE_TOOLCHAIN_FILE": {
+          "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+          "type": "FILEPATH"
+        },
+        "VCPKG_MANIFEST_FEATURES": "tests;benchmarks",
+        "BENCODE_BUILD_TEST": true,
+        "BENCODE_BUILD_BENCHMARKS": true,
+        "BENCODE_BUILD_DOCS": true
+      }
+    }
+  ]
+}

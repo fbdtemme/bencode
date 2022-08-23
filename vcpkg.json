@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+  "name": "bencode",
+  "version": "1.0.0",
+  "builtin-baseline": "9b22b40c6c61bf0da2d46346dd44a11e90972cc9",
+  "dependencies": [
+    {
+      "name": "fmt",
+      "version>=": "8.1.1#2"
+    },
+    {
+      "name": "expected-lite"
+    },
+    {
+      "name": "gsl-lite"
+    }
+  ],
+  "features": {
+    "tests": {
+      "description": "Build tests",
+      "dependencies": [
+        {
+          "name": "catch2",
+          "version>=": "3.0.1"
+        }
+      ]
+    },
+    "benchmarks": {
+      "description": "Build benchmarks",
+      "dependencies": [
+        "benchmark",
+        "boost",
+        "libtorrent",
+        "qt5"
+      ]
+    }
+  }
+}

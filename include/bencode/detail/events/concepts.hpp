@@ -4,6 +4,7 @@
 #include <string_view>
 #include <type_traits>
 
+#include "bencode/detail/compat.hpp"
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/concepts.hpp"
 
@@ -61,7 +62,7 @@ concept event_connecting_is_adl_overloaded =
 } // namespace detail
 
 
-#if defined(__GNUC__) && __GNUC__ < 12
+#ifdef BENCODE_OLD_GCC_FORWARD_TEMPLATE_DECL
     // forward declaration
     template <typename EC, typename U, typename T = std::remove_cvref_t<U>>
         requires serializable<T> && event_consumer<EC>

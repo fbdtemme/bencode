@@ -1,3 +1,4 @@
+include(FetchContent)
 message(STATUS "Fetching dependency s3rvac/cpp-bencoding ...")
 FetchContent_Declare(
         cpp-bencoding

@@ -2,7 +2,7 @@
 // Created by fbdtemme on 09/07/19.
 //
 #include <string_view>
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <bencode/traits/all.hpp>
 #include <bencode/detail/encoder.hpp>

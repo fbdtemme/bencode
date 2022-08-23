@@ -2,7 +2,7 @@
 // Created by fbdtemme on 08/06/19.
 //<
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <bencode/detail/itoa.hpp>
 #include <string>
 

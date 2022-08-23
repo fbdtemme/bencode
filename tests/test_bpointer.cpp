@@ -1,9 +1,8 @@
 //
 // Created by fbdtemme on 9/2/20.
 //
-
 #include <array>
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include "bencode/bvalue.hpp"
 #include "bencode/bview.hpp"
 #include "bencode/detail/bpointer.hpp"

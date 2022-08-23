@@ -2,7 +2,7 @@
 // Created by fbdtemme on 8/24/20.
 //
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <unordered_map>
 #include <map>
 #include <iostream>

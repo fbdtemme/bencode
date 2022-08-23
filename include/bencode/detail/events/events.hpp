@@ -42,14 +42,16 @@ void connect_events_string_impl(customization_point_type<T>,
     consumer.string(forward_like<U>(value));
 }
 
-// str() or string() member function
+// str() or string() or toStdString() function
 
 template <typename T, typename U, event_consumer EC>
 requires std::same_as<T, std::remove_cvref_t<U>> &&
          (has_str_member<T> &&
-                 std::constructible_from<std::string_view, decltype(std::declval<U>().str())>) ||
+             std::constructible_from<std::string_view, decltype(std::declval<U>().str())>) ||
          (has_string_member<T> &&
-                 std::constructible_from<std::string_view, decltype(std::declval<U>().string())>)
+             std::constructible_from<std::string_view, decltype(std::declval<U>().string())>) ||
+        (has_to_tostdstring_member<T> &&
+            std::constructible_from<std::string_view, decltype(std::declval<U>().toStdString())>)
 void connect_events_string_impl(customization_point_type<T>,
                                   EC& consumer,
                                   U&& value,
@@ -59,8 +61,12 @@ void connect_events_string_impl(customization_point_type<T>,
         consumer.string(value.str());
     } else if constexpr (has_string_member<T>) {
         consumer.string(value.string());
+    } else if constexpr (has_to_tostdstring_member<T>) {
+        consumer.string(value.toStdString());
     }
 }
+
+
 
 
 
@@ -78,6 +84,8 @@ void connect_events_string_impl(customization_point_type<T>,
 {
     consumer.string(value.c_str());
 }
+
+
 
 
 // contiguous character range

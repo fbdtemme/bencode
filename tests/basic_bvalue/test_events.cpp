@@ -1,7 +1,7 @@
 //
 // Created by fbdtemme on 8/17/20.
 //
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <bencode/traits/all.hpp>
 #include "bencode/bvalue.hpp"

@@ -1,13 +1,13 @@
 //
 // Created by fbdtemme on 24/09/2019.
 //
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
+
 
 #include "bencode/traits/all.hpp"
 #include "bencode/bview.hpp"
 #include "bencode/parsers/descriptor_parser.hpp"
 
-#include <type_traits>
 #include <string>
 #include <string_view>
 

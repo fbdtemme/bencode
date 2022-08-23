@@ -15,6 +15,7 @@ def load_json_benchmarks(file_path: Path) -> pd.DataFrame:
 
 def filter_results(df: pd.DataFrame, library: str) -> pd.DataFrame:
     """Remove mean, median and stddev from the results."""
+    print(df)
     df_means = df.name.str.contains("mean")
     df_medians = df.name.str.contains("median") 
     df_stddev = df.name.str.contains("stddev") 

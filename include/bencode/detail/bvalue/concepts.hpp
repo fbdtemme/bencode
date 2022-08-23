@@ -9,6 +9,7 @@
 
 #include "bencode/bencode_fwd.hpp"
 #include "bencode/detail/utils.hpp"
+#include "bencode/detail/compat.hpp"
 
 namespace bencode {
 
@@ -37,7 +38,7 @@ concept bvalue_alternative_type =
 
 namespace detail {
 
-#if defined(__GNUC__) && __GNUC__ < 12
+#ifdef BENCODE_OLD_GCC_FORWARD_TEMPLATE_DECL
     // forward declaration.
     template <typename U, typename Policy, typename T = std::remove_cvref_t<U>>
         requires serializable<T>

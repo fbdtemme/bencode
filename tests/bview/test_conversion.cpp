@@ -2,15 +2,17 @@
 // Created by fbdtemme on 17/07/19.
 //
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include <utility>
+#include <string_view>
 
 #include "bencode/traits/all.hpp"
 #include "bencode/bview.hpp"
 
 #include "data.hpp"
 
+using namespace std::string_view_literals;
 namespace bc = bencode;
 
 
@@ -69,10 +71,11 @@ TEST_CASE("conversion from integer (bview)", "[bview][conversion][accessors]")
     }
 
     SECTION("error - not integer type") {
+        auto matcher = Catch::Matchers::ContainsSubstring("integer");
         CHECK_THROWS_WITH(
-                get_as<unsigned long long>(s_view), Catch::Contains("integer"));
+                get_as<unsigned long long>(s_view), matcher);
         CHECK_THROWS_WITH(
-                get_as<unsigned long long>(s_view_const), Catch::Contains("integer"));
+                get_as<unsigned long long>(s_view_const), matcher);
     }
 }
 
@@ -90,7 +93,7 @@ TEST_CASE("conversion from string (bview)", "[bview][conversion][accessors]")
         }
 
         SECTION("error - not string type") {
-            CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Contains("string"));
+            CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Matchers::ContainsSubstring("string"));
         }
     }
 
@@ -103,7 +106,7 @@ TEST_CASE("conversion from string (bview)", "[bview][conversion][accessors]")
         }
 
         SECTION("error - not string type") {
-            CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Contains("string"));
+            CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Matchers::ContainsSubstring("string"));
         }
     }
 
@@ -115,7 +118,7 @@ TEST_CASE("conversion from string (bview)", "[bview][conversion][accessors]")
             CHECK(v_string.string()==t_string);
         }
         SECTION("error - not string type") {
-            CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Contains("string"));
+            CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Matchers::ContainsSubstring("string"));
         }
     }
 }
@@ -147,14 +150,14 @@ TEST_CASE("conversion to tuple like list types", "[bview][conversion][accessors]
 
     SECTION("error - not list type") {
         using T = std::array<int, 2>;
-        CHECK_THROWS_WITH(get_as<T>(d_view), Catch::Contains("list"));
-        CHECK_THROWS_WITH(get_as<T>(d_view_const), Catch::Contains("list"));
+        CHECK_THROWS_WITH(get_as<T>(d_view), Catch::Matchers::ContainsSubstring("list"));
+        CHECK_THROWS_WITH(get_as<T>(d_view_const), Catch::Matchers::ContainsSubstring("list"));
     }
 
     SECTION("error - size mismatch") {
         using T = std::array<int, 4>;
-        CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Contains("mismatch"));
-        CHECK_THROWS_WITH(get_as<T>(l_view_const), Catch::Contains("mismatch"));
+        CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Matchers::ContainsSubstring("mismatch"));
+        CHECK_THROWS_WITH(get_as<T>(l_view_const), Catch::Matchers::ContainsSubstring("mismatch"));
     }
 }
 
@@ -203,7 +206,7 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //        SECTION("error - not list type") {
 //            bencode::bvalue b{};
 //            CHECK_THROWS_WITH(
-//                    get_as<T>(b), Catch::Contains("list"));
+//                    get_as<T>(b), Catch::Matchers::ContainsSubstring("list"));
 //        }
 //    }
 //    SECTION("std::forward_list") {
@@ -246,7 +249,7 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //        SECTION("error - not list type") {
 //            bencode::bvalue b{};
 //            CHECK_THROWS_WITH(
-//                    get_as<T>(b), Catch::Contains("list"));
+//                    get_as<T>(b), Catch::Matchers::ContainsSubstring("list"));
 //        }
 //    }
 //    SECTION("std::unordered_set") {
@@ -271,17 +274,17 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //        SECTION("error - not list type") {
 //            bencode::bvalue b{};
 //            CHECK_THROWS_WITH(
-//                    get_as<T>(b), Catch::Contains("list"));
+//                    get_as<T>(b), Catch::Matchers::ContainsSubstring("list"));
 //        }
 //    }
 //    SECTION("error - size_mismatch") {
 //        using T = std::array<std::string, 0>;
-//        CHECK_THROWS_WITH(get_as<T>(t_list_of_string), Catch::Contains("size mismatch"));
+//        CHECK_THROWS_WITH(get_as<T>(t_list_of_string), Catch::Matchers::ContainsSubstring("size mismatch"));
 //    }
 //    SECTION("error - not list type") {
 //        using T = std::map<std::string, int>;
 //        bvalue b = 4;
-//        CHECK_THROWS_WITH(get_as<T>(b), Catch::Contains("not"));
+//        CHECK_THROWS_WITH(get_as<T>(b), Catch::Matchers::ContainsSubstring("not"));
 //    }
 //}
 //        SECTION("copy") {
@@ -302,7 +305,7 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //        SECTION("error - not list type") {
 //            bencode::bvalue b{};
 //            CHECK_THROWS_WITH(
-//                    get_as<T>(b), Catch::Contains("list"));
+//                    get_as<T>(b), Catch::Matchers::ContainsSubstring("list"));
 //        }
 //    }
 //    SECTION("std::list") {
@@ -326,7 +329,7 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //        SECTION("error - not list type") {
 //            bencode::bvalue b{};
 //            CHECK_THROWS_WITH(
-//                    get_as<T>(b), Catch::Contains("list"));
+//                    get_as<T>(b), Catch::Matchers::ContainsSubstring("list"));
 //        }
 //    }
 //    SECTION("std::deque") {
@@ -350,7 +353,7 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //        SECTION("error - not list type") {
 //            bencode::bvalue b{};
 //            CHECK_THROWS_WITH(
-//                    get_as<T>(b), Catch::Contains("list"));
+//                    get_as<T>(b), Catch::Matchers::ContainsSubstring("list"));
 //        }
 //    }
 //    SECTION("std::forward_list") {
@@ -393,7 +396,7 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //        SECTION("error - not list type") {
 //            bencode::bvalue b{};
 //            CHECK_THROWS_WITH(
-//                    get_as<T>(b), Catch::Contains("list"));
+//                    get_as<T>(b), Catch::Matchers::ContainsSubstring("list"));
 //        }
 //    }
 //    SECTION("std::unordered_set") {
@@ -418,16 +421,16 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //        SECTION("error - not list type") {
 //            bencode::bvalue b{};
 //            CHECK_THROWS_WITH(
-//                    get_as<T>(b), Catch::Contains("list"));
+//                    get_as<T>(b), Catch::Matchers::ContainsSubstring("list"));
 //        }
 //    }
     SECTION("error - size_mismatch") {
         using T = std::array<std::string, 0>;
-        CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Contains("size mismatch"));
+        CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Matchers::ContainsSubstring("size mismatch"));
     }
     SECTION("error - not list type") {
         using T = std::map<std::string, int>;
-        CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Contains("not"));
+        CHECK_THROWS_WITH(get_as<T>(l_view), Catch::Matchers::ContainsSubstring("not"));
     }
 }
 //
@@ -559,6 +562,6 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //    SECTION("error - not dict type") {
 //        using T = std::map<std::string, int>;
 //        bvalue b = 4;
-//        CHECK_THROWS_WITH(get_as<T>(b), Catch::Contains("dict"));
+//        CHECK_THROWS_WITH(get_as<T>(b), Catch::Matchers::ContainsSubstring("dict"));
 //    }
 //}

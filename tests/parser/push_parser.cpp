@@ -3,7 +3,7 @@
 #include <bencode/detail/events/encode_json_to.hpp>
 #include <bencode/detail/events/debug_to.hpp>
 #include <bencode/detail/bvalue/events.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <sstream>
 #include <fstream>
 

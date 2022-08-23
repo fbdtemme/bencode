@@ -1,6 +1,9 @@
 #pragma once
-#include <iterator>
+
+#include <concepts>
+#include <algorithm>
 #include <ranges>
+#include <iterator>
 
 #include "bencode/detail/utils.hpp"
 #include "bencode/detail/bencode_type.hpp"
@@ -127,6 +130,9 @@ concept has_c_str_member = requires (T x) { { x.c_str() } -> std::same_as<const 
 
 template <typename T>
 concept has_to_string_member = requires (T x) { x.to_string(); };
+
+template <typename T>
+concept has_to_tostdstring_member = requires (T x) { x.toStdString(); };
 
 template <typename T>
 concept has_reserve_member = requires (T x, std::size_t n) { x.reserve(n); };

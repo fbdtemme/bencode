@@ -5,12 +5,9 @@ source_suffix = '.rst'
 source_encoding = 'utf-8'
 
 # General information about
-extensions = [
-    "breathe",
-    "sphinx_rtd_theme",
-]
+extensions = ["breathe"]
 master_doc = "index"
-html_theme = "sphinx_rtd_theme"
+html_theme = "furo"
 html_logo  = "@CMAKE_CURRENT_SOURCE_DIR@/images/bencode.svg"
 
 project = "@PROJECT_NAME@"

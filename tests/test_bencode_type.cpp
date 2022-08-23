@@ -1,7 +1,7 @@
 //
 // Created by fbdtemme on 03/06/19.
 //
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <sstream>
 #include <bencode/detail/bencode_type.hpp>
 //#include "../bencode/operators.hpp"

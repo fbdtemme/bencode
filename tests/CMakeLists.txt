@@ -1,10 +1,17 @@
-cmake_minimum_required(VERSION 3.14)
-
-include(../external/catch2.cmake)
-
+find_package(Catch2 CONFIG REQUIRED)
 include(Catch)
 
 add_executable(bencode-tests)
+
+if (BENCODE_BUILD_TESTS_QT)
+    find_package(Qt6 REQUIRED COMPONENTS Core)
+    add_executable(bencode-tests-qt
+            main.cpp
+            traits/qt.cpp)
+    target_link_libraries(bencode-tests-qt bencode Catch2::Catch2WithMain Qt6::Core)
+endif()
+
+
 target_sources(bencode-tests
     PUBLIC
         main.cpp
@@ -43,7 +50,7 @@ target_sources(bencode-tests
 
 target_link_libraries(bencode-tests PRIVATE
         bencode
-        Catch2::Catch2
+        Catch2::Catch2WithMain
 )
 
 if (BENCODE_ENABLE_COVERAGE)

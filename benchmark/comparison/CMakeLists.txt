@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.15)
 
+find_package(benchmark CONFIG REQUIRED)
+find_package(ZLIB REQUIRED)
+find_package(LibtorrentRasterbar CONFIG REQUIRED)
+
 project("bencode-comparision-benchmark")
 
-find_package(Boost REQUIRED COMPONENTS regex)
-
-include(../../external/arvidn-libtorrent.cmake)
-include(../../external/benchmark.cmake)
 include(../../external/cpp-bencoding.cmake)
 include(../../external/jimporter-bencode.cmake)
 include(../../external/rakshasa-libtorrent.cmake)
@@ -22,7 +22,7 @@ add_executable(benchmark-jimporter-bencode-boost    jimporter_bencode_boost.cpp)
 add_executable(benchmark-arvidn-libtorrent          arvidn_libtorrent.cpp)
 add_executable(benchmark-s3rvac-cpp-bencoding       s3rvac_cpp_bencoding.cpp)
 add_executable(benchmark-rakshasa-libtorrent        rakshasa_libtorrent.cpp)
-add_executable(benchmark-kriben-bencode             kriben_bencode.cpp)
+#add_executable(benchmark-kriben-bencode             kriben_bencode.cpp)
 add_executable(benchmark-theanti9-cppbencode        theanti9_cppbencode.cpp)
 add_executable(benchmark-outputenable-bencode       outputenable_bencode.cpp)
 add_executable(benchmark-aetf-qbencode              aetf_qbencode.cpp)
@@ -35,7 +35,7 @@ list(APPEND ALL_BENCHMARK_TARGETS benchmark-fbdtemme-bencode
                                   benchmark-arvidn-libtorrent
                                   benchmark-s3rvac-cpp-bencoding
                                   benchmark-rakshasa-libtorrent
-                                  benchmark-kriben-bencode
+#                                  benchmark-kriben-bencode
                                   benchmark-theanti9-cppbencode
                                   benchmark-outputenable-bencode
                                   benchmark-aetf-qbencode
@@ -55,10 +55,10 @@ endforeach(target)
 target_link_libraries(benchmark-fbdtemme-bencode        PRIVATE bencode::bencode)
 target_link_libraries(benchmark-jimporter-bencode       PRIVATE jimporter-bencode)
 target_link_libraries(benchmark-jimporter-bencode-boost PRIVATE jimporter-bencode Boost::headers)
-target_link_libraries(benchmark-arvidn-libtorrent       PRIVATE torrent-rasterbar)
+target_link_libraries(benchmark-arvidn-libtorrent       PRIVATE LibtorrentRasterbar::torrent-rasterbar)
 target_link_libraries(benchmark-s3rvac-cpp-bencoding    PRIVATE cpp-bencoding)
-target_link_libraries(benchmark-rakshasa-libtorrent     PRIVATE rakshasa-libtorrent)
-target_link_libraries(benchmark-kriben-bencode          PRIVATE kriben-bencode Boost::headers Boost::regex)
+target_link_libraries(benchmark-rakshasa-libtorrent     PRIVATE rakshasa-libtorrent ZLIB::ZLIB)
+#target_link_libraries(benchmark-kriben-bencode          PUBLIC kriben-bencode Boost::headers Boost::regex)
 target_link_libraries(benchmark-theanti9-cppbencode     PRIVATE theanti9-cppbencode)
 target_link_libraries(benchmark-outputenable-bencode    PRIVATE outputenable-bencode)
 target_link_libraries(benchmark-aetf-qbencode           PRIVATE aetf-qbencode)
