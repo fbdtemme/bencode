@@ -11,6 +11,7 @@
         "VCPKG_ROOT": "${sourceDir}/vcpkg"
       },
       "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
         "VCPKG_TARGET_TRIPLET": "x64-linux",
         "CMAKE_TOOLCHAIN_FILE": {
           "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
