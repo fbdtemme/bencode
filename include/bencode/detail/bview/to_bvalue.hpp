@@ -62,9 +62,11 @@ constexpr void assign_bview_to_bvalue(
     case bencode_type::dict: {
         assign_to_bvalue_dict_impl(
             customization_for<dict_bview>, bvalue, get_dict(view));
+        break;
     }
     case bencode_type::uninitialized: {
         bvalue.discard();
+        break;
     }
     }
 }

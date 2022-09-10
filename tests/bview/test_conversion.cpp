@@ -565,3 +565,11 @@ TEST_CASE("conversions from list (bview)", "[bview][conversion][accessors]")
 //        CHECK_THROWS_WITH(get_as<T>(b), Catch::Matchers::ContainsSubstring("dict"));
 //    }
 //}
+
+
+TEST_CASE("conversion to bvalue") {
+    SECTION("assignment") {
+        bc::bvalue bv = d_view_nested_const;
+        CHECK(bc::holds_dict(bv));
+    }
+}
